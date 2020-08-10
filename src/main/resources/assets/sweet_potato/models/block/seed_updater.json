@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/enchanting_table",
+  "textures": {
+    "particle": "sweet_potato:block/seed_updater_side",
+    "bottom": "minecraft:block/blackstone_top",
+    "top": "sweet_potato:block/seed_updater_top",
+    "side": "sweet_potato:block/seed_updater_side"
+  }
+}

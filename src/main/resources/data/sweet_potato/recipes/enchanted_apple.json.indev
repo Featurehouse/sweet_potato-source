@@ -1,0 +1,13 @@
+{
+  "type": "sweet_potato:seed_updating",
+  "base": {
+    "item": "minecraft:golden_apple"
+  },
+  "addition": {
+    "item": "sweet_potato:potato_powder",
+    "count": 64
+  },
+  "result": {
+    "item": "minecraft:enchanted_golden_apple"
+  }
+}

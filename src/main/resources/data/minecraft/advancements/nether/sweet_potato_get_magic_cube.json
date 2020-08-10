@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "sweet_potato:magic_cube"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "title": {
+      "translate": "advancement.nether.sweet_potato.get_magic_cube.title"
+    },
+    "description": {
+      "translate": "advancement.nether.sweet_potato.get_magic_cube.description"
+    }
+  },
+  "parent": "minecraft:nether/obtain_crying_obsidian",
+  "criteria": {
+    "sweet_potato:get_sweet_potato": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "sweet_potato:magic_cube"
+          }
+        ]
+      }
+    }
+  }
+}

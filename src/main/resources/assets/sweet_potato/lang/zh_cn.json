@@ -1,0 +1,28 @@
+{
+  "item.sweet_potato.peel": "地瓜皮",
+  "item.sweet_potato.baked_peel": "烤地瓜皮",
+  "item.sweet_potato.baked_purple_potato": "烤紫薯",
+  "item.sweet_potato.baked_red_potato": "烤红薯",
+  "item.sweet_potato.baked_white_potato": "烤白薯",
+  "item.sweet_potato.purple_potato": "紫薯",
+  "item.sweet_potato.red_potato": "红薯",
+  "item.sweet_potato.white_potato": "白薯",
+  "item.sweet_potato.potato_powder": "地瓜粉",
+  "item.sweet_potato.enchanted_sweet_potato": "附魔地瓜（未实现）",
+
+  "block.sweet_potato.magic_cube": "魔法锅",
+  "block.sweet_potato.grinder": "研磨器",
+  "block.sweet_potato.enchanted_acacia_sapling": "附魔金合欢树苗",
+  "block.sweet_potato.enchanted_dark_oak_sapling": "附魔深色橡树树苗",
+  "block.sweet_potato.enchanted_jungle_sapling": "附魔丛林树苗",
+  "block.sweet_potato.enchanted_birch_sapling": "附魔白桦树苗",
+  "block.sweet_potato.enchanted_oak_sapling": "附魔橡树树苗",
+  "block.sweet_potato.enchanted_spruce_sapling": "附魔云杉树苗",
+
+  "advancement.husbandry.sweet_potato.get_sweet_potato.title": "香甜软嚅",
+  "advancement.husbandry.sweet_potato.get_sweet_potato.description": "获得地瓜",
+  "advancement.nether.sweet_potato.get_magic_cube.title": "灵魂魔法",
+  "advancement.nether.sweet_potato.get_magic_cube.description": "获得魔法锅",
+
+  "container.sweet_potato.seed_updating": "升级种子"
+}

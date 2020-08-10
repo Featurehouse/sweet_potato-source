@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "sweet_potato",
+  "version": "alpha.3b",
+
+  "name": "Sweet Potato Mod",
+  "description": "Try new kinds of food, crops & magic in Sweet Potato Mod!",
+  "authors": [
+    "teddyxlandlee",
+    "Dennis Lin",
+    "Peter Yang"
+  ],
+  "contributors": [
+    "Ray M.H. Chen",
+    "2333tech",
+    "squid233",
+    "因为所以",
+    "Garay"
+  ],
+  "contact": {
+    "homepage": "https://github.com/teddyxlandlee",
+    "sources": "https://github.com/teddyxlandlee/sweet_potato"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/sweet_potato/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.github.teddyxlandlee.sweet_potato.ExampleMod"
+    ],
+    "client": [
+      "com.github.teddyxlandlee.sweet_potato.ClientInitializer"
+    ]
+  },
+  "mixins": [
+    "sweet_potato.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}

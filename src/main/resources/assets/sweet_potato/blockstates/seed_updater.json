@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "sweet_potato:block/seed_updater"
+    }
+  }
+}

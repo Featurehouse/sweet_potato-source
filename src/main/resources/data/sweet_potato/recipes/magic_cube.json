@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+	"B#B",
+	"ccc"
+  ],
+  "key": {
+    "B": {
+      "tag": "sweet_potato:blackstones"
+    },
+	"#": {
+	  "item": "minecraft:smoker"
+	},
+	"c": {
+	  "item": "minecraft:crying_obsidian"
+	}
+  },
+  "result": {
+    "item": "sweet_potato:magic_cube"
+  }
+}

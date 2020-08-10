@@ -1,0 +1,28 @@
+{
+  "item.sweet_potato.peel": "来自欧洲的Peter Zheng",
+  "item.sweet_potato.baked_peel": "Peter Zheng",
+  "item.sweet_potato.baked_purple_potato": "烤糊的品红色Peter Yang",
+  "item.sweet_potato.baked_red_potato": "Peter Yang看到TZ Li后脸红的要黑化",
+  "item.sweet_potato.baked_white_potato": "烤糊的Peter Yang",
+  "item.sweet_potato.purple_potato": "品红色Peter Yang",
+  "item.sweet_potato.red_potato": "Peter Yang脸红了",
+  "item.sweet_potato.white_potato": "Peter Yang",
+  "item.sweet_potato.potato_powder": "Peter Yang的脑干(gānr)",
+  "item.sweet_potato.enchanted_sweet_potato": "Dennis",
+
+  "block.sweet_potato.magic_cube": "米 奇 妙 妙 锅",
+  "block.sweet_potato.grinder": "榨Peter Yang机",
+  "block.sweet_potato.enchanted_acacia_sapling": "覆膜相思树宝宝",
+  "block.sweet_potato.enchanted_dark_oak_sapling": "覆膜巧克力树宝宝",
+  "block.sweet_potato.enchanted_jungle_sapling": "覆膜丛林树宝宝",
+  "block.sweet_potato.enchanted_birch_sapling": "覆膜白桦树宝宝",
+  "block.sweet_potato.enchanted_oak_sapling": "覆膜橡树宝宝",
+  "block.sweet_potato.enchanted_spruce_sapling": "覆膜云杉树宝宝",
+
+  "advancement.husbandry.sweet_potato.get_sweet_potato.title": "艾玛，真香！",
+  "advancement.husbandry.sweet_potato.get_sweet_potato.description": "获得Peter Yang",
+  "advancement.nether.sweet_potato.get_magic_cube.title": "米斯卡，莫斯卡，米老鼠！",
+  "advancement.nether.sweet_potato.get_magic_cube.description": "获得米 奇 妙 妙 锅",
+
+  "container.sweet_potato.seed_updating": "种子覆膜"
+}

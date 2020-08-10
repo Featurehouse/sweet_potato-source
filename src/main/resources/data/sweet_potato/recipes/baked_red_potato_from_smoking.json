@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "sweet_potato:red_potato"
+  },
+  "result": "sweet_potato:baked_red_potato",
+  "experience": 0.35,
+  "cookingtime": 100
+}

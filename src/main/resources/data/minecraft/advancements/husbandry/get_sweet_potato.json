@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "sweet_potato:white_potato"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "title": {
+      "translate": "advancement.husbandry.sweet_potato.get_sweet_potato.title"
+    },
+    "description": {
+      "translate": "advancement.husbandry.sweet_potato.get_sweet_potato.description"
+    }
+  },
+  "parent": "minecraft:husbandry/root",
+  "criteria": {
+    "sweet_potato:get_sweet_potato": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "sweet_potato:sweet_potatoes"
+          }
+        ]
+      }
+    }
+  }
+}

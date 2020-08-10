@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "#_#",
+    "BBB"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "#": {
+      "item": "minecraft:redstone"
+    },
+    "_": {
+      "item": "minecraft:smooth_stone_slab"
+    },
+    "B": {
+      "tag": "sweet_potato:blackstones"
+    }
+  },
+  "result": {
+    "item": "sweet_potato:grinder"
+  }
+}

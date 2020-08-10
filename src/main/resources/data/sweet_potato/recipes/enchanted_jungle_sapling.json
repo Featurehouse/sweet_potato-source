@@ -1,0 +1,12 @@
+{
+  "type": "sweet_potato:seed_updating",
+  "base": {
+    "item": "minecraft:jungle_sapling"
+  },
+  "addition": {
+    "item": "sweet_potato:potato_powder"
+  },
+  "result": {
+    "item": "sweet_potato:enchanted_jungle_sapling"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "particle": "sweet_potato:block/magic_cube_side_activated",
+	"top": "minecraft:block/polished_blackstone",
+	"bottom": "minecraft:block/crying_obsidian",
+	"side": "sweet_potato:block/magic_cube_side_activated"
+  }
+}

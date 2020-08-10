@@ -1,0 +1,29 @@
+{
+  "item.sweet_potato.peel": "Peel",
+  "item.sweet_potato.baked_peel": "Baked Peel",
+  "item.sweet_potato.baked_purple_potato": "Baked Purple Potato",
+  "item.sweet_potato.baked_red_potato": "Baked Red Potato",
+  "item.sweet_potato.baked_white_potato": "Baked White Potato",
+  "item.sweet_potato.purple_potato": "Purple Potato",
+  "item.sweet_potato.red_potato": "Red Potato",
+  "item.sweet_potato.white_potato": "White Potato",
+  "item.sweet_potato.potato_powder": "Sweet Potato Powder",
+  "item.sweet_potato.enchanted_sweet_potato": "Enchanted Sweet Potato",
+
+  "block.sweet_potato.magic_cube": "Magic Cube",
+  "block.sweet_potato.grinder": "Grinder",
+  "block.sweet_potato.seed_updater": "Seed Updater (tentative)",
+  "block.sweet_potato.enchanted_acacia_sapling": "Enchanted Acacia Sapling",
+  "block.sweet_potato.enchanted_dark_oak_sapling": "Enchanted Dark Oak Sapling",
+  "block.sweet_potato.enchanted_jungle_sapling": "Enchanted Jungle Sapling",
+  "block.sweet_potato.enchanted_birch_sapling": "Enchanted Birch Sapling",
+  "block.sweet_potato.enchanted_oak_sapling": "Enchanted Oak Sapling",
+  "block.sweet_potato.enchanted_spruce_sapling": "Enchanted Spruce Sapling",
+
+  "advancement.husbandry.sweet_potato.get_sweet_potato.title": "Sweet and Soft",
+  "advancement.husbandry.sweet_potato.get_sweet_potato.description": "Obtain Sweet Potato",
+  "advancement.nether.sweet_potato.get_magic_cube.title": "Magic in Soul",
+  "advancement.nether.sweet_potato.get_magic_cube.description": "Obtain Magic Cube",
+
+  "container.sweet_potato.seed_updating": "Seed Updating"
+}

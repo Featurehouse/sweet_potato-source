@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "activated=true": {
+      "model": "sweet_potato:block/magic_cube_activated"
+	},
+	"activated=false": {
+	  "model": "sweet_potato:block/magic_cube_unactivated"
+	}
+  }
+}
