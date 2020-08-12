@@ -1,8 +1,6 @@
 package com.github.teddyxlandlee.sweet_potato.blocks.entities;
 
-import com.github.teddyxlandlee.annotation.HardCoded;
 import com.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
-import com.github.teddyxlandlee.sweet_potato.ExampleMod;
 import com.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.BlockState;
@@ -14,6 +12,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeUnlocker;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
@@ -21,24 +20,31 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.registry.Registry;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
 
-public class GrinderBlockEntity extends LockableContainerBlockEntity implements Tickable {
+import static com.github.teddyxlandlee.sweet_potato.ExampleMod.*;
+
+public class GrinderBlockEntity extends LockableContainerBlockEntity implements Tickable, RecipeUnlocker {
+    public static final BlockEntityType<GrinderBlockEntity> GRINDER_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(MODID, "grinder"),
+            BlockEntityType.Builder.create(GrinderBlockEntity::new, GRINDER).build(null));
+
     private int grindTime;
     private int grindTimeTotal;
 
-    public PropertyDelegate propertyDelegate;
+    protected final PropertyDelegate propertyDelegate;
     protected DefaultedList<ItemStack> inventory;
 
-    private final Object2IntOpenHashMap<Identifier> recipesUsed;
+    private final Object2IntOpenHashMap<Identifier> recipesUsed;//?
+    protected final RecipeType<GrinderRecipe> grinderRecipeType;
 
     public GrinderBlockEntity() {
-        this(ExampleMod.GRINDER_BLOCK_ENTITY_TYPE);
+        this(GRINDER_BLOCK_ENTITY, GRINDER_RECIPE_TYPE);
     }
 
-    protected GrinderBlockEntity(BlockEntityType<?> blockEntityType) {
+    public GrinderBlockEntity(BlockEntityType<?> blockEntityType, RecipeType<GrinderRecipe> recipeType) {
         super(blockEntityType);
         this.inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
         this.propertyDelegate = new PropertyDelegate() {
@@ -70,6 +76,18 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
             }
         };
         this.recipesUsed = new Object2IntOpenHashMap<>();
+        this.grinderRecipeType = recipeType;
+    }
+
+    @NonMinecraftNorFabric
+    private boolean isGrinding() {
+        return this.grindTime > 0;
+    }
+
+    @NonMinecraftNorFabric
+    protected int getGrindTime() {
+        assert this.world != null;
+        return this.world.getRecipeManager().getFirstMatch(this.grinderRecipeType, this, this.world).map(GrinderRecipe::getGrindTime).orElse(200);
     }
 
     @Override
@@ -88,15 +106,16 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
     }
 
     @Override
-    public boolean isEmpty() {
+    public boolean isEmpty() {  // ?
         Iterator<?> iterator = this.inventory.iterator();
 
         ItemStack itemStack;
         do {
             if (!iterator.hasNext())
                 return true;
+
             itemStack = (ItemStack) iterator.next();
-        } while (itemStack.isEmpty());
+        } while(itemStack.isEmpty());
 
         return false;
     }
@@ -118,7 +137,7 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
 
     @Override
     public void setStack(int slot, ItemStack stack) {
-        ItemStack itemStack = this.getStack(slot);
+        ItemStack itemStack = this.inventory.get(slot);
         boolean equal = !stack.isEmpty() && stack.isItemEqualIgnoreDamage(itemStack) && ItemStack.areTagsEqual(stack, itemStack);
         this.inventory.set(slot, stack);
         if (stack.getCount() > this.getMaxCountPerStack())
@@ -132,11 +151,8 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
 
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
-        assert this.world != null;  // Stupid IDEA, let you go
-        return this.world.getBlockEntity(this.pos) == this && player.squaredDistanceTo(
-                (double) this.pos.getX() + 0.5D,
-                (double) this.pos.getY() + 0.5D,
-                (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        assert this.world != null;
+        return this.world.getBlockEntity(this.pos) == this && player.squaredDistanceTo((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     @Override
@@ -150,6 +166,7 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
         assert this.world != null;  // stupid IDEA
         if (!this.world.isClient) {
             if (!(!this.isGrinding() || this.inventory.get(0).isEmpty())) {
+                Recipe<?> recipe = this.world.getRecipeManager().getFirstMatch(this.grinderRecipeType, this, this.world).orElse(null);
                 /*if (!this.isGrinding()) {
                     shallMarkDirty = true;
                     ++this.grindTime;
@@ -159,13 +176,18 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
                         this.craftRecipe(recipe);
                     }
                 }*/
-                if (this.canAcceptRecipeOutput() && this.canContinueGrinding(this.inventory.get(0))) {
+                if (!this.isGrinding() && this.canAcceptRecipeOutput(recipe)) {
+                    if (this.isGrinding()) {
+                        shallMarkDirty = true;
+                    }
+                }
+                if (this.isGrinding() && this.canAcceptRecipeOutput(recipe)) {
                     ++this.grindTime;
                     if (this.grindTime == this.grindTimeTotal) {
                         // once done
                         this.grindTime = 0;
                         this.grindTimeTotal = this.getGrindTime();
-                        this.craftRecipe();
+                        this.craftRecipe(recipe);
                         shallMarkDirty = true;
                     }
                 } else {
@@ -182,33 +204,25 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
             markDirty();
     }
 
-    private boolean canContinueGrinding(ItemStack input) throws UnsupportedOperationException {
-        if (!(input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES)) && input.getItem() != ExampleMod.ENCHANTED_SWEET_POTATO)
-            throw new UnsupportedOperationException("[com.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity] A programmer tries to force non-grindable thing be grinded, which is unsupported");
-        if (input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES))
-            return input.getCount() >= 9;
-        else
-            return input.getCount() >= 3;
-    }
-
-    @HardCoded
-    private void craftRecipe() {
-        if (this.canAcceptRecipeOutput()) {
+    private void craftRecipe(@Nullable Recipe<?> recipe) {
+        if (recipe != null && this.canAcceptRecipeOutput(recipe)) {
             ItemStack input = this.inventory.get(0);
-            ItemStack SHALL_OUTPUT = new ItemStack(ExampleMod.POTATO_POWDER);
-            ItemStack invOutput = this.inventory.get(1);
+            ItemStack recipeOutput = recipe.getOutput();
+            ItemStack invOutput = this.inventory.get(2);
 
             if (invOutput.isEmpty())
-                this.inventory.set(1, SHALL_OUTPUT.copy());
-            else if (invOutput.getItem() == ExampleMod.POTATO_POWDER)
+                this.inventory.set(1, recipeOutput.copy());
+            else if (invOutput.getItem() == recipeOutput.getItem())
                 invOutput.increment(1);
-            assert this.world != null;
 
-            input.decrement(input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES) ? 9 : 3);
+            assert this.world != null;  // stupid IntelliJ
+            if (!this.world.isClient)
+                this.setLastRecipe(recipe);
+
+            input.decrement(1);
         }
     }
 
-    @Deprecated
     protected boolean canAcceptRecipeOutput(@Nullable Recipe<?> recipe) {
         if (!this.inventory.get(0).isEmpty() && recipe != null) {
             ItemStack output = recipe.getOutput();
@@ -224,25 +238,21 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
                     return true;
                 return outInv.getCount() < output.getMaxCount();
             }
-        }
-        return false;
+        } return false;
     }
 
-    @HardCoded
-    protected boolean canAcceptRecipeOutput() {
-        if (!this.inventory.get(0).isEmpty()) {
-            ItemStack shallBeOutput = new ItemStack(ExampleMod.POTATO_POWDER);
-            ItemStack outInv = this.inventory.get(1);
-            if (outInv.isEmpty())
-                return true;
-            if (!outInv.isItemEqualIgnoreDamage(shallBeOutput))
-                return false;
-            if (outInv.getCount() < this.getMaxCountPerStack() && outInv.getCount() < outInv.getMaxCount())
-                return true;
-            return outInv.getCount() < shallBeOutput.getMaxCount();
-        } else {
-            return false;
+    @Override
+    public void setLastRecipe(@Nullable Recipe<?> recipe) {
+        if (recipe != null) {
+            Identifier id = recipe.getId();
+            this.recipesUsed.addTo(id, 1);
         }
+    }
+
+    @Nullable
+    @Override
+    public Recipe<?> getLastRecipe() {
+        return null;
     }
 
     @Override
@@ -267,18 +277,10 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
         Inventories.toTag(tag, this.inventory);
 
         CompoundTag recipeUsed = new CompoundTag();
-        this.recipesUsed.forEach(((identifier, integer) -> recipeUsed.putInt(identifier.toString(), integer)));
+        this.recipesUsed.forEach(((identifier, integer) -> {
+            recipeUsed.putInt(identifier.toString(), integer);
+        }));
         tag.put("RecipesUsed", recipeUsed);
         return tag;
-    }
-
-    @NonMinecraftNorFabric
-    private boolean isGrinding() {
-        return this.grindTime > 0;
-    }
-
-    @NonMinecraftNorFabric
-    protected int getGrindTime() {
-        return 200;
     }
 }

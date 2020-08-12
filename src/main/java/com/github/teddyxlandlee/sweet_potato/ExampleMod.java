@@ -17,16 +17,15 @@ import com.github.teddyxlandlee.sweet_potato.items.BakedSweetPotatoItem;
 import com.github.teddyxlandlee.sweet_potato.items.EnchantedBlockItem;
 import com.github.teddyxlandlee.sweet_potato.items.EnchantedPotatoItem;
 import com.github.teddyxlandlee.sweet_potato.items.RawSweetPotatoBlockItem;
-import com.github.teddyxlandlee.sweet_potato.recipe.GrinderRecipe;
 import com.github.teddyxlandlee.sweet_potato.recipe.SeedUpdatingRecipe;
 import com.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import com.github.teddyxlandlee.sweet_potato.screen.SeedUpdaterScreenHandler;
 import com.github.teddyxlandlee.sweet_potato.util.Util;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
@@ -41,10 +40,9 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
 
 public class ExampleMod implements ModInitializer {
 	public static ExampleMod INSTANCE;
@@ -132,22 +130,17 @@ public class ExampleMod implements ModInitializer {
 	public static final RecipeSerializer<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_SERIALIZER = SeedUpdatingRecipe.register_recipe_serializer(new Identifier(
 			MODID, "seed_updating"
 	), new SeedUpdatingRecipe.Serializer());
-	public static final RecipeSerializer<GrinderRecipe> GRINDER_RECIPE_SERIALIZER = GrinderRecipe.register_recipe_serializer(new Identifier(
-			MODID, "grinding"
-	), new GrinderRecipe.Serializer());
 
 	// Recipe Type
 	public static final RecipeType<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_TYPE = register_recipe_type(new Identifier(
 			MODID, "seed_updating"
 	));
-	public static final RecipeType<GrinderRecipe> GRINDER_RECIPE_TYPE = register_recipe_type(new Identifier(
-			MODID, "grinding"
-	));
-
 
 	// Block Entities
-	// Moved to respective classes
+	public static final BlockEntityType<GrinderBlockEntity> GRINDER_BLOCK_ENTITY_TYPE;
 
+	// Item Tags
+	public static final Tag<Item> RAW_SWEET_POTATOES;
 
 	@Override
 	public void onInitialize() {
@@ -159,13 +152,13 @@ public class ExampleMod implements ModInitializer {
 		System.out.println("Successfully loaded Sweet Potato Mod!");
 		// Screen Handler
 
-		ContainerProviderRegistry.INSTANCE.registerFactory(new Identifier(
+		/*ContainerProviderRegistry.INSTANCE.registerFactory(new Identifier(
 				MODID, "seed_updating"
 		), (syncId, identifier, player, buf) -> {
 			final World world = player.world;
 			final BlockPos pos = buf.readBlockPos();
 			return world.getBlockState(pos).createScreenHandlerFactory(player.world, pos).createMenu(syncId, player.inventory, player);
-		});
+		});*/
 
 
 		// Not registries:
@@ -209,7 +202,7 @@ public class ExampleMod implements ModInitializer {
 			.group(ItemGroup.FOOD)
 			.maxCount(64)));
 		POTATO_POWDER = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "potato_powder"
+				MODID, "potato_essence"
 		), new Item(new Item.Settings()
 				.group(ItemGroup.MISC)
 				.maxCount(64)));
@@ -337,6 +330,13 @@ public class ExampleMod implements ModInitializer {
 
 		// Block Entity
 
-		//GRINDER_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, null, BlockEntityType.Builder.create(GrinderBlockEntity::new, GRINDER).build(null));
+		GRINDER_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(
+				MODID, "grinder"
+		), BlockEntityType.Builder.create(GrinderBlockEntity::new, GRINDER).build(null));
+
+		// Item Tags
+		RAW_SWEET_POTATOES = TagRegistry.item(new Identifier(
+				MODID, "raw_sweet_potatoes"
+		));
 	}
 }

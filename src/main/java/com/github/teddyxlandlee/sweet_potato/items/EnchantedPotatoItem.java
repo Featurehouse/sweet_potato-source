@@ -9,8 +9,10 @@ import net.minecraft.item.FoodComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class EnchantedPotatoItem extends SweetPotatoItem {
-    public boolean hasGlint(ItemStack stack) {
+public class EnchantedPotatoItem extends EnchantedItem {
+
+    @Override
+    public boolean isFood() {
         return true;
     }
 
