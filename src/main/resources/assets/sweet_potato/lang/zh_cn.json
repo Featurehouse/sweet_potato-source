@@ -24,5 +24,6 @@
   "advancement.nether.sweet_potato.get_magic_cube.title": "灵魂魔法",
   "advancement.nether.sweet_potato.get_magic_cube.description": "获得魔法锅",
 
-  "container.sweet_potato.seed_updating": "升级种子"
+  "container.sweet_potato.seed_updating": "升级种子",
+  "container.sweet_potato.grinding": "研磨"
 }

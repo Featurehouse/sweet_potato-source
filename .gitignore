@@ -31,3 +31,4 @@ run/
 # User Defined
 updates.log
 .local.gradle/
+libs/

@@ -1,9 +1,12 @@
 package com.github.teddyxlandlee.sweet_potato.screen;
 
 import com.github.teddyxlandlee.annotation.Approved;
+import com.github.teddyxlandlee.annotation.Unused_InsteadOf;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
 import com.github.teddyxlandlee.sweet_potato.recipe.GrinderRecipe;
 import com.github.teddyxlandlee.sweet_potato.util.GrindingResultSlot;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -35,6 +38,7 @@ public class GrinderScreenHandler extends AbstractRecipeScreenHandler<Inventory>
     }
 
     @Approved
+    @Unused_InsteadOf @Deprecated
     public GrinderScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {
         this(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, ExampleMod.GRINDER_RECIPE_TYPE, syncId, playerInventory, inventory, propertyDelegate);
     }
@@ -96,6 +100,7 @@ public class GrinderScreenHandler extends AbstractRecipeScreenHandler<Inventory>
         return 1;
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public int getCraftingSlotCount() {
         return 2;
@@ -119,4 +124,11 @@ public class GrinderScreenHandler extends AbstractRecipeScreenHandler<Inventory>
             }
         }
     }*/
+
+    @Environment(EnvType.CLIENT)
+    public int getGrindProgress() {
+        int grindTime = this.propertyDelegate.get(0);
+        int grindTimeTotal = this.propertyDelegate.get(1);
+        return grindTimeTotal != 0 && grindTime != 0 ? grindTime * 24 / grindTimeTotal : 0;
+    }
 }

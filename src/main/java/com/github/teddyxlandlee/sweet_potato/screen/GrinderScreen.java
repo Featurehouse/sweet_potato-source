@@ -20,9 +20,20 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
 
     @Override
     protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-        RenderSystem.disableBlend();
-        super.drawForeground(matrices, mouseX, mouseY);
+        // Stupid IDEA
+        assert this.client != null;
+
+        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
+        this.client.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
+        this.drawTexture(matrices, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
+       int grindProgress = this.handler.getGrindProgress();
+
     }
 
-
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        this.renderBackground(matrices);
+        this.drawBackground(matrices, delta, mouseX, mouseY);
+        super.render(matrices, mouseX, mouseY, delta);
+        this.drawMouseoverTooltip(matrices, mouseX, mouseY);
+    }
 }

@@ -17,8 +17,6 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.RecipeUnlocker;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.tag.Tag;
-import net.minecraft.tag.TagContainer;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -29,8 +27,7 @@ import net.minecraft.util.registry.Registry;
 import javax.annotation.Nullable;
 import java.util.Iterator;
 
-import static com.github.teddyxlandlee.sweet_potato.ExampleMod.GRINDER;
-import static com.github.teddyxlandlee.sweet_potato.ExampleMod.MODID;
+import static com.github.teddyxlandlee.sweet_potato.ExampleMod.*;
 
 public class GrinderBlockEntity extends LockableContainerBlockEntity implements Tickable, RecipeUnlocker {
     public static final BlockEntityType<GrinderBlockEntity> GRINDER_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(MODID, "grinder"),
@@ -44,6 +41,10 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
 
     private final Object2IntOpenHashMap<Identifier> recipesUsed;//?
     protected final RecipeType<GrinderRecipe> grinderRecipeType;
+
+    public GrinderBlockEntity() {
+        this(GRINDER_BLOCK_ENTITY, GRINDER_RECIPE_TYPE);
+    }
 
     public GrinderBlockEntity(BlockEntityType<?> blockEntityType, RecipeType<GrinderRecipe> recipeType) {
         super(blockEntityType);

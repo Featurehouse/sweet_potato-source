@@ -1,5 +1,6 @@
 package com.github.teddyxlandlee.sweet_potato;
 
+import bilibili.ywsuoyi.block.ContainerBlockEntity;
 import com.github.teddyxlandlee.sweet_potato.screen.GrinderScreen;
 import com.github.teddyxlandlee.sweet_potato.screen.SeedUpdaterScreen;
 import net.fabricmc.api.ClientModInitializer;
@@ -31,5 +32,6 @@ public class ClientInitializer implements ClientModInitializer {
                 ExampleMod.ENCHANTED_ACACIA_SAPLING, ExampleMod.ENCHANTED_BIRCH_SAPLING,
                 ExampleMod.ENCHANTED_DARK_OAK_SAPLING, ExampleMod.ENCHANTED_OAK_SAPLING,
                 ExampleMod.ENCHANTED_JUNGLE_SAPLING, ExampleMod.ENCHANTED_SPRUCE_SAPLING);
+        BlockRenderLayerMap.INSTANCE.putBlock(ExampleMod.GRINDER, RenderLayer.getCutout());
     }
 }

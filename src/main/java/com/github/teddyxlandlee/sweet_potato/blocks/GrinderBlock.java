@@ -15,15 +15,13 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class GrinderBlock extends BlockWithEntity {
-
-
     public GrinderBlock(Settings settings) {
         super(settings);
     }
 
     @Override
     public BlockEntity createBlockEntity(BlockView world) {
-        return new GrinderBlockEntity(ExampleMod.GRINDER_BLOCK_ENTITY, ExampleMod.GRINDER_RECIPE_TYPE);
+        return new GrinderBlockEntity(GrinderBlockEntity.GRINDER_BLOCK_ENTITY, ExampleMod.GRINDER_RECIPE_TYPE);
     }
 
     @Override
