@@ -1,9 +1,9 @@
 package com.github.teddyxlandlee.sweet_potato.blocks;
 
-import bilibili.ywsuoyi.block.YwsuoyiBlockWithEntity;
 import com.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-public class GrinderBlock extends YwsuoyiBlockWithEntity {
+public class GrinderBlock extends BlockWithEntity {
     public GrinderBlock(AbstractBlock.Settings settings) {
         super(settings);
     }
