@@ -26,7 +26,7 @@ public class GrinderBlock extends BlockWithEntity {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hitResult) {
-        super.onUse(state, world, pos, player, hand, hitResult);
+        //super.onUse(state, world, pos, player, hand, hitResult);  // super returns PASS.
         if (!world.isClient()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof GrinderBlockEntity) {
