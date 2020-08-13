@@ -2,6 +2,7 @@ package com.github.teddyxlandlee.sweet_potato.blocks;
 
 import com.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -36,5 +37,10 @@ public class GrinderBlock extends BlockWithEntity {
             return ActionResult.CONSUME;
         }
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 }
