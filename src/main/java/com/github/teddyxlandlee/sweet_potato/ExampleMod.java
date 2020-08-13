@@ -17,6 +17,7 @@ import com.github.teddyxlandlee.sweet_potato.items.BakedSweetPotatoItem;
 import com.github.teddyxlandlee.sweet_potato.items.EnchantedBlockItem;
 import com.github.teddyxlandlee.sweet_potato.items.EnchantedPotatoItem;
 import com.github.teddyxlandlee.sweet_potato.items.RawSweetPotatoBlockItem;
+import com.github.teddyxlandlee.sweet_potato.recipe.GrinderRecipe;
 import com.github.teddyxlandlee.sweet_potato.recipe.SeedUpdatingRecipe;
 import com.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import com.github.teddyxlandlee.sweet_potato.screen.SeedUpdaterScreenHandler;
@@ -130,10 +131,14 @@ public class ExampleMod implements ModInitializer {
 	public static final RecipeSerializer<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_SERIALIZER = SeedUpdatingRecipe.register_recipe_serializer(new Identifier(
 			MODID, "seed_updating"
 	), new SeedUpdatingRecipe.Serializer());
+	public static final RecipeSerializer<GrinderRecipe> GRINDER_RECIPE_SERIALIZER = null;
 
 	// Recipe Type
 	public static final RecipeType<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_TYPE = register_recipe_type(new Identifier(
 			MODID, "seed_updating"
+	));
+	public static final RecipeType<GrinderRecipe> GRINDER_RECIPE_TYPE = register_recipe_type(new Identifier(
+			MODID, "grinding"
 	));
 
 	// Block Entities
@@ -202,7 +207,7 @@ public class ExampleMod implements ModInitializer {
 			.group(ItemGroup.FOOD)
 			.maxCount(64)));
 		POTATO_POWDER = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "potato_essence"
+				MODID, "potato_powder"
 		), new Item(new Item.Settings()
 				.group(ItemGroup.MISC)
 				.maxCount(64)));

@@ -3,6 +3,7 @@ package com.github.teddyxlandlee.sweet_potato.blocks.entities;
 import com.github.teddyxlandlee.annotation.HardCoded;
 import com.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
+import com.github.teddyxlandlee.sweet_potato.recipe.GrinderRecipe;
 import com.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.BlockState;
@@ -14,6 +15,8 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.RecipeUnlocker;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
@@ -25,7 +28,7 @@ import net.minecraft.util.collection.DefaultedList;
 import javax.annotation.Nullable;
 import java.util.Iterator;
 
-public class GrinderBlockEntity extends LockableContainerBlockEntity implements Tickable {
+public class GrinderBlockEntity extends LockableContainerBlockEntity implements Tickable, RecipeUnlocker {
     private int grindTime;
     private int grindTimeTotal;
 
@@ -33,12 +36,13 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
     protected DefaultedList<ItemStack> inventory;
 
     private final Object2IntOpenHashMap<Identifier> recipesUsed;
+    protected final RecipeType<GrinderRecipe> recipeType;
 
     public GrinderBlockEntity() {
-        this(ExampleMod.GRINDER_BLOCK_ENTITY_TYPE);
+        this(ExampleMod.GRINDER_BLOCK_ENTITY_TYPE, ExampleMod.GRINDER_RECIPE_TYPE);
     }
 
-    protected GrinderBlockEntity(BlockEntityType<?> blockEntityType) {
+    protected GrinderBlockEntity(BlockEntityType<?> blockEntityType, RecipeType<GrinderRecipe> recipeType) {
         super(blockEntityType);
         this.inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
         this.propertyDelegate = new PropertyDelegate() {
@@ -70,6 +74,7 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
             }
         };
         this.recipesUsed = new Object2IntOpenHashMap<>();
+        this.recipeType = recipeType;
     }
 
     @Override
@@ -79,7 +84,7 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return new GrinderScreenHandler(syncId, playerInventory);
+        return new GrinderScreenHandler(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory);
     }
 
     @Override
@@ -280,5 +285,16 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
     @NonMinecraftNorFabric
     protected int getGrindTime() {
         return 200;
+    }
+
+    @Override
+    public void setLastRecipe(@Nullable Recipe<?> recipe) {
+
+    }
+
+    @Nullable
+    @Override
+    public Recipe<?> getLastRecipe() {
+        return null;
     }
 }

@@ -7,8 +7,9 @@
   "item.sweet_potato.purple_potato": "紫薯",
   "item.sweet_potato.red_potato": "红薯",
   "item.sweet_potato.white_potato": "白薯",
+  "item.sweet_potato.potato_powder": "地瓜粉",
   "item.sweet_potato.potato_essence": "甘薯精华",
-  "item.sweet_potato.enchanted_sweet_potato": "附魔地瓜（未实现）",
+  "item.sweet_potato.enchanted_sweet_potato": "附魔地瓜",
 
   "block.sweet_potato.magic_cube": "魔法锅",
   "block.sweet_potato.grinder": "研磨器",

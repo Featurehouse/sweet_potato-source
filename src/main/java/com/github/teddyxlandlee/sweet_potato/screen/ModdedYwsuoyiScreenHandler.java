@@ -17,7 +17,7 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.collection.DefaultedList;
 
-public abstract class YwsuoyiScreenHandler extends AbstractRecipeScreenHandler<Inventory> {
+public abstract class ModdedYwsuoyiScreenHandler extends AbstractRecipeScreenHandler<Inventory> {
     // The former class is written by ywsuoyi.
     // Here, I rewrite it to a recipe screen handler.
 
@@ -29,7 +29,7 @@ public abstract class YwsuoyiScreenHandler extends AbstractRecipeScreenHandler<I
     @NonMinecraftNorFabric
     private final int[] integerData = new int[4];
 
-    public YwsuoyiScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PacketByteBuf packetByteBuf) {
+    public ModdedYwsuoyiScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PacketByteBuf packetByteBuf) {
         super(type, syncId);
         this.autoRender = DefaultedList.of();
         this.inventory = inventory;
@@ -43,7 +43,7 @@ public abstract class YwsuoyiScreenHandler extends AbstractRecipeScreenHandler<I
     }
 
     @Deprecated
-    public YwsuoyiScreenHandler(ScreenHandlerType<?> oven, int syncId, PlayerInventory playerInventory, Inventory inventory) {
+    public ModdedYwsuoyiScreenHandler(ScreenHandlerType<?> oven, int syncId, PlayerInventory playerInventory, Inventory inventory) {
         this(oven, syncId, playerInventory, inventory, null);
     }
 
