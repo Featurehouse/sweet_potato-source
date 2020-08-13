@@ -12,6 +12,7 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public class GrinderRecipe implements Recipe<Inventory> {
@@ -58,7 +59,7 @@ public class GrinderRecipe implements Recipe<Inventory> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return null;
+        return ExampleMod.GRINDER_RECIPE_SERIALIZER;
     }
 
     @Override
@@ -82,5 +83,8 @@ public class GrinderRecipe implements Recipe<Inventory> {
         public void write(PacketByteBuf buf, GrinderRecipe recipe) {
 
         }
+    }
+    public static GrinderRecipe.Serializer register_recipe_serializer(Identifier id, GrinderRecipe.Serializer serializer) {
+        return Registry.register(Registry.RECIPE_SERIALIZER, id, serializer);
     }
 }

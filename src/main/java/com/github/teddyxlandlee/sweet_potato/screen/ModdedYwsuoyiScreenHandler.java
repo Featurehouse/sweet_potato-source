@@ -17,6 +17,7 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.collection.DefaultedList;
 
+@Deprecated
 public abstract class ModdedYwsuoyiScreenHandler extends AbstractRecipeScreenHandler<Inventory> {
     // The former class is written by ywsuoyi.
     // Here, I rewrite it to a recipe screen handler.

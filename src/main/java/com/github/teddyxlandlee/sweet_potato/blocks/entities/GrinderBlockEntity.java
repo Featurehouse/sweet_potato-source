@@ -4,8 +4,7 @@ import com.github.teddyxlandlee.annotation.HardCoded;
 import com.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
 import com.github.teddyxlandlee.sweet_potato.recipe.GrinderRecipe;
-import com.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import com.github.teddyxlandlee.sweet_potato.screen.DeprecatedGrinderScreenHandler$2;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
@@ -16,26 +15,25 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.RecipeUnlocker;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.MathHelper;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
 
-public class GrinderBlockEntity extends LockableContainerBlockEntity implements Tickable, RecipeUnlocker {
+public class GrinderBlockEntity extends LockableContainerBlockEntity implements Tickable {
     private int grindTime;
     private int grindTimeTotal;
 
     public PropertyDelegate propertyDelegate;
     protected DefaultedList<ItemStack> inventory;
 
-    private final Object2IntOpenHashMap<Identifier> recipesUsed;
+    //private final Object2IntOpenHashMap<Identifier> recipesUsed;
     protected final RecipeType<GrinderRecipe> recipeType;
 
     public GrinderBlockEntity() {
@@ -73,9 +71,10 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
                 return 2;
             }
         };
-        this.recipesUsed = new Object2IntOpenHashMap<>();
+        //this.recipesUsed = new Object2IntOpenHashMap<>();
         this.recipeType = recipeType;
     }
+
 
     @Override
     protected Text getContainerName() {
@@ -84,7 +83,7 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return new GrinderScreenHandler(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory);
+        return new DeprecatedGrinderScreenHandler$2(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory);
     }
 
     @Override
@@ -149,8 +148,8 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
         this.inventory.clear();
     }
 
-    @Override
-    public void tick() {
+    @Deprecated
+    public void deprecatedTick() {
         boolean shallMarkDirty = false;
         assert this.world != null;  // stupid IDEA
         if (!this.world.isClient) {
@@ -187,9 +186,41 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
             markDirty();
     }
 
-    private boolean canContinueGrinding(ItemStack input) throws UnsupportedOperationException {
+    @Override
+    public void tick() {
+        boolean canMarkDirty = false;
+        assert this.world != null;
+        if (!this.world.isClient) {
+            //if (this.inventory.get(0).isEmpty())
+            if (!this.canContinueGrinding(this.inventory.get(0)))
+                // "QuickBack"
+                if (this.grindTime > 0)
+                    this.grindTime = MathHelper.clamp(this.grindTime - 2, 0, this.grindTimeTotal);
+            else {
+                canMarkDirty = true;
+                //Recipe<?> recipe = this.world.getRecipeManager().getFirstMatch(this.recipeType, this, this.world).orElse(null);
+                if (this.canAcceptRecipeOutput()) {
+                    ++this.grindTime;
+                    if (this.grindTime == this.grindTimeTotal) {
+                        // Should finish a grinding process
+                        this.grindTime = 0;
+                        this.grindTimeTotal = this.getGrindTime();  // Always 200 now.
+                        this.craftRecipe();
+                    }
+                } else {
+                    this.grindTime = 0;
+                }
+            }
+
+            if (canMarkDirty)
+                this.markDirty();
+        }
+    }
+
+    private boolean canContinueGrinding(ItemStack input) {
         if (!(input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES)) && input.getItem() != ExampleMod.ENCHANTED_SWEET_POTATO)
-            throw new UnsupportedOperationException("[com.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity] A programmer tries to force non-grindable thing be grinded, which is unsupported");
+            //throw new UnsupportedOperationException("[com.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity] A programmer tries to force non-grindable thing be grinded, which is unsupported");
+            return false;
         if (input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES))
             return input.getCount() >= 9;
         else
@@ -258,10 +289,10 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
         this.grindTime = tag.getShort("GrindTime");
         this.grindTimeTotal = tag.getShort("GrindTimeTotal");
 
-        CompoundTag recipeUsed = new CompoundTag();
-        for (String nextKey : recipeUsed.getKeys()) {
-            this.recipesUsed.put(new Identifier(nextKey), recipeUsed.getInt(nextKey));
-        }
+        //CompoundTag recipeUsed = new CompoundTag();
+        //for (String nextKey : recipeUsed.getKeys()) {
+        //    this.recipesUsed.put(new Identifier(nextKey), recipeUsed.getInt(nextKey));
+        //}
     }
 
     @Override
@@ -271,9 +302,9 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
         tag.putShort("GrindTimeTotal", (short) grindTimeTotal);
         Inventories.toTag(tag, this.inventory);
 
-        CompoundTag recipeUsed = new CompoundTag();
-        this.recipesUsed.forEach(((identifier, integer) -> recipeUsed.putInt(identifier.toString(), integer)));
-        tag.put("RecipesUsed", recipeUsed);
+        //CompoundTag recipeUsed = new CompoundTag();
+        //this.recipesUsed.forEach(((identifier, integer) -> recipeUsed.putInt(identifier.toString(), integer)));
+        //tag.put("RecipesUsed", recipeUsed);
         return tag;
     }
 
@@ -285,16 +316,5 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
     @NonMinecraftNorFabric
     protected int getGrindTime() {
         return 200;
-    }
-
-    @Override
-    public void setLastRecipe(@Nullable Recipe<?> recipe) {
-
-    }
-
-    @Nullable
-    @Override
-    public Recipe<?> getLastRecipe() {
-        return null;
     }
 }

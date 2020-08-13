@@ -22,7 +22,7 @@ public class GrindingResultSlot extends Slot {
     @Override
     public ItemStack takeStack(int amount) {
         if (this.hasStack())
-            this.amount += Math.min(amount, this.getStack().getCount());
+            this.amount -= Math.min(amount, this.getStack().getCount());
         
         return super.takeStack(amount);
     }

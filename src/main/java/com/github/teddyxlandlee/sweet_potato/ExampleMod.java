@@ -131,7 +131,9 @@ public class ExampleMod implements ModInitializer {
 	public static final RecipeSerializer<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_SERIALIZER = SeedUpdatingRecipe.register_recipe_serializer(new Identifier(
 			MODID, "seed_updating"
 	), new SeedUpdatingRecipe.Serializer());
-	public static final RecipeSerializer<GrinderRecipe> GRINDER_RECIPE_SERIALIZER = null;
+	public static final RecipeSerializer<GrinderRecipe> GRINDER_RECIPE_SERIALIZER = GrinderRecipe.register_recipe_serializer(new Identifier(
+			MODID, "grinding"
+	), new GrinderRecipe.Serializer());
 
 	// Recipe Type
 	public static final RecipeType<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_TYPE = register_recipe_type(new Identifier(

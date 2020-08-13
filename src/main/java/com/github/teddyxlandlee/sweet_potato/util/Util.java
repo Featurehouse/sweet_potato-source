@@ -1,5 +1,6 @@
 package com.github.teddyxlandlee.sweet_potato.util;
 
+import com.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
@@ -9,6 +10,7 @@ import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Rarity;
 
@@ -17,6 +19,11 @@ public final class Util {
 
     public static void registerCompostableItem(float levelIncreaseChance, ItemConvertible item) {
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(item.asItem(), levelIncreaseChance);
+    }
+
+    @NonMinecraftNorFabric
+    public static boolean grindable(ItemStack itemStack) {
+        return itemStack.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES) || itemStack.getItem() == ExampleMod.ENCHANTED_SWEET_POTATO;
     }
 
     public static final class BlockSettings {
