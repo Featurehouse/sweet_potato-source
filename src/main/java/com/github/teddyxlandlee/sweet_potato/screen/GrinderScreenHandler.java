@@ -28,7 +28,7 @@ public class GrinderScreenHandler extends ScreenHandler {
     protected final PlayerEntity player;
 
     public GrinderScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, new ArrayPropertyDelegate(2));
+        this(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, new ArrayPropertyDelegate(3));
     }
 
     protected GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PropertyDelegate propertyDelegate) {
@@ -122,5 +122,9 @@ public class GrinderScreenHandler extends ScreenHandler {
         int grindTime = this.propertyDelegate.get(0);
         int grindTimeTotal = this.propertyDelegate.get(1);
         return grindTimeTotal != 0 && grindTime != 0 ? grindTime * 24 / grindTimeTotal : 0;
+    }
+
+    public int getIngredientData() {
+        return this.propertyDelegate.get(2);
     }
 }

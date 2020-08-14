@@ -355,11 +355,11 @@
         }
       }
     },
-    "sweet_potato:enchanted_potato": {
+    "sweet_potato:enchanted_sweet_potato": {
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "item": "sweet_potato:enchanted_potato"
+          "item": "sweet_potato:enchanted_sweet_potato"
         }
       }
     },
@@ -516,7 +516,7 @@
       "sweet_potato:white_potato"
     ],
     [
-      "sweet_potato:enchanted_potato"
+      "sweet_potato:enchanted_sweet_potato"
     ],
     [
       "sweet_potato:baked_purple_potato"

@@ -26,5 +26,6 @@
   "advancement.nether.sweet_potato.get_magic_cube.description": "获得米 奇 妙 妙 锅",
 
   "container.sweet_potato.seed_updating": "集 日 月 之 精 华",
-  "container.sweet_potato.grinding": "鲜 榨 Peter Yang"
+  "container.sweet_potato.grinding": "鲜 榨 Peter Yang",
+  "container.grinding.ingredientData": "%d份 Peter Yang 待榨"
 }

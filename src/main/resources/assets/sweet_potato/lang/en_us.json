@@ -27,5 +27,6 @@
   "advancement.nether.sweet_potato.get_magic_cube.description": "Obtain Magic Cube",
 
   "container.sweet_potato.seed_updating": "Seed Updating",
-  "container.sweet_potato.grinding": "Grinding"
+  "container.sweet_potato.grinding": "Grinding",
+  "container.grinding.ingredientData": "Added %d unit(s) of ingredient"
 }
