@@ -4,7 +4,7 @@ import com.github.teddyxlandlee.annotation.HardCoded;
 import com.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
 import com.github.teddyxlandlee.sweet_potato.recipe.GrinderRecipe;
-import com.github.teddyxlandlee.sweet_potato.screen.DeprecatedGrinderScreenHandler$2;
+import com.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
@@ -83,7 +83,7 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return new DeprecatedGrinderScreenHandler$2(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory);
+        return new GrinderScreenHandler(syncId, playerInventory);
     }
 
     @Override

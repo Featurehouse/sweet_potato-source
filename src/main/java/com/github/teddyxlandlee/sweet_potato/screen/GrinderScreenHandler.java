@@ -22,12 +22,7 @@ import javax.annotation.Nullable;
 public class GrinderScreenHandler extends ScreenHandler {
     public PropertyDelegate propertyDelegate;
 
-    protected final Inventory inventory = new SimpleInventory(2) {
-        public void markDirty() {
-            super.markDirty();
-            GrinderScreenHandler.this.onContentChanged(this);
-        }
-    };
+    protected final Inventory inventory;
 
     //protected final PropertyDelegate propertyDelegate = new ArrayPropertyDelegate(2);
     protected final PlayerEntity player;
@@ -40,6 +35,12 @@ public class GrinderScreenHandler extends ScreenHandler {
         super(type, syncId);
         this.player = playerInventory.player;
         this.propertyDelegate = propertyDelegate;
+        this.inventory = new SimpleInventory(2) {
+            public void markDirty() {
+                super.markDirty();
+                GrinderScreenHandler.this.onContentChanged(this);
+            }
+        };
         checkDataCount(propertyDelegate, 2);
         this.addSlot(new Slot(this.inventory, 0, 40, 35));
         this.addSlot(new GrindingResultSlot(player, this.inventory, 1, 116, 35));
@@ -62,10 +63,6 @@ public class GrinderScreenHandler extends ScreenHandler {
     @Override
     public boolean canUse(PlayerEntity player) {
         return this.inventory.canPlayerUse(player);
-    }
-
-    public void setStackInSlot(int slot, ItemStack stack) {
-        this.getSlot(slot).setStack(stack);
     }
 
     @Unused_InsteadOf @Deprecated

@@ -5,8 +5,6 @@ import com.github.teddyxlandlee.sweet_potato.ExampleMod;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.ComposterBlock;
-import net.minecraft.block.Material;
-import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;

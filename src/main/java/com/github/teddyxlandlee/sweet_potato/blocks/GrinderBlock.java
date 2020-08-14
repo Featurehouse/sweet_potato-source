@@ -15,6 +15,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
 public class GrinderBlock extends BlockWithEntity {
     public GrinderBlock(AbstractBlock.Settings settings) {
         super(settings);
@@ -42,5 +44,12 @@ public class GrinderBlock extends BlockWithEntity {
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
+    }
+
+    @Nullable
+    @Override
+    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        return blockEntity instanceof GrinderBlockEntity ? (NamedScreenHandlerFactory) blockEntity : null;
     }
 }
