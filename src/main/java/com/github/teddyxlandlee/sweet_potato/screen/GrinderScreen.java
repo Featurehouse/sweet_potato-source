@@ -36,6 +36,6 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
         RenderSystem.disableBlend();
         super.drawForeground(matrices, mouseX, mouseY);
         this.textRenderer.draw(matrices, new TranslatableText("container.grinding.ingredientData", handler.getIngredientData()),
-                28.0f, 59.0f, 0);
+                18.0f, 59.0f, 0);
     }
 }

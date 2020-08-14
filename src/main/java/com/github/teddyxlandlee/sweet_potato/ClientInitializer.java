@@ -1,6 +1,5 @@
 package com.github.teddyxlandlee.sweet_potato;
 
-import com.github.teddyxlandlee.sweet_potato.screen.DeprecatedGrinderScreen;
 import com.github.teddyxlandlee.sweet_potato.screen.GrinderScreen;
 import com.github.teddyxlandlee.sweet_potato.screen.SeedUpdaterScreen;
 import net.fabricmc.api.ClientModInitializer;
