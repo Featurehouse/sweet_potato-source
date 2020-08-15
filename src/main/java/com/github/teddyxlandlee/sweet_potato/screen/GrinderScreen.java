@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.texture.TextureTickListener;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
@@ -36,6 +37,6 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
         RenderSystem.disableBlend();
         super.drawForeground(matrices, mouseX, mouseY);
         this.textRenderer.draw(matrices, new TranslatableText("container.grinding.ingredientData", handler.getIngredientData()),
-                18.0f, 59.0f, 0);
+                8.0f, 59.0f, 0);
     }
 }

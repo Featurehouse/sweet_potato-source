@@ -13,10 +13,7 @@ import com.github.teddyxlandlee.sweet_potato.blocks.SeedUpdaterBlock;
 import com.github.teddyxlandlee.sweet_potato.blocks.SweetPotatoesCropBlock;
 import com.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import com.github.teddyxlandlee.sweet_potato.blocks.saplings_seeds.EnchantedSaplings;
-import com.github.teddyxlandlee.sweet_potato.items.BakedSweetPotatoItem;
-import com.github.teddyxlandlee.sweet_potato.items.EnchantedBlockItem;
-import com.github.teddyxlandlee.sweet_potato.items.EnchantedPotatoItem;
-import com.github.teddyxlandlee.sweet_potato.items.RawSweetPotatoBlockItem;
+import com.github.teddyxlandlee.sweet_potato.items.*;
 import com.github.teddyxlandlee.sweet_potato.recipe.GrinderRecipe;
 import com.github.teddyxlandlee.sweet_potato.recipe.SeedUpdatingRecipe;
 import com.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
@@ -84,6 +81,7 @@ public class ExampleMod implements ModInitializer {
 
 		// Misc
 	public static final Item POTATO_POWDER;
+	public static final Item POTATO_ESSENCE;
 	public static final Item ENCHANTED_SWEET_POTATO;
 
 	// Blocks
@@ -211,6 +209,11 @@ public class ExampleMod implements ModInitializer {
 		POTATO_POWDER = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "potato_powder"
 		), new Item(new Item.Settings()
+				.group(ItemGroup.MISC)
+				.maxCount(64)));
+		POTATO_ESSENCE = Registry.register(Registry.ITEM, new Identifier(
+				MODID, "potato_essence"
+		), new EnchantedItem(new Item.Settings()
 				.group(ItemGroup.MISC)
 				.maxCount(64)));
 		ENCHANTED_SWEET_POTATO = Registry.register(Registry.ITEM, new Identifier(

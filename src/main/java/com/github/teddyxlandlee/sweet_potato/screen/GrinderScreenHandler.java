@@ -31,7 +31,7 @@ public class GrinderScreenHandler extends ScreenHandler {
         this(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, new ArrayPropertyDelegate(3));
     }
 
-    protected GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PropertyDelegate propertyDelegate) {
+    public GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PropertyDelegate propertyDelegate) {
         super(type, syncId);
         this.player = playerInventory.player;
         this.propertyDelegate = propertyDelegate;
