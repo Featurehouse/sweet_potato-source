@@ -33,7 +33,7 @@ public class GrinderBlock extends BlockWithEntity {
         if (!world.isClient()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof GrinderBlockEntity) {
-                player.openHandledScreen((NamedScreenHandlerFactory) blockEntity);
+                player.openHandledScreen((GrinderBlockEntity) blockEntity);
             }
 
             return ActionResult.CONSUME;
@@ -50,6 +50,6 @@ public class GrinderBlock extends BlockWithEntity {
     @Override
     public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        return blockEntity instanceof GrinderBlockEntity ? (NamedScreenHandlerFactory) blockEntity : null;
+        return blockEntity instanceof GrinderBlockEntity ? (GrinderBlockEntity) blockEntity : null;
     }
 }

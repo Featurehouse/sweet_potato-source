@@ -16,7 +16,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class SweetPotatoesCropBlock extends CropBlock {
-    public static final IntProperty AGE = Properties.AGE_7;
     private static final VoxelShape[] AGE_TO_SHAPE = new VoxelShape[]{
             Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D),
             Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D),
@@ -35,7 +34,7 @@ public class SweetPotatoesCropBlock extends CropBlock {
     }
 
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return AGE_TO_SHAPE[(Integer)state.get(this.getAgeProperty())];
+        return AGE_TO_SHAPE[state.get(this.getAgeProperty())];
     }
 
     protected int getGrowthAmount(World world) {
