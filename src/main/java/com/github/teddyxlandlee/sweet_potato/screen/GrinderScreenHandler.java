@@ -28,19 +28,14 @@ public class GrinderScreenHandler extends ScreenHandler {
     protected final PlayerEntity player;
 
     public GrinderScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, new ArrayPropertyDelegate(3));
+        this(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, new SimpleInventory(2), new ArrayPropertyDelegate(3));
     }
 
-    public GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PropertyDelegate propertyDelegate) {
+    public GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {
         super(type, syncId);
         this.player = playerInventory.player;
         this.propertyDelegate = propertyDelegate;
-        this.inventory = new SimpleInventory(2) {
-            public void markDirty() {
-                super.markDirty();
-                GrinderScreenHandler.this.onContentChanged(this);
-            }
-        };
+        this.inventory = inventory;
         checkDataCount(propertyDelegate, 2);
         this.addSlot(new Slot(this.inventory, 0, 40, 35));
         this.addSlot(new GrindingResultSlot(player, this.inventory, 1, 116, 35));
