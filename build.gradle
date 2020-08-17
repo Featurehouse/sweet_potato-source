@@ -21,6 +21,9 @@ dependencies {
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
+
+	// ywlib, an API mod, by 因为所以
+	modImplementation "libs:ywlib-1.0.4-dev"
 }
 
 processResources {

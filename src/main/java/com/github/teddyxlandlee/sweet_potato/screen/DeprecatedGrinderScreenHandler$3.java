@@ -13,33 +13,36 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 
 import javax.annotation.Nullable;
 
-public class GrinderScreenHandler extends AbstractScreenHandler {
+@Deprecated
+public class DeprecatedGrinderScreenHandler$3 extends ScreenHandler {
     public PropertyDelegate propertyDelegate;
-    //protected final Inventory inventory;
+
+    protected final Inventory inventory;
+
     //protected final PropertyDelegate propertyDelegate = new ArrayPropertyDelegate(2);
     protected final PlayerEntity player;
 
-    public GrinderScreenHandler(int syncId, PlayerInventory playerInventory) {
+    public DeprecatedGrinderScreenHandler$3(int syncId, PlayerInventory playerInventory) {
         this(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, new SimpleInventory(2), new ArrayPropertyDelegate(3));
     }
 
-    public GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {
-        super(type, syncId, playerInventory, inventory);
-
+    public DeprecatedGrinderScreenHandler$3(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {
+        super(type, syncId);
         this.player = playerInventory.player;
         this.propertyDelegate = propertyDelegate;
-        //this.inventory = inventory;
-        checkDataCount(propertyDelegate, 3);
-        this.addSlot(new Slot(this.inventory, 0, 40, 35), RenderType.DEFAULT_SLOT);
-        this.addSlot(new GrindingResultSlot(player, this.inventory, 1, 116, 35), RenderType.DEFAULT_SLOT);
+        this.inventory = inventory;
+        checkDataCount(propertyDelegate, 2);
+        this.addSlot(new Slot(this.inventory, 0, 40, 35));
+        this.addSlot(new GrindingResultSlot(player, this.inventory, 1, 116, 35));
 
         // Player Inventory
-        /*int k;
+        int k;
         for(k = 0; k < 3; ++k) {
             for(int j = 0; j < 9; ++j) {
                 this.addSlot(new Slot(playerInventory, j + k * 9 + 9, 8 + j * 18, 84 + k * 18));
@@ -48,10 +51,14 @@ public class GrinderScreenHandler extends AbstractScreenHandler {
 
         for(k = 0; k < 9; ++k) {
             this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 142));
-        }*/
-        this.addPlayerInv(8, 84);
+        }
 
         this.addProperties(propertyDelegate);
+    }
+
+    @Override
+    public boolean canUse(PlayerEntity player) {
+        return this.inventory.canPlayerUse(player);
     }
 
     @Unused_InsteadOf @Deprecated
@@ -111,11 +118,6 @@ public class GrinderScreenHandler extends AbstractScreenHandler {
         int grindTime = this.propertyDelegate.get(0);
         int grindTimeTotal = this.propertyDelegate.get(1);
         return grindTimeTotal != 0 && grindTime != 0 ? grindTime * 22 / grindTimeTotal : 0;
-    }
-
-    @Environment(EnvType.CLIENT)
-    public int simpleGrindProgress() {
-        return this.propertyDelegate.get(0);
     }
 
     public int getIngredientData() {

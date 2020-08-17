@@ -34,6 +34,7 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
 
     private byte absorbCooldown;
     private static final byte MAX_COOLDOWN = 5;
+    private boolean addTimeWhenFinished = true;
 
     public static final Object2IntOpenHashMap<ItemConvertible> INGREDIENT_DATA_MAP = new Object2IntOpenHashMap<>();
 
@@ -238,17 +239,26 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
         boolean canMarkDirty = false;
         assert this.world != null;
         if (!this.world.isClient) {
-            if ((this.ingredientData >= 9 || this.isGrinding()) && this.canAcceptRecipeOutput()) {
-                // Can grind or is grinding
-                if (!this.isGrinding())
-                    this.ingredientData -= 9;
-                ++this.grindTime;
+            if (this.isGrinding()) {
+                ++grindTime;
                 if (this.grindTime == this.grindTimeTotal) {
                     this.grindTime = 0;
                     this.grindTimeTotal = this.getGrindTime();
                     this.craftRecipe();
+                    this.addTimeWhenFinished = false;
                 }
             }
+
+            if ((this.ingredientData >= 9 && !this.isGrinding()) && this.canAcceptRecipeOutput()) {
+                // Can grind or is grinding
+                this.ingredientData -= 9;
+                if (this.addTimeWhenFinished){
+                    ++this.grindTime;
+                }
+            }
+
+            if (!this.addTimeWhenFinished)
+                this.addTimeWhenFinished = true;
 
             if (shallCooldown())
                 --absorbCooldown;
@@ -273,7 +283,8 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
     @Deprecated
     private boolean canContinueGrinding(ItemStack input) {
         if (!(input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES)) && input.getItem() != ExampleMod.ENCHANTED_SWEET_POTATO)
-            //throw new UnsupportedOperationException("[com.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity] A programmer tries to force non-grindable thing be grinded, which is unsupported");
+            //throw new UnsupportedOperationException("[com.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity]
+            // A programmer tries to force non-grindable thing be grinded, which is unsupported");
             return false;
         if (input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES))
             return input.getCount() >= 9;
