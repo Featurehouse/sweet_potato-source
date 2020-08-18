@@ -1,16 +1,22 @@
 package com.github.teddyxlandlee.sweet_potato.screen;
 
 import bilibili.ywsuoyi.gui.screenHandler;
+import com.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 
 public abstract class AbstractScreenHandler extends screenHandler {
+    public PropertyDelegate propertyDelegate;
+
     public AbstractScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PacketByteBuf packetByteBuf) {
         super(type, syncId, playerInventory, inventory, packetByteBuf);
+        if (this.e instanceof GrinderBlockEntity)
+            this.propertyDelegate = ((GrinderBlockEntity) e).propertyDelegate;
     }
 
     public AbstractScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory) {

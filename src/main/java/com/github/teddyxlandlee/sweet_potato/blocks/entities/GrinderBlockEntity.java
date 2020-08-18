@@ -6,6 +6,7 @@ import com.github.teddyxlandlee.sweet_potato.ExampleMod;
 import com.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import com.github.teddyxlandlee.sweet_potato.util.Util;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
@@ -15,9 +16,11 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
@@ -27,7 +30,7 @@ import net.minecraft.util.math.MathHelper;
 import javax.annotation.Nullable;
 import java.util.Iterator;
 
-public class GrinderBlockEntity extends LockableContainerBlockEntity implements Tickable {
+public class GrinderBlockEntity extends LockableContainerBlockEntity implements Tickable, ExtendedScreenHandlerFactory {
     private int grindTime;
     private int grindTimeTotal;
     private int ingredientData;
@@ -389,5 +392,10 @@ public class GrinderBlockEntity extends LockableContainerBlockEntity implements 
     @Deprecated
     public int getIngredientData() {
         return this.propertyDelegate.get(2);
+    }
+
+    @Override
+    public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
+        packetByteBuf.writeBlockPos(this.pos);
     }
 }

@@ -59,7 +59,7 @@ public class ExampleMod implements ModInitializer {
 	public static final Material MATERIAL_PLANT = new FabricMaterialBuilder(MaterialColor.FOLIAGE).allowsMovement().destroyedByPiston().lightPassesThrough().notSolid().build();
 
 	private static <T extends Recipe<Inventory>> RecipeType<T> register_recipe_type(Identifier id) {
-		return Registry.register(Registry.RECIPE_TYPE, id, new RecipeType<T>() {
+		return Registry.register(Registry.RECIPE_TYPE, id, new RecipeType<>() {
 			public String toString() {
 				return id.toString();
 			}
@@ -121,7 +121,7 @@ public class ExampleMod implements ModInitializer {
 	public static final ScreenHandlerType<SeedUpdaterScreenHandler> SEED_UPDATER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(
 			new Identifier(MODID, "seed_updater"), SeedUpdaterScreenHandler::new
 	);
-	public static final ScreenHandlerType<GrinderScreenHandler> GRINDER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(
+	public static final ScreenHandlerType<GrinderScreenHandler> GRINDER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerExtended(
 			new Identifier(MODID, "grinder"), GrinderScreenHandler::new
 	);
 

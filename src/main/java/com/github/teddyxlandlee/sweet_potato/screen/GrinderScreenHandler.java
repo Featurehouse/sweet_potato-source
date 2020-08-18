@@ -2,15 +2,18 @@ package com.github.teddyxlandlee.sweet_potato.screen;
 
 import com.github.teddyxlandlee.annotation.Unused_InsteadOf;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
+import com.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import com.github.teddyxlandlee.sweet_potato.util.GrindingResultSlot;
 import com.github.teddyxlandlee.sweet_potato.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandlerType;
@@ -19,13 +22,15 @@ import net.minecraft.screen.slot.Slot;
 import javax.annotation.Nullable;
 
 public class GrinderScreenHandler extends AbstractScreenHandler {
-    public PropertyDelegate propertyDelegate;
     //protected final Inventory inventory;
     //protected final PropertyDelegate propertyDelegate = new ArrayPropertyDelegate(2);
     protected final PlayerEntity player;
 
-    public GrinderScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, new SimpleInventory(2), new ArrayPropertyDelegate(3));
+    public GrinderScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
+        super(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, new SimpleInventory(2), buf);
+        this.player = playerInventory.player;
+        if (this.e instanceof Inventory)
+            this.inventory = (Inventory) this.e;
     }
 
     public GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {
@@ -114,6 +119,7 @@ public class GrinderScreenHandler extends AbstractScreenHandler {
     }
 
     @Environment(EnvType.CLIENT)
+    @Deprecated
     public int simpleGrindProgress() {
         return this.propertyDelegate.get(0);
     }
