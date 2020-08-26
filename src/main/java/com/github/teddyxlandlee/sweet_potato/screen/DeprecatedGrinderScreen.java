@@ -1,12 +1,9 @@
 package com.github.teddyxlandlee.sweet_potato.screen;
 
-import bilibili.ywsuoyi.gui.screen;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
-import com.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
@@ -15,10 +12,11 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
-    private static final Identifier BACKGROUND_TEXTURE = new Identifier(ExampleMod.MODID, "textures/gui/container/grinder.png");
+@Deprecated
+public class DeprecatedGrinderScreen extends HandledScreen<GrinderScreenHandler> {
+    private static final Identifier TEXTURE = new Identifier(ExampleMod.MODID, "textures/gui/container/grinder.png");
 
-    public GrinderScreen(GrinderScreenHandler handler, PlayerInventory inventory, Text title) {
+    public DeprecatedGrinderScreen(GrinderScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
     }
 
@@ -39,16 +37,14 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
     protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
         RenderSystem.disableBlend();
         super.drawForeground(matrices, mouseX, mouseY);
-        this.textRenderer.draw(matrices, new TranslatableText(
-                "container.grinding.ingredientData",
-                 this.handler.getIngredientData()),
+        this.textRenderer.draw(matrices, new TranslatableText("container.grinding.ingredientData", handler.getIngredientData()),
                 8.0f, 59.0f, 0);
     }
 
     @Override
     public void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
         assert this.client != null;
-        this.client.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
+        this.client.getTextureManager().bindTexture(TEXTURE);
         this.drawTexture(matrices, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
         //this.addProgressArrow(74, 35, 0);
         int l = this.handler.getGrindProgress();
@@ -60,13 +56,5 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         super.render(matrices, mouseX, mouseY, delta);
         this.drawMouseoverTooltip(matrices, mouseX, mouseY);
-    }
-
-    @Deprecated
-    public int getBlockEntityVar(int i, BlockEntity blockEntity) {
-        if (blockEntity instanceof GrinderBlockEntity) {
-            return ((GrinderBlockEntity) blockEntity).propertyDelegate.get(0) >> 1;
-        }
-        return 0;
     }
 }

@@ -1,6 +1,5 @@
 package com.github.teddyxlandlee.sweet_potato.blocks.entities;
 
-import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
 import com.github.teddyxlandlee.annotation.HardCoded;
 import com.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
@@ -10,25 +9,29 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.MathHelper;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
 
-public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable, ExtendedScreenHandlerFactory {
+@Deprecated
+public class DeprecatedGrinderBlockEntity extends LockableContainerBlockEntity implements Tickable, ExtendedScreenHandlerFactory {
     private int grindTime;
     private int grindTimeTotal;
     private int ingredientData;
@@ -40,25 +43,28 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     public static final Object2IntOpenHashMap<ItemConvertible> INGREDIENT_DATA_MAP = new Object2IntOpenHashMap<>();
 
     public PropertyDelegate propertyDelegate;
-    //protected DefaultedList<ItemStack> inventory;
+    protected DefaultedList<ItemStack> inventory;
 
-    public GrinderBlockEntity() {
+    //private final Object2IntOpenHashMap<Identifier> recipesUsed;
+    //protected final RecipeType<GrinderRecipe> recipeType;
+
+    public DeprecatedGrinderBlockEntity() {
         this(ExampleMod.GRINDER_BLOCK_ENTITY_TYPE);
     }
 
-    protected GrinderBlockEntity(BlockEntityType<?> blockEntityType) {
-        super(blockEntityType, 2);
-        //this.inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
+    protected DeprecatedGrinderBlockEntity(BlockEntityType<?> blockEntityType) {
+        super(blockEntityType);
+        this.inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
                 switch (index) {
                     case 0:
-                        return GrinderBlockEntity.this.grindTime;
+                        return DeprecatedGrinderBlockEntity.this.grindTime;
                     case 1:
-                        return GrinderBlockEntity.this.grindTimeTotal;
+                        return DeprecatedGrinderBlockEntity.this.grindTimeTotal;
                     case 2:
-                        return GrinderBlockEntity.this.ingredientData;
+                        return DeprecatedGrinderBlockEntity.this.ingredientData;
                     default:
                         return 0;
                 }
@@ -68,11 +74,11 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
             public void set(int index, int value) {
                 switch (index) {
                     case 0:
-                        GrinderBlockEntity.this.grindTime = value;
+                        DeprecatedGrinderBlockEntity.this.grindTime = value;
                     case 1:
-                        GrinderBlockEntity.this.grindTimeTotal = value;
+                        DeprecatedGrinderBlockEntity.this.grindTimeTotal = value;
                     case 2:
-                        GrinderBlockEntity.this.ingredientData = value;
+                        DeprecatedGrinderBlockEntity.this.ingredientData = value;
                 }
             }
 
@@ -89,36 +95,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         this.absorbCooldown = -1;
     }
 
-    @Override
-    public void fromTag(BlockState state, CompoundTag tag) {
-        super.fromTag(state, tag);
-        //this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        //Inventories.fromTag(tag, this.inventory);
-        this.grindTime = tag.getShort("GrindTime");
-        this.grindTimeTotal = tag.getShort("GrindTimeTotal");
-        this.ingredientData = tag.getInt("IngredientData");
-        this.absorbCooldown = tag.getByte("absorbCooldown");
-
-        //CompoundTag recipeUsed = new CompoundTag();
-        //for (String nextKey : recipeUsed.getKeys()) {
-        //    this.recipesUsed.put(new Identifier(nextKey), recipeUsed.getInt(nextKey));
-        //}
-    }
-
-    @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        super.toTag(tag);
-        tag.putShort("GrindTime", (short) grindTime);
-        tag.putShort("GrindTimeTotal", (short) grindTimeTotal);
-        //Inventories.toTag(tag, this.inventory);
-        tag.putInt("IngredientData", ingredientData);
-        tag.putByte("absorbCooldown", absorbCooldown);
-
-        //CompoundTag recipeUsed = new CompoundTag();
-        //this.recipesUsed.forEach(((identifier, integer) -> recipeUsed.putInt(identifier.toString(), integer)));
-        //tag.put("RecipesUsed", recipeUsed);
-        return tag;
-    }
 
     @Override
     protected Text getContainerName() {
@@ -131,10 +107,10 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         return new GrinderScreenHandler(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this, this.propertyDelegate);
     }
 
-    //@Override
-    //public int size() {
-    //    return this.inventory.size();
-    //}
+    @Override
+    public int size() {
+        return this.inventory.size();
+    }
 
     @Override
     public boolean isEmpty() {
@@ -188,6 +164,11 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
                 (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
+    @Override
+    public void clear() {
+        this.inventory.clear();
+    }
+
     @Deprecated
     public void deprecatedTick() {
         boolean shallMarkDirty = false;
@@ -236,21 +217,21 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
                 // "QuickBack"
                 if (this.grindTime > 0)
                     this.grindTime = MathHelper.clamp(this.grindTime - 2, 0, this.grindTimeTotal);
-            else {
-                canMarkDirty = true;
-                //Recipe<?> recipe = this.world.getRecipeManager().getFirstMatch(this.recipeType, this, this.world).orElse(null);
-                if (this.canAcceptRecipeOutput()) {
-                    ++this.grindTime;
-                    if (this.grindTime == this.grindTimeTotal) {
-                        // Should finish a grinding process
+                else {
+                    canMarkDirty = true;
+                    //Recipe<?> recipe = this.world.getRecipeManager().getFirstMatch(this.recipeType, this, this.world).orElse(null);
+                    if (this.canAcceptRecipeOutput()) {
+                        ++this.grindTime;
+                        if (this.grindTime == this.grindTimeTotal) {
+                            // Should finish a grinding process
+                            this.grindTime = 0;
+                            this.grindTimeTotal = this.getGrindTime();  // Always 200 now.
+                            this.craftRecipe();
+                        }
+                    } else {
                         this.grindTime = 0;
-                        this.grindTimeTotal = this.getGrindTime();  // Always 200 now.
-                        this.craftRecipe();
                     }
-                } else {
-                    this.grindTime = 0;
                 }
-            }
 
             if (canMarkDirty)
                 this.markDirty();
@@ -263,20 +244,21 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         assert this.world != null;
         if (!this.world.isClient) {
             if (this.isGrinding()) {
+                ++grindTime;
                 if (this.grindTime == this.grindTimeTotal) {
                     this.grindTime = 0;
                     this.grindTimeTotal = this.getGrindTime();
                     this.craftRecipe();
                     this.addTimeWhenFinished = false;
-                    canMarkDirty = true;
-                } else
-                    ++grindTime;
+                }
             }
 
             if ((this.ingredientData >= 9 && !this.isGrinding()) && this.canAcceptRecipeOutput()) {
                 // Can grind or is grinding
                 this.ingredientData -= 9;
-                canMarkDirty = true;
+                if (this.addTimeWhenFinished){
+                    ++this.grindTime;
+                }
             }
 
             if (!this.addTimeWhenFinished)
@@ -287,9 +269,12 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
             else {
                 if (Util.grindable(this.inventory.get(0))) {
                     canMarkDirty = true;
-                    final Item ingredient = this.inventory.get(0).getItem();
+                    // Here's where the bug presents!
                     this.inventory.get(0).decrement(1);
-                    this.ingredientData += INGREDIENT_DATA_MAP.getInt(ingredient);
+                    // What if the stack is 0, was 1?
+                    this.ingredientData += INGREDIENT_DATA_MAP.getInt(
+                            this.inventory.get(0)/*it would be EMPTY!*/.getItem()
+                    );
                     this.absorbCooldown = MAX_COOLDOWN;
                 }
             }
@@ -368,6 +353,37 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         }
     }
 
+    @Override
+    public void fromTag(BlockState state, CompoundTag tag) {
+        super.fromTag(state, tag);
+        this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
+        Inventories.fromTag(tag, this.inventory);
+        this.grindTime = tag.getShort("GrindTime");
+        this.grindTimeTotal = tag.getShort("GrindTimeTotal");
+        this.ingredientData = tag.getInt("IngredientData");
+        this.absorbCooldown = tag.getByte("absorbCooldown");
+
+        //CompoundTag recipeUsed = new CompoundTag();
+        //for (String nextKey : recipeUsed.getKeys()) {
+        //    this.recipesUsed.put(new Identifier(nextKey), recipeUsed.getInt(nextKey));
+        //}
+    }
+
+    @Override
+    public CompoundTag toTag(CompoundTag tag) {
+        super.toTag(tag);
+        tag.putShort("GrindTime", (short) grindTime);
+        tag.putShort("GrindTimeTotal", (short) grindTimeTotal);
+        Inventories.toTag(tag, this.inventory);
+        tag.putInt("IngredientData", ingredientData);
+        tag.putByte("absorbCooldown", absorbCooldown);
+
+        //CompoundTag recipeUsed = new CompoundTag();
+        //this.recipesUsed.forEach(((identifier, integer) -> recipeUsed.putInt(identifier.toString(), integer)));
+        //tag.put("RecipesUsed", recipeUsed);
+        return tag;
+    }
+
     @NonMinecraftNorFabric
     private boolean isGrinding() {
         return this.grindTime > 0;
@@ -383,8 +399,8 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         return this.propertyDelegate.get(2);
     }
 
-    //@Override
-    //public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
-    //    packetByteBuf.writeBlockPos(this.pos);
-    //}
+    @Override
+    public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
+        packetByteBuf.writeBlockPos(this.pos);
+    }
 }

@@ -2,19 +2,16 @@ package com.github.teddyxlandlee.sweet_potato.screen;
 
 import com.github.teddyxlandlee.annotation.Unused_InsteadOf;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
-import com.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import com.github.teddyxlandlee.sweet_potato.util.GrindingResultSlot;
 import com.github.teddyxlandlee.sweet_potato.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
@@ -41,7 +38,7 @@ public class GrinderScreenHandler extends AbstractScreenHandler {
         //this.inventory = inventory;
         checkDataCount(propertyDelegate, 3);
         this.addSlot(new Slot(this.inventory, 0, 40, 35), RenderType.DEFAULT_SLOT);
-        this.addSlot(new GrindingResultSlot(player, this.inventory, 1, 116, 35), RenderType.DEFAULT_SLOT);
+        this.addSlot(new GrindingResultSlot(this.player, this.inventory, 1, 116, 35), RenderType.DEFAULT_SLOT);
 
         // Player Inventory
         /*int k;
@@ -119,9 +116,9 @@ public class GrinderScreenHandler extends AbstractScreenHandler {
     }
 
     @Environment(EnvType.CLIENT)
-    @Deprecated
+    //@Deprecated
     public int simpleGrindProgress() {
-        return this.propertyDelegate.get(0);
+        return this.propertyDelegate.get(0) >> 1;
     }
 
     public int getIngredientData() {
