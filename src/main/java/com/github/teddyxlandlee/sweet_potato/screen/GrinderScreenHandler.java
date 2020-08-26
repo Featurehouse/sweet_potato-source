@@ -1,6 +1,7 @@
 package com.github.teddyxlandlee.sweet_potato.screen;
 
 import com.github.teddyxlandlee.annotation.Unused_InsteadOf;
+import com.github.teddyxlandlee.debug.Debug;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
 import com.github.teddyxlandlee.sweet_potato.util.GrindingResultSlot;
 import com.github.teddyxlandlee.sweet_potato.util.Util;
@@ -26,8 +27,10 @@ public class GrinderScreenHandler extends AbstractScreenHandler {
     public GrinderScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
         super(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, new SimpleInventory(2), buf);
         this.player = playerInventory.player;
-        if (this.e instanceof Inventory)
+        if (this.e instanceof Inventory) {
             this.inventory = (Inventory) this.e;
+            Debug.debug(this, "this.inventory.size(): " + this.inventory.size());
+        }
     }
 
     public GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {
@@ -52,6 +55,7 @@ public class GrinderScreenHandler extends AbstractScreenHandler {
             this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 142));
         }*/
         this.addPlayerInv(8, 84);
+        Debug.debug(this, "Successfully create player inventory");
 
         this.addProperties(propertyDelegate);
     }

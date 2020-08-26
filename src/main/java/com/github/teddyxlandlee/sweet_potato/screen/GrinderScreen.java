@@ -1,6 +1,8 @@
 package com.github.teddyxlandlee.sweet_potato.screen;
 
 import bilibili.ywsuoyi.gui.screen;
+import com.github.teddyxlandlee.debug.Debug;
+import com.github.teddyxlandlee.debug.PartType;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
 import com.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -17,6 +19,9 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
     private static final Identifier BACKGROUND_TEXTURE = new Identifier(ExampleMod.MODID, "textures/gui/container/grinder.png");
+
+    @com.github.teddyxlandlee.annotation.Debug
+    private final boolean[] doDebug = new boolean[2];
 
     public GrinderScreen(GrinderScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -43,6 +48,8 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
                 "container.grinding.ingredientData",
                  this.handler.getIngredientData()),
                 8.0f, 59.0f, 0);
+        if (doDebug[0]) Debug.debug(this.getClass(), PartType.METHOD, "drawForeground",
+                "Successfully finish foreground"); this.doDebug[0] = false;
     }
 
     @Override
@@ -54,6 +61,8 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
         int l = this.handler.getGrindProgress();
         this.drawTexture(matrices, this.x + 79, this.y + 34, 176, 0, l+1, 16);
         //super.drawBackground(matrices, delta, mouseX, mouseY);
+        if (doDebug[1]) Debug.debug(this.getClass(), PartType.METHOD, "drawBackground",
+                "Successfully finish background"); this.doDebug[1] = false;
     }
 
     @Override
@@ -65,8 +74,12 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
     @Deprecated
     public int getBlockEntityVar(int i, BlockEntity blockEntity) {
         if (blockEntity instanceof GrinderBlockEntity) {
-            return ((GrinderBlockEntity) blockEntity).propertyDelegate.get(0) >> 1;
+            final int result = ((GrinderBlockEntity) blockEntity).propertyDelegate.get(0) >> 1;
+            Debug.debug(this.getClass(), PartType.METHOD, "getBlockEntityVar",
+                    "i = " + i + ", result = " + result);
+            return result;
         }
+
         return 0;
     }
 }
