@@ -3,11 +3,12 @@ package com.github.teddyxlandlee.sweet_potato.blocks.entities;
 import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
 import com.github.teddyxlandlee.annotation.HardCoded;
 import com.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
+import com.github.teddyxlandlee.debug.Debug;
+import com.github.teddyxlandlee.debug.PartType;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
 import com.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import com.github.teddyxlandlee.sweet_potato.util.Util;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -28,7 +29,7 @@ import net.minecraft.util.math.MathHelper;
 import javax.annotation.Nullable;
 import java.util.Iterator;
 
-public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable, ExtendedScreenHandlerFactory {
+public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable /*ExtendedScreenHandlerFactory*/ {
     private int grindTime;
     private int grindTimeTotal;
     private int ingredientData;
@@ -128,6 +129,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         //return new GrinderScreenHandler(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this.propertyDelegate);
+        Debug.debug(this.getClass(), PartType.METHOD, "createScreenHandler", "Creating Screen Handler");
         return new GrinderScreenHandler(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this, this.propertyDelegate);
     }
 

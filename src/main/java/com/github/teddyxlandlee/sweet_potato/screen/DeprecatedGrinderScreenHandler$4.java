@@ -1,9 +1,8 @@
 package com.github.teddyxlandlee.sweet_potato.screen;
 
-import com.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
+import com.github.teddyxlandlee.annotation.Unused_InsteadOf;
 import com.github.teddyxlandlee.debug.Debug;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
-import com.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import com.github.teddyxlandlee.sweet_potato.util.GrindingResultSlot;
 import com.github.teddyxlandlee.sweet_potato.util.Util;
 import net.fabricmc.api.EnvType;
@@ -14,53 +13,39 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class GrinderScreenHandler extends ScreenHandler {
-    private final Inventory inventory;
-    private PropertyDelegate propertyDelegate;
-    protected final World world;
+@Deprecated
+public class DeprecatedGrinderScreenHandler$4 extends AbstractScreenHandler {
+    //protected final Inventory inventory;
+    //protected final PropertyDelegate propertyDelegate = new ArrayPropertyDelegate(2);
+    protected final PlayerEntity player;
 
-    protected GrinderBlockEntity blockEntity;
-
-    protected GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory) {
-        this(type, syncId, playerInventory, new SimpleInventory(2), new ArrayPropertyDelegate(3));
+    public DeprecatedGrinderScreenHandler$4(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
+        super(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, new SimpleInventory(2), buf);
+        this.player = playerInventory.player;
+        if (this.e instanceof Inventory) {
+            this.inventory = (Inventory) this.e;
+            Debug.debug(this, "this.inventory.size(): " + this.inventory.size());
+        }
     }
 
-    public GrinderScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {
-        super(type, syncId);
-        checkSize(inventory, 2);
-        checkDataCount(propertyDelegate, 3);
-        this.inventory = inventory;
+    public DeprecatedGrinderScreenHandler$4(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {
+        super(type, syncId, playerInventory, inventory);
+
+        this.player = playerInventory.player;
         this.propertyDelegate = propertyDelegate;
-        this.world = playerInventory.player.world;
-        this.addSlot(new Slot(inventory, 0, 40, 35));
-        this.addSlot(new GrindingResultSlot(playerInventory.player, inventory, 1, 116, 35));
+        //this.inventory = inventory;
+        checkDataCount(propertyDelegate, 3);
+        this.addSlot(new Slot(this.inventory, 0, 40, 35), RenderType.DEFAULT_SLOT);
+        this.addSlot(new GrindingResultSlot(this.player, this.inventory, 1, 116, 35), RenderType.DEFAULT_SLOT);
 
-        this.createPlayerInventory(playerInventory);
-
-        this.addProperties(propertyDelegate);
-
-        Debug.debug(this, "Successfully created Grinder Screen Handler by Block Entity");
-    }
-
-    public GrinderScreenHandler(int i, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
-        this(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory);
-        this.blockEntity = (GrinderBlockEntity) this.world.getBlockEntity(packetByteBuf.readBlockPos());
-        assert this.blockEntity != null;
-        this.propertyDelegate = this.blockEntity.propertyDelegate;
-    }
-
-    @NonMinecraftNorFabric
-    private void createPlayerInventory(PlayerInventory playerInventory) {
-        int k;
+        // Player Inventory
+        /*int k;
         for(k = 0; k < 3; ++k) {
             for(int j = 0; j < 9; ++j) {
                 this.addSlot(new Slot(playerInventory, j + k * 9 + 9, 8 + j * 18, 84 + k * 18));
@@ -69,12 +54,26 @@ public class GrinderScreenHandler extends ScreenHandler {
 
         for(k = 0; k < 9; ++k) {
             this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 142));
+        }*/
+        this.addPlayerInv(8, 84);
+        Debug.debug(this, "Successfully create player inventory");
+
+        this.addProperties(propertyDelegate);
+    }
+
+    @Unused_InsteadOf @Deprecated
+    protected static void checkSize(Inventory inventory, int expectedSize) {
+        int i = inventory.size();
+        if (i < expectedSize) {
+            throw new IllegalArgumentException("Container size " + i + " is smaller than expected " + expectedSize);
         }
     }
 
-    @Override
-    public boolean canUse(PlayerEntity player) {
-        return this.inventory.canPlayerUse(player);
+    protected static void checkDataCount(PropertyDelegate data, int expectedCount) {
+        int i = data.size();
+        if (i < expectedCount) {
+            throw new IllegalArgumentException("Container data count " + i + " is smaller than expected " + expectedCount);
+        }
     }
 
     @Override
@@ -119,6 +118,12 @@ public class GrinderScreenHandler extends ScreenHandler {
         int grindTime = this.propertyDelegate.get(0);
         int grindTimeTotal = this.propertyDelegate.get(1);
         return grindTimeTotal != 0 && grindTime != 0 ? grindTime * 22 / grindTimeTotal : 0;
+    }
+
+    @Environment(EnvType.CLIENT)
+    //@Deprecated
+    public int simpleGrindProgress() {
+        return this.propertyDelegate.get(0) >> 1;
     }
 
     public int getIngredientData() {

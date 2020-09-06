@@ -35,12 +35,7 @@ public class GrinderBlock extends BlockWithEntity {
         if (!world.isClient()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof GrinderBlockEntity) {
-                Debug.debug(this.getClass(), PartType.METHOD, "onUse",
-                        "The block entity IS grinder's");
-
                 player.openHandledScreen((GrinderBlockEntity) blockEntity);
-                Debug.debug(this.getClass(), PartType.METHOD, "onUse",
-                        "Successfully opened handled screen");
             }
 
             return ActionResult.CONSUME;

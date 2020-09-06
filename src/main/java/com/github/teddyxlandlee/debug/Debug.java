@@ -1,13 +1,13 @@
 package com.github.teddyxlandlee.debug;
 
 import net.minecraft.text.StringRenderable;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-public class Debug {
-    private static final Logger logger = LogManager.getLogger();
+public final class Debug {
+    //private static final Logger logger = LogManager.getLogger();
     private static final String prefix = "--- Debug Message from Sweet Potato Mod ---\n";
     private static final String suffix = "\n--------------------END--------------------\n";
+
+    private Debug() {}
 
     public static void debug(Class<?> cls, String text) {
         String full = prefix + "From Class %s\nDetail: %s" + suffix;

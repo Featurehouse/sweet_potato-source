@@ -1,6 +1,5 @@
 package com.github.teddyxlandlee.sweet_potato.screen;
 
-import bilibili.ywsuoyi.gui.screen;
 import com.github.teddyxlandlee.debug.Debug;
 import com.github.teddyxlandlee.debug.PartType;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
@@ -25,6 +24,8 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
 
     public GrinderScreen(GrinderScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
+        /** @debug */
+        doDebug[0] = true; doDebug[1] = true;
     }
 
     /*@Override
