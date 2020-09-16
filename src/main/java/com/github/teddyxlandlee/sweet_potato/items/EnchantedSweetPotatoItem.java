@@ -9,7 +9,7 @@ import net.minecraft.item.FoodComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class EnchantedPotatoItem extends EnchantedItem {
+public class EnchantedSweetPotatoItem extends EnchantedItem {
 
     @Override
     public boolean isFood() {
@@ -22,7 +22,7 @@ public class EnchantedPotatoItem extends EnchantedItem {
                         .statusEffect(calcEffect(), 1.0f)
                         .build();
 
-    public EnchantedPotatoItem(Settings settings) {
+    public EnchantedSweetPotatoItem(Settings settings) {
         super(settings);
     }
 

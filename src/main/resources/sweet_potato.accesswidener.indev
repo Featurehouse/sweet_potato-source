@@ -1,0 +1,3 @@
+accessWidener v1 named
+accessible field net/minecraft/entity/passive/PigEntity BREEDING_INGREDIENT
+mutable field net/minecraft/entity/passive/PigEntity BREEDING_INGREDIENT

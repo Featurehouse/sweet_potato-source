@@ -49,34 +49,9 @@ public final class Util {
         return GrinderBlockEntity.INGREDIENT_DATA_MAP.containsKey(item);
     }
 
-    public static final class BlockSettings {
-        public static final FabricBlockSettings GRASS_LIKE;
 
-        private BlockSettings() {}
 
-        @Deprecated
-        public static FabricBlockSettings create(AbstractBlock.Settings settings) {
-            return (FabricBlockSettings)settings;
-        }
 
-        static {
-            GRASS_LIKE = FabricBlockSettings.of(ExampleMod.MATERIAL_PLANT) // Wanted: move MATERIAL_PLANT to Util
-                    .noCollision()
-                    .ticksRandomly()
-                    .breakInstantly()
-                    .sounds(BlockSoundGroup.CROP);
-        }
-    }
 
-    public static final class ItemSettings {
-        public static final Item.Settings UNCDEC;
 
-        private ItemSettings() {}
-
-        static {
-            UNCDEC = new Item.Settings()
-                    .group(ItemGroup.DECORATIONS)
-                    .rarity(Rarity.UNCOMMON);
-        }
-    }
 }

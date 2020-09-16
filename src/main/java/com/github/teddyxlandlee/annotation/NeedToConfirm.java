@@ -1,4 +1,4 @@
 package com.github.teddyxlandlee.annotation;
 
-public @interface Debug {
+public @interface NeedToConfirm {
 }

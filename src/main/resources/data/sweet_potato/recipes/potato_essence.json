@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "sweet_potato:potato_powder"
-  },
-  "result": "sweet_potato:potato_essence",
-  "experience": 0.6,
-  "cookingtime": 200
-}

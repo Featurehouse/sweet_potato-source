@@ -1,5 +1,6 @@
 package com.github.teddyxlandlee.sweet_potato.screen;
 
+import com.github.teddyxlandlee.annotation.InDebugUse;
 import com.github.teddyxlandlee.debug.Debug;
 import com.github.teddyxlandlee.debug.PartType;
 import com.github.teddyxlandlee.sweet_potato.ExampleMod;
@@ -19,7 +20,7 @@ import net.minecraft.util.Identifier;
 public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
     private static final Identifier BACKGROUND_TEXTURE = new Identifier(ExampleMod.MODID, "textures/gui/container/grinder.png");
 
-    @com.github.teddyxlandlee.annotation.Debug
+    @InDebugUse
     private final boolean[] doDebug = new boolean[2];
 
     public GrinderScreen(GrinderScreenHandler handler, PlayerInventory inventory, Text title) {

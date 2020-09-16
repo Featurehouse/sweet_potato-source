@@ -4,7 +4,7 @@
     "item": "minecraft:dark_oak_sapling"
   },
   "addition": {
-    "item": "sweet_potato:potato_essence"
+    "item": "sweet_potato:potato_powder"
   },
   "result": {
     "item": "sweet_potato:enchanted_dark_oak_sapling"

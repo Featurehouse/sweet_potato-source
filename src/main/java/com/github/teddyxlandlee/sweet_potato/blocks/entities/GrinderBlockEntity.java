@@ -2,6 +2,7 @@ package com.github.teddyxlandlee.sweet_potato.blocks.entities;
 
 import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
 import com.github.teddyxlandlee.annotation.HardCoded;
+import com.github.teddyxlandlee.annotation.NeedToConfirm;
 import com.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import com.github.teddyxlandlee.debug.Debug;
 import com.github.teddyxlandlee.debug.PartType;
@@ -29,6 +30,10 @@ import net.minecraft.util.math.MathHelper;
 import javax.annotation.Nullable;
 import java.util.Iterator;
 
+/**
+ * <h2>Why canceling implementing ExtendedScreenHandlerFactory?</h2>
+ * <p>Because it is already implemented in AbstractLockableContainerBlockEntity!</p>
+ */
 public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable /*ExtendedScreenHandlerFactory*/ {
     private int grindTime;
     private int grindTimeTotal;
@@ -36,6 +41,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     private byte absorbCooldown;
     private static final byte MAX_COOLDOWN = 5;
+    @Deprecated
     private boolean addTimeWhenFinished = true;
 
     public static final Object2IntOpenHashMap<ItemConvertible> INGREDIENT_DATA_MAP = new Object2IntOpenHashMap<>();
@@ -88,6 +94,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         Util.registerGrindableItems(1, ExampleMod.RAW_SWEET_POTATOES);
         Util.registerGrindableItem(3, ExampleMod.ENCHANTED_SWEET_POTATO);
         this.absorbCooldown = -1;
+        this.grindTime = -1;
     }
 
     @Override
@@ -259,8 +266,8 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         }
     }
 
-    @Override
-    public void tick() {
+    @Deprecated
+    public void deprecatedTick$3() {
         boolean canMarkDirty = false;
         assert this.world != null;
         if (!this.world.isClient) {
@@ -301,8 +308,53 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         }
     }
 
+    @Override
+    @NeedToConfirm
+    public void tick() {
+        assert this.world != null;
+        boolean shallMarkDirty = false;
+        if (!world.isClient) {
+            // Grind Process
+            if (this.grindTime == this.grindTimeTotal && this.canAcceptRecipeOutput()) {
+                // Shall End Grinding
+                this.grindTime = -1;
+                this.grindTimeTotal = this.getGrindTime();
+                this.craftRecipe();
+                shallMarkDirty = true;
+            } else if (!this.canAcceptRecipeOutput() && this.isGrinding()) {
+                this.grindTime = MathHelper.clamp(grindTime - 2, 0, grindTimeTotal);
+                shallMarkDirty = true;
+            } else if (this.grindTime >= 0 && this.canAcceptRecipeOutput()) {
+                ++this.grindTime;
+                shallMarkDirty = true;
+            }
+
+            // Cooldown
+            if (shallCooldown())
+                --this.absorbCooldown;
+            else if (Util.grindable(this.inventory.get(0))) {
+                shallMarkDirty = true;
+                final Item ingredient = this.inventory.get(0).getItem();
+                this.inventory.get(0).decrement(1);
+                this.ingredientData += INGREDIENT_DATA_MAP.getInt(ingredient);
+                this.absorbCooldown = MAX_COOLDOWN - 1;
+                this.grindTime = 0;
+            }
+
+            // IngredientData Checking
+            if (this.ingredientData >= 9 && this.grindTime < 0 /*Usually -1*/) {
+                this.ingredientData -= 9;
+                this.grindTime = 0;
+                shallMarkDirty = true;
+            }
+        }
+
+        if (shallMarkDirty)
+            markDirty();
+    }
+
     private boolean shallCooldown() {
-        return absorbCooldown > 0;
+        return this.absorbCooldown > 0;
     }
 
     @Deprecated
@@ -319,13 +371,22 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @HardCoded
     private void craftRecipe() {
-        if (this.canAcceptRecipeOutput()) {
+        this.craftRecipe(false);
+    }
+
+    @HardCoded
+    private void craftRecipe(boolean checkIfCanOutput) {
+        this.craftRecipe(new ItemStack(ExampleMod.POTATO_POWDER), checkIfCanOutput);
+    }
+
+    @HardCoded
+    private void craftRecipe(ItemStack shallOutput, boolean checkIfCanOutput) {
+        if (this.canAcceptRecipeOutput(shallOutput.getItem()) || !checkIfCanOutput) {
             //ItemStack input = this.inventory.get(0);
-            ItemStack SHALL_OUTPUT = new ItemStack(ExampleMod.POTATO_POWDER);
             ItemStack invOutput = this.inventory.get(1);
 
-            if (invOutput.isEmpty())
-                this.inventory.set(1, SHALL_OUTPUT.copy());
+            if (!invOutput.isItemEqualIgnoreDamage(shallOutput))
+                this.inventory.set(1, shallOutput.copy());
             else if (invOutput.getItem() == ExampleMod.POTATO_POWDER)
                 invOutput.increment(1);
 
@@ -355,19 +416,28 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @HardCoded
     protected boolean canAcceptRecipeOutput() {
-        if (!this.inventory.get(0).isEmpty()) {
-            ItemStack shallBeOutput = new ItemStack(ExampleMod.POTATO_POWDER);
-            ItemStack outInv = this.inventory.get(1);
-            if (outInv.isEmpty())
-                return true;
-            if (!outInv.isItemEqualIgnoreDamage(shallBeOutput))
-                return false;
-            if (outInv.getCount() < this.getMaxCountPerStack() && outInv.getCount() < outInv.getMaxCount())
-                return true;
-            return outInv.getCount() < shallBeOutput.getMaxCount();
-        } else {
+        return canAcceptRecipeOutput(ExampleMod.POTATO_POWDER);
+    }
+
+    /**
+     * <p>In the past, Grinder should check the first slot
+     * (input slot) if it is non-null.<sup>[More info needed]
+     * </sup>&nbsp;Now we've found it is a nonsense.
+     * <s>Actually, it's a feature.</s></p>
+     *
+     * @since beta 1.0.0
+     */
+    @HardCoded
+    protected boolean canAcceptRecipeOutput(ItemConvertible item) {
+        //ItemStack shallBeOutput = new ItemStack(ExampleMod.POTATO_POWDER);
+        ItemStack outInv = this.inventory.get(1);
+        if (outInv.isEmpty())
+            return true;
+        if (!outInv.isItemEqualIgnoreDamage(new ItemStack(item.asItem())))
             return false;
-        }
+        if (outInv.getCount() < this.getMaxCountPerStack() && outInv.getCount() < outInv.getMaxCount())
+            return true;
+        return outInv.getCount() < item.asItem().getMaxCount();
     }
 
     @NonMinecraftNorFabric

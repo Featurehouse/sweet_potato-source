@@ -26,6 +26,10 @@ dependencies {
 	modImplementation "libs:ywlib-1.0.4-dev"
 }
 
+minecraft {
+	//accessWidener "src/main/resources/sweet_potato.accesswidener"
+}
+
 processResources {
 	inputs.property "version", project.version
 
