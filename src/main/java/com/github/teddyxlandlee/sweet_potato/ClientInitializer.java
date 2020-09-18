@@ -32,5 +32,12 @@ public class ClientInitializer implements ClientModInitializer {
                 ExampleMod.ENCHANTED_DARK_OAK_SAPLING, ExampleMod.ENCHANTED_OAK_SAPLING,
                 ExampleMod.ENCHANTED_JUNGLE_SAPLING, ExampleMod.ENCHANTED_SPRUCE_SAPLING);
         BlockRenderLayerMap.INSTANCE.putBlock(ExampleMod.GRINDER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
+                ExampleMod.POTTED_ENCHANTED_ACACIA_SAPLING,
+                ExampleMod.POTTED_ENCHANTED_BIRCH_SAPLING,
+                ExampleMod.POTTED_ENCHANTED_DARK_OAK_SAPLING,
+                ExampleMod.POTTED_ENCHANTED_JUNGLE_SAPLING,
+                ExampleMod.POTTED_ENCHANTED_OAK_SAPLING,
+                ExampleMod.POTTED_ENCHANTED_SPRUCE_SAPLING);
     }
 }

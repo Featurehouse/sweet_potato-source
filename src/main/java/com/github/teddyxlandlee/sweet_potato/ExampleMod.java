@@ -27,16 +27,11 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
-import net.minecraft.block.MaterialColor;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.sapling.*;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.FoodComponents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.*;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -71,7 +66,7 @@ public class ExampleMod implements ModInitializer {
 
 	// Items
 	public static final Item PEEL;
-	public static final Item BAKED_PEEL;
+	//public static final Item BAKED_PEEL;
 
 		// Baked Potatoes
 	public static final Item BAKED_PURPLE_POTATO;
@@ -110,6 +105,22 @@ public class ExampleMod implements ModInitializer {
 	public static final Block ENCHANTED_ACACIA_SAPLING;
 	public static final Block ENCHANTED_DARK_OAK_SAPLING;
 
+		// Potted Saplings
+	public static final Block POTTED_ENCHANTED_SPRUCE_SAPLING;
+	public static final Block POTTED_ENCHANTED_BIRCH_SAPLING;
+	public static final Block POTTED_ENCHANTED_JUNGLE_SAPLING;
+	public static final Block POTTED_ENCHANTED_ACACIA_SAPLING;
+	public static final Block POTTED_ENCHANTED_OAK_SAPLING;
+	public static final Block POTTED_ENCHANTED_DARK_OAK_SAPLING;
+
+		// Enchanted Leaves
+	public static final Block ENCHANTED_OAK_LEAVES;
+	public static final Block ENCHANTED_ACACIA_LEAVES;
+	public static final Block ENCHANTED_BIRCH_LEAVES;
+	public static final Block ENCHANTED_DARK_OAK_LEAVES;
+	public static final Block ENCHANTED_JUNGLE_LEAVES;
+	public static final Block ENCHANTED_SPRUCE_LEAVES;
+
 	// Block Items
 	public static final Item MAGIC_CUBE_ITEM;
 	public static final Item GRINDER_ITEM;
@@ -124,6 +135,12 @@ public class ExampleMod implements ModInitializer {
 	public static final Item ENCHANTED_BEETROOT_SEEDS;
 	public static final Item ENCHANTED_VANILLA_POTATO_ITEM;
 	public static final Item ENCHANTED_CARROT_ITEM;
+	public static final Item ENCHANTED_OAK_LEAVES_ITEM;
+	public static final Item ENCHANTED_ACACIA_LEAVES_ITEM;
+	public static final Item ENCHANTED_BIRCH_LEAVES_ITEM;
+	public static final Item ENCHANTED_DARK_OAK_LEAVES_ITEM;
+	public static final Item ENCHANTED_JUNGLE_LEAVES_ITEM;
+	public static final Item ENCHANTED_SPRUCE_LEAVES_ITEM;
 
 
 	// -*- -*- MISC -*- -*- //
@@ -185,8 +202,17 @@ public class ExampleMod implements ModInitializer {
 		Util.registerCompostableItem(0.85f, BAKED_PURPLE_POTATO);
 		Util.registerCompostableItem(0.85f, BAKED_RED_POTATO);
 		Util.registerCompostableItem(0.85f, BAKED_WHITE_POTATO);
-		Util.registerCompostableItem(0.5f, BAKED_PEEL);
+		//Util.registerCompostableItem(0.5f, BAKED_PEEL);
 		Util.registerCompostableItem(1.0f/*0.65f*/, ENCHANTED_SWEET_POTATO);	// Peter says it'd be 0.65f instead.
+		Util.registerCompostableItem(0.3f, ENCHANTED_OAK_SAPLING_ITEM);
+		Util.registerCompostableItem(0.3f, ENCHANTED_SPRUCE_SAPLING_ITEM);
+		Util.registerCompostableItem(0.3f, ENCHANTED_BIRCH_SAPLING_ITEM);
+		Util.registerCompostableItem(0.3f, ENCHANTED_JUNGLE_SAPLING_ITEM);
+		Util.registerCompostableItem(0.3f, ENCHANTED_ACACIA_SAPLING_ITEM);
+		Util.registerCompostableItem(0.3f, ENCHANTED_DARK_OAK_SAPLING_ITEM);
+
+		// Fuel
+		//Util.registerFurnaceFuel(null, Items.AIR, -1);
 	}
 
 	static {
@@ -195,10 +221,10 @@ public class ExampleMod implements ModInitializer {
 				.group(ItemGroup.MISC)
 				.maxCount(64)
 		));
-		BAKED_PEEL = Registry.register(Registry.ITEM, new Identifier(MODID, "baked_peel"), new Item(new Item.Settings()
-				.group(ItemGroup.MISC)
-				.maxCount(64)
-		));
+		//BAKED_PEEL = Registry.register(Registry.ITEM, new Identifier(MODID, "baked_peel"), new Item(new Item.Settings()
+		//		.group(ItemGroup.MISC)
+		//		.maxCount(64)
+		//));
 		BAKED_PURPLE_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "baked_purple_potato"
 		), new BakedSweetPotatoItem(new Item.Settings()
@@ -297,6 +323,42 @@ public class ExampleMod implements ModInitializer {
 		ENCHANTED_DARK_OAK_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_dark_oak_sapling"
 		), new EnchantedSaplings(new DarkOakSaplingGenerator(), BlockSettings.GRASS_LIKE));
+		POTTED_ENCHANTED_OAK_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
+				MODID, "potted_enchanted_oak_sapling"
+		), new FlowerPotBlock(ENCHANTED_OAK_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED)));
+		POTTED_ENCHANTED_SPRUCE_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
+				MODID, "potted_enchanted_spruce_sapling"
+		), new FlowerPotBlock(ENCHANTED_SPRUCE_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED)));
+		POTTED_ENCHANTED_BIRCH_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
+				MODID, "potted_enchanted_birch_sapling"
+		), new FlowerPotBlock(ENCHANTED_BIRCH_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED)));
+		POTTED_ENCHANTED_JUNGLE_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
+				MODID, "potted_enchanted_jungle_sapling"
+		), new FlowerPotBlock(ENCHANTED_JUNGLE_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED)));
+		POTTED_ENCHANTED_ACACIA_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
+				MODID, "potted_enchanted_acacia_sapling"
+		), new FlowerPotBlock(ENCHANTED_ACACIA_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED)));
+		POTTED_ENCHANTED_DARK_OAK_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
+				MODID, "potted_enchanted_dark_oak_sapling"
+		), new FlowerPotBlock(ENCHANTED_DARK_OAK_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED)));
+		ENCHANTED_ACACIA_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
+				MODID, "enchanted_acacia_leaves"
+		), Util.createLeavesBlock());
+		ENCHANTED_BIRCH_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
+				MODID, "enchanted_birch_leaves"
+		), Util.createLeavesBlock());
+		ENCHANTED_DARK_OAK_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
+				MODID, "enchanted_dark_oak_leaves"
+		), Util.createLeavesBlock());
+		ENCHANTED_OAK_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
+				MODID, "enchanted_oak_leaves"
+		), Util.createLeavesBlock());
+		ENCHANTED_JUNGLE_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
+				MODID, "enchanted_jungle_leaves"
+		), Util.createLeavesBlock());
+		ENCHANTED_SPRUCE_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
+				MODID, "enchanted_spruce_leaves"
+		), Util.createLeavesBlock());
 
 		// Block Items
 		PURPLE_POTATO = Registry.register(Registry.ITEM, new Identifier(
@@ -345,6 +407,42 @@ public class ExampleMod implements ModInitializer {
 				.group(ItemGroup.MISC)	// Need to confirm, too
 				.maxCount(64)
 				.food(FoodComponents.CARROT)
+		));
+		ENCHANTED_ACACIA_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
+				MODID, "enchanted_acacia_leaves"
+		), new EnchantedBlockItem(ENCHANTED_ACACIA_LEAVES, new Item.Settings()
+				//.group(null)
+				.maxCount(64)
+		));
+		ENCHANTED_BIRCH_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
+				MODID, "enchanted_birch_leaves"
+		), new EnchantedBlockItem(ENCHANTED_BIRCH_LEAVES, new Item.Settings()
+				//.group(null)
+				.maxCount(64)
+		));
+		ENCHANTED_DARK_OAK_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
+				MODID, "enchanted_dark_oak_leaves"
+		), new EnchantedBlockItem(ENCHANTED_DARK_OAK_LEAVES, new Item.Settings()
+				//.group(null)
+				.maxCount(64)
+		));
+		ENCHANTED_JUNGLE_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
+				MODID, "enchanted_jungle_leaves"
+		), new EnchantedBlockItem(ENCHANTED_JUNGLE_LEAVES, new Item.Settings()
+				//.group(null)
+				.maxCount(64)
+		));
+		ENCHANTED_OAK_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
+				MODID, "enchanted_oak_leaves"
+		), new EnchantedBlockItem(ENCHANTED_OAK_LEAVES, new Item.Settings()
+				//.group(null)
+				.maxCount(64)
+		));
+		ENCHANTED_SPRUCE_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
+				MODID, "enchanted_spruce_leaves"
+		), new EnchantedBlockItem(ENCHANTED_SPRUCE_LEAVES, new Item.Settings()
+				//.group(null)
+				.maxCount(64)
 		));
 
 			// Functional Blocks' Items

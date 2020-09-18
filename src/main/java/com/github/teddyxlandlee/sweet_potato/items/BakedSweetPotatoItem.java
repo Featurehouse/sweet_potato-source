@@ -24,7 +24,7 @@ public class BakedSweetPotatoItem extends SweetPotatoItem {
         super.finishUsing(stack, world, user);
         if (user instanceof PlayerEntity && !((PlayerEntity) user).abilities.creativeMode) {
             PlayerEntity playerEntity = (PlayerEntity)user;
-            playerEntity.inventory.insertStack(new ItemStack(ExampleMod.BAKED_PEEL, 1));
+            playerEntity.inventory.insertStack(new ItemStack(ExampleMod.PEEL, 1));
         }
 
         //if (!(user instanceof PlayerEntity && ((PlayerEntity)user).abilities.creativeMode))
