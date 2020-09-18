@@ -54,13 +54,13 @@ public final class Util {
         return false;
     }
 
-    public static LeavesBlock createLeavesBlock() {
-        return new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES).
-                strength(0.2F).
-                ticksRandomly().
-                sounds(BlockSoundGroup.GRASS).
-                nonOpaque().
-                allowsSpawning(Util::canSpawnOnLeaves)
+    public static LeavesBlock createEnchantedLeavesBlock() {
+        return new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES)
+                .strength(0.2F)
+                .ticksRandomly()
+                .sounds(BlockSoundGroup.GRASS)
+                .nonOpaque()
+                .allowsSpawning(Util::canSpawnOnLeaves)
                 .suffocates(Util::never)
                 .blockVision(Util::never)
         );

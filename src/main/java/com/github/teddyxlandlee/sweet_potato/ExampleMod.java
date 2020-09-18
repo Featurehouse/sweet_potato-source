@@ -210,6 +210,12 @@ public class ExampleMod implements ModInitializer {
 		Util.registerCompostableItem(0.3f, ENCHANTED_JUNGLE_SAPLING_ITEM);
 		Util.registerCompostableItem(0.3f, ENCHANTED_ACACIA_SAPLING_ITEM);
 		Util.registerCompostableItem(0.3f, ENCHANTED_DARK_OAK_SAPLING_ITEM);
+		Util.registerCompostableItem(0.3f, ENCHANTED_ACACIA_LEAVES_ITEM);
+		Util.registerCompostableItem(0.3f, ENCHANTED_BIRCH_LEAVES_ITEM);
+		Util.registerCompostableItem(0.3f, ENCHANTED_DARK_OAK_LEAVES_ITEM);
+		Util.registerCompostableItem(0.3f, ENCHANTED_JUNGLE_LEAVES_ITEM);
+		Util.registerCompostableItem(0.3f, ENCHANTED_OAK_LEAVES_ITEM);
+		Util.registerCompostableItem(0.3f, ENCHANTED_SPRUCE_LEAVES_ITEM);
 
 		// Fuel
 		//Util.registerFurnaceFuel(null, Items.AIR, -1);
@@ -275,7 +281,7 @@ public class ExampleMod implements ModInitializer {
 				.resistance(6.0f)
 		));
 		SEED_UPDATER = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "seed_updater"
+				MODID, "agroforestry_table"
 		), new SeedUpdaterBlock(FabricBlockSettings
 				.of(MATERIAL_STONE)
 				.hardness(3.5f)
@@ -343,22 +349,22 @@ public class ExampleMod implements ModInitializer {
 		), new FlowerPotBlock(ENCHANTED_DARK_OAK_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED)));
 		ENCHANTED_ACACIA_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_acacia_leaves"
-		), Util.createLeavesBlock());
+		), Util.createEnchantedLeavesBlock());
 		ENCHANTED_BIRCH_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_birch_leaves"
-		), Util.createLeavesBlock());
+		), Util.createEnchantedLeavesBlock());
 		ENCHANTED_DARK_OAK_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_dark_oak_leaves"
-		), Util.createLeavesBlock());
+		), Util.createEnchantedLeavesBlock());
 		ENCHANTED_OAK_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_oak_leaves"
-		), Util.createLeavesBlock());
+		), Util.createEnchantedLeavesBlock());
 		ENCHANTED_JUNGLE_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_jungle_leaves"
-		), Util.createLeavesBlock());
+		), Util.createEnchantedLeavesBlock());
 		ENCHANTED_SPRUCE_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_spruce_leaves"
-		), Util.createLeavesBlock());
+		), Util.createEnchantedLeavesBlock());
 
 		// Block Items
 		PURPLE_POTATO = Registry.register(Registry.ITEM, new Identifier(
@@ -457,7 +463,7 @@ public class ExampleMod implements ModInitializer {
 				GRINDER, new Item.Settings().group(ItemGroup.DECORATIONS)
 		));
 		SEED_UPDATER_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "seed_updater"
+				MODID, "agroforestry_table"
 		), new BlockItem(
 				SEED_UPDATER, new Item.Settings().group(ItemGroup.DECORATIONS)
 		));

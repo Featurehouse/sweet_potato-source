@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "sweet_potato:seed_updater",
+          "name": "sweet_potato:agroforestry_table",
           "conditions": [
             {
               "condition": "minecraft:survives_explosion"
