@@ -10,6 +10,13 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+repositories {
+	maven {
+		name = "CottonMC"
+		url = "https://server.bbkr.space/artifactory/libs-release"
+	}
+}
+
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -24,6 +31,9 @@ dependencies {
 
 	// ywlib, an API mod, by 因为所以
 	modImplementation "libs:ywlib-1.0.4-dev"
+
+	// LibGui, a very good GUI lib.
+	modImplementation "io.github.cottonmc:LibGui:2.3.0+1.16.1"
 }
 
 minecraft {

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "A#A",
+    "BBB"
+  ],
+  "key": {
+    "A": {
+      "item": "sweet_potato:potato_powder"
+    },
+    "#": {
+      "item": "minecraft:gold_ingot"
+    },
+    "B": {
+      "tag": "sweet_potato:blackstones"
+    }
+  },
+  "result": {
+    "item": "sweet_potato:agroforestry_table"
+  }
+}

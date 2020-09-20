@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.github.teddyxlandlee.sweet_potato.mixin",
+  "package": "io.github.teddyxlandlee.sweet_potato.mixin",
   "mixins": [
   ],
   "client": [

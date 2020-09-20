@@ -30,10 +30,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.github.teddyxlandlee.sweet_potato.ExampleMod"
+      "io.github.teddyxlandlee.sweet_potato.ExampleMod"
     ],
     "client": [
-      "com.github.teddyxlandlee.sweet_potato.ClientInitializer"
+      "io.github.teddyxlandlee.sweet_potato.ClientInitializer"
     ]
   },
   "mixins": [

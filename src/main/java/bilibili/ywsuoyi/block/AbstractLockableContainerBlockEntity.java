@@ -5,7 +5,7 @@
 
 package bilibili.ywsuoyi.block;
 
-import com.github.teddyxlandlee.annotation.DeprecatedFrom;
+import io.github.teddyxlandlee.annotation.DeprecatedFrom;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
@@ -56,6 +56,7 @@ public abstract class AbstractLockableContainerBlockEntity extends LockableConta
         this.inventory = list;
     }
 
+    @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
         buf.writeBlockPos(this.pos);
     }
