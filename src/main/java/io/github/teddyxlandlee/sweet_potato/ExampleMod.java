@@ -52,6 +52,7 @@ public class ExampleMod implements ModInitializer {
 	}
 
 	public static final String MODID = "sweet_potato";
+	public static final SPMVersion MODVERSION = SPMVersion.BETA_1_0_0;
 
 	@Unused_InsteadOf @Deprecated
 	public static final String SEED_UPDATER_TRANSLATION_KEY = net.minecraft.util.Util.createTranslationKey("container", new Identifier(
