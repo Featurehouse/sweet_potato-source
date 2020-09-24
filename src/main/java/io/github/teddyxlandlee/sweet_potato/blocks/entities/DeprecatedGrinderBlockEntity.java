@@ -91,7 +91,7 @@ public class DeprecatedGrinderBlockEntity extends LockableContainerBlockEntity i
         //this.recipeType = recipeType;
 
         Util.registerGrindableItems(1, ExampleMod.RAW_SWEET_POTATOES);
-        Util.registerGrindableItem(3, ExampleMod.ENCHANTED_SWEET_POTATO);
+        //Util.registerGrindableItem(3, ExampleMod.ENCHANTED_SWEET_POTATO);
         this.absorbCooldown = -1;
     }
 
@@ -288,12 +288,15 @@ public class DeprecatedGrinderBlockEntity extends LockableContainerBlockEntity i
         return absorbCooldown > 0;
     }
 
+    /**
+     * <p>In case of the enchanted sweet potato is splited, this
+     * function should be deprecated completely.</p>*/
     @Deprecated
     private boolean canContinueGrinding(ItemStack input) {
-        if (!(input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES)) && input.getItem() != ExampleMod.ENCHANTED_SWEET_POTATO)
+        //if (!(input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES)) && input.getItem() != ExampleMod.ENCHANTED_SWEET_POTATO)
             //throw new UnsupportedOperationException("[GrinderBlockEntity]
             // A programmer tries to force non-grindable thing be grinded, which is unsupported");
-            return false;
+        //    return false;
         if (input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES))
             return input.getCount() >= 9;
         else

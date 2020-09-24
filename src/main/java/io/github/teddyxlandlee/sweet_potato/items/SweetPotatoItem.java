@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+@Deprecated
 public abstract class SweetPotatoItem extends Item {
     public boolean isFood() {
         return true;

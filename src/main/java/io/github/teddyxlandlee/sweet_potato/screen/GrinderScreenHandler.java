@@ -1,65 +1,89 @@
 package io.github.teddyxlandlee.sweet_potato.screen;
 
-import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
-import io.github.cottonmc.cotton.gui.widget.WGridPanel;
-import io.github.cottonmc.cotton.gui.widget.WItemSlot;
-import io.github.cottonmc.cotton.gui.widget.WPlayerInvPanel;
+import io.github.teddyxlandlee.annotation.DeprecatedFrom;
+import io.github.teddyxlandlee.annotation.InDebugUse;
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.debug.Debug;
+import io.github.teddyxlandlee.sweet_potato.ExampleMod;
 import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
+import io.github.teddyxlandlee.sweet_potato.util.DeprecatedGrindingResultSlot;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 
-public class GrinderScreenHandler extends SyncedGuiDescription {
-    //private final Inventory inventory;
-    //private PropertyDelegate propertyDelegate;
-    //protected final World world;
+public class GrinderScreenHandler extends ScreenHandler {
+    private final Inventory inventory;
+    private PropertyDelegate propertyDelegate;
+    protected final World world;
+    protected GrinderBlockEntity blockEntity;
 
-    public GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext ctx, PacketByteBuf buf) {
-        /* Need to test: this or super */
-        super(type, syncId, playerInventory, getBlockInventory(ctx, 2), null);
-        this.propertyDelegate = ((GrinderBlockEntity) (Objects.requireNonNull(this.world.getBlockEntity(buf.readBlockPos())))).getPropertyDelegate();
+    public GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory) {
+        this(type, syncId, playerInventory, new SimpleInventory(2), /*new ArrayPropertyDelegate(3)*/ null);
     }
 
     public GrinderScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {
-        super(type, syncId, playerInventory, inventory, propertyDelegate);
+        super(type, syncId);
         checkSize(inventory, 2);
+        if (propertyDelegate != null) {
+            checkDataCount(propertyDelegate, 3);
+        }
+        this.inventory = inventory;
+        if (propertyDelegate != null) {
+            this.propertyDelegate = propertyDelegate;
+        }
+        this.world = playerInventory.player.world;
+        this.addSlot(new Slot(inventory, 0, 40, 35));
+        this.addSlot(new DeprecatedGrindingResultSlot(playerInventory.player, inventory, 1, 116, 35));
 
-        WGridPanel root = (WGridPanel) this.getRootPanel();
+        this.createPlayerInventory(playerInventory);
 
-        //this.world = playerInventory.player.world;
-        root.add(WItemSlot.of(blockInventory, 0), 40, 35);
-        //this.addSlot(new Slot(inventory, 0, 40, 35));
-        //this.addSlot(new GrindingResultSlot(playerInventory.player, inventory, 1, 116, 35));
-        root.add(new WItemSlot(
-                inventory, 1, 1, 1, true
-            ).setInsertingAllowed(false), 116, 35);
-
-        root.add(new WPlayerInvPanel(playerInventory), 18, 84);
-        //this.createPlayerInventory(playerInventory);
-
-        //this.addProperties(propertyDelegate); // already added in super
+        this.addProperties(propertyDelegate);
 
         Debug.debug(this, "Successfully created Grinder Screen Handler by Block Entity");
     }
 
-    //@Override
-    //public boolean canUse(PlayerEntity player) {
-    //    return this.blockInventory.canPlayerUse(player);
-    //}
+    //@DeprecatedFrom(DeprecatedGrinderScreenHandler$4.class)
+    public GrinderScreenHandler(int i, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
+        this(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory);
+        @InDebugUse
+        BlockPos pos = packetByteBuf.readBlockPos();
+        this.blockEntity = (GrinderBlockEntity) this.world.getBlockEntity(packetByteBuf.readBlockPos());
+        assert this.blockEntity != null;
+        this.propertyDelegate = this.blockEntity.propertyDelegate;
+    }
+
+    @NonMinecraftNorFabric
+    private void createPlayerInventory(PlayerInventory playerInventory) {
+        int k;
+        for(k = 0; k < 3; ++k) {
+            for(int j = 0; j < 9; ++j) {
+                this.addSlot(new Slot(playerInventory, j + k * 9 + 9, 8 + j * 18, 84 + k * 18));
+            }
+        }
+
+        for(k = 0; k < 9; ++k) {
+            this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 142));
+        }
+    }
+
+    @Override
+    public boolean canUse(PlayerEntity player) {
+        return this.inventory.canPlayerUse(player);
+    }
 
     @Override
     public ItemStack transferSlot(PlayerEntity player, int index) {
@@ -99,14 +123,14 @@ public class GrinderScreenHandler extends SyncedGuiDescription {
     }
 
     @Environment(EnvType.CLIENT)
-    @NonMinecraftNorFabric
+    @Deprecated
     public int getGrindProgress() {
         int grindTime = this.propertyDelegate.get(0);
         int grindTimeTotal = this.propertyDelegate.get(1);
         return grindTimeTotal != 0 && grindTime != 0 ? grindTime * 22 / grindTimeTotal : 0;
     }
 
-    @NonMinecraftNorFabric
+    @Deprecated
     public int getIngredientData() {
         return this.propertyDelegate.get(2);
     }

@@ -1,22 +1,25 @@
 package io.github.teddyxlandlee.sweet_potato.items;
 
 import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SweetPotatoStatus;
+import io.github.teddyxlandlee.sweet_potato.SweetPotatoType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.FoodComponent;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class BakedSweetPotatoItem extends SweetPotatoItem {
+import java.util.Objects;
 
-    public BakedSweetPotatoItem(Settings settings) {
-        super(settings);
+public class BakedSweetPotatoItem extends Item implements WithStatus {
+
+    private final SweetPotatoType sweetPotatoType;
+
+    public BakedSweetPotatoItem(Settings settings, SweetPotatoType type) {
+        super(settings.food(Objects.requireNonNull(type.getComponent(SweetPotatoStatus.BAKED)).asFoodComponent()));
+        this.sweetPotatoType = type;
     }
-
-    public static final FoodComponent COMPONENT = new FoodComponent.Builder()
-            .hunger(6)
-            .saturationModifier(7.6f)
-            .build();
 
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         //(PlayerEntity)user.inventory.insertStack(new ItemStack(ExampleMod.PEEL));
@@ -30,5 +33,15 @@ public class BakedSweetPotatoItem extends SweetPotatoItem {
         //if (!(user instanceof PlayerEntity && ((PlayerEntity)user).abilities.creativeMode))
         //    stack.setCount(stack.getCount() - 1);
         return stack;
+    }
+
+    @Override
+    public SweetPotatoStatus getStatus() {
+        return SweetPotatoStatus.BAKED;
+    }
+
+    @Override
+    public SweetPotatoType asType() {
+        return this.sweetPotatoType;
     }
 }

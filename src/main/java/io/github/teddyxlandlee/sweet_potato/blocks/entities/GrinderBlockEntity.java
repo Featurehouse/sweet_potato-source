@@ -10,6 +10,7 @@ import io.github.teddyxlandlee.debug.PartType;
 import io.github.teddyxlandlee.sweet_potato.ExampleMod;
 import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
+import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
@@ -38,14 +39,15 @@ import java.util.Iterator;
 public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable /*ExtendedScreenHandlerFactory*/, PropertyDelegateHolder {
     private int grindTime;
     private int grindTimeTotal;
-    private int ingredientData;
+    private float ingredientData;
 
     private byte absorbCooldown;
     private static final byte MAX_COOLDOWN = 5;
     @Deprecated
     private boolean addTimeWhenFinished = true;
 
-    public static final Object2IntOpenHashMap<ItemConvertible> INGREDIENT_DATA_MAP = new Object2IntOpenHashMap<>();
+    //public static final Object2IntOpenHashMap<ItemConvertible> INGREDIENT_DATA_MAP = new Object2IntOpenHashMap<>();
+    public static final Object2FloatOpenHashMap<ItemConvertible> INGREDIENT_DATA_MAP = new Object2FloatOpenHashMap<>();
 
     public PropertyDelegate propertyDelegate;
     //protected DefaultedList<ItemStack> inventory;
@@ -66,7 +68,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
                     case 1:
                         return GrinderBlockEntity.this.grindTimeTotal;
                     case 2:
-                        return GrinderBlockEntity.this.ingredientData;
+                        return (int) (GrinderBlockEntity.this.ingredientData * 10);
                     default:
                         return 0;
                 }
@@ -93,7 +95,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         //this.recipeType = recipeType;
 
         Util.registerGrindableItems(1, ExampleMod.RAW_SWEET_POTATOES);
-        Util.registerGrindableItem(3, ExampleMod.ENCHANTED_SWEET_POTATO);
+        //Util.registerGrindableItem(3, ExampleMod.ENCHANTED_SWEET_POTATO);
         this.absorbCooldown = -1;
         this.grindTime = -1;
     }
@@ -120,7 +122,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         tag.putShort("GrindTime", (short) grindTime);
         tag.putShort("GrindTimeTotal", (short) grindTimeTotal);
         //Inventories.toTag(tag, this.inventory);
-        tag.putInt("IngredientData", ingredientData);
+        tag.putFloat("IngredientData", ingredientData);
         tag.putByte("absorbCooldown", absorbCooldown);
 
         //CompoundTag recipeUsed = new CompoundTag();
@@ -299,7 +301,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
                     canMarkDirty = true;
                     final Item ingredient = this.inventory.get(0).getItem();
                     this.inventory.get(0).decrement(1);
-                    this.ingredientData += INGREDIENT_DATA_MAP.getInt(ingredient);
+                    this.ingredientData += INGREDIENT_DATA_MAP.getFloat(ingredient);
                     this.absorbCooldown = MAX_COOLDOWN;
                 }
             }
@@ -337,7 +339,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
                 shallMarkDirty = true;
                 final Item ingredient = this.inventory.get(0).getItem();
                 this.inventory.get(0).decrement(1);
-                this.ingredientData += INGREDIENT_DATA_MAP.getInt(ingredient);
+                this.ingredientData += INGREDIENT_DATA_MAP.getFloat(ingredient);
                 this.absorbCooldown = MAX_COOLDOWN - 1;
                 this.grindTime = 0;
             }
@@ -360,7 +362,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @Deprecated
     private boolean canContinueGrinding(ItemStack input) {
-        if (!(input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES)) && input.getItem() != ExampleMod.ENCHANTED_SWEET_POTATO)
+        if (!(input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES)) && !(input.getItem().isIn(ExampleMod.ENCHANTED_SWEET_POTATOES)))
             //throw new UnsupportedOperationException("[GrinderBlockEntity]
             // A programmer tries to force non-grindable thing be grinded, which is unsupported");
             return false;
@@ -452,8 +454,8 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     }
 
     @Deprecated
-    public int getIngredientData() {
-        return this.propertyDelegate.get(2);
+    public float getIngredientData() {
+        return this.propertyDelegate.get(2) / 10.0F;
     }
 
     @Override

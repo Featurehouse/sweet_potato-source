@@ -60,7 +60,7 @@ public final class Util {
     }
 
     @NonMinecraftNorFabric
-    public static void registerGrindableItem(int ingredientDataAdded, @Nonnull ItemConvertible item) {
+    public static void registerGrindableItem(float ingredientDataAdded, @Nonnull ItemConvertible item) {
         GrinderBlockEntity.INGREDIENT_DATA_MAP.put(item.asItem(), ingredientDataAdded);
     }
 

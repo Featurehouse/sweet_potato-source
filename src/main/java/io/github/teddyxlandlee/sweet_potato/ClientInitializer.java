@@ -1,6 +1,7 @@
 package io.github.teddyxlandlee.sweet_potato;
 
 import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreen;
+import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.screen.SeedUpdaterScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -21,7 +22,11 @@ public class ClientInitializer implements ClientModInitializer {
                     new TranslatableText(ExampleMod.SEED_UPDATER_TRANSLATION_KEY));
         });*/
         ScreenRegistry.register(ExampleMod.SEED_UPDATER_SCREEN_HANDLER_TYPE, SeedUpdaterScreen::new);
-        ScreenRegistry.register(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, GrinderScreen::new);
+        //ScreenRegistry.register(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, GrinderScreen::new);
+        //ScreenRegistry.register(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, DeprecatedGrinderScreen$3::new);
+        ScreenRegistry.<GrinderScreenHandler, GrinderScreen>register(
+                ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, GrinderScreen::new
+        );
 
         BlockRenderLayerMap.INSTANCE.putBlock(ExampleMod.PURPLE_POTATO_CROP, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ExampleMod.RED_POTATO_CROP, RenderLayer.getCutout());

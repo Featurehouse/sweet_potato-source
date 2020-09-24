@@ -21,6 +21,7 @@ import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.screen.SeedUpdaterScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.util.BlockSettings;
 import io.github.teddyxlandlee.sweet_potato.util.ItemSettings;
+import io.github.teddyxlandlee.sweet_potato.util.SweetPotatoSettings;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -39,7 +40,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
@@ -52,7 +52,7 @@ public class ExampleMod implements ModInitializer {
 	}
 
 	public static final String MODID = "sweet_potato";
-	public static final SPMVersion MODVERSION = SPMVersion.BETA_1_0_0;
+	//public static final SPMVersion MODVERSION = SPMVersion.BETA_1_0_0;
 
 	@Unused_InsteadOf @Deprecated
 	public static final String SEED_UPDATER_TRANSLATION_KEY = net.minecraft.util.Util.createTranslationKey("container", new Identifier(
@@ -82,10 +82,13 @@ public class ExampleMod implements ModInitializer {
 	public static final Item PURPLE_POTATO;
 	public static final Item RED_POTATO;
 	public static final Item WHITE_POTATO;
+		// Enchanted Potatoes
+	public static final Item ENCHANTED_PURPLE_POTATO;
+	public static final Item ENCHANTED_RED_POTATO;
+	public static final Item ENCHANTED_WHITE_POTATO;
 
 		// Misc
 	public static final Item POTATO_POWDER;
-	public static final Item ENCHANTED_SWEET_POTATO;
 
 	// Blocks
 	public static final Block MAGIC_CUBE;
@@ -155,7 +158,10 @@ public class ExampleMod implements ModInitializer {
 	public static final ScreenHandlerType<SeedUpdaterScreenHandler> SEED_UPDATER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(
 			new Identifier(MODID, "seed_updater"), SeedUpdaterScreenHandler::new
 	);
-	public static ScreenHandlerType<GrinderScreenHandler> GRINDER_SCREEN_HANDLER_TYPE;
+
+	public static final ScreenHandlerType<GrinderScreenHandler> GRINDER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerExtended(
+			new Identifier(MODID, "grinder"), GrinderScreenHandler::new
+	);
 
 	// Recipe Serializer
 	public static final RecipeSerializer<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_SERIALIZER = SeedUpdatingRecipe.register_recipe_serializer(new Identifier(
@@ -179,6 +185,7 @@ public class ExampleMod implements ModInitializer {
 
 	// Item Tags
 	public static final Tag<Item> RAW_SWEET_POTATOES;
+	public static final Tag<Item> ENCHANTED_SWEET_POTATOES;
 
 	@Override
 	public void onInitialize() {
@@ -198,22 +205,18 @@ public class ExampleMod implements ModInitializer {
 			return world.getBlockState(pos).createScreenHandlerFactory(player.world, pos).createMenu(syncId, player.inventory, player);
 		});*/
 
-		GRINDER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerExtended(
-				new Identifier(MODID, "grinder"), (syncId, playerInventory, packetByteBuf) -> new GrinderScreenHandler(
-						GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, ScreenHandlerContext.EMPTY, packetByteBuf
-				)
-		);
+
 
 		// Not registries:
+		Util.registerCompostableItem(0.3f, PEEL);/*
 		Util.registerCompostableItem(0.65f, PURPLE_POTATO);
 		Util.registerCompostableItem(0.65f, WHITE_POTATO);
 		Util.registerCompostableItem(0.65f, RED_POTATO);
-		Util.registerCompostableItem(0.3f, PEEL);
 		Util.registerCompostableItem(0.85f, BAKED_PURPLE_POTATO);
 		Util.registerCompostableItem(0.85f, BAKED_RED_POTATO);
-		Util.registerCompostableItem(0.85f, BAKED_WHITE_POTATO);
+		Util.registerCompostableItem(0.85f, BAKED_WHITE_POTATO);*/
 		//Util.registerCompostableItem(0.5f, BAKED_PEEL);
-		Util.registerCompostableItem(1.0f/*0.65f*/, ENCHANTED_SWEET_POTATO);	// Peter says it'd be 0.65f instead.
+		//Util.registerCompostableItem(1.0f/*0.65f*/, ENCHANTED_SWEET_POTATO);	// Peter says it'd be 0.65f instead.
 		Util.registerCompostableItem(0.3f, ENCHANTED_OAK_SAPLING_ITEM);
 		Util.registerCompostableItem(0.3f, ENCHANTED_SPRUCE_SAPLING_ITEM);
 		Util.registerCompostableItem(0.3f, ENCHANTED_BIRCH_SAPLING_ITEM);
@@ -241,35 +244,54 @@ public class ExampleMod implements ModInitializer {
 		//		.group(ItemGroup.MISC)
 		//		.maxCount(64)
 		//));
+		// TODO: after beta-1.0.0 releases, get the settings into SweetPotatoItem.java
 		BAKED_PURPLE_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "baked_purple_potato"
-		), new BakedSweetPotatoItem(new Item.Settings()
-				.food(BakedSweetPotatoItem.COMPONENT)
+		), new BakedSweetPotatoItem(new SweetPotatoSettings()
+				.food(SweetPotatoType.PURPLE, SweetPotatoStatus.BAKED)
 				.group(ItemGroup.FOOD)
-				.maxCount(64)));
+				.maxCount(64), SweetPotatoType.PURPLE));
 		BAKED_RED_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "baked_red_potato"
-		), new BakedSweetPotatoItem(new Item.Settings()
-			.food(BakedSweetPotatoItem.COMPONENT)
+		), new BakedSweetPotatoItem(new SweetPotatoSettings()
+			.food(SweetPotatoType.RED, SweetPotatoStatus.BAKED)
 			.group(ItemGroup.FOOD)
-			.maxCount(64)));
+			.maxCount(64), SweetPotatoType.RED));
 		BAKED_WHITE_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "baked_white_potato"
-		), new BakedSweetPotatoItem(new Item.Settings()
-			.food(BakedSweetPotatoItem.COMPONENT)
+		), new BakedSweetPotatoItem(new SweetPotatoSettings()
+			.food(SweetPotatoType.WHITE, SweetPotatoStatus.BAKED)
 			.group(ItemGroup.FOOD)
-			.maxCount(64)));
+			.maxCount(64), SweetPotatoType.WHITE));
 		POTATO_POWDER = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "potato_powder"
 		), new Item(new Item.Settings()
 				.group(ItemGroup.MISC)
 				.maxCount(64)));
-		ENCHANTED_SWEET_POTATO = Registry.register(Registry.ITEM, new Identifier(
+		/*ENCHANTED_SWEET_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "enchanted_sweet_potato"
 		), new EnchantedSweetPotatoItem(new Item.Settings()
 				.food(EnchantedSweetPotatoItem.COMPONENT)
 				.group(ItemGroup.FOOD)
-				.maxCount(1)));
+				.maxCount(1)));*/
+		ENCHANTED_PURPLE_POTATO = Registry.register(Registry.ITEM, new Identifier(
+				MODID, "enchanted_sweet_potato"
+		), new EnchantedSweetPotatoItem(new SweetPotatoSettings()
+				.food(SweetPotatoType.PURPLE, SweetPotatoStatus.ENCHANTED)
+				.group(ItemGroup.FOOD)
+				.maxCount(1), SweetPotatoType.PURPLE));
+		ENCHANTED_RED_POTATO = Registry.register(Registry.ITEM, new Identifier(
+				MODID, "enchanted_sweet_potato"
+		), new EnchantedSweetPotatoItem(new SweetPotatoSettings()
+				.food(SweetPotatoType.RED, SweetPotatoStatus.ENCHANTED)
+				.group(ItemGroup.FOOD)
+				.maxCount(1), SweetPotatoType.RED));
+		ENCHANTED_WHITE_POTATO = Registry.register(Registry.ITEM, new Identifier(
+				MODID, "enchanted_sweet_potato"
+		), new EnchantedSweetPotatoItem(new SweetPotatoSettings()
+				.food(SweetPotatoType.WHITE, SweetPotatoStatus.ENCHANTED)
+				.group(ItemGroup.FOOD)
+				.maxCount(1), SweetPotatoType.WHITE));
 
 		// Block
 		MAGIC_CUBE = Registry.register(Registry.BLOCK, new Identifier(
@@ -379,24 +401,24 @@ public class ExampleMod implements ModInitializer {
 		// Block Items
 		PURPLE_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "purple_potato"
-		), new RawSweetPotatoBlockItem(PURPLE_POTATO_CROP, new Item.Settings()
-				.food(RawSweetPotatoBlockItem.COMPONENT)
+		), new RawSweetPotatoBlockItem(PURPLE_POTATO_CROP, new SweetPotatoSettings()
+				.food(SweetPotatoType.PURPLE, SweetPotatoStatus.RAW)
 				.group(ItemGroup.FOOD)
-				.maxCount(64)
+				.maxCount(64), SweetPotatoType.PURPLE
 		));
 		RED_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "red_potato"
-		), new RawSweetPotatoBlockItem(RED_POTATO_CROP, new Item.Settings()
-				.food(RawSweetPotatoBlockItem.COMPONENT)
+		), new RawSweetPotatoBlockItem(RED_POTATO_CROP, new SweetPotatoSettings()
+				.food(SweetPotatoType.RED, SweetPotatoStatus.RAW)
 				.group(ItemGroup.FOOD)
-				.maxCount(64)
+				.maxCount(64), SweetPotatoType.RED
 		));
 		WHITE_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "white_potato"
-		), new RawSweetPotatoBlockItem(WHITE_POTATO_CROP, new Item.Settings()
-				.food(RawSweetPotatoBlockItem.COMPONENT)
+		), new RawSweetPotatoBlockItem(WHITE_POTATO_CROP, new SweetPotatoSettings()
+				.food(SweetPotatoType.WHITE, SweetPotatoStatus.RAW)
 				.group(ItemGroup.FOOD)
-				.maxCount(64)
+				.maxCount(64), SweetPotatoType.WHITE
 		));
 		ENCHANTED_WHEAT_SEEDS = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "enchanted_wheat_seeds"
@@ -507,6 +529,9 @@ public class ExampleMod implements ModInitializer {
 		// Item Tags
 		RAW_SWEET_POTATOES = TagRegistry.item(new Identifier(
 				MODID, "raw_sweet_potatoes"
+		));
+		ENCHANTED_SWEET_POTATOES = TagRegistry.item(new Identifier(
+				MODID, "enchanted_sweet_potatoes"
 		));
 
 		// About pig food & parrot food
