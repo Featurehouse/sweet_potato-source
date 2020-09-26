@@ -21,7 +21,6 @@ import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.screen.SeedUpdaterScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.util.BlockSettings;
 import io.github.teddyxlandlee.sweet_potato.util.ItemSettings;
-import io.github.teddyxlandlee.sweet_potato.util.SweetPotatoSettings;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -159,7 +158,7 @@ public class ExampleMod implements ModInitializer {
 			new Identifier(MODID, "seed_updater"), SeedUpdaterScreenHandler::new
 	);
 
-	public static final ScreenHandlerType<GrinderScreenHandler> GRINDER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerExtended(
+	public static final ScreenHandlerType<GrinderScreenHandler> GRINDER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(
 			new Identifier(MODID, "grinder"), GrinderScreenHandler::new
 	);
 
@@ -230,6 +229,22 @@ public class ExampleMod implements ModInitializer {
 		Util.registerCompostableItem(0.3f, ENCHANTED_OAK_LEAVES_ITEM);
 		Util.registerCompostableItem(0.3f, ENCHANTED_SPRUCE_LEAVES_ITEM);
 
+		for (SweetPotatoType type: SweetPotatoType.values()) {
+			for (SweetPotatoStatus status: SweetPotatoStatus.values()) {
+				if (type.getComponent(status) != null) {
+					type.getComponent(status).registerCompostableItem(type, status);
+					type.getComponent(status).registerGrindableItem(type, status);
+				}
+			}
+
+			/*type.getComponent(SweetPotatoStatus.RAW).registerCompostableItem(type, SweetPotatoStatus.RAW);
+			type.getComponent(SweetPotatoStatus.BAKED).registerCompostableItem(type, SweetPotatoStatus.BAKED);
+			type.getComponent(SweetPotatoStatus.ENCHANTED).registerCompostableItem(type, SweetPotatoStatus.ENCHANTED);
+			type.getComponent(SweetPotatoStatus.RAW).registerGrindableItem(type, SweetPotatoStatus.RAW);
+			type.getComponent(SweetPotatoStatus.BAKED).registerGrindableItem(type, SweetPotatoStatus.BAKED);
+			type.getComponent(SweetPotatoStatus.ENCHANTED).registerGrindableItem(type, SweetPotatoStatus.ENCHANTED);*/
+		}
+
 		// Fuel
 		//Util.registerFurnaceFuel(null, Items.AIR, -1);
 	}
@@ -247,20 +262,20 @@ public class ExampleMod implements ModInitializer {
 		// TODO: after beta-1.0.0 releases, get the settings into SweetPotatoItem.java
 		BAKED_PURPLE_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "baked_purple_potato"
-		), new BakedSweetPotatoItem(new SweetPotatoSettings()
-				.food(SweetPotatoType.PURPLE, SweetPotatoStatus.BAKED)
+		), new BakedSweetPotatoItem(new Item.Settings()
+				//.food(SweetPotatoType.PURPLE, SweetPotatoStatus.BAKED)
 				.group(ItemGroup.FOOD)
 				.maxCount(64), SweetPotatoType.PURPLE));
 		BAKED_RED_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "baked_red_potato"
-		), new BakedSweetPotatoItem(new SweetPotatoSettings()
-			.food(SweetPotatoType.RED, SweetPotatoStatus.BAKED)
+		), new BakedSweetPotatoItem(new Item.Settings()
+			//.food(SweetPotatoType.RED, SweetPotatoStatus.BAKED)
 			.group(ItemGroup.FOOD)
 			.maxCount(64), SweetPotatoType.RED));
 		BAKED_WHITE_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "baked_white_potato"
-		), new BakedSweetPotatoItem(new SweetPotatoSettings()
-			.food(SweetPotatoType.WHITE, SweetPotatoStatus.BAKED)
+		), new BakedSweetPotatoItem(new Item.Settings()
+			//.food(SweetPotatoType.WHITE, SweetPotatoStatus.BAKED)
 			.group(ItemGroup.FOOD)
 			.maxCount(64), SweetPotatoType.WHITE));
 		POTATO_POWDER = Registry.register(Registry.ITEM, new Identifier(
@@ -275,21 +290,21 @@ public class ExampleMod implements ModInitializer {
 				.group(ItemGroup.FOOD)
 				.maxCount(1)));*/
 		ENCHANTED_PURPLE_POTATO = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_sweet_potato"
-		), new EnchantedSweetPotatoItem(new SweetPotatoSettings()
-				.food(SweetPotatoType.PURPLE, SweetPotatoStatus.ENCHANTED)
+				MODID, "enchanted_purple_potato"
+		), new EnchantedSweetPotatoItem(new Item.Settings()
+				//.food(SweetPotatoType.PURPLE, SweetPotatoStatus.ENCHANTED)
 				.group(ItemGroup.FOOD)
 				.maxCount(1), SweetPotatoType.PURPLE));
 		ENCHANTED_RED_POTATO = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_sweet_potato"
-		), new EnchantedSweetPotatoItem(new SweetPotatoSettings()
-				.food(SweetPotatoType.RED, SweetPotatoStatus.ENCHANTED)
+				MODID, "enchanted_red_potato"
+		), new EnchantedSweetPotatoItem(new Item.Settings()
+				//.food(SweetPotatoType.RED, SweetPotatoStatus.ENCHANTED)
 				.group(ItemGroup.FOOD)
 				.maxCount(1), SweetPotatoType.RED));
 		ENCHANTED_WHITE_POTATO = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_sweet_potato"
-		), new EnchantedSweetPotatoItem(new SweetPotatoSettings()
-				.food(SweetPotatoType.WHITE, SweetPotatoStatus.ENCHANTED)
+				MODID, "enchanted_white_potato"
+		), new EnchantedSweetPotatoItem(new Item.Settings()
+				//.food(SweetPotatoType.WHITE, SweetPotatoStatus.ENCHANTED)
 				.group(ItemGroup.FOOD)
 				.maxCount(1), SweetPotatoType.WHITE));
 
@@ -401,22 +416,22 @@ public class ExampleMod implements ModInitializer {
 		// Block Items
 		PURPLE_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "purple_potato"
-		), new RawSweetPotatoBlockItem(PURPLE_POTATO_CROP, new SweetPotatoSettings()
-				.food(SweetPotatoType.PURPLE, SweetPotatoStatus.RAW)
+		), new RawSweetPotatoBlockItem(PURPLE_POTATO_CROP, new Item.Settings()
+				//.food(SweetPotatoType.PURPLE, SweetPotatoStatus.RAW)
 				.group(ItemGroup.FOOD)
 				.maxCount(64), SweetPotatoType.PURPLE
 		));
 		RED_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "red_potato"
-		), new RawSweetPotatoBlockItem(RED_POTATO_CROP, new SweetPotatoSettings()
-				.food(SweetPotatoType.RED, SweetPotatoStatus.RAW)
+		), new RawSweetPotatoBlockItem(RED_POTATO_CROP, new Item.Settings()
+				//.food(SweetPotatoType.RED, SweetPotatoStatus.RAW)
 				.group(ItemGroup.FOOD)
 				.maxCount(64), SweetPotatoType.RED
 		));
 		WHITE_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "white_potato"
-		), new RawSweetPotatoBlockItem(WHITE_POTATO_CROP, new SweetPotatoSettings()
-				.food(SweetPotatoType.WHITE, SweetPotatoStatus.RAW)
+		), new RawSweetPotatoBlockItem(WHITE_POTATO_CROP, new Item.Settings()
+				//.food(SweetPotatoType.WHITE, SweetPotatoStatus.RAW)
 				.group(ItemGroup.FOOD)
 				.maxCount(64), SweetPotatoType.WHITE
 		));

@@ -1,5 +1,7 @@
 package io.github.teddyxlandlee.sweet_potato.items;
 
+import io.github.teddyxlandlee.debug.NullPointerHelper;
+import io.github.teddyxlandlee.debug.PartType;
 import io.github.teddyxlandlee.sweet_potato.ExampleMod;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoStatus;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoType;
@@ -17,7 +19,8 @@ public class BakedSweetPotatoItem extends Item implements WithStatus {
     private final SweetPotatoType sweetPotatoType;
 
     public BakedSweetPotatoItem(Settings settings, SweetPotatoType type) {
-        super(settings.food(Objects.requireNonNull(type.getComponent(SweetPotatoStatus.BAKED)).asFoodComponent()));
+        super(settings.food(NullPointerHelper.requiresNonnull(type.getComponent(SweetPotatoStatus.BAKED),
+                BakedSweetPotatoItem.class, PartType.METHOD, "<init>", "NullPointerException").asFoodComponent()));
         this.sweetPotatoType = type;
     }
 

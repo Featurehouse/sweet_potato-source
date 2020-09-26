@@ -29,13 +29,6 @@ public enum SweetPotatoType {
         this.raw = raw;
         this.baked = baked;
         this.enchanted = enchanted;
-
-        raw.registerCompostableItem(this, SweetPotatoStatus.RAW);
-        baked.registerCompostableItem(this, SweetPotatoStatus.BAKED);
-        enchanted.registerCompostableItem(this, SweetPotatoStatus.ENCHANTED);
-        raw.registerGrindableItem(this, SweetPotatoStatus.RAW);
-        baked.registerGrindableItem(this, SweetPotatoStatus.BAKED);
-        enchanted.registerGrindableItem(this, SweetPotatoStatus.ENCHANTED);
     }
 
     public SweetPotatoComponent getComponent(SweetPotatoStatus status) {

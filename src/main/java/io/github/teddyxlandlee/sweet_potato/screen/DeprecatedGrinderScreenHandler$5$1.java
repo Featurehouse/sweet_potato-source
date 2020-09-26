@@ -33,7 +33,7 @@ public class DeprecatedGrinderScreenHandler$5$1 extends SyncedGuiDescription {
     public DeprecatedGrinderScreenHandler$5$1(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext ctx, PacketByteBuf buf) {
         /* Need to test: this or super */
         super(type, syncId, playerInventory, getBlockInventory(ctx, 2), null);
-        this.propertyDelegate = ((GrinderBlockEntity) (Objects.requireNonNull(this.world.getBlockEntity(buf.readBlockPos())))).getPropertyDelegate();
+        this.propertyDelegate = ((GrinderBlockEntity) (Objects.requireNonNull(this.world.getBlockEntity(buf.readBlockPos())))).propertyDelegate;
     }
 
     public DeprecatedGrinderScreenHandler$5$1(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {

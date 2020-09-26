@@ -1,5 +1,7 @@
 package io.github.teddyxlandlee.sweet_potato.items;
 
+import io.github.teddyxlandlee.debug.NullPointerHelper;
+import io.github.teddyxlandlee.debug.PartType;
 import io.github.teddyxlandlee.sweet_potato.ExampleMod;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoStatus;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoType;
@@ -20,7 +22,8 @@ public class RawSweetPotatoBlockItem extends /*SweetPotatoItem*/ AliasedBlockIte
     private final SweetPotatoType sweetPotatoType;
 
     public RawSweetPotatoBlockItem(Block block, Item.Settings settings, SweetPotatoType type) {
-        super(block, settings.food(Objects.requireNonNull(type.getComponent(SweetPotatoStatus.RAW)).asFoodComponent()));
+        super(block, settings.food(NullPointerHelper.requiresNonnull(type.getComponent(SweetPotatoStatus.RAW),
+                RawSweetPotatoBlockItem.class, PartType.METHOD, "<init>", "NullPointerException").asFoodComponent()));
         this.sweetPotatoType = type;
     }
 

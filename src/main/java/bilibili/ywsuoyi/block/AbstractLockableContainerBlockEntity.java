@@ -18,7 +18,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.collection.DefaultedList;
 
-public abstract class AbstractLockableContainerBlockEntity extends LockableContainerBlockEntity implements ExtendedScreenHandlerFactory {
+public abstract class AbstractLockableContainerBlockEntity extends LockableContainerBlockEntity {
     protected /*private*/ DefaultedList<ItemStack> inventory;
     private final int size;
 
@@ -54,11 +54,6 @@ public abstract class AbstractLockableContainerBlockEntity extends LockableConta
     @Deprecated @DeprecatedFrom(LootableContainerBlockEntity.class)
     public void setInvStackList(DefaultedList<ItemStack> list) {
         this.inventory = list;
-    }
-
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(this.pos);
     }
 
     @Override

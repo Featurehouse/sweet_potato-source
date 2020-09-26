@@ -29,8 +29,12 @@ public class GrinderScreenHandler extends ScreenHandler {
     private final Inventory inventory;
     private PropertyDelegate propertyDelegate;
     protected final World world;
+    @Deprecated
     protected GrinderBlockEntity blockEntity;
 
+    /**
+     * Through debugging, we found that block-entity-created and
+     * */
     public GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory) {
         this(type, syncId, playerInventory, new SimpleInventory(2), /*new ArrayPropertyDelegate(3)*/ null);
     }
@@ -44,6 +48,7 @@ public class GrinderScreenHandler extends ScreenHandler {
         this.inventory = inventory;
         if (propertyDelegate != null) {
             this.propertyDelegate = propertyDelegate;
+            this.addProperties(propertyDelegate);
         }
         this.world = playerInventory.player.world;
         this.addSlot(new Slot(inventory, 0, 40, 35));
@@ -51,19 +56,12 @@ public class GrinderScreenHandler extends ScreenHandler {
 
         this.createPlayerInventory(playerInventory);
 
-        this.addProperties(propertyDelegate);
-
         Debug.debug(this, "Successfully created Grinder Screen Handler by Block Entity");
     }
 
     //@DeprecatedFrom(DeprecatedGrinderScreenHandler$4.class)
-    public GrinderScreenHandler(int i, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
+    public GrinderScreenHandler(int i, PlayerInventory playerInventory) {
         this(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory);
-        @InDebugUse
-        BlockPos pos = packetByteBuf.readBlockPos();
-        this.blockEntity = (GrinderBlockEntity) this.world.getBlockEntity(packetByteBuf.readBlockPos());
-        assert this.blockEntity != null;
-        this.propertyDelegate = this.blockEntity.propertyDelegate;
     }
 
     @NonMinecraftNorFabric
@@ -123,14 +121,14 @@ public class GrinderScreenHandler extends ScreenHandler {
     }
 
     @Environment(EnvType.CLIENT)
-    @Deprecated
+    //@Deprecated
     public int getGrindProgress() {
         int grindTime = this.propertyDelegate.get(0);
         int grindTimeTotal = this.propertyDelegate.get(1);
         return grindTimeTotal != 0 && grindTime != 0 ? grindTime * 22 / grindTimeTotal : 0;
     }
 
-    @Deprecated
+    //@Deprecated
     public int getIngredientData() {
         return this.propertyDelegate.get(2);
     }

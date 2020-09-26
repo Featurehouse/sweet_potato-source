@@ -36,7 +36,7 @@ import java.util.Iterator;
  * <h2>Why canceling implementing ExtendedScreenHandlerFactory?</h2>
  * <p>Because it is already implemented in AbstractLockableContainerBlockEntity!</p>
  */
-public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable /*ExtendedScreenHandlerFactory*/, PropertyDelegateHolder {
+public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable {
     private int grindTime;
     private int grindTimeTotal;
     private float ingredientData;
@@ -456,11 +456,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     @Deprecated
     public float getIngredientData() {
         return this.propertyDelegate.get(2) / 10.0F;
-    }
-
-    @Override
-    public PropertyDelegate getPropertyDelegate() {
-        return this.propertyDelegate;
     }
 
     //@Override
