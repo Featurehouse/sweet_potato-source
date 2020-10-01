@@ -355,11 +355,27 @@
         }
       }
     },
-    "sweet_potato:enchanted_sweet_potato": {
+    "sweet_potato:enchanted_purple_potato": {
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "item": "sweet_potato:enchanted_sweet_potato"
+          "item": "sweet_potato:enchanted_purple_potato"
+        }
+      }
+    },
+    "sweet_potato:enchanted_red_potato": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "sweet_potato:enchanted_red_potato"
+        }
+      }
+    },
+    "sweet_potato:enchanted_white_potato": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "sweet_potato:enchanted_white_potato"
         }
       }
     },
@@ -384,6 +400,22 @@
       "conditions": {
         "item": {
           "item": "sweet_potato:baked_white_potato"
+        }
+      }
+    },
+    "sweet_potato:enchanted_potato": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "sweet_potato:enchanted_potato"
+        }
+      }
+    },
+    "sweet_potato:enchanted_carrot": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "sweet_potato:enchanted_carrot"
         }
       }
     }
@@ -516,7 +548,13 @@
       "sweet_potato:white_potato"
     ],
     [
-      "sweet_potato:enchanted_sweet_potato"
+      "sweet_potato:enchanted_purple_potato"
+    ],
+    [
+      "sweet_potato:enchanted_red_potato"
+    ],
+    [
+      "sweet_potato:enchanted_white_potato"
     ],
     [
       "sweet_potato:baked_purple_potato"
@@ -526,6 +564,12 @@
     ],
     [
       "sweet_potato:baked_white_potato"
+    ],
+    [
+      "sweet_potato:enchanted_potato"
+    ],
+    [
+      "sweet_potato:enchanted_carrot"
     ]
   ]
 }

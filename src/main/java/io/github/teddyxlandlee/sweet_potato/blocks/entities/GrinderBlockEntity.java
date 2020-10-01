@@ -8,6 +8,7 @@ import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.debug.PartType;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
+import io.github.teddyxlandlee.sweet_potato.util.FloatIntegerizer;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -69,7 +70,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
                     case 1:
                         return GrinderBlockEntity.this.grindTimeTotal;
                     case 2:
-                        return (int) (GrinderBlockEntity.this.ingredientData * 10);
+                        return FloatIntegerizer.fromFloat(GrinderBlockEntity.this.ingredientData);
                     default:
                         return 0;
                 }
@@ -83,7 +84,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
                     case 1:
                         GrinderBlockEntity.this.grindTimeTotal = value;
                     case 2:
-                        GrinderBlockEntity.this.ingredientData = value;
+                        GrinderBlockEntity.this.ingredientData = FloatIntegerizer.toFloat(value);
                 }
             }
 
@@ -95,10 +96,11 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         //this.recipesUsed = new Object2IntOpenHashMap<>();
         //this.recipeType = recipeType;
 
-        Util.registerGrindableItems(1, SPMMain.RAW_SWEET_POTATOES);
+        //Util.registerGrindableItems(1, SPMMain.RAW_SWEET_POTATOES);
         //Util.registerGrindableItem(3, SPMMain.ENCHANTED_SWEET_POTATO);
         this.absorbCooldown = -1;
         this.grindTime = -1;
+        this.ingredientData = 0;
     }
 
     @Override
@@ -108,7 +110,8 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         //Inventories.fromTag(tag, this.inventory);
         this.grindTime = tag.getShort("GrindTime");
         this.grindTimeTotal = tag.getShort("GrindTimeTotal");
-        this.ingredientData = tag.getInt("IngredientData");
+        //this.propertyDelegate.set(2 /*IngredientData*/, tag.getInt("IngredientData"));
+        this.ingredientData = tag.getFloat("IngredientData");
         this.absorbCooldown = tag.getByte("absorbCooldown");
 
         //CompoundTag recipeUsed = new CompoundTag();
@@ -319,7 +322,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         boolean shallMarkDirty = false;
         if (!world.isClient) {
             // Grind Process
-            if (this.grindTime == this.grindTimeTotal && this.canAcceptRecipeOutput()) {
+            if (this.grindTime == this.grindTimeTotal && this.grindTimeTotal != 0 && this.canAcceptRecipeOutput()) {
                 // Shall End Grinding
                 this.grindTime = -1;
                 this.grindTimeTotal = this.getGrindTime();

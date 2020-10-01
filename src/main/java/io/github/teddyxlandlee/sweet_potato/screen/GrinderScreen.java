@@ -46,12 +46,14 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
     protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
         RenderSystem.disableBlend();
         super.drawForeground(matrices, mouseX, mouseY);
+        float ingredientData = this.handler.getIngredientData();
         this.textRenderer.draw(matrices, new TranslatableText(
                         "container.grinding.ingredientData",
-                        this.handler.getIngredientData()),
+                        ingredientData),
                 8.0f, 59.0f, 0);
         if (doDebug[0]) Debug.debug(this.getClass(), PartType.METHOD, "drawForeground",
-                "Successfully finish foreground"); this.doDebug[0] = false;
+                String.format("Successfully finish foreground\nIngredient Data: %s", ingredientData));
+                this.doDebug[0] = false;
     }
 
     @Override
@@ -61,7 +63,7 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
         this.drawTexture(matrices, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
         //this.addProgressArrow(74, 35, 0);
         int l = this.handler.getGrindProgress();
-        this.drawTexture(matrices, this.x + 79, this.y + 34, 176, 0, l+1, 16);
+        this.drawTexture(matrices, this.x + 79, this.y + 34, 176, 0, l+1, 16);  // arrow
         //super.drawBackground(matrices, delta, mouseX, mouseY);
         if (doDebug[1]) Debug.debug(this.getClass(), PartType.METHOD, "drawBackground",
                 "Successfully finish background"); this.doDebug[1] = false;

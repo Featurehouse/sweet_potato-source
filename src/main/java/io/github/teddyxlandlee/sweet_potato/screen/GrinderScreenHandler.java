@@ -5,6 +5,7 @@ import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import io.github.teddyxlandlee.sweet_potato.util.DeprecatedGrindingResultSlot;
+import io.github.teddyxlandlee.sweet_potato.util.FloatIntegerizer;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -145,8 +146,12 @@ public class GrinderScreenHandler extends ScreenHandler {
         return grindTimeTotal != 0 && grindTime != 0 ? grindTime * 22 / grindTimeTotal : 0;
     }
 
-    //@Deprecated
-    public int getIngredientData() {
-        return this.propertyDelegate.get(2);
+    /**
+     * Because the value in propertyDelegate is
+     * integer and zipped, we should unzip it
+     * right here.
+     */
+    public float getIngredientData() {
+        return FloatIntegerizer.toFloat(this.propertyDelegate.get(2));
     }
 }
