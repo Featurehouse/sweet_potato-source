@@ -1,6 +1,6 @@
 package io.github.teddyxlandlee.sweet_potato.screen;
 
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.recipe.SeedUpdatingRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,23 +26,23 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
     }
 
     public SeedUpdaterScreenHandler(int syncId, PlayerInventory inventory, ScreenHandlerContext context) {
-        super(ExampleMod.SEED_UPDATER_SCREEN_HANDLER_TYPE, syncId, inventory, context);
+        super(SPMMain.SEED_UPDATER_SCREEN_HANDLER_TYPE, syncId, inventory, context);
         this.world = inventory.player.world;
-        this.list = this.world.getRecipeManager().method_30027(ExampleMod.SEED_UPDATING_RECIPE_TYPE);
+        this.list = this.world.getRecipeManager().method_30027(SPMMain.SEED_UPDATING_RECIPE_TYPE);
     }
 
     protected boolean canUse(@Nonnull BlockState state) {
-        return state.isOf(ExampleMod.SEED_UPDATER);
+        return state.isOf(SPMMain.SEED_UPDATER);
     }
 
     public boolean canUse(PlayerEntity player) {
-        return canUse(this.context, player, ExampleMod.SEED_UPDATER);
+        return canUse(this.context, player, SPMMain.SEED_UPDATER);
     }
 
     //@Override
     public void updateResult() {
         List<SeedUpdatingRecipe> list1 = this.world.getRecipeManager().getAllMatches(
-                ExampleMod.SEED_UPDATING_RECIPE_TYPE, this.input, this.world
+                SPMMain.SEED_UPDATING_RECIPE_TYPE, this.input, this.world
         );
         if (list1.isEmpty())
             this.output.setStack(0, ItemStack.EMPTY);

@@ -44,9 +44,9 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public class ExampleMod implements ModInitializer {
-	public static ExampleMod INSTANCE;
-	public ExampleMod() {
+public class SPMMain implements ModInitializer {
+	public static SPMMain INSTANCE;
+	public SPMMain() {
 		INSTANCE = this;
 	}
 
@@ -158,7 +158,7 @@ public class ExampleMod implements ModInitializer {
 			new Identifier(MODID, "seed_updater"), SeedUpdaterScreenHandler::new
 	);
 
-	public static final ScreenHandlerType<GrinderScreenHandler> GRINDER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(
+	public static final ScreenHandlerType<GrinderScreenHandler> GRINDER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerExtended(
 			new Identifier(MODID, "grinder"), GrinderScreenHandler::new
 	);
 

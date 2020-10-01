@@ -1,6 +1,6 @@
 package io.github.teddyxlandlee.sweet_potato.blocks.saplings_seeds;
 
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.util.RandomTickHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CarrotsBlock;
@@ -17,7 +17,7 @@ public class EnchantedCarrotsBlock extends CarrotsBlock {
 
     @Override
     protected ItemConvertible getSeedsItem() {
-        return ExampleMod.ENCHANTED_CARROT_ITEM;
+        return SPMMain.ENCHANTED_CARROT_ITEM;
     }
 
     @Override

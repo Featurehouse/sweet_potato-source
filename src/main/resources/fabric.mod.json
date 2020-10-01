@@ -30,7 +30,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.teddyxlandlee.sweet_potato.ExampleMod"
+      "io.github.teddyxlandlee.sweet_potato.SPMMain"
     ],
     "client": [
       "io.github.teddyxlandlee.sweet_potato.ClientInitializer"

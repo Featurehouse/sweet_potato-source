@@ -1,6 +1,6 @@
 package io.github.teddyxlandlee.sweet_potato.blocks.saplings_seeds;
 
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.util.RandomTickHelper;
 import net.minecraft.block.BeetrootsBlock;
 import net.minecraft.block.BlockState;
@@ -17,7 +17,7 @@ public class EnchantedBeetrootsBlock extends BeetrootsBlock {
 
     @Override
     protected ItemConvertible getSeedsItem() {
-        return ExampleMod.ENCHANTED_BEETROOT_SEEDS;
+        return SPMMain.ENCHANTED_BEETROOT_SEEDS;
     }
 
     @Override

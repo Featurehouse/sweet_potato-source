@@ -1,6 +1,6 @@
 package io.github.teddyxlandlee.sweet_potato.blocks.saplings_seeds;
 
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.util.RandomTickHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,7 +21,7 @@ public class EnchantedWheatBlock extends CropBlock {
     @Environment(EnvType.CLIENT)
     @Override
     protected ItemConvertible getSeedsItem() {
-        return ExampleMod.ENCHANTED_WHEAT_SEEDS;
+        return SPMMain.ENCHANTED_WHEAT_SEEDS;
     }
 
     @Override

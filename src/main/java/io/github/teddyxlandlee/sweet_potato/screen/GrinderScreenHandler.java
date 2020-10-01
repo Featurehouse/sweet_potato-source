@@ -1,15 +1,14 @@
 package io.github.teddyxlandlee.sweet_potato.screen;
 
-import io.github.teddyxlandlee.annotation.DeprecatedFrom;
-import io.github.teddyxlandlee.annotation.InDebugUse;
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.debug.Debug;
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import io.github.teddyxlandlee.sweet_potato.util.DeprecatedGrindingResultSlot;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -20,12 +19,16 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 
 public class GrinderScreenHandler extends ScreenHandler {
+    Logger logger = LogManager.getLogger();
+
     private final Inventory inventory;
     private PropertyDelegate propertyDelegate;
     protected final World world;
@@ -60,8 +63,22 @@ public class GrinderScreenHandler extends ScreenHandler {
     }
 
     //@DeprecatedFrom(DeprecatedGrinderScreenHandler$4.class)
-    public GrinderScreenHandler(int i, PlayerInventory playerInventory) {
-        this(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory);
+    public GrinderScreenHandler(int i, PlayerInventory playerInventory, PacketByteBuf buf) {
+        this(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory);
+        BlockEntity blockEntity = this.world.getBlockEntity(buf.readBlockPos());
+        if (blockEntity instanceof GrinderBlockEntity) {
+            this.propertyDelegate = ((GrinderBlockEntity) blockEntity).propertyDelegate;
+            this.addProperties(this.propertyDelegate);
+        } else {
+            // With bug
+            logger.throwing(Level.ERROR, new RuntimeException("non-grinder block entity caught:"));
+            if (blockEntity != null) {
+                logger.error(String.format("Block Entity Pos: %s", blockEntity.getPos()));
+                logger.error(String.format("Block Entity Type: %s", blockEntity.getType()));
+            } else {
+                logger.error("Null block entity found");
+            }
+        }
     }
 
     @NonMinecraftNorFabric

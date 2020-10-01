@@ -21,15 +21,15 @@ public abstract class SweetPotatoItem extends Item {
         ItemStack itemStack = super.finishUsing(stack, world, user);
         ItemStack survivalItemStack;
         if (Objects.equals(itemStack.getItem().getFoodComponent(), RAW))
-        //if ((Objects.equals(itemStack.getItem(), ExampleMod.PURPLE_POTATO)) ||
-        //        (Objects.equals(itemStack.getItem(), ExampleMod.WHITE_POTATO)) ||
-        //        (Objects.equals(itemStack.getItem(), ExampleMod.RED_POTATO)))
-            survivalItemStack = new ItemStack(ExampleMod.PEEL);
+        //if ((Objects.equals(itemStack.getItem(), SPMMain.PURPLE_POTATO)) ||
+        //        (Objects.equals(itemStack.getItem(), SPMMain.WHITE_POTATO)) ||
+        //        (Objects.equals(itemStack.getItem(), SPMMain.RED_POTATO)))
+            survivalItemStack = new ItemStack(SPMMain.PEEL);
         else if (Objects.equals(itemStack.getItem().getFoodComponent(), BAKED))
-        //else if ((Objects.equals(itemStack.getItem(), ExampleMod.BAKED_PURPLE_POTATO)) ||
-        //        (Objects.equals(itemStack.getItem(), ExampleMod.BAKED_WHITE_POTATO)) ||
-        //        (Objects.equals(itemStack.getItem(), ExampleMod.BAKED_RED_POTATO)))
-            survivalItemStack = new ItemStack(ExampleMod.BAKED_PEEL);
+        //else if ((Objects.equals(itemStack.getItem(), SPMMain.BAKED_PURPLE_POTATO)) ||
+        //        (Objects.equals(itemStack.getItem(), SPMMain.BAKED_WHITE_POTATO)) ||
+        //        (Objects.equals(itemStack.getItem(), SPMMain.BAKED_RED_POTATO)))
+            survivalItemStack = new ItemStack(SPMMain.BAKED_PEEL);
         else {
             survivalItemStack = new ItemStack(Items.AIR);
             System.out.println("Error: is it really a sweet potato item? You maybe changed the food component.");

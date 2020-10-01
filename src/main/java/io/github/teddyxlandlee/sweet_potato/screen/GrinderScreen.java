@@ -3,7 +3,7 @@ package io.github.teddyxlandlee.sweet_potato.screen;
 import io.github.teddyxlandlee.annotation.InDebugUse;
 import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.debug.PartType;
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
@@ -18,7 +18,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
-    private static final Identifier BACKGROUND_TEXTURE = new Identifier(ExampleMod.MODID, "textures/gui/container/grinder.png");
+    private static final Identifier BACKGROUND_TEXTURE = new Identifier(SPMMain.MODID, "textures/gui/container/grinder.png");
 
     @InDebugUse
     private final boolean[] doDebug = new boolean[2];

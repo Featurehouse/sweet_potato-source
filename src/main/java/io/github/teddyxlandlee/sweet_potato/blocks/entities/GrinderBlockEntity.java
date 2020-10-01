@@ -1,17 +1,16 @@
 package io.github.teddyxlandlee.sweet_potato.blocks.entities;
 
 import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
-import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import io.github.teddyxlandlee.annotation.HardCoded;
 import io.github.teddyxlandlee.annotation.NeedToConfirm;
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.debug.PartType;
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,9 +20,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
@@ -36,7 +37,7 @@ import java.util.Iterator;
  * <h2>Why canceling implementing ExtendedScreenHandlerFactory?</h2>
  * <p>Because it is already implemented in AbstractLockableContainerBlockEntity!</p>
  */
-public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable {
+public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable, ExtendedScreenHandlerFactory {
     private int grindTime;
     private int grindTimeTotal;
     private float ingredientData;
@@ -53,7 +54,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     //protected DefaultedList<ItemStack> inventory;
 
     public GrinderBlockEntity() {
-        this(ExampleMod.GRINDER_BLOCK_ENTITY_TYPE);
+        this(SPMMain.GRINDER_BLOCK_ENTITY_TYPE);
     }
 
     protected GrinderBlockEntity(BlockEntityType<?> blockEntityType) {
@@ -94,8 +95,8 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         //this.recipesUsed = new Object2IntOpenHashMap<>();
         //this.recipeType = recipeType;
 
-        Util.registerGrindableItems(1, ExampleMod.RAW_SWEET_POTATOES);
-        //Util.registerGrindableItem(3, ExampleMod.ENCHANTED_SWEET_POTATO);
+        Util.registerGrindableItems(1, SPMMain.RAW_SWEET_POTATOES);
+        //Util.registerGrindableItem(3, SPMMain.ENCHANTED_SWEET_POTATO);
         this.absorbCooldown = -1;
         this.grindTime = -1;
     }
@@ -138,9 +139,9 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        //return new GrinderScreenHandler(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this.propertyDelegate);
+        //return new GrinderScreenHandler(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this.propertyDelegate);
         Debug.debug(this.getClass(), PartType.METHOD, "createScreenHandler", "Creating Screen Handler");
-        return new GrinderScreenHandler(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this, this.propertyDelegate);
+        return new GrinderScreenHandler(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this, this.propertyDelegate);
     }
 
     //@Override
@@ -362,11 +363,11 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @Deprecated
     private boolean canContinueGrinding(ItemStack input) {
-        if (!(input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES)) && !(input.getItem().isIn(ExampleMod.ENCHANTED_SWEET_POTATOES)))
+        if (!(input.getItem().isIn(SPMMain.RAW_SWEET_POTATOES)) && !(input.getItem().isIn(SPMMain.ENCHANTED_SWEET_POTATOES)))
             //throw new UnsupportedOperationException("[GrinderBlockEntity]
             // A programmer tries to force non-grindable thing be grinded, which is unsupported");
             return false;
-        if (input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES))
+        if (input.getItem().isIn(SPMMain.RAW_SWEET_POTATOES))
             return input.getCount() >= 9;
         else
             return input.getCount() >= 3;
@@ -379,7 +380,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @HardCoded
     private void craftRecipe(boolean checkIfCanOutput) {
-        this.craftRecipe(new ItemStack(ExampleMod.POTATO_POWDER), checkIfCanOutput);
+        this.craftRecipe(new ItemStack(SPMMain.POTATO_POWDER), checkIfCanOutput);
     }
 
     @HardCoded
@@ -390,10 +391,10 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
             if (!invOutput.isItemEqualIgnoreDamage(shallOutput))
                 this.inventory.set(1, shallOutput.copy());
-            else if (invOutput.getItem() == ExampleMod.POTATO_POWDER)
+            else if (invOutput.getItem() == SPMMain.POTATO_POWDER)
                 invOutput.increment(1);
 
-            //input.decrement(input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES) ? 9 : 3);
+            //input.decrement(input.getItem().isIn(SPMMain.RAW_SWEET_POTATOES) ? 9 : 3);
         }
     }
 
@@ -419,7 +420,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @HardCoded
     protected boolean canAcceptRecipeOutput() {
-        return canAcceptRecipeOutput(ExampleMod.POTATO_POWDER);
+        return canAcceptRecipeOutput(SPMMain.POTATO_POWDER);
     }
 
     /**
@@ -432,7 +433,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
      */
     @HardCoded
     protected boolean canAcceptRecipeOutput(ItemConvertible item) {
-        //ItemStack shallBeOutput = new ItemStack(ExampleMod.POTATO_POWDER);
+        //ItemStack shallBeOutput = new ItemStack(SPMMain.POTATO_POWDER);
         ItemStack outInv = this.inventory.get(1);
         if (outInv.isEmpty())
             return true;
@@ -458,8 +459,8 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         return this.propertyDelegate.get(2) / 10.0F;
     }
 
-    //@Override
-    //public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
-    //    packetByteBuf.writeBlockPos(this.pos);
-    //}
+    @Override
+    public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
+        packetByteBuf.writeBlockPos(this.pos);
+    }
 }

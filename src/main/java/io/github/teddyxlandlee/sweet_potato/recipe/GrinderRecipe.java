@@ -1,6 +1,6 @@
 package io.github.teddyxlandlee.sweet_potato.recipe;
 
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import com.google.gson.JsonObject;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -59,12 +59,12 @@ public class GrinderRecipe implements Recipe<Inventory> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ExampleMod.GRINDER_RECIPE_SERIALIZER;
+        return SPMMain.GRINDER_RECIPE_SERIALIZER;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return ExampleMod.GRINDER_RECIPE_TYPE;
+        return SPMMain.GRINDER_RECIPE_TYPE;
     }
 
     public static class Serializer extends AbstractRecipeSerializer<GrinderRecipe> {

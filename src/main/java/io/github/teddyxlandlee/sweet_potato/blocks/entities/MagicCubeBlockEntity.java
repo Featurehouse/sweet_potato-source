@@ -2,7 +2,7 @@ package io.github.teddyxlandlee.sweet_potato.blocks.entities;
 
 import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.blocks.MagicCubeBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -21,7 +21,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     private byte fireChanged;
 
     public MagicCubeBlockEntity() {
-        this(ExampleMod.MAGIC_CUBE_BLOCK_ENTITY_TYPE, 5);
+        this(SPMMain.MAGIC_CUBE_BLOCK_ENTITY_TYPE, 5);
     }
 
     public MagicCubeBlockEntity(BlockEntityType<?> type, int size) {
@@ -84,9 +84,9 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         @NonMinecraftNorFabric
         protected static BlockState calcState(World world, BlockPos pos) {
             if (fireCount(world, pos) > 0) {
-                return ExampleMod.MAGIC_CUBE.getDefaultState().with(MagicCubeBlock.ACTIVATED, true);
+                return SPMMain.MAGIC_CUBE.getDefaultState().with(MagicCubeBlock.ACTIVATED, true);
             }
-            return ExampleMod.MAGIC_CUBE.getDefaultState().with(MagicCubeBlock.ACTIVATED, false);
+            return SPMMain.MAGIC_CUBE.getDefaultState().with(MagicCubeBlock.ACTIVATED, false);
         }
 
         @FireBelow

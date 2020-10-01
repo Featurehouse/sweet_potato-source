@@ -6,7 +6,7 @@ import io.github.cottonmc.cotton.gui.widget.WItemSlot;
 import io.github.cottonmc.cotton.gui.widget.WPlayerInvPanel;
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.debug.Debug;
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import net.fabricmc.api.EnvType;
@@ -60,7 +60,7 @@ public class DeprecatedGrinderScreenHandler$5$1 extends SyncedGuiDescription {
     }
 
     public DeprecatedGrinderScreenHandler$5$1(int i, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
-        this(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory, ScreenHandlerContext.EMPTY, packetByteBuf);
+        this(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory, ScreenHandlerContext.EMPTY, packetByteBuf);
     }
 
     //@Override

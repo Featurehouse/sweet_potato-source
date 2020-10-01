@@ -1,6 +1,6 @@
 package io.github.teddyxlandlee.sweet_potato.util;
 
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.sound.BlockSoundGroup;
@@ -16,7 +16,7 @@ public final class BlockSettings {
     }
 
     static {
-        GRASS_LIKE = FabricBlockSettings.of(ExampleMod.MATERIAL_PLANT) // Wanted: move MATERIAL_PLANT to Util
+        GRASS_LIKE = FabricBlockSettings.of(SPMMain.MATERIAL_PLANT) // Wanted: move MATERIAL_PLANT to Util
                 .noCollision()
                 .ticksRandomly()
                 .breakInstantly()

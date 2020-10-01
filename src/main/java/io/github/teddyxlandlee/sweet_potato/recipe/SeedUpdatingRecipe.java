@@ -1,6 +1,6 @@
 package io.github.teddyxlandlee.sweet_potato.recipe;
 
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import com.google.gson.JsonObject;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -57,7 +57,7 @@ public class SeedUpdatingRecipe implements Recipe<Inventory> {
 
     @Environment(EnvType.CLIENT)
     public ItemStack getRecipeKindIcon() {
-        return new ItemStack(ExampleMod.SEED_UPDATER);
+        return new ItemStack(SPMMain.SEED_UPDATER);
     }
 
     //@Override
@@ -67,12 +67,12 @@ public class SeedUpdatingRecipe implements Recipe<Inventory> {
 
     //@Override
     public RecipeSerializer<?> getSerializer() {
-        return ExampleMod.SEED_UPDATING_RECIPE_SERIALIZER;
+        return SPMMain.SEED_UPDATING_RECIPE_SERIALIZER;
     }
 
     //@Override
     public RecipeType<?> getType() {
-        return ExampleMod.SEED_UPDATING_RECIPE_TYPE;
+        return SPMMain.SEED_UPDATING_RECIPE_TYPE;
     }
 
     public boolean method_30029(ItemStack itemStack) {

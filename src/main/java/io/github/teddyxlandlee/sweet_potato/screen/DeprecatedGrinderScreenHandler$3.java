@@ -1,7 +1,7 @@
 package io.github.teddyxlandlee.sweet_potato.screen;
 
 import io.github.teddyxlandlee.annotation.Unused_InsteadOf;
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.util.DeprecatedGrindingResultSlot;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import net.fabricmc.api.EnvType;
@@ -29,7 +29,7 @@ public class DeprecatedGrinderScreenHandler$3 extends ScreenHandler {
     protected final PlayerEntity player;
 
     public DeprecatedGrinderScreenHandler$3(int syncId, PlayerInventory playerInventory) {
-        this(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, new SimpleInventory(2), new ArrayPropertyDelegate(3));
+        this(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, new SimpleInventory(2), new ArrayPropertyDelegate(3));
     }
 
     public DeprecatedGrinderScreenHandler$3(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {

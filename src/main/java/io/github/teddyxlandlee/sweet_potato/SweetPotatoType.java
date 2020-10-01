@@ -47,11 +47,11 @@ public enum SweetPotatoType {
     public ItemConvertible getRaw() {
         switch (this) {
             case PURPLE:
-                return ExampleMod.PURPLE_POTATO;
+                return SPMMain.PURPLE_POTATO;
             case RED:
-                return ExampleMod.RED_POTATO;
+                return SPMMain.RED_POTATO;
             case WHITE:
-                return ExampleMod.WHITE_POTATO;
+                return SPMMain.WHITE_POTATO;
         }
         return null;
     }
@@ -59,11 +59,11 @@ public enum SweetPotatoType {
     public ItemConvertible getBaked() {
         switch (this) {
             case PURPLE:
-                return ExampleMod.BAKED_PURPLE_POTATO;
+                return SPMMain.BAKED_PURPLE_POTATO;
             case RED:
-                return ExampleMod.BAKED_RED_POTATO;
+                return SPMMain.BAKED_RED_POTATO;
             case WHITE:
-                return ExampleMod.BAKED_WHITE_POTATO;
+                return SPMMain.BAKED_WHITE_POTATO;
         }
         return null;
     }
@@ -71,11 +71,11 @@ public enum SweetPotatoType {
     public Block getCrop() {
         switch (this) {
             case PURPLE:
-                return ExampleMod.PURPLE_POTATO_CROP;
+                return SPMMain.PURPLE_POTATO_CROP;
             case RED:
-                return ExampleMod.RED_POTATO_CROP;
+                return SPMMain.RED_POTATO_CROP;
             case WHITE:
-                return ExampleMod.WHITE_POTATO_CROP;
+                return SPMMain.WHITE_POTATO_CROP;
         }
         return null;
     }
@@ -83,11 +83,11 @@ public enum SweetPotatoType {
     public ItemConvertible getEnchanted() {
         switch (this) {
             case PURPLE:
-                return ExampleMod.ENCHANTED_PURPLE_POTATO;
+                return SPMMain.ENCHANTED_PURPLE_POTATO;
             case RED:
-                return ExampleMod.ENCHANTED_RED_POTATO;
+                return SPMMain.ENCHANTED_RED_POTATO;
             case WHITE:
-                return ExampleMod.ENCHANTED_WHITE_POTATO;
+                return SPMMain.ENCHANTED_WHITE_POTATO;
         }
         return null;
     }

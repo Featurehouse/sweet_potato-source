@@ -1,6 +1,6 @@
 package io.github.teddyxlandlee.sweet_potato.screen;
 
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 @Deprecated
 @Environment(EnvType.CLIENT)
 public class DeprecatedGrinderScreen$2 extends HandledScreen<GrinderScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(ExampleMod.MODID, "textures/gui/container/grinder.png");
+    private static final Identifier TEXTURE = new Identifier(SPMMain.MODID, "textures/gui/container/grinder.png");
     private final GrinderScreenHandler handler;
 
     public DeprecatedGrinderScreen$2(GrinderScreenHandler handler, PlayerInventory inventory, Text title) {

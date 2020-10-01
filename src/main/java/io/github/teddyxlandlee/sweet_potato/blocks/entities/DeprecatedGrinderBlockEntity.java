@@ -2,7 +2,7 @@ package io.github.teddyxlandlee.sweet_potato.blocks.entities;
 
 import io.github.teddyxlandlee.annotation.HardCoded;
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
-import io.github.teddyxlandlee.sweet_potato.ExampleMod;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -49,7 +49,7 @@ public class DeprecatedGrinderBlockEntity extends LockableContainerBlockEntity i
     //protected final RecipeType<GrinderRecipe> recipeType;
 
     public DeprecatedGrinderBlockEntity() {
-        this(ExampleMod.GRINDER_BLOCK_ENTITY_TYPE);
+        this(SPMMain.GRINDER_BLOCK_ENTITY_TYPE);
     }
 
     protected DeprecatedGrinderBlockEntity(BlockEntityType<?> blockEntityType) {
@@ -90,8 +90,8 @@ public class DeprecatedGrinderBlockEntity extends LockableContainerBlockEntity i
         //this.recipesUsed = new Object2IntOpenHashMap<>();
         //this.recipeType = recipeType;
 
-        Util.registerGrindableItems(1, ExampleMod.RAW_SWEET_POTATOES);
-        //Util.registerGrindableItem(3, ExampleMod.ENCHANTED_SWEET_POTATO);
+        Util.registerGrindableItems(1, SPMMain.RAW_SWEET_POTATOES);
+        //Util.registerGrindableItem(3, SPMMain.ENCHANTED_SWEET_POTATO);
         this.absorbCooldown = -1;
     }
 
@@ -103,8 +103,8 @@ public class DeprecatedGrinderBlockEntity extends LockableContainerBlockEntity i
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        //return new GrinderScreenHandler(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this.propertyDelegate);
-        return new GrinderScreenHandler(ExampleMod.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this, this.propertyDelegate);
+        //return new GrinderScreenHandler(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this.propertyDelegate);
+        return new GrinderScreenHandler(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this, this.propertyDelegate);
     }
 
     @Override
@@ -293,11 +293,11 @@ public class DeprecatedGrinderBlockEntity extends LockableContainerBlockEntity i
      * function should be deprecated completely.</p>*/
     @Deprecated
     private boolean canContinueGrinding(ItemStack input) {
-        //if (!(input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES)) && input.getItem() != ExampleMod.ENCHANTED_SWEET_POTATO)
+        //if (!(input.getItem().isIn(SPMMain.RAW_SWEET_POTATOES)) && input.getItem() != SPMMain.ENCHANTED_SWEET_POTATO)
             //throw new UnsupportedOperationException("[GrinderBlockEntity]
             // A programmer tries to force non-grindable thing be grinded, which is unsupported");
         //    return false;
-        if (input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES))
+        if (input.getItem().isIn(SPMMain.RAW_SWEET_POTATOES))
             return input.getCount() >= 9;
         else
             return input.getCount() >= 3;
@@ -307,15 +307,15 @@ public class DeprecatedGrinderBlockEntity extends LockableContainerBlockEntity i
     private void craftRecipe() {
         if (this.canAcceptRecipeOutput()) {
             //ItemStack input = this.inventory.get(0);
-            ItemStack SHALL_OUTPUT = new ItemStack(ExampleMod.POTATO_POWDER);
+            ItemStack SHALL_OUTPUT = new ItemStack(SPMMain.POTATO_POWDER);
             ItemStack invOutput = this.inventory.get(1);
 
             if (invOutput.isEmpty())
                 this.inventory.set(1, SHALL_OUTPUT.copy());
-            else if (invOutput.getItem() == ExampleMod.POTATO_POWDER)
+            else if (invOutput.getItem() == SPMMain.POTATO_POWDER)
                 invOutput.increment(1);
 
-            //input.decrement(input.getItem().isIn(ExampleMod.RAW_SWEET_POTATOES) ? 9 : 3);
+            //input.decrement(input.getItem().isIn(SPMMain.RAW_SWEET_POTATOES) ? 9 : 3);
         }
     }
 
@@ -342,7 +342,7 @@ public class DeprecatedGrinderBlockEntity extends LockableContainerBlockEntity i
     @HardCoded
     protected boolean canAcceptRecipeOutput() {
         if (!this.inventory.get(0).isEmpty()) {
-            ItemStack shallBeOutput = new ItemStack(ExampleMod.POTATO_POWDER);
+            ItemStack shallBeOutput = new ItemStack(SPMMain.POTATO_POWDER);
             ItemStack outInv = this.inventory.get(1);
             if (outInv.isEmpty())
                 return true;
