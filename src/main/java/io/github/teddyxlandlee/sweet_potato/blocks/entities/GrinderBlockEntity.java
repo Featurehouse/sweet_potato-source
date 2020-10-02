@@ -100,7 +100,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         //Util.registerGrindableItem(3, SPMMain.ENCHANTED_SWEET_POTATO);
         this.absorbCooldown = -1;
         this.grindTime = -1;
-        this.ingredientData = 0;
+        this.ingredientData = 0.0f;
     }
 
     @Override
