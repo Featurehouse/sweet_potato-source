@@ -32,18 +32,10 @@ public class GrinderScreenHandler extends ScreenHandler {
     Logger logger = LogManager.getLogger();
 
     private final Inventory inventory;
-    private PropertyDelegate propertyDelegate;
-
     @NonMinecraftNorFabric
     private GrinderProperties grinderProperties;
-
     protected final World world;
-    @Deprecated
-    protected GrinderBlockEntity blockEntity;
 
-    /**
-     * Through debugging, we found that block-entity-created and
-     * */
     public GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory) {
         this(type, syncId, playerInventory, new SimpleInventory(2) /*, new ArrayPropertyDelegate(3)*/);
     }
@@ -80,9 +72,20 @@ public class GrinderScreenHandler extends ScreenHandler {
         }
     }*/
 
+    /**
+     * From: Screen Handler Registry
+     */
     public GrinderScreenHandler(int i, PlayerInventory playerInventory, PacketByteBuf buf) {
         this(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory);
         this.grinderProperties = GrinderProperties.readFromPacketByteBuf(buf);
+    }
+
+    /**
+     * From: Grinder Block Entity
+     */
+    public GrinderScreenHandler(ScreenHandlerType<?> grinderScreenHandlerType, int syncId, PlayerInventory playerInventory, Inventory inventory, GrinderProperties grinderProperties) {
+        this(grinderScreenHandlerType, syncId, playerInventory, inventory);
+        this.grinderProperties = grinderProperties;
     }
 
     @NonMinecraftNorFabric

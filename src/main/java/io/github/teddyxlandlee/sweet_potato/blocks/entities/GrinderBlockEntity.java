@@ -140,7 +140,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         Debug.debug(this.getClass(), PartType.METHOD, "createScreenHandler", "Creating Screen Handler");
-        return new GrinderScreenHandler(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this);
+        return new GrinderScreenHandler(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this, new GrinderProperties(this.grindTime, this.grindTimeTotal, this.ingredientData));
     }
 
     @Override
@@ -450,6 +450,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
-        new GrinderProperties(this.grindTime, this.grindTimeTotal, this.ingredientData).fillPacketByteBuf(packetByteBuf);
+        GrinderProperties grinderProperties = new GrinderProperties(this.grindTime, this.grindTimeTotal, this.ingredientData);
+        grinderProperties.fillPacketByteBuf(packetByteBuf);
     }
 }

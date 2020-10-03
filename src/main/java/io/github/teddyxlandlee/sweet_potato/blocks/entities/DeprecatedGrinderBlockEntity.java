@@ -3,7 +3,7 @@ package io.github.teddyxlandlee.sweet_potato.blocks.entities;
 import io.github.teddyxlandlee.annotation.HardCoded;
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
-import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
+import io.github.teddyxlandlee.sweet_potato.screen.DeprecatedGrinderScreenHandler$6;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -104,7 +104,7 @@ public class DeprecatedGrinderBlockEntity extends LockableContainerBlockEntity i
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         //return new GrinderScreenHandler(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this.propertyDelegate);
-        return new GrinderScreenHandler(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this, this.propertyDelegate);
+        return new DeprecatedGrinderScreenHandler$6(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this, this.propertyDelegate);
     }
 
     @Override

@@ -1,12 +1,9 @@
 package io.github.teddyxlandlee.sweet_potato.util.network;
 
 import io.github.teddyxlandlee.sweet_potato.util.FloatIntegerizer;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.network.PacketByteBuf;
 
 import javax.annotation.Nonnull;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 public class GrinderProperties {
     public int grindTime;
@@ -40,7 +37,8 @@ public class GrinderProperties {
                 (byte) ((fromFloat)       & 0b100000000)
         };
 
-        buf.writeBytes(data);
+        //buf.writeBytes(data);
+        buf.writeByteArray(data);
     }
 
     public static void fillPacketByteBuf(int grindTime, int grindTimeTotal, float ingredientData, PacketByteBuf buf) {
@@ -50,10 +48,8 @@ public class GrinderProperties {
     // -*- READ -*- //
 
     public static GrinderProperties readFromPacketByteBuf(@Nonnull PacketByteBuf buf) {
-        byte[] data = buf.array();
-        if (data.length != 12) {
-            throw new ArrayIndexOutOfBoundsException("[SPM] data.length should be 12 but presents " + data.length);
-        }
+        byte[] data = buf.readByteArray();
+
         int grindTime = data[0] << 24 + data[1] << 16 + data[2] << 8 + data[3];
         int grindTimeTotal = data[4] << 24 + data[5] << 16 + data[6] << 8 + data[7];
         int ingredientData$1 = data[8] << 24 + data[9] << 16 + data[10] << 8 + data[11];
