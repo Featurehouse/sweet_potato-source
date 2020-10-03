@@ -7,7 +7,6 @@ import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import io.github.teddyxlandlee.sweet_potato.util.DeprecatedGrindingResultSlot;
 import io.github.teddyxlandlee.sweet_potato.util.FloatIntegerizer;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
-import io.github.teddyxlandlee.sweet_potato.util.network.GrinderProperties;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
@@ -28,15 +27,12 @@ import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 
-public class GrinderScreenHandler extends ScreenHandler {
+@Deprecated
+public class DeprecatedGrinderScreenHandler$6 extends ScreenHandler {
     Logger logger = LogManager.getLogger();
 
     private final Inventory inventory;
     private PropertyDelegate propertyDelegate;
-
-    @NonMinecraftNorFabric
-    private GrinderProperties grinderProperties;
-
     protected final World world;
     @Deprecated
     protected GrinderBlockEntity blockEntity;
@@ -44,14 +40,21 @@ public class GrinderScreenHandler extends ScreenHandler {
     /**
      * Through debugging, we found that block-entity-created and
      * */
-    public GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory) {
-        this(type, syncId, playerInventory, new SimpleInventory(2) /*, new ArrayPropertyDelegate(3)*/);
+    public DeprecatedGrinderScreenHandler$6(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory) {
+        this(type, syncId, playerInventory, new SimpleInventory(2), /*new ArrayPropertyDelegate(3)*/ null);
     }
 
-    public GrinderScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory) {
+    public DeprecatedGrinderScreenHandler$6(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {
         super(type, syncId);
         checkSize(inventory, 2);
+        if (propertyDelegate != null) {
+            checkDataCount(propertyDelegate, 3);
+        }
         this.inventory = inventory;
+        if (propertyDelegate != null) {
+            this.propertyDelegate = propertyDelegate;
+            this.addProperties(propertyDelegate);
+        }
         this.world = playerInventory.player.world;
         this.addSlot(new Slot(inventory, 0, 40, 35));
         this.addSlot(new DeprecatedGrindingResultSlot(playerInventory.player, inventory, 1, 116, 35));
@@ -61,8 +64,8 @@ public class GrinderScreenHandler extends ScreenHandler {
         Debug.debug(this, "Successfully created Grinder Screen Handler by Block Entity");
     }
 
-    /*@Deprecated
-    public GrinderScreenHandler(int i, PlayerInventory playerInventory, PacketByteBuf buf, Void v) {
+    //@DeprecatedFrom(DeprecatedGrinderScreenHandler$4.class)
+    public DeprecatedGrinderScreenHandler$6(int i, PlayerInventory playerInventory, PacketByteBuf buf) {
         this(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory);
         BlockEntity blockEntity = this.world.getBlockEntity(buf.readBlockPos());
         if (blockEntity instanceof GrinderBlockEntity) {
@@ -78,11 +81,6 @@ public class GrinderScreenHandler extends ScreenHandler {
                 logger.error("Null block entity found");
             }
         }
-    }*/
-
-    public GrinderScreenHandler(int i, PlayerInventory playerInventory, PacketByteBuf buf) {
-        this(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory);
-        this.grinderProperties = GrinderProperties.readFromPacketByteBuf(buf);
     }
 
     @NonMinecraftNorFabric
@@ -141,7 +139,7 @@ public class GrinderScreenHandler extends ScreenHandler {
         return itemStack;
     }
 
-    /*@Environment(EnvType.CLIENT)
+    @Environment(EnvType.CLIENT)
     //@Deprecated
     public int getGrindProgress() {
         int grindTime = this.propertyDelegate.get(0);
@@ -153,18 +151,9 @@ public class GrinderScreenHandler extends ScreenHandler {
      * Because the value in propertyDelegate is
      * integer and zipped, we should unzip it
      * right here.
-     *-/
+     */
     public float getIngredientData() {
         float ret = FloatIntegerizer.toFloat(this.propertyDelegate.get(2));
         return ret;
-    }*/
-
-    public int getGrindProgress() {
-        return grinderProperties.grindTimeTotal != 0 && grinderProperties.grindTime != 0 ?
-                grinderProperties.grindTime * 22 / grinderProperties.grindTimeTotal : 0;
-    }
-
-    public float getIngredientData() {
-        return grinderProperties.ingredientData;
     }
 }

@@ -1,6 +1,7 @@
 {
+  "mod.sweet_potato": "烤地瓜",
+
   "item.sweet_potato.peel": "地瓜皮",
-  "item.sweet_potato.baked_peel": "烤地瓜皮",
   "item.sweet_potato.baked_purple_potato": "烤紫薯",
   "item.sweet_potato.baked_red_potato": "烤红薯",
   "item.sweet_potato.baked_white_potato": "烤白薯",
@@ -8,17 +9,26 @@
   "item.sweet_potato.red_potato": "红薯",
   "item.sweet_potato.white_potato": "白薯",
   "item.sweet_potato.potato_powder": "地瓜粉",
-  "item.sweet_potato.potato_essence": "甘薯精华",
-  "item.sweet_potato.enchanted_sweet_potato": "附魔地瓜",
+  "item.sweet_potato.enchanted_purple_potato": "附魔紫薯",
+  "item.sweet_potato.enchanted_red_potato": "附魔红薯",
+  "item.sweet_potato.enchanted_white_potato": "附魔白薯",
 
   "block.sweet_potato.magic_cube": "魔法锅",
   "block.sweet_potato.grinder": "研磨器",
+  "block.sweet_potato.agroforestry_table": "农林台",
   "block.sweet_potato.enchanted_acacia_sapling": "附魔金合欢树苗",
   "block.sweet_potato.enchanted_dark_oak_sapling": "附魔深色橡树树苗",
   "block.sweet_potato.enchanted_jungle_sapling": "附魔丛林树苗",
   "block.sweet_potato.enchanted_birch_sapling": "附魔白桦树苗",
   "block.sweet_potato.enchanted_oak_sapling": "附魔橡树树苗",
   "block.sweet_potato.enchanted_spruce_sapling": "附魔云杉树苗",
+  "block.sweet_potato.enchanted_sugar_cane": "附魔甘蔗",
+  "block.sweet_potato.enchanted_acacia_leaves": "附魔金合欢树叶",
+  "block.sweet_potato.enchanted_birch_leaves": "附魔白桦树叶",
+  "block.sweet_potato.enchanted_dark_oak_leaves": "附魔深色橡树树叶",
+  "block.sweet_potato.enchanted_jungle_leaves": "附魔丛林树叶",
+  "block.sweet_potato.enchanted_oak_leaves": "附魔橡树树叶",
+  "block.sweet_potato.enchanted_spruce_leaves": "附魔云杉树叶",
 
   "advancement.husbandry.sweet_potato.get_sweet_potato.title": "香甜软嚅",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "获得地瓜",
@@ -27,5 +37,5 @@
 
   "container.sweet_potato.seed_updating": "升级种子",
   "container.sweet_potato.grinding": "研磨",
-  "container.grinding.ingredientData": "已添加 %d 份原料"
+  "container.grinding.ingredientData": "已添加 %f 份原料"
 }

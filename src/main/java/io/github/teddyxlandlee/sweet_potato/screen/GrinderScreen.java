@@ -74,16 +74,4 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
         super.render(matrices, mouseX, mouseY, delta);
         this.drawMouseoverTooltip(matrices, mouseX, mouseY);
     }
-
-    @Deprecated
-    public int getBlockEntityVar(int i, BlockEntity blockEntity) {
-        if (blockEntity instanceof GrinderBlockEntity) {
-            final int result = ((GrinderBlockEntity) blockEntity).propertyDelegate.get(0) >> 1;
-            Debug.debug(this.getClass(), PartType.METHOD, "getBlockEntityVar",
-                    "i = " + i + ", result = " + result);
-            return result;
-        }
-
-        return 0;
-    }
 }

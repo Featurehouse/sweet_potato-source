@@ -7,6 +7,7 @@ import net.minecraft.sound.BlockSoundGroup;
 
 public final class BlockSettings {
     public static final FabricBlockSettings GRASS_LIKE;
+    public static final FabricBlockSettings GRASS;
 
     private BlockSettings() {}
 
@@ -21,5 +22,10 @@ public final class BlockSettings {
                 .ticksRandomly()
                 .breakInstantly()
                 .sounds(BlockSoundGroup.CROP);
+        GRASS = FabricBlockSettings.of(SPMMain.MATERIAL_PLANT)
+                .noCollision()
+                .ticksRandomly()
+                .breakInstantly()
+                .sounds(BlockSoundGroup.GRASS);
     }
 }

@@ -10,6 +10,7 @@ import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.util.FloatIntegerizer;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
+import io.github.teddyxlandlee.sweet_potato.util.network.GrinderProperties;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -51,6 +52,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     //public static final Object2IntOpenHashMap<ItemConvertible> INGREDIENT_DATA_MAP = new Object2IntOpenHashMap<>();
     public static final Object2FloatOpenHashMap<ItemConvertible> INGREDIENT_DATA_MAP = new Object2FloatOpenHashMap<>();
 
+    @Deprecated
     public PropertyDelegate propertyDelegate;
     //protected DefaultedList<ItemStack> inventory;
 
@@ -93,11 +95,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
                 return 3;
             }
         };
-        //this.recipesUsed = new Object2IntOpenHashMap<>();
-        //this.recipeType = recipeType;
-
-        //Util.registerGrindableItems(1, SPMMain.RAW_SWEET_POTATOES);
-        //Util.registerGrindableItem(3, SPMMain.ENCHANTED_SWEET_POTATO);
         this.absorbCooldown = -1;
         this.grindTime = -1;
         this.ingredientData = 0.0f;
@@ -142,15 +139,9 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        //return new GrinderScreenHandler(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this.propertyDelegate);
         Debug.debug(this.getClass(), PartType.METHOD, "createScreenHandler", "Creating Screen Handler");
-        return new GrinderScreenHandler(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this, this.propertyDelegate);
+        return new GrinderScreenHandler(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this);
     }
-
-    //@Override
-    //public int size() {
-    //    return this.inventory.size();
-    //}
 
     @Override
     public boolean isEmpty() {
@@ -457,13 +448,8 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         return 200;
     }
 
-    @Deprecated
-    public float getIngredientData() {
-        return this.propertyDelegate.get(2) / 10.0F;
-    }
-
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
-        packetByteBuf.writeBlockPos(this.pos);
+        new GrinderProperties(this.grindTime, this.grindTimeTotal, this.ingredientData).fillPacketByteBuf(packetByteBuf);
     }
 }

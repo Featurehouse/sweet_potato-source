@@ -105,6 +105,8 @@ public class SPMMain implements ModInitializer {
 	public static final Block ENCHANTED_VANILLA_POTATOES_CROP;
 	public static final Block ENCHANTED_CARROTS_CROP;
 
+	public static final Block ENCHANTED_SUGAR_CANE;
+
 		// Saplings
 	public static final Block ENCHANTED_OAK_SAPLING;
 	public static final Block ENCHANTED_SPRUCE_SAPLING;
@@ -149,6 +151,7 @@ public class SPMMain implements ModInitializer {
 	public static final Item ENCHANTED_DARK_OAK_LEAVES_ITEM;
 	public static final Item ENCHANTED_JUNGLE_LEAVES_ITEM;
 	public static final Item ENCHANTED_SPRUCE_LEAVES_ITEM;
+	public static final Item ENCHANTED_SUGAR_CANE_ITEM;
 
 
 	// -*- -*- MISC -*- -*- //
@@ -336,6 +339,7 @@ public class SPMMain implements ModInitializer {
 				.requiresTool()
 				.resistance(6.0f)
 		));
+		    // Crops
 		PURPLE_POTATO_CROP = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "purple_potatoes"
 		), new SweetPotatoesCropBlock(BlockSettings.GRASS_LIKE, SweetPotatoType.PURPLE));
@@ -357,6 +361,9 @@ public class SPMMain implements ModInitializer {
 		ENCHANTED_CARROTS_CROP = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_carrots"
 		), new EnchantedCarrotsBlock(BlockSettings.GRASS_LIKE));
+		ENCHANTED_SUGAR_CANE = Registry.register(Registry.BLOCK, new Identifier(
+		        MODID, "enchanted_sugar_cane"
+        ), new EnchantedSugarCaneBlock(BlockSettings.GRASS));
 			// Saplings
 		ENCHANTED_OAK_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_oak_sapling"
@@ -461,6 +468,13 @@ public class SPMMain implements ModInitializer {
 				.maxCount(64)
 				.food(FoodComponents.CARROT)
 		));
+		ENCHANTED_SUGAR_CANE_ITEM = Registry.register(Registry.ITEM, new Identifier(
+		        MODID, "enchanted_sugar_cane"
+        ), new EnchantedBlockItem(ENCHANTED_SUGAR_CANE, new Item.Settings()
+                .group(ItemGroup.DECORATIONS)
+                .maxCount(64)
+        ));
+
 		ENCHANTED_ACACIA_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "enchanted_acacia_leaves"
 		), new EnchantedBlockItem(ENCHANTED_ACACIA_LEAVES, new Item.Settings()
