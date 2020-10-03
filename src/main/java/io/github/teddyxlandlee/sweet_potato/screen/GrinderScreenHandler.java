@@ -78,6 +78,7 @@ public class GrinderScreenHandler extends ScreenHandler {
     public GrinderScreenHandler(int i, PlayerInventory playerInventory, PacketByteBuf buf) {
         this(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory);
         this.grinderProperties = GrinderProperties.readFromPacketByteBuf(buf);
+        Debug.debug(this, "Successfully created GrinderScreenHandler by Registry!");
     }
 
     /**
