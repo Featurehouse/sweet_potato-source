@@ -8,9 +8,8 @@ import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.debug.PartType;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
-import io.github.teddyxlandlee.sweet_potato.util.FloatIntegerizer;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
-import io.github.teddyxlandlee.sweet_potato.util.network.GrinderProperties;
+import io.github.teddyxlandlee.sweet_potato.util.network.GrinderPropertiesAccessor;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -24,7 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -52,8 +50,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     //public static final Object2IntOpenHashMap<ItemConvertible> INGREDIENT_DATA_MAP = new Object2IntOpenHashMap<>();
     public static final Object2FloatOpenHashMap<ItemConvertible> INGREDIENT_DATA_MAP = new Object2FloatOpenHashMap<>();
 
-    @Deprecated
-    public PropertyDelegate propertyDelegate;
+    public final GrinderPropertiesAccessor propertiesAccessor;
     //protected DefaultedList<ItemStack> inventory;
 
     public GrinderBlockEntity() {
@@ -63,38 +60,39 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     protected GrinderBlockEntity(BlockEntityType<?> blockEntityType) {
         super(blockEntityType, 2);
         //this.inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
-        this.propertyDelegate = new PropertyDelegate() {
+
+        this.propertiesAccessor = new GrinderPropertiesAccessor() {
             @Override
-            public int get(int index) {
-                switch (index) {
-                    case 0:
-                        return GrinderBlockEntity.this.grindTime;
-                    case 1:
-                        return GrinderBlockEntity.this.grindTimeTotal;
-                    case 2:
-                        return FloatIntegerizer.fromFloat(GrinderBlockEntity.this.ingredientData);
-                    default:
-                        return 0;
-                }
+            public int getGrindTime() {
+                return grindTime;
             }
 
             @Override
-            public void set(int index, int value) {
-                switch (index) {
-                    case 0:
-                        GrinderBlockEntity.this.grindTime = value;
-                    case 1:
-                        GrinderBlockEntity.this.grindTimeTotal = value;
-                    case 2:
-                        GrinderBlockEntity.this.ingredientData = FloatIntegerizer.toFloat(value);
-                }
+            public int getGrindTimeTotal() {
+                return grindTimeTotal;
             }
 
             @Override
-            public int size() {
-                return 3;
+            public float getIngredientData() {
+                return ingredientData;
+            }
+
+            @Override
+            public void setGrindTime(int grindTime) {
+                GrinderBlockEntity.this.grindTime = grindTime;
+            }
+
+            @Override
+            public void setGrindTimeTotal(int grindTimeTotal) {
+                GrinderBlockEntity.this.grindTimeTotal = grindTimeTotal;
+            }
+
+            @Override
+            public void setIngredientData(float ingredientData) {
+                GrinderBlockEntity.this.ingredientData = ingredientData;
             }
         };
+
         this.absorbCooldown = -1;
         this.grindTime = -1;
         this.ingredientData = 0.0f;
@@ -140,7 +138,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         Debug.debug(this.getClass(), PartType.METHOD, "createScreenHandler", "Creating Screen Handler");
-        return new GrinderScreenHandler(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this, new GrinderProperties(this.grindTime, this.grindTimeTotal, this.ingredientData));
+        return new GrinderScreenHandler(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId, playerInventory, this, this.propertiesAccessor);
     }
 
     @Override
@@ -448,9 +446,17 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         return 200;
     }
 
+    /*
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
         GrinderProperties grinderProperties = new GrinderProperties(this.grindTime, this.grindTimeTotal, this.ingredientData);
         grinderProperties.fillPacketByteBuf(packetByteBuf);
+    }*/
+
+    @Override
+    public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
+        packetByteBuf.writeBlockPos(this.pos);
+        Debug.debug(GrinderBlockEntity.class, PartType.METHOD, "writeScreenOpeningData",
+                "Successfully written block pos");
     }
 }

@@ -7,6 +7,7 @@ import io.github.cottonmc.cotton.gui.widget.WPlayerInvPanel;
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
+import io.github.teddyxlandlee.sweet_potato.blocks.entities.DeprecatedGrinderBlockEntity;
 import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import net.fabricmc.api.EnvType;
@@ -33,7 +34,7 @@ public class DeprecatedGrinderScreenHandler$5$1 extends SyncedGuiDescription {
     public DeprecatedGrinderScreenHandler$5$1(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext ctx, PacketByteBuf buf) {
         /* Need to test: this or super */
         super(type, syncId, playerInventory, getBlockInventory(ctx, 2), null);
-        this.propertyDelegate = ((GrinderBlockEntity) (Objects.requireNonNull(this.world.getBlockEntity(buf.readBlockPos())))).propertyDelegate;
+        this.propertyDelegate = ((DeprecatedGrinderBlockEntity) (Objects.requireNonNull(this.world.getBlockEntity(buf.readBlockPos())))).propertyDelegate;
     }
 
     public DeprecatedGrinderScreenHandler$5$1(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {

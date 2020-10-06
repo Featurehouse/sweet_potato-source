@@ -7,6 +7,7 @@ import net.minecraft.network.PacketByteBuf;
 
 import javax.annotation.Nonnull;
 
+@Deprecated
 public class GrinderProperties {
     public int grindTime;
     public int grindTimeTotal;

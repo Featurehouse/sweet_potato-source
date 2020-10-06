@@ -3,7 +3,7 @@ package io.github.teddyxlandlee.sweet_potato.screen;
 import io.github.teddyxlandlee.annotation.Unused_InsteadOf;
 import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
-import io.github.teddyxlandlee.sweet_potato.util.DeprecatedGrindingResultSlot;
+import io.github.teddyxlandlee.sweet_potato.util.GrindingResultSlot;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -42,7 +42,7 @@ public class DeprecatedGrinderScreenHandler$4 extends AbstractScreenHandler {
         //this.inventory = inventory;
         checkDataCount(propertyDelegate, 3);
         this.addSlot(new Slot(this.inventory, 0, 40, 35), RenderType.DEFAULT_SLOT);
-        this.addSlot(new DeprecatedGrindingResultSlot(this.player, this.inventory, 1, 116, 35), RenderType.DEFAULT_SLOT);
+        this.addSlot(new GrindingResultSlot(this.player, this.inventory, 1, 116, 35), RenderType.DEFAULT_SLOT);
 
         // Player Inventory
         /*int k;

@@ -1,6 +1,7 @@
 package io.github.teddyxlandlee.sweet_potato.screen;
 
 import bilibili.ywsuoyi.gui.screenHandler;
+import io.github.teddyxlandlee.sweet_potato.blocks.entities.DeprecatedGrinderBlockEntity;
 import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -10,13 +11,14 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 
+@Deprecated
 public abstract class AbstractScreenHandler extends screenHandler {
     public PropertyDelegate propertyDelegate;
 
     public AbstractScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PacketByteBuf packetByteBuf) {
         super(type, syncId, playerInventory, inventory, packetByteBuf);
-        if (this.e instanceof GrinderBlockEntity)
-            this.propertyDelegate = ((GrinderBlockEntity) e).propertyDelegate;
+        if (this.e instanceof DeprecatedGrinderBlockEntity)
+            this.propertyDelegate = ((DeprecatedGrinderBlockEntity) e).propertyDelegate;
     }
 
     public AbstractScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory) {

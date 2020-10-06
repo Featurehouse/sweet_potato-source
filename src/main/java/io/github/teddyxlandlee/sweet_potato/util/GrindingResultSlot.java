@@ -5,12 +5,11 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 
-@Deprecated
-public class DeprecatedGrindingResultSlot extends Slot {
+public class GrindingResultSlot extends Slot {
     private final PlayerEntity player;
     private int amount;
 
-    public DeprecatedGrindingResultSlot(PlayerEntity player, Inventory inventory, int index, int x, int y) {
+    public GrindingResultSlot(PlayerEntity player, Inventory inventory, int index, int x, int y) {
         super(inventory, index, x, y);
         this.player = player;
     }

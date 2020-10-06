@@ -3,8 +3,9 @@ package io.github.teddyxlandlee.sweet_potato.screen;
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
+import io.github.teddyxlandlee.sweet_potato.blocks.entities.DeprecatedGrinderBlockEntity;
 import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
-import io.github.teddyxlandlee.sweet_potato.util.DeprecatedGrindingResultSlot;
+import io.github.teddyxlandlee.sweet_potato.util.GrindingResultSlot;
 import io.github.teddyxlandlee.sweet_potato.util.FloatIntegerizer;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import net.fabricmc.api.EnvType;
@@ -57,7 +58,7 @@ public class DeprecatedGrinderScreenHandler$6 extends ScreenHandler {
         }
         this.world = playerInventory.player.world;
         this.addSlot(new Slot(inventory, 0, 40, 35));
-        this.addSlot(new DeprecatedGrindingResultSlot(playerInventory.player, inventory, 1, 116, 35));
+        this.addSlot(new GrindingResultSlot(playerInventory.player, inventory, 1, 116, 35));
 
         this.createPlayerInventory(playerInventory);
 
@@ -68,8 +69,8 @@ public class DeprecatedGrinderScreenHandler$6 extends ScreenHandler {
     public DeprecatedGrinderScreenHandler$6(int i, PlayerInventory playerInventory, PacketByteBuf buf) {
         this(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory);
         BlockEntity blockEntity = this.world.getBlockEntity(buf.readBlockPos());
-        if (blockEntity instanceof GrinderBlockEntity) {
-            this.propertyDelegate = ((GrinderBlockEntity) blockEntity).propertyDelegate;
+        if (blockEntity instanceof DeprecatedGrinderBlockEntity) {
+            this.propertyDelegate = ((DeprecatedGrinderBlockEntity) blockEntity).propertyDelegate;
             this.addProperties(this.propertyDelegate);
         } else {
             // With bug
