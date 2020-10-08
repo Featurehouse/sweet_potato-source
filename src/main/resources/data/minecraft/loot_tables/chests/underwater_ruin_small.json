@@ -11,7 +11,7 @@
         {
           "type": "minecraft:loot_table",
           "weight": 5,
-          "name": "sweet_potato_misc/more_raw_sweet_potatoes"
+          "name": "sweet_potato:misc/more_raw_sweet_potatoes"
         },
         {
           "type": "minecraft:item",

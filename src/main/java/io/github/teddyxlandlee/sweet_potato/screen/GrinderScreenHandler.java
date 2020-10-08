@@ -1,18 +1,22 @@
 package io.github.teddyxlandlee.sweet_potato.screen;
 
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
+import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
+import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import io.github.teddyxlandlee.sweet_potato.util.GrindingResultSlot;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import io.github.teddyxlandlee.sweet_potato.util.network.GrinderPropertiesAccessor;
 import io.github.teddyxlandlee.sweet_potato.util.network.NullAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
@@ -30,18 +34,35 @@ public class GrinderScreenHandler extends ScreenHandler {
     /**
      * From: Registry
      */
-    public GrinderScreenHandler(int i, PlayerInventory playerInventory) {
-        this(i, playerInventory, playerInventory.player.world, new SimpleInventory(2), new NullAccessor());
+    public GrinderScreenHandler(int i, PlayerInventory playerInventory, PacketByteBuf buf) {
+        this(i, playerInventory, playerInventory.player.world, new SimpleInventory(2), new NullAccessor(), buf);
     }
 
     /**
      * From: Grinder Block Entity
      */
     public GrinderScreenHandler(int syncId, PlayerInventory playerInventory, World world, Inventory inventory, GrinderPropertiesAccessor accessor) {
+        this(syncId, playerInventory, world, inventory, accessor, null);
+    }
+
+    protected GrinderScreenHandler(int syncId, PlayerInventory playerInventory, World world, Inventory inventory, GrinderPropertiesAccessor accessor, PacketByteBuf buf) {
         super(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId);
         //this.playerInventory = playerInventory;
         this.inventory = inventory;
-        this.propertiesAccessor = accessor;
+        if (buf != null) {
+            BlockEntity e = playerInventory.player.world.getBlockEntity(buf.readBlockPos());
+            if (e instanceof GrinderBlockEntity) {
+                this.propertiesAccessor = ((GrinderBlockEntity) e).propertiesAccessor;
+                Debug.debug(this, "propertiesAccessor created by buf");
+            } else {
+                this.propertiesAccessor = null;
+                logger.fatal("non-grinder block entity found", new UnsupportedOperationException("non-grinder block entity at buf"));
+            }
+        } else {
+            this.propertiesAccessor = accessor;
+            Debug.debug(this, "propertiesAccessor created by block entity");
+        }
+        inventory.onOpen(playerInventory.player);
         this.addProperties(accessor);
         this.world = world;
 
