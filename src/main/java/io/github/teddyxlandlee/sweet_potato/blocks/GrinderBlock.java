@@ -4,11 +4,12 @@ import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.debug.PartType;
 import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -17,7 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-public class GrinderBlock extends BlockWithEntity {
+public class GrinderBlock extends bilibili.ywsuoyi.block.blockWithEntity {
     public GrinderBlock(AbstractBlock.Settings settings) {
         super(settings);
     }
@@ -42,15 +43,21 @@ public class GrinderBlock extends BlockWithEntity {
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
-    }
-
-    @Override
     public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         Debug.debug(this.getClass(), PartType.METHOD, "createScreenHandlerFactory",
                 "Successfully get block entity from world");
         return blockEntity instanceof GrinderBlockEntity ? (GrinderBlockEntity) blockEntity : null;
+    }
+
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
+        if (itemStack.hasCustomName()) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof AbstractFurnaceBlockEntity) {
+                ((AbstractFurnaceBlockEntity)blockEntity).setCustomName(itemStack.getName());
+            }
+        }
+
     }
 }

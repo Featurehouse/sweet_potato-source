@@ -1,96 +1,55 @@
 package io.github.teddyxlandlee.sweet_potato.screen;
 
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
-import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
-import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import io.github.teddyxlandlee.sweet_potato.util.GrindingResultSlot;
-import io.github.teddyxlandlee.sweet_potato.util.InvalidStatusException;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import io.github.teddyxlandlee.sweet_potato.util.network.GrinderPropertiesAccessor;
-import net.minecraft.block.entity.BlockEntity;
+import io.github.teddyxlandlee.sweet_potato.util.network.NullAccessor;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 public class GrinderScreenHandler extends ScreenHandler {
     Logger logger = LogManager.getLogger();
 
     private final Inventory inventory;
-    private GrinderPropertiesAccessor propertiesAccessor;
+    private final GrinderPropertiesAccessor propertiesAccessor;
 
-    protected final World world;
-
-    public GrinderScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory) {
-        this(type, syncId, playerInventory, new SimpleInventory(2) /*, new ArrayPropertyDelegate(3)*/);
-    }
-
-    public GrinderScreenHandler(ScreenHandlerType<?> type, int syncId, @Nonnull PlayerInventory playerInventory, Inventory inventory) {
-        super(type, syncId);
-        checkSize(inventory, 2);
-        this.inventory = inventory;
-        this.world = playerInventory.player.world;
-        this.addSlot(new Slot(inventory, 0, 40, 35));
-        this.addSlot(new GrindingResultSlot(playerInventory.player, inventory, 1, 116, 35));
-
-        this.createPlayerInventory(playerInventory);
-        //TODO: Make client-side block entity available
-
-        Debug.debug(this, "Successfully created Grinder Screen Handler by Block Entity");
-    }
-
-    /*@Deprecated
-    public GrinderScreenHandler(int i, PlayerInventory playerInventory, PacketByteBuf buf) {
-        this(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory);
-        BlockEntity blockEntity = this.world.getBlockEntity(buf.readBlockPos());
-        if (blockEntity instanceof GrinderBlockEntity) {
-            this.propertyDelegate = ((GrinderBlockEntity) blockEntity).propertyDelegate;
-            this.addProperties(this.propertyDelegate);
-        } else {
-            // With bug
-            logger.throwing(Level.ERROR, new RuntimeException("non-grinder block entity caught:"));
-            if (blockEntity != null) {
-                logger.error(String.format("Block Entity Pos: %s", blockEntity.getPos()));
-                logger.error(String.format("Block Entity Type: %s", blockEntity.getType()));
-            } else {
-                logger.error("Null block entity found");
-            }
-        }
-    }*/
+    protected World world;
 
     /**
      * From: Registry
      */
-    public GrinderScreenHandler(int i, PlayerInventory playerInventory, PacketByteBuf buf) {
-        this(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory);
-        BlockEntity e = this.world.getBlockEntity(buf.readBlockPos());
-        if (e instanceof GrinderBlockEntity) {
-            this.propertiesAccessor = ((GrinderBlockEntity) e).propertiesAccessor;
-        } else {
-            logger.error("block entity is not Grinder's. It might sent the wrong pos or something.",
-                    new InvalidStatusException("block entity is not Grinder's. It might sent the wrong pos or something."));
-        }
+    public GrinderScreenHandler(int i, PlayerInventory playerInventory) {
+        this(i, playerInventory, playerInventory.player.world, new SimpleInventory(2), new NullAccessor());
     }
 
     /**
      * From: Grinder Block Entity
      */
-    public GrinderScreenHandler(ScreenHandlerType<?> screenHandlerType, int syncId, PlayerInventory playerInventory, Inventory inventory, GrinderPropertiesAccessor accessor) {
-        this(screenHandlerType, syncId, playerInventory, inventory);
+    public GrinderScreenHandler(int syncId, PlayerInventory playerInventory, World world, Inventory inventory, GrinderPropertiesAccessor accessor) {
+        super(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId);
+        //this.playerInventory = playerInventory;
+        this.inventory = inventory;
         this.propertiesAccessor = accessor;
-        Debug.debug(this, "Successfully get propertiesAccessor from Block Entity");
+        this.addProperties(accessor);
+        this.world = world;
+
+        this.addSlot(new Slot(inventory, 0, 40, 35));
+        this.addSlot(new GrindingResultSlot(playerInventory.player, inventory, 1, 116, 35));
+
+        this.createPlayerInventory(playerInventory);
+        //TODO: Make client-side block entity available
     }
 
     @NonMinecraftNorFabric
@@ -149,39 +108,14 @@ public class GrinderScreenHandler extends ScreenHandler {
         return itemStack;
     }
 
-    /*@Environment(EnvType.CLIENT)
-    //@Deprecated
-    public int getGrindProgress() {
-        int grindTime = this.propertyDelegate.get(0);
-        int grindTimeTotal = this.propertyDelegate.get(1);
-        return grindTimeTotal != 0 && grindTime != 0 ? grindTime * 22 / grindTimeTotal : 0;
-    }
-
-    /**
-     * Because the value in propertyDelegate is
-     * integer and zipped, we should unzip it
-     * right here.
-     *-/
-    public float getIngredientData() {
-        float ret = FloatIntegerizer.toFloat(this.propertyDelegate.get(2));
-        return ret;
-    }*/
-
-    /*
-    public int getGrindProgress() {
-        return grinderProperties.grindTimeTotal != 0 && grinderProperties.grindTime != 0 ?
-                grinderProperties.grindTime * 22 / grinderProperties.grindTimeTotal : 0;
-    }
-
-    public float getIngredientData() {
-        return grinderProperties.ingredientData;
-    }*/
+    @Environment(EnvType.CLIENT)
     public int getGrindProgress() {
         int grindTime = propertiesAccessor.getGrindTime();
         int grindTimeTotal = propertiesAccessor.getGrindTimeTotal();
         return grindTimeTotal != 0 && grindTime != 0 ? grindTime * 22 / grindTimeTotal : 0;
     }
 
+    @Environment(EnvType.CLIENT)
     public float getIngredientData() {
         return propertiesAccessor.getIngredientData();
     }
