@@ -29,15 +29,15 @@ dependencies {
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 
-	// ywlib, an API mod, by 因为所以
+	// ywlib, an API mod, by YWsuoyi
 	modImplementation "libs:ywlib-1.0.4-dev"
 
-	// LibGui, a very good GUI lib.
+	// LibGui, a (not) very good GUI lib.
 	modImplementation "io.github.cottonmc:LibGui:2.3.0+1.16.1"
 }
 
 minecraft {
-	//accessWidener "src/main/resources/sweet_potato.accesswidener"
+	accessWidener "src/main/resources/sweet_potato.accesswidener"
 }
 
 processResources {

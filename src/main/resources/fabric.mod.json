@@ -8,16 +8,16 @@
   "authors": [
     "teddyxlandlee",
     "一颗水晶Rayawa",
-    "Dennis Lin",
-    "Peter Yang"
+    "Dennis Lin"
   ],
   "contributors": [
-    "2333tech",
+    "Peter Yang",
     "squid233",
     "因为所以",
     "Garay",
     "Ironnoob73",
-    "immibis"
+    "immibis",
+    "2333tech"
   ],
   "contact": {
     "homepage": "https://github.com/teddyxlandlee/sweet_potato",
@@ -39,6 +39,8 @@
   "mixins": [
     "sweet_potato.mixins.json"
   ],
+
+  "accessWidener": "sweet_potato.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.9.0+build.204",

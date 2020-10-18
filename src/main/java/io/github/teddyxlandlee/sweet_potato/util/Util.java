@@ -31,6 +31,7 @@ public final class Util {
         }
     }*/
 
+    @Deprecated
     private static boolean isFlammableWood(Item item) {
         return ItemTags.NON_FLAMMABLE_WOOD.contains(item);
     }
@@ -43,10 +44,6 @@ public final class Util {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
     }
 
-    private static boolean never(BlockState state, BlockView world, BlockPos pos) {
-        return false;
-    }
-
     public static LeavesBlock createEnchantedLeavesBlock() {
         return new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES)
                 .strength(0.2F)
@@ -54,13 +51,13 @@ public final class Util {
                 .sounds(BlockSoundGroup.GRASS)
                 .nonOpaque()
                 .allowsSpawning(Util::canSpawnOnLeaves)
-                .suffocates(Util::never)
-                .blockVision(Util::never)
+                .suffocates((state, world, pos) -> false)
+                .blockVision((state, world, pos) -> false)
         );
     }
 
     @NonMinecraftNorFabric
-    public static void registerGrindableItem(float ingredientDataAdded, @Nonnull ItemConvertible item) {
+    public static void registerGrindableItem(double ingredientDataAdded, @Nonnull ItemConvertible item) {
         GrinderBlockEntity.INGREDIENT_DATA_MAP.put(item.asItem(), ingredientDataAdded);
     }
 
@@ -83,10 +80,4 @@ public final class Util {
             return false;
         return GrinderBlockEntity.INGREDIENT_DATA_MAP.containsKey(item);
     }
-
-
-
-
-
-
 }

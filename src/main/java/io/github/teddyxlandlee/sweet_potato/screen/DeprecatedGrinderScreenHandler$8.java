@@ -7,8 +7,6 @@ import io.github.teddyxlandlee.sweet_potato.util.GrindingResultSlot;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import io.github.teddyxlandlee.sweet_potato.util.properties.fproperties.GrinderPropertiesAccessor;
 import io.github.teddyxlandlee.sweet_potato.util.properties.fproperties.NullAccessor;
-import io.github.teddyxlandlee.sweet_potato.util.properties.grinder.IntGrinderProperties;
-import io.github.teddyxlandlee.sweet_potato.util.properties.grinder.NullGrinderProperties;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,36 +21,43 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class GrinderScreenHandler extends ScreenHandler {
+/**
+ * @deprecated because ingredientData has changed into double
+ * @since 2020/10/18
+ * @see io.github.teddyxlandlee.sweet_potato.blocks.entities.DeprecatedGrinderBlockEntity$2
+ * @see io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity
+ */
+@Deprecated
+public class DeprecatedGrinderScreenHandler$8 extends ScreenHandler {
     @Deprecated
     Logger logger = LogManager.getLogger();
 
     private final Inventory inventory;
-    private final IntGrinderProperties properties;
+    private final GrinderPropertiesAccessor propertiesAccessor;
 
     protected World world;
 
     @Deprecated
-    public GrinderScreenHandler(int i, PlayerInventory playerInventory, @Deprecated PacketByteBuf buf) {
-        this(i, playerInventory, playerInventory.player.world, new SimpleInventory(2), new NullGrinderProperties());
+    public DeprecatedGrinderScreenHandler$8(int i, PlayerInventory playerInventory, @Deprecated PacketByteBuf buf) {
+        this(i, playerInventory, playerInventory.player.world, new SimpleInventory(2), new NullAccessor());
     }
 
     /**
      * From: Registry
      */
-    public GrinderScreenHandler(int i, PlayerInventory playerInventory) {
-        this(i, playerInventory, playerInventory.player.world, new SimpleInventory(2), new NullGrinderProperties());
+    public DeprecatedGrinderScreenHandler$8(int i, PlayerInventory playerInventory) {
+        this(i, playerInventory, playerInventory.player.world, new SimpleInventory(2), new NullAccessor());
     }
 
     /**
      * From: Grinder Block Entity
      */
-    public GrinderScreenHandler(int syncId, PlayerInventory playerInventory, World world, Inventory inventory, IntGrinderProperties properties) {
+    public DeprecatedGrinderScreenHandler$8(int syncId, PlayerInventory playerInventory, World world, Inventory inventory, GrinderPropertiesAccessor accessor) {
         super(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId);
         this.inventory = inventory;
-        this.properties = properties;
+        this.propertiesAccessor = accessor;
         Debug.debug(this, "propertiesAccessor created");
-        this.addProperties(properties);
+        this.addProperties(accessor);
         this.world = world;
 
         this.addSlot(new Slot(inventory, 0, 40, 35));
@@ -86,7 +91,6 @@ public class GrinderScreenHandler extends ScreenHandler {
         this.addSlot(new GrindingResultSlot(playerInventory.player, inventory, 1, 116, 35));
 
         this.createPlayerInventory(playerInventory);
-        //TODO: Make client-side block entity available
     }*/
 
     @NonMinecraftNorFabric
@@ -147,13 +151,13 @@ public class GrinderScreenHandler extends ScreenHandler {
 
     @Environment(EnvType.CLIENT)
     public int getGrindProgress() {
-        int grindTime = properties.getGrindTime();
-        int grindTimeTotal = properties.getGrindTimeTotal();
+        int grindTime = propertiesAccessor.getGrindTime();
+        int grindTimeTotal = propertiesAccessor.getGrindTimeTotal();
         return grindTimeTotal != 0 && grindTime != 0 ? grindTime * 22 / grindTimeTotal : 0;
     }
 
     @Environment(EnvType.CLIENT)
-    public double getIngredientData() {
-        return properties.getIngredientData();
+    public float getIngredientData() {
+        return propertiesAccessor.getIngredientData();
     }
 }

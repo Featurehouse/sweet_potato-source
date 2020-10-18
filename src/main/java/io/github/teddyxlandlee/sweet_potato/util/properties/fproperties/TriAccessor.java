@@ -1,9 +1,5 @@
-package io.github.teddyxlandlee.sweet_potato.util.network;
+package io.github.teddyxlandlee.sweet_potato.util.properties.fproperties;
 
-import io.github.teddyxlandlee.annotation.Unused_InsteadOf;
-
-@Unused_InsteadOf
-@Deprecated
 public interface TriAccessor<A, B, C> {
     A getFirst();
     B getSecond();

@@ -1,4 +1,4 @@
-package io.github.teddyxlandlee.sweet_potato.util.network;
+package io.github.teddyxlandlee.sweet_potato.util.properties.fproperties;
 
 import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.debug.PartType;

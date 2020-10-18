@@ -25,7 +25,6 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
 
     public GrinderScreen(GrinderScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
-        /** @debug */
         doDebug[0] = true; doDebug[1] = true;
     }
 
@@ -46,7 +45,7 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
     protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
         RenderSystem.disableBlend();
         super.drawForeground(matrices, mouseX, mouseY);
-        float ingredientData = this.handler.getIngredientData();
+        double ingredientData = this.handler.getIngredientData();
         this.textRenderer.draw(matrices, new TranslatableText(
                         "container.grinding.ingredientData",
                         ingredientData),

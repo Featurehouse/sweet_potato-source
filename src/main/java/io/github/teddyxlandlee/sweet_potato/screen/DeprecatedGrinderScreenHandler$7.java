@@ -3,11 +3,12 @@ package io.github.teddyxlandlee.sweet_potato.screen;
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
+import io.github.teddyxlandlee.sweet_potato.blocks.entities.DeprecatedGrinderBlockEntity$2;
 import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import io.github.teddyxlandlee.sweet_potato.util.GrindingResultSlot;
 import io.github.teddyxlandlee.sweet_potato.util.InvalidStatusException;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
-import io.github.teddyxlandlee.sweet_potato.util.network.GrinderPropertiesAccessor;
+import io.github.teddyxlandlee.sweet_potato.util.properties.fproperties.GrinderPropertiesAccessor;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -51,7 +52,6 @@ public class DeprecatedGrinderScreenHandler$7 extends ScreenHandler {
         this.addSlot(new GrindingResultSlot(playerInventory.player, inventory, 1, 116, 35));
 
         this.createPlayerInventory(playerInventory);
-        //TODO: Make client-side block entity available
 
         Debug.debug(this, "Successfully created Grinder Screen Handler by Block Entity");
     }
@@ -82,7 +82,7 @@ public class DeprecatedGrinderScreenHandler$7 extends ScreenHandler {
         this(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, i, playerInventory);
         BlockEntity e = this.world.getBlockEntity(buf.readBlockPos());
         if (e instanceof GrinderBlockEntity) {
-            this.propertiesAccessor = ((GrinderBlockEntity) e).propertiesAccessor;
+            this.propertiesAccessor = ((DeprecatedGrinderBlockEntity$2) e).propertiesAccessor;
         } else {
             logger.error("block entity is not Grinder's. It might sent the wrong pos or something.",
                     new InvalidStatusException("block entity is not Grinder's. It might sent the wrong pos or something."));

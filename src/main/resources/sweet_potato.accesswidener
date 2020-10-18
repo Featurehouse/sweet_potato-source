@@ -1,3 +1,5 @@
 accessWidener v1 named
-accessible field net/minecraft/entity/passive/PigEntity BREEDING_INGREDIENT
-mutable field net/minecraft/entity/passive/PigEntity BREEDING_INGREDIENT
+accessible class net/minecraft/entity/passive/PigEntity
+
+accessible field net/minecraft/entity/passive/PigEntity BREEDING_INGREDIENT Lnet/minecraft/recipe/Ingredient;
+mutable field net/minecraft/entity/passive/PigEntity BREEDING_INGREDIENT Lnet/minecraft/recipe/Ingredient;

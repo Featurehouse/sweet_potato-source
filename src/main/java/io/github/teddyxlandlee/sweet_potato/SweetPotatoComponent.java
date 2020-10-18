@@ -11,14 +11,14 @@ public class SweetPotatoComponent {
     protected int hunger;
     protected float sat;
     protected float compost;
-    protected Optional<Float> grindData;
+    protected Optional<Double> grindData;
     protected boolean alwaysEdible;
 
-    public SweetPotatoComponent(int hunger, float sat, float compost, Optional<Float> grindData) {
+    public SweetPotatoComponent(int hunger, float sat, float compost, Optional<Double> grindData) {
         this(hunger, sat, compost, grindData, false);
     }
 
-    public SweetPotatoComponent(int hunger, float sat, float compost, Optional<Float> grindData, boolean alwaysEdible) {
+    public SweetPotatoComponent(int hunger, float sat, float compost, Optional<Double> grindData, boolean alwaysEdible) {
         this.hunger = hunger;
         this.sat = sat;
         this.compost = compost;
@@ -38,7 +38,7 @@ public class SweetPotatoComponent {
         return compost;
     }
 
-    public Optional<Float> getGrindData() {
+    public Optional<Double> getGrindData() {
         return grindData;
     }
 
@@ -63,7 +63,7 @@ public class SweetPotatoComponent {
         ItemConvertible item = type.get(status);
         if (item != null)
             // grindable
-            this.grindData.ifPresent(aFloat -> Util.registerGrindableItem(aFloat, item));
+            this.grindData.ifPresent(aDouble -> Util.registerGrindableItem(aDouble, item));
     }
 
     public static class InvalidComponentException extends Exception {

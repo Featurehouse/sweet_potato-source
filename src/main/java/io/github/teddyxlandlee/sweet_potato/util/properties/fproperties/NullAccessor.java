@@ -1,4 +1,4 @@
-package io.github.teddyxlandlee.sweet_potato.util.network;
+package io.github.teddyxlandlee.sweet_potato.util.properties.fproperties;
 
 public class NullAccessor implements GrinderPropertiesAccessor {
     private int grindTime;
