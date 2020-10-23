@@ -31,11 +31,14 @@ import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.sapling.*;
+import net.minecraft.entity.passive.ParrotEntity;
+import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -188,6 +191,8 @@ public class SPMMain implements ModInitializer {
 	// Item Tags
 	public static final Tag<Item> RAW_SWEET_POTATOES;
 	public static final Tag<Item> ENCHANTED_SWEET_POTATOES;
+		// About Pigs & Parrots
+	public static final Tag<Item> PIG_BREEDING_INGREDIENTS;
 
 	@Override
 	public void onInitialize() {
@@ -250,6 +255,9 @@ public class SPMMain implements ModInitializer {
 
 		// Fuel
 		//Util.registerFurnaceFuel(null, Items.AIR, -1);
+		PigEntity.BREEDING_INGREDIENT = Ingredient.fromTag(PIG_BREEDING_INGREDIENTS);
+		ParrotEntity.TAMING_INGREDIENTS.add(ENCHANTED_WHEAT_SEEDS);
+		ParrotEntity.TAMING_INGREDIENTS.add(ENCHANTED_BEETROOT_SEEDS);
 	}
 
 	static {
@@ -562,7 +570,9 @@ public class SPMMain implements ModInitializer {
 		ENCHANTED_SWEET_POTATOES = TagRegistry.item(new Identifier(
 				MODID, "enchanted_sweet_potatoes"
 		));
-
-		// About pig food & parrot food
+			// About pig food & parrot food
+		PIG_BREEDING_INGREDIENTS = TagRegistry.item(new Identifier(
+				MODID, "pig_breeding_ingredients"
+		));
 	}
 }

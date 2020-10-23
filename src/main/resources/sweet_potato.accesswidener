@@ -1,5 +1,7 @@
 accessWidener v1 named
 accessible class net/minecraft/entity/passive/PigEntity
+accessible class net/minecraft/entity/passive/ParrotEntity
 
 accessible field net/minecraft/entity/passive/PigEntity BREEDING_INGREDIENT Lnet/minecraft/recipe/Ingredient;
 mutable field net/minecraft/entity/passive/PigEntity BREEDING_INGREDIENT Lnet/minecraft/recipe/Ingredient;
+accessible field net/minecraft/entity/passive/ParrotEntity TAMING_INGREDIENTS Ljava/util/Set;

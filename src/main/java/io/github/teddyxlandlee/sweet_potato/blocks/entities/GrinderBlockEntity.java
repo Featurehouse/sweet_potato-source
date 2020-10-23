@@ -242,7 +242,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         assert this.world != null;
         boolean shallMarkDirty = false;
 
-        if (!world.isClient) {
+        if (!this.world.isClient) {
             // Grind Process
             if (this.grindTime >= this.grindTimeTotal && this.grindTimeTotal != 0 && this.canAcceptRecipeOutput()) { // 200+, 200, yesOutput
                 // Output
@@ -277,7 +277,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
             }
 
             // Operation of ingredientData check
-            if (this.ingredientData >= 15 /*instead of 9*/) {
+            if (this.ingredientData >= 15 /*instead of 9*/ && this.grindTime < 0 /*not in grind process*/) {
                 this.ingredientData -= 15;
                 this.grindTime = 0;
                 shallMarkDirty = true;
