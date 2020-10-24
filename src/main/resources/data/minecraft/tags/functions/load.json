@@ -1,6 +1,5 @@
 {
-  "replace": false,
   "values": [
-    "sweet_potato:copyright"
+    "sweet_potato:mcr/cr"
   ]
 }

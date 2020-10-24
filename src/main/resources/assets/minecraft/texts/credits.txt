@@ -480,17 +480,17 @@
 §a          如果有条件，请关注我们~
 §a          Please subscribe us if you can~
 
-§f          Peter Yang
-
 [C]§f============
 [C]§eSpecial Thanks from Sweet Potato Mod
 [C]§f============
-§f          Yimo Zhang (2333tech)
+§f          Peter Yang
+§f          Garay
+§f          2333tech
 §f          squid233
 §f          因为所以
-§f          Garay
 §f          Ironnoob73
 §f          immibis
+§f          Zn_Ar
 
 
 
