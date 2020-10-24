@@ -4,7 +4,7 @@
 Sweet Potato Mod Author Group owns this mod's copyright.<br />
 Anyone can take advices of this mod to us.
 ## Version
-We'are sorry this mod isn't available in 1.15.2 or below, because the crafting recipe of the Magic Cube block requires things new in Nether Update.<br />
+We'are sorry this mod isn't available in 1.15.2 or below, because the style of this mod is Nether-Update-style.<br />
 This mod requires:
 * Fabric api 0.13.1+build.370 or above;
 * Minecraft 1.16 or 1.16.1;

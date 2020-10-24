@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "sweet_potato",
-  "version": "alpha.4a_04",
+  "version": "alpha.4a_05",
 
   "name": "Sweet Potato Mod",
   "description": "Try new kinds of food, crops & magic in Sweet Potato Mod!",
@@ -12,12 +12,12 @@
   ],
   "contributors": [
     "Peter Yang",
+    "Garay",
+    "2333tech",
     "squid233",
     "因为所以",
-    "Garay",
     "Ironnoob73",
-    "immibis",
-    "2333tech"
+    "immibis"
   ],
   "contact": {
     "homepage": "https://github.com/teddyxlandlee/sweet_potato",

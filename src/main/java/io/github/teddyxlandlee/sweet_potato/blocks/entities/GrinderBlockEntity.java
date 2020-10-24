@@ -237,6 +237,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
             markDirty();
     }
 
+    @NeedToConfirm
     @Override
     public void tick() {
         assert this.world != null;
@@ -247,7 +248,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
             if (this.grindTime >= this.grindTimeTotal && this.grindTimeTotal != 0 && this.canAcceptRecipeOutput()) { // 200+, 200, yesOutput
                 // Output
                 this.grindTime = -1;
-                this.grindTimeTotal = this.getGrindTime();
+                this.grindTimeTotal = /*this.getGrindTime()*/ 0;
                 this.craftRecipe();
                 shallMarkDirty = true;
             } else if (this.grindTime >= 0 && this.grindTime < this.grindTimeTotal && this.canAcceptRecipeOutput() /* && this.grindTime not enough*/) {
@@ -273,13 +274,13 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
                 }
             } else {
                 --this.absorbCooldown;
-                shallMarkDirty = true;
             }
 
             // Operation of ingredientData check
             if (this.ingredientData >= 15 /*instead of 9*/ && this.grindTime < 0 /*not in grind process*/) {
                 this.ingredientData -= 15;
                 this.grindTime = 0;
+                this.grindTimeTotal = this.getGrindTime();
                 shallMarkDirty = true;
             }
         }
