@@ -169,8 +169,14 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         return Inventories.removeStack(this.inventory, slot);
     }
 
-    @Override
-    public void setStack(int slot, ItemStack stack) {
+    /**
+     * @deprecated because:
+     * - Line 8: grindTime should NOT be set to zero.
+     * This method could be typed before 20th century, hhh
+     * @since 2020/10/24
+     */
+    @Deprecated //@Override
+    public void deprecatedSetStack(int slot, ItemStack stack) {
         ItemStack itemStack = this.getStack(slot);
         boolean equal = !stack.isEmpty() && stack.isItemEqualIgnoreDamage(itemStack) && ItemStack.areTagsEqual(stack, itemStack);
         this.inventory.set(slot, stack);
@@ -178,9 +184,14 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
             stack.setCount(this.getMaxCountPerStack());
 
         if (slot == 0 && !equal) {
-            this.grindTime = 0;
+            //this.grindTime = 0;
             this.markDirty();
         }
+    }
+
+    @Override
+    public void setStack(int slot, ItemStack stack) {
+        super.setStack(slot, stack);
     }
 
     @Override
@@ -194,7 +205,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @NeedToConfirm
     @Deprecated
-    public void deprecatedTick$4() {
+    private void deprecatedTick$4() {
         assert this.world != null;
         boolean shallMarkDirty = false;
         if (!world.isClient) {

@@ -39,11 +39,18 @@ public abstract class AbstractLockableContainerBlockEntity extends LockableConta
         super.fromTag(state, tag);
         this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
         Inventories.fromTag(tag, this.inventory);
-
     }
 
     public int size() {
         return this.size;
+    }
+
+    @Override
+    public void setStack(int slot, ItemStack stack) {
+        this.inventory.set(slot, stack);
+        if (stack.getCount() > this.getMaxCountPerStack()) {
+            stack.setCount(this.getMaxCountPerStack());
+        }
     }
 
     @Deprecated @DeprecatedFrom(LootableContainerBlockEntity.class)
