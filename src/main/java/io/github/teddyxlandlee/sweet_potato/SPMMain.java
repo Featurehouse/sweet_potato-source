@@ -1,9 +1,3 @@
-/*Sweet Potato, by teddyxlandlee
- *
- * Version: pre-alpha.1a
- * You can see this project on Github.
- */
-
 package io.github.teddyxlandlee.sweet_potato;
 
 import io.github.teddyxlandlee.annotation.Unused_InsteadOf;
@@ -44,6 +38,7 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.tag.Tag;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -196,25 +191,11 @@ public class SPMMain implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		// Official Fabric Example Mod from Github notes:
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
-
 		System.out.println("Successfully loaded Sweet Potato Mod!");
-		// Screen Handler
+		// Copyright
+		// Agent in Minecraft China can write his or her name into this copyright AS AN AGENT instead of an author.
+		System.out.printf("%s, by %s\nAuthors:\n%s", "Sweet Potato Mod", "Pigeonia Featurehouse", "- Teddy Li (bilibili: teddyxlandlee)\\n- Ray MH Chen (bilibili: 一颗水晶Rayawa)\\n- Dennis Lin (bilibili: 小林AWA)");
 
-		/*ContainerProviderRegistry.INSTANCE.registerFactory(new Identifier(
-				MODID, "seed_updating"
-		), (syncId, identifier, player, buf) -> {
-			final World world = player.world;
-			final BlockPos pos = buf.readBlockPos();
-			return world.getBlockState(pos).createScreenHandlerFactory(player.world, pos).createMenu(syncId, player.inventory, player);
-		});*/
-
-
-
-		// Not registries:
 		Util.registerCompostableItem(0.3f, PEEL);/*
 		Util.registerCompostableItem(0.65f, PURPLE_POTATO);
 		Util.registerCompostableItem(0.65f, WHITE_POTATO);

@@ -62,7 +62,7 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
         this.drawTexture(matrices, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
         //this.addProgressArrow(74, 35, 0);
         int l = this.handler.getGrindProgress();
-        this.drawTexture(matrices, this.x + 79, this.y + 34, 176, 0, l+1, 16);  // arrow
+        this.drawTexture(matrices, this.x + 74, this.y + 35, 176, 0, l+1, 16);  // arrow
         //super.drawBackground(matrices, delta, mouseX, mouseY);
         if (doDebug[1]) Debug.debug(this.getClass(), PartType.METHOD, "drawBackground",
                 "Successfully finish background"); this.doDebug[1] = false;
