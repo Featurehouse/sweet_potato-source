@@ -2,20 +2,26 @@ package io.github.teddyxlandlee.sweet_potato.blocks.entities;
 
 import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
+import io.github.teddyxlandlee.annotation.OperationBeforeDeveloping;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.blocks.MagicCubeBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.SidedInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable {
+import javax.annotation.Nullable;
+
+public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable, SidedInventory {
     private byte fireChanged;
 
     public MagicCubeBlockEntity() {
@@ -43,6 +49,25 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return null; // INDEED TODO
+    }
+
+
+    @OperationBeforeDeveloping
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        return new int[0];
+    }
+
+    @OperationBeforeDeveloping
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return false;
+    }
+
+    @OperationBeforeDeveloping
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return false;
     }
 
     @interface FireBelow {

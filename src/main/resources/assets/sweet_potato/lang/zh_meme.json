@@ -38,6 +38,7 @@
   "advancement.nether.sweet_potato.get_magic_cube.title": "米斯卡，莫斯卡，米老鼠！",
   "advancement.nether.sweet_potato.get_magic_cube.description": "获得米 奇 妙 妙 锅",
 
+  "container.sweet_potato.magic_cube": "米 奇 妙 妙 锅",
   "container.sweet_potato.seed_updating": "集 日 月 之 精 华",
   "container.sweet_potato.grinding": "鲜 榨 甜 土 豆",
   "container.grinding.ingredientData": "%f 份甜土豆待榨"

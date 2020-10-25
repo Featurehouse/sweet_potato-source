@@ -7,6 +7,12 @@
         {
           "type": "minecraft:item",
           "name": "sweet_potato:grinder",
+          "functions": [
+            {
+              "function": "copy_name",
+              "source": "block_entity"
+            }
+          ],
           "conditions": [
             {
               "condition": "minecraft:survives_explosion"
