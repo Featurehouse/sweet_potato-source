@@ -17,6 +17,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
@@ -28,6 +29,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 
 import javax.annotation.Nullable;
@@ -37,7 +39,7 @@ import java.util.Iterator;
  * <h2>Why canceling implementing ExtendedScreenHandlerFactory?</h2>
  * <p>Because it is already implemented in AbstractLockableContainerBlockEntity!</p>
  */
-public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable {
+public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable, SidedInventory {
     private int grindTime;
     private int grindTimeTotal;
     private double ingredientData;
@@ -140,35 +142,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         return new GrinderScreenHandler(syncId, playerInventory, this.getWorld(), this, this.properties);
     }
 
-    @Override
-    public boolean isEmpty() {
-        Iterator<?> iterator = this.inventory.iterator();
-
-        ItemStack itemStack;
-        do {
-            if (!iterator.hasNext())
-                return true;
-            itemStack = (ItemStack) iterator.next();
-        } while (itemStack.isEmpty());
-
-        return false;
-    }
-
-    @Override
-    public ItemStack getStack(int slot) {
-        return this.inventory.get(slot);
-    }
-
-    @Override
-    public ItemStack removeStack(int slot, int amount) {
-        return Inventories.splitStack(this.inventory, slot, amount);
-    }
-
-    @Override
-    public ItemStack removeStack(int slot) {
-        return Inventories.removeStack(this.inventory, slot);
-    }
-
     /**
      * @deprecated because:
      * - Line 8: grindTime should NOT be set to zero.
@@ -192,15 +165,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     @Override
     public void setStack(int slot, ItemStack stack) {
         super.setStack(slot, stack);
-    }
-
-    @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        assert this.world != null;  // Stupid IDEA, let you go
-        return this.world.getBlockEntity(this.pos) == this && player.squaredDistanceTo(
-                (double) this.pos.getX() + 0.5D,
-                (double) this.pos.getY() + 0.5D,
-                (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     @NeedToConfirm
@@ -416,5 +380,29 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         packetByteBuf.writeBlockPos(this.pos);
         Debug.debug(GrinderBlockEntity.class, PartType.METHOD, "writeScreenOpeningData",
                 "Successfully written block pos");
+    }
+
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        return side == Direction.DOWN ? new int[]{1} : new int[]{0};
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return this.isValid(slot, stack);
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return slot == 1 && dir == Direction.DOWN;
+    }
+
+    @Override
+    public boolean isValid(int slot, ItemStack stack) {
+        if (slot == 1)
+            return false;
+        else if (slot == 0)
+            return Util.grindable(stack);
+        return false;
     }
 }

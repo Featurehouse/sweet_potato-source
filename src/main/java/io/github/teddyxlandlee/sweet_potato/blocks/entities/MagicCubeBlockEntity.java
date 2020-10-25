@@ -7,9 +7,7 @@ import io.github.teddyxlandlee.sweet_potato.blocks.MagicCubeBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -32,7 +30,9 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     public void tick() {
         assert this.world != null;
         // Magic Cube Activation
-        this.world.setBlockState(this.pos, StateHelper.calcState(this.world, this.pos));
+        //this.world.setBlockState(this.pos, StateHelper.calcState(this.world, this.pos));
+        StateHelper.changeIfChange(this.world, this.pos);
+        this.fireChanged = StateHelper.fireCount(this.world, this.pos);
     }
 
     @Override
@@ -42,37 +42,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return null;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public ItemStack getStack(int slot) {
-        return null;
-    }
-
-    @Override
-    public ItemStack removeStack(int slot, int amount) {
-        return null;
-    }
-
-    @Override
-    public ItemStack removeStack(int slot) {
-        return null;
-    }
-
-    @Override
-    public void setStack(int slot, ItemStack stack) {
-
-    }
-
-    @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        return false;
+        return null; // INDEED TODO
     }
 
     @interface FireBelow {
@@ -80,6 +50,22 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
 
     static class StateHelper {
         private StateHelper() {}
+
+        protected static boolean stateChanged(BlockState oldState, BlockState newState) {
+            if (oldState.getBlock() != SPMMain.MAGIC_CUBE || newState.getBlock() != SPMMain.MAGIC_CUBE)
+                throw new UnsupportedOperationException("Non-magic cube operates");
+            return oldState.get(MagicCubeBlock.ACTIVATED) == newState.get(MagicCubeBlock.ACTIVATED);
+        }
+
+        protected static boolean stateChanged(World world, BlockPos pos, BlockState newState) {
+            return stateChanged(world.getBlockState(pos), newState);
+        }
+
+        protected static void changeIfChange(World world, BlockPos pos) {
+            BlockState newState = calcState(world, pos);
+            if (stateChanged(world, pos, newState))
+                world.setBlockState(pos, newState);
+        }
 
         @NonMinecraftNorFabric
         protected static BlockState calcState(World world, BlockPos pos) {

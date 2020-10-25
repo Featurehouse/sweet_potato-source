@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "sweet_potato:block/enchanted_oak_leaves"
+      "model": "minecraft:block/oak_leaves"
     }
   }
 }

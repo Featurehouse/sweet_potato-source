@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/flower_pot_cross",
-  "textures": {
-    "plant": "sweet_potato:block/enchanted_acacia_sapling"
-  }
+  "parent": "minecraft:block/potted_acacia_sapling"
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "sweet_potato:block/enchanted_acacia_leaves"
+      "model": "minecraft:block/acacia_leaves"
     }
   }
 }

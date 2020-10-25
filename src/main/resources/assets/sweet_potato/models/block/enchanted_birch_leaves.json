@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/leaves",
-  "textures": {
-    "all": "sweet_potato:block/enchanted_birch_leaves"
-  }
-}
