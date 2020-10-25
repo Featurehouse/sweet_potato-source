@@ -4,6 +4,9 @@
   "mod.sweet_potato.1": "作者：",
   "mod.sweet_potato.2": "在中国版《我的世界》的代理人：",
 
+  "item.sweet_potato.purple_potato": "紫薯",
+  "item.sweet_potato.red_potato": "红薯",
+  "item.sweet_potato.white_potato": "白薯",
   "item.sweet_potato.peel": "地瓜皮",
   "item.sweet_potato.baked_purple_potato": "烤紫薯",
   "item.sweet_potato.baked_red_potato": "烤红薯",
@@ -12,6 +15,10 @@
   "item.sweet_potato.enchanted_purple_potato": "附魔紫薯",
   "item.sweet_potato.enchanted_red_potato": "附魔红薯",
   "item.sweet_potato.enchanted_white_potato": "附魔白薯",
+  "item.sweet_potato.enchanted_wheat_seeds": "附魔小麦种子",
+  "item.sweet_potato.enchanted_carrot": "附魔胡萝卜",
+  "item.sweet_potato.enchanted_potato": "附魔土豆",
+  "item.sweet_potato.enchanted_beetroot_seeds": "附魔甜菜种子",
 
   "block.sweet_potato.purple_potatoes": "紫薯",
   "block.sweet_potato.red_potatoes": "红薯",
@@ -32,6 +39,10 @@
   "block.sweet_potato.enchanted_jungle_leaves": "附魔丛林树叶",
   "block.sweet_potato.enchanted_oak_leaves": "附魔橡树树叶",
   "block.sweet_potato.enchanted_spruce_leaves": "附魔云杉树叶",
+  "block.sweet_potato.enchanted_wheat": "附魔小麦",
+  "block.sweet_potato.enchanted_carrots": "附魔胡萝卜",
+  "block.sweet_potato.enchanted_potatoes": "附魔马铃薯",
+  "block.sweet_potato.enchanted_beetroots": "附魔甜菜根",
 
   "advancement.husbandry.sweet_potato.get_sweet_potato.title": "香甜软嚅",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "获得地瓜",

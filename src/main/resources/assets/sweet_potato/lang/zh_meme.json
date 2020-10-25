@@ -4,6 +4,9 @@
   "mod.sweet_potato.1": "作者：",
   "mod.sweet_potato.2": "在中国版《我的世界》的代理人：",
 
+  "item.sweet_potato.purple_potato": "品红色甜土豆",
+  "item.sweet_potato.red_potato": "甜土豆脸红了",
+  "item.sweet_potato.white_potato": "甜土豆",
   "item.sweet_potato.peel": "没用的东西 (?",
   "item.sweet_potato.baked_purple_potato": "烤糊的品红色甜土豆",
   "item.sweet_potato.baked_red_potato": "烤糊的甜土豆脸红了",
@@ -12,6 +15,10 @@
   "item.sweet_potato.enchanted_purple_potato": "品红色海化甜土豆",
   "item.sweet_potato.enchanted_red_potato": "脸红的海化甜土豆",
   "item.sweet_potato.enchanted_white_potato": "海化甜土豆",
+  "item.sweet_potato.enchanted_wheat_seeds": "覆膜麦子种子",
+  "item.sweet_potato.enchanted_carrot": "覆膜胡萝北",
+  "item.sweet_potato.enchanted_potato": "覆 膜 育 碧",
+  "item.sweet_potato.enchanted_beetroot_seeds": "覆膜甜菜种子",
 
   "block.sweet_potato.purple_potatoes": "品红色甜土豆",
   "block.sweet_potato.red_potatoes": "甜土豆脸红了",
@@ -32,6 +39,10 @@
   "block.sweet_potato.enchanted_jungle_leaves": "覆膜丛林树叶",
   "block.sweet_potato.enchanted_oak_leaves": "覆膜橡树树叶",
   "block.sweet_potato.enchanted_spruce_leaves": "覆膜云杉树叶",
+  "block.sweet_potato.enchanted_wheat": "覆膜麦子",
+  "block.sweet_potato.enchanted_carrots": "覆膜育碧服务器",
+  "block.sweet_potato.enchanted_potatoes": "覆 膜 育 碧",
+  "block.sweet_potato.enchanted_beetroots": "覆膜甜菜根",
 
   "advancement.husbandry.sweet_potato.get_sweet_potato.title": "艾玛，真香！",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "获得甜土豆",

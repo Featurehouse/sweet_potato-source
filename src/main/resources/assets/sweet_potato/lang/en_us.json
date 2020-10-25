@@ -4,6 +4,9 @@
   "mod.sweet_potato.1": "Authors:",
   "mod.sweet_potato.2": "Agent in \u00A7oMinecraft China\u00A7: ",
 
+  "item.sweet_potato.purple_potato": "Purple Potato",
+  "item.sweet_potato.red_potato": "Red Potato",
+  "item.sweet_potato.white_potato": "White Potato",
   "item.sweet_potato.peel": "Peel",
   "item.sweet_potato.baked_purple_potato": "Baked Purple Potato",
   "item.sweet_potato.baked_red_potato": "Baked Red Potato",
@@ -12,6 +15,10 @@
   "item.sweet_potato.enchanted_purple_potato": "Enchanted Purple Potato",
   "item.sweet_potato.enchanted_red_potato": "Enchanted Red Potato",
   "item.sweet_potato.enchanted_white_potato": "Enchanted White Potato",
+  "item.sweet_potato.enchanted_wheat_seeds": "Enchanted Wheat Seeds",
+  "item.sweet_potato.enchanted_carrot": "Enchanted Carrot",
+  "item.sweet_potato.enchanted_potato": "Enchanted Potato",
+  "item.sweet_potato.enchanted_beetroot_seeds": "Enchanted Beetroot Seeds",
 
   "block.sweet_potato.purple_potatoes": "Purple Potato",
   "block.sweet_potato.red_potatoes": "Red Potato",
@@ -32,6 +39,10 @@
   "block.sweet_potato.enchanted_jungle_leaves": "Enchanted Jungle Leaves",
   "block.sweet_potato.enchanted_oak_leaves": "Enchanted Oak Leaves",
   "block.sweet_potato.enchanted_spruce_leaves": "Enchanted Spruce Leaves",
+  "block.sweet_potato.enchanted_wheat": "Enchanted Wheat",
+  "block.sweet_potato.enchanted_carrots": "Enchanted Carrots",
+  "block.sweet_potato.enchanted_potatoes": "Enchanted Potatoes",
+  "block.sweet_potato.enchanted_beetroots": "Enchanted Beetroots",
 
   "advancement.husbandry.sweet_potato.get_sweet_potato.title": "Sweet and Soft",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "Obtain Sweet Potato",
