@@ -14,9 +14,7 @@ import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
@@ -33,7 +31,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 
 import javax.annotation.Nullable;
-import java.util.Iterator;
 
 /* (not javadoc)
  * <h2>Why canceling implementing ExtendedScreenHandlerFactory?</h2>

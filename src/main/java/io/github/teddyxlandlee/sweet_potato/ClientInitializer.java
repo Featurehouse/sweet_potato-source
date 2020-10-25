@@ -1,7 +1,6 @@
 package io.github.teddyxlandlee.sweet_potato;
 
 import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreen;
-import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.screen.SeedUpdaterScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -12,6 +11,7 @@ import net.minecraft.client.render.RenderLayer;
 
 @Environment(EnvType.CLIENT)
 public class ClientInitializer implements ClientModInitializer {
+    //TODO: Enchanted Leaves: Color
     @Override
     public void onInitializeClient() {
         /*ScreenProviderRegistry.INSTANCE.<SeedUpdaterScreenHandler>registerFactory(new Identifier(
@@ -24,9 +24,7 @@ public class ClientInitializer implements ClientModInitializer {
         ScreenRegistry.register(SPMMain.SEED_UPDATER_SCREEN_HANDLER_TYPE, SeedUpdaterScreen::new);
         //ScreenRegistry.register(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, GrinderScreen::new);
         //ScreenRegistry.register(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, DeprecatedGrinderScreen$3::new);
-        ScreenRegistry.<GrinderScreenHandler, GrinderScreen>register(
-                SPMMain.GRINDER_SCREEN_HANDLER_TYPE, GrinderScreen::new
-        );
+        ScreenRegistry.register(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, GrinderScreen::new);
 
         BlockRenderLayerMap.INSTANCE.putBlock(SPMMain.PURPLE_POTATO_CROP, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(SPMMain.RED_POTATO_CROP, RenderLayer.getCutout());
@@ -44,5 +42,9 @@ public class ClientInitializer implements ClientModInitializer {
                 SPMMain.POTTED_ENCHANTED_JUNGLE_SAPLING,
                 SPMMain.POTTED_ENCHANTED_OAK_SAPLING,
                 SPMMain.POTTED_ENCHANTED_SPRUCE_SAPLING);
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
+                SPMMain.ENCHANTED_BEETROOTS_CROP, SPMMain.ENCHANTED_CARROTS_CROP,
+                SPMMain.ENCHANTED_VANILLA_POTATOES_CROP, SPMMain.ENCHANTED_WHEAT_CROP);
+        BlockRenderLayerMap.INSTANCE.putBlock(SPMMain.ENCHANTED_SUGAR_CANE, RenderLayer.getCutout());
     }
 }

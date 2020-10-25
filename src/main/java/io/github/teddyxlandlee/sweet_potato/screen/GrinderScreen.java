@@ -1,14 +1,12 @@
 package io.github.teddyxlandlee.sweet_potato.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.teddyxlandlee.annotation.InDebugUse;
 import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.debug.PartType;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
-import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;

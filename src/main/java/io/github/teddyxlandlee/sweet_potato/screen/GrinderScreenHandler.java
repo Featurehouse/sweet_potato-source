@@ -5,8 +5,6 @@ import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.util.GrindingResultSlot;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
-import io.github.teddyxlandlee.sweet_potato.util.properties.fproperties.GrinderPropertiesAccessor;
-import io.github.teddyxlandlee.sweet_potato.util.properties.fproperties.NullAccessor;
 import io.github.teddyxlandlee.sweet_potato.util.properties.grinder.IntGrinderProperties;
 import io.github.teddyxlandlee.sweet_potato.util.properties.grinder.NullGrinderProperties;
 import net.fabricmc.api.EnvType;
