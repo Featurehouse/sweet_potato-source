@@ -38,7 +38,6 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.tag.Tag;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -439,7 +438,7 @@ public class SPMMain implements ModInitializer {
 		));
 		ENCHANTED_BEETROOT_SEEDS = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "enchanted_beetroot_seeds"
-		), new AliasedEnchantedItem(ENCHANTED_WHEAT_CROP, new Item.Settings()
+		), new AliasedEnchantedItem(ENCHANTED_BEETROOTS_CROP, new Item.Settings()
 				.group(ItemGroup.MISC)
 				.maxCount(64)
 		));
