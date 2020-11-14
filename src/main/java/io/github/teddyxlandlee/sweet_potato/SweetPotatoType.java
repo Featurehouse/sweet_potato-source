@@ -3,22 +3,22 @@ package io.github.teddyxlandlee.sweet_potato;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemConvertible;
 
-import java.util.Optional;
+import java.util.OptionalDouble;
 
 public enum SweetPotatoType {
     PURPLE(
-            new SweetPotatoComponent(3, 6.0f, 0.35f, Optional.of(3.0D)),
-            new SweetPotatoComponent(8, 9.6f, 0.10f, Optional.empty()),
-            new SweetPotatoComponent(7, 8.6f, 0.60f, Optional.of(5.0D))),
+            new SweetPotatoComponent(3, 6.0f, 0.35f, OptionalDouble.of(3.0D)),
+            new SweetPotatoComponent(8, 9.6f, 0.10f, OptionalDouble.empty()),
+            new SweetPotatoComponent(7, 8.6f, 0.60f, OptionalDouble.of(5.0D))),
     RED(
-            new SweetPotatoComponent(4, 5.0f, 0.30f, Optional.of(2.6D)),
-            new SweetPotatoComponent(7, 9.0f, 0.10f, Optional.empty()),
-            new SweetPotatoComponent(6, 8.0f, 0.55f, Optional.of(5.0D))
+            new SweetPotatoComponent(4, 5.0f, 0.30f, OptionalDouble.of(2.6D)),
+            new SweetPotatoComponent(7, 9.0f, 0.10f, OptionalDouble.empty()),
+            new SweetPotatoComponent(6, 8.0f, 0.55f, OptionalDouble.of(5.0D))
     ),
     WHITE(
-            new SweetPotatoComponent(2, 4.0f, 0.25f, Optional.of(2.2D)),
-            new SweetPotatoComponent(7, 9.3f, 0.10f, Optional.empty()),
-            new SweetPotatoComponent(6, 8.3f, 0.50f, Optional.of(5.0D))
+            new SweetPotatoComponent(2, 4.0f, 0.25f, OptionalDouble.of(2.2D)),
+            new SweetPotatoComponent(7, 9.3f, 0.10f, OptionalDouble.empty()),
+            new SweetPotatoComponent(6, 8.3f, 0.50f, OptionalDouble.of(5.0D))
     );
 
     private final SweetPotatoComponent raw;

@@ -5,20 +5,20 @@ import net.minecraft.item.FoodComponent;
 import net.minecraft.item.ItemConvertible;
 
 import java.util.Objects;
-import java.util.Optional;
+import java.util.OptionalDouble;
 
 public class SweetPotatoComponent {
     protected int hunger;
     protected float sat;
     protected float compost;
-    protected Optional<Double> grindData;
+    protected OptionalDouble grindData;
     protected boolean alwaysEdible;
 
-    public SweetPotatoComponent(int hunger, float sat, float compost, Optional<Double> grindData) {
+    public SweetPotatoComponent(int hunger, float sat, float compost, OptionalDouble grindData) {
         this(hunger, sat, compost, grindData, false);
     }
 
-    public SweetPotatoComponent(int hunger, float sat, float compost, Optional<Double> grindData, boolean alwaysEdible) {
+    public SweetPotatoComponent(int hunger, float sat, float compost, OptionalDouble grindData, boolean alwaysEdible) {
         this.hunger = hunger;
         this.sat = sat;
         this.compost = compost;
@@ -38,7 +38,7 @@ public class SweetPotatoComponent {
         return compost;
     }
 
-    public Optional<Double> getGrindData() {
+    public OptionalDouble getGrindData() {
         return grindData;
     }
 

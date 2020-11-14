@@ -16,6 +16,7 @@ import io.github.teddyxlandlee.sweet_potato.screen.SeedUpdaterScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.util.BlockSettings;
 import io.github.teddyxlandlee.sweet_potato.util.ItemSettings;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
+import io.github.teddyxlandlee.sweet_potato.util.existedmaps.ComposterHelper;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
@@ -25,6 +26,7 @@ import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.sapling.*;
+import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.inventory.Inventory;
@@ -187,6 +189,7 @@ public class SPMMain implements ModInitializer {
 	public static final Tag<Item> ENCHANTED_SWEET_POTATOES;
 		// About Pigs & Parrots
 	public static final Tag<Item> PIG_BREEDING_INGREDIENTS;
+	public static final Tag<Item> CHICKEN_BREEDING_INGREDIENTS;
 
 	@Override
 	public void onInitialize() {
@@ -195,49 +198,14 @@ public class SPMMain implements ModInitializer {
 		// Agent in Minecraft China can write his or her name into this copyright AS AN AGENT instead of an author.
 		System.out.printf("%s, by %s\nAuthors:\n%s\n", "Sweet Potato Mod", "Pigeonia Featurehouse", "- Teddy Li (bilibili: teddyxlandlee)\n- Ray MH Chen (bilibili: 一颗水晶Rayawa)\n- Dennis Lin (bilibili: 小林AWA)");
 
-		Util.registerCompostableItem(0.3f, PEEL);/*
-		Util.registerCompostableItem(0.65f, PURPLE_POTATO);
-		Util.registerCompostableItem(0.65f, WHITE_POTATO);
-		Util.registerCompostableItem(0.65f, RED_POTATO);
-		Util.registerCompostableItem(0.85f, BAKED_PURPLE_POTATO);
-		Util.registerCompostableItem(0.85f, BAKED_RED_POTATO);
-		Util.registerCompostableItem(0.85f, BAKED_WHITE_POTATO);*/
-		//Util.registerCompostableItem(0.5f, BAKED_PEEL);
-		//Util.registerCompostableItem(1.0f/*0.65f*/, ENCHANTED_SWEET_POTATO);	// Peter says it'd be 0.65f instead.
-		Util.registerCompostableItem(0.3f, ENCHANTED_OAK_SAPLING_ITEM);
-		Util.registerCompostableItem(0.3f, ENCHANTED_SPRUCE_SAPLING_ITEM);
-		Util.registerCompostableItem(0.3f, ENCHANTED_BIRCH_SAPLING_ITEM);
-		Util.registerCompostableItem(0.3f, ENCHANTED_JUNGLE_SAPLING_ITEM);
-		Util.registerCompostableItem(0.3f, ENCHANTED_ACACIA_SAPLING_ITEM);
-		Util.registerCompostableItem(0.3f, ENCHANTED_DARK_OAK_SAPLING_ITEM);
-		Util.registerCompostableItem(0.3f, ENCHANTED_ACACIA_LEAVES_ITEM);
-		Util.registerCompostableItem(0.3f, ENCHANTED_BIRCH_LEAVES_ITEM);
-		Util.registerCompostableItem(0.3f, ENCHANTED_DARK_OAK_LEAVES_ITEM);
-		Util.registerCompostableItem(0.3f, ENCHANTED_JUNGLE_LEAVES_ITEM);
-		Util.registerCompostableItem(0.3f, ENCHANTED_OAK_LEAVES_ITEM);
-		Util.registerCompostableItem(0.3f, ENCHANTED_SPRUCE_LEAVES_ITEM);
-
-		for (SweetPotatoType type: SweetPotatoType.values()) {
-			for (SweetPotatoStatus status: SweetPotatoStatus.values()) {
-				if (type.getComponent(status) != null) {
-					type.getComponent(status).registerCompostableItem(type, status);
-					type.getComponent(status).registerGrindableItem(type, status);
-				}
-			}
-
-			/*type.getComponent(SweetPotatoStatus.RAW).registerCompostableItem(type, SweetPotatoStatus.RAW);
-			type.getComponent(SweetPotatoStatus.BAKED).registerCompostableItem(type, SweetPotatoStatus.BAKED);
-			type.getComponent(SweetPotatoStatus.ENCHANTED).registerCompostableItem(type, SweetPotatoStatus.ENCHANTED);
-			type.getComponent(SweetPotatoStatus.RAW).registerGrindableItem(type, SweetPotatoStatus.RAW);
-			type.getComponent(SweetPotatoStatus.BAKED).registerGrindableItem(type, SweetPotatoStatus.BAKED);
-			type.getComponent(SweetPotatoStatus.ENCHANTED).registerGrindableItem(type, SweetPotatoStatus.ENCHANTED);*/
-		}
+		ComposterHelper.register();
 
 		// Fuel
 		//Util.registerFurnaceFuel(null, Items.AIR, -1);
 		PigEntity.BREEDING_INGREDIENT = Ingredient.fromTag(PIG_BREEDING_INGREDIENTS);
 		ParrotEntity.TAMING_INGREDIENTS.add(ENCHANTED_WHEAT_SEEDS);
 		ParrotEntity.TAMING_INGREDIENTS.add(ENCHANTED_BEETROOT_SEEDS);
+		ChickenEntity.BREEDING_INGREDIENT = Ingredient.fromTag(CHICKEN_BREEDING_INGREDIENTS);
 	}
 
 	static {
@@ -550,9 +518,12 @@ public class SPMMain implements ModInitializer {
 		ENCHANTED_SWEET_POTATOES = TagRegistry.item(new Identifier(
 				MODID, "enchanted_sweet_potatoes"
 		));
-			// About pig food & parrot food
+			// About pig food, parrot food and chicken food
 		PIG_BREEDING_INGREDIENTS = TagRegistry.item(new Identifier(
 				MODID, "pig_breeding_ingredients"
+		));
+		CHICKEN_BREEDING_INGREDIENTS = TagRegistry.item(new Identifier(
+				MODID, "chicken_breeding_ingredients"
 		));
 	}
 }

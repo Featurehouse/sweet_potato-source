@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "sweet_potato:enchanted_oak_sapling",
+    "sweet_potato:enchanted_spruce_sapling",
+    "sweet_potato:enchanted_birch_sapling",
+    "sweet_potato:enchanted_jungle_sapling",
+    "sweet_potato:enchanted_acacia_sapling",
+    "sweet_potato:enchanted_dark_oak_sapling"
+  ]
+}

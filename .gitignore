@@ -32,9 +32,3 @@ run/
 updates.log
 .local.gradle/
 libs/
-    # Mapping Helpers
-src/test/java/io/github/teddyxlandlee/fabricbridge/MappingHelper.java
-MappingHelper.class
-mappings-helper$.jar
-mh
-src/test/
