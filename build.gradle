@@ -28,12 +28,6 @@ dependencies {
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
-
-	// ywlib, an API mod, by YWsuoyi
-	modImplementation "libs:ywlib-1.0.4-dev"
-
-	// LibGui, a (not) very good GUI lib.
-	modImplementation "io.github.cottonmc:LibGui:2.3.0+1.16.1"
 }
 
 minecraft {

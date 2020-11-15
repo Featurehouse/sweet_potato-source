@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "sweet_potato",
-  "version": "beta-1.0.1_01",
+  "version": "1.0.1",
 
   "name": "Sweet Potato Mod",
   "description": "Try new kinds of food, crops & magic in Sweet Potato Mod!",
@@ -40,8 +40,7 @@
   "depends": {
     "fabricloader": ">=0.9.0+build.204",
     "fabric": "*",
-    "minecraft": "1.16.x",
-    "ywlib": "1.0.4"
+    "minecraft": "1.16.x"
   },
   "suggests": {
     "flamingo": "*"
