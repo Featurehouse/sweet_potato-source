@@ -42,7 +42,6 @@ public class GrinderProperties {
 
         //buf.writeBytes(data);
         buf.writeByteArray(data);
-        Debug.debug(GrinderProperties.class, PartType.METHOD, "fillPacketByteBuf(PacketByteBuf)", "Finished array writing");
     }
 
     public static void fillPacketByteBuf(int grindTime, int grindTimeTotal, float ingredientData, PacketByteBuf buf) {

@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "particle": "sweet_potato:block/grinder_side",
+    "top": "sweet_potato:block/grinder_top_we",
+    "bottom": "minecraft:block/blackstone",
+    "side": "sweet_potato:block/grinder_side"
+  }
+}

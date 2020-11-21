@@ -5,6 +5,7 @@ import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.annotation.OperationBeforeDeveloping;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.blocks.MagicCubeBlock;
+import io.github.teddyxlandlee.sweet_potato.util.BooleanStateManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
@@ -20,8 +21,11 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.List;
 
 public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable, SidedInventory {
+    protected StateHelperV1 stateHelper;
     private byte fireChanged;
 
     public MagicCubeBlockEntity() {
@@ -30,15 +34,24 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
 
     public MagicCubeBlockEntity(BlockEntityType<?> type, int size) {
         super(type, size);
+        this.stateHelper = new StateHelperV1(this.world, this.pos);
+    }
+
+    @Deprecated
+    public void deprecatedTick() {
+        assert this.world != null;
+        // Magic Cube Activation
+        //this.world.setBlockState(this.pos, BooleanStateManager.calcState(this.world, this.pos));
+        StateHelperV0.changeIfChange(this.world, this.pos);
+        this.fireChanged = StateHelperV0.fireCount(this.world, this.pos);
     }
 
     @Override
     public void tick() {
         assert this.world != null;
-        // Magic Cube Activation
-        //this.world.setBlockState(this.pos, StateHelper.calcState(this.world, this.pos));
-        StateHelper.changeIfChange(this.world, this.pos);
-        this.fireChanged = StateHelper.fireCount(this.world, this.pos);
+        if (world.getTime() % 20L == 5L) {
+            stateHelper.run();
+        }
     }
 
     @Override
@@ -73,8 +86,41 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     @interface FireBelow {
     }
 
-    static class StateHelper {
-        private StateHelper() {}
+    static final class StateHelperV1 extends BooleanStateManager {
+        List<BlockPos> blockPosList;
+
+        StateHelperV1(@Nullable World world, BlockPos pos) {
+            super(world, pos);
+            BlockPos downPos = pos.down();
+            blockPosList = Arrays.asList(downPos,
+                    downPos.east(), downPos.south(), downPos.west(), downPos.north(),
+                    downPos.east().north(), downPos.east().south(),
+                    downPos.west().north(), downPos.west().south()
+            );
+        }
+
+        public void run() {
+            assert world != null;
+            boolean b;
+            if (shouldChange(b = fireCount() > 0)) {
+                world.setBlockState(pos, world.getBlockState(pos).with(MagicCubeBlock.ACTIVATED, b));
+            }
+        }
+
+        @FireBelow
+        byte fireCount() {
+            assert world != null;
+            byte b = 0;
+            for (BlockPos blockPos : blockPosList) {
+                if (world.getBlockState(blockPos).getBlock() == Blocks.SOUL_FIRE)
+                    ++b;
+            }
+            return b;
+        }
+    }
+
+    static class StateHelperV0 {
+        private StateHelperV0() {}
 
         protected static boolean stateChanged(BlockState oldState, BlockState newState) {
             if (oldState.getBlock() != SPMMain.MAGIC_CUBE || newState.getBlock() != SPMMain.MAGIC_CUBE)

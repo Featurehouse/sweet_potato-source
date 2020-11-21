@@ -49,7 +49,6 @@ public class GrinderScreenHandler extends ScreenHandler {
         super(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId);
         this.inventory = inventory;
         this.properties = properties;
-        Debug.debug(this, "propertiesAccessor created");
         this.addProperties(properties);
         this.world = world;
 

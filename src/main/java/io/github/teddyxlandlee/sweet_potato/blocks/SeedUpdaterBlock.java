@@ -29,7 +29,7 @@ public class SeedUpdaterBlock extends CraftingTableBlock {
     //public static BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     //@Override
-    //protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    //protected void appendProperties(BooleanStateManager.Builder<Block, BlockState> builder) {
     //    builder.add(WATERLOGGED);
     //}
 

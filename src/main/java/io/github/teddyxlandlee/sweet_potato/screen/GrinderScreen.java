@@ -1,9 +1,6 @@
 package io.github.teddyxlandlee.sweet_potato.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import io.github.teddyxlandlee.annotation.InDebugUse;
-import io.github.teddyxlandlee.debug.Debug;
-import io.github.teddyxlandlee.debug.PartType;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,12 +15,8 @@ import net.minecraft.util.Identifier;
 public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
     private static final Identifier BACKGROUND_TEXTURE = new Identifier(SPMMain.MODID, "textures/gui/container/grinder.png");
 
-    @InDebugUse
-    private final boolean[] doDebug = new boolean[2];
-
     public GrinderScreen(GrinderScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
-        doDebug[0] = true; doDebug[1] = true;
     }
 
     /*@Override
@@ -48,9 +41,6 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
                         "container.grinding.ingredientData",
                         ingredientData),
                 8.0f, 59.0f, 0);
-        if (doDebug[0]) Debug.debug(this.getClass(), PartType.METHOD, "drawForeground",
-                String.format("Successfully finish foreground\nIngredient Data: %s", ingredientData));
-                this.doDebug[0] = false;
     }
 
     @Override
@@ -62,8 +52,6 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
         int l = this.handler.getGrindProgress();
         this.drawTexture(matrices, this.x + 74, this.y + 35, 176, 0, l+1, 16);  // arrow
         //super.drawBackground(matrices, delta, mouseX, mouseY);
-        if (doDebug[1]) Debug.debug(this.getClass(), PartType.METHOD, "drawBackground",
-                "Successfully finish background"); this.doDebug[1] = false;
     }
 
     @Override

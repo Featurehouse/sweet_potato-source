@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "grinding=true": {
 	  "model": "sweet_potato:block/grinder"
-	}
+	},
+    "grinding=false": {
+      "model": "sweet_potato:block/grinder_not_grinding"
+    }
   }
 }

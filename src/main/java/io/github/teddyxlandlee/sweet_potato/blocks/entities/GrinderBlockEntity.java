@@ -4,10 +4,10 @@ import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
 import io.github.teddyxlandlee.annotation.HardCoded;
 import io.github.teddyxlandlee.annotation.NeedToConfirm;
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
-import io.github.teddyxlandlee.debug.Debug;
-import io.github.teddyxlandlee.debug.PartType;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
+import io.github.teddyxlandlee.sweet_potato.blocks.GrinderBlock;
 import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
+import io.github.teddyxlandlee.sweet_potato.util.BooleanStateManager;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import io.github.teddyxlandlee.sweet_potato.util.properties.grinder.IntGrinderProperties;
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;
@@ -16,7 +16,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -27,8 +26,9 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
@@ -49,6 +49,8 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     public final IntGrinderProperties properties;
     //protected DefaultedList<ItemStack> inventory;
+
+    protected StateHelper stateHelper;
 
     public GrinderBlockEntity() {
         this(SPMMain.GRINDER_BLOCK_ENTITY_TYPE);
@@ -93,6 +95,8 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         this.absorbCooldown = -1;
         this.grindTime = -1;
         this.ingredientData = 0.0D;
+
+        this.stateHelper = new StateHelper(this.world, this.pos, this);
     }
 
     @Override
@@ -134,8 +138,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        Debug.debug(this.getClass(), PartType.METHOD, "createScreenHandler", "Creating Screen Handler");
-        //return new GrinderScreenHandler(syncId, playerInventory, this.getWorld(), this, this.propertiesAccessor);
         return new GrinderScreenHandler(syncId, playerInventory, this.getWorld(), this, this.properties);
     }
 
@@ -162,51 +164,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     @Override
     public void setStack(int slot, ItemStack stack) {
         super.setStack(slot, stack);
-    }
-
-    @NeedToConfirm
-    @Deprecated
-    private void deprecatedTick$4() {
-        assert this.world != null;
-        boolean shallMarkDirty = false;
-        if (!world.isClient) {
-            // Grind Process
-            if (this.grindTime == this.grindTimeTotal && this.grindTimeTotal != 0 && this.canAcceptRecipeOutput()) {
-                // Shall End Grinding
-                this.grindTime = -1;
-                this.grindTimeTotal = this.getGrindTime();
-                this.craftRecipe();
-                shallMarkDirty = true;
-            } else if (!this.canAcceptRecipeOutput() && this.isGrinding()) {
-                this.grindTime = MathHelper.clamp(grindTime - 2, 0, grindTimeTotal);
-                shallMarkDirty = true;
-            } else if (this.grindTime >= 0 && this.canAcceptRecipeOutput()) {
-                ++this.grindTime;
-                shallMarkDirty = true;
-            }
-
-            // Cooldown
-            if (shallCooldown())
-                --this.absorbCooldown;
-            else if (Util.grindable(this.inventory.get(0))) {
-                shallMarkDirty = true;
-                final Item ingredient = this.inventory.get(0).getItem();
-                this.inventory.get(0).decrement(1);
-                this.ingredientData += INGREDIENT_DATA_MAP.getDouble(ingredient);
-                this.absorbCooldown = MAX_COOLDOWN - 1;
-                this.grindTime = 0;
-            }
-
-            // IngredientData Checking
-            if (this.ingredientData >= 9 && this.grindTime < 0 /*Usually -1*/) {
-                this.ingredientData -= 9;
-                this.grindTime = 0;
-                shallMarkDirty = true;
-            }
-        }
-
-        if (shallMarkDirty)
-            markDirty();
     }
 
     @NeedToConfirm
@@ -255,6 +212,10 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
                 this.grindTimeTotal = this.getGrindTime();
                 shallMarkDirty = true;
             }
+
+            // Check State each 50tick
+            if (this.world.getTime() % 50L == 8L)
+                stateHelper.run();
         }
 
         if (shallMarkDirty) markDirty();
@@ -265,7 +226,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     }
 
     @Deprecated
-    private boolean canContinueGrinding(ItemStack input) {
+    protected boolean canContinueGrinding(ItemStack input) {
         if (!(input.getItem().isIn(SPMMain.RAW_SWEET_POTATOES)) && !(input.getItem().isIn(SPMMain.ENCHANTED_SWEET_POTATOES)))
             //throw new UnsupportedOperationException("[GrinderBlockEntity]
             // A programmer tries to force non-grindable thing be grinded, which is unsupported");
@@ -375,8 +336,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     @Deprecated // @Override
     public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
         packetByteBuf.writeBlockPos(this.pos);
-        Debug.debug(GrinderBlockEntity.class, PartType.METHOD, "writeScreenOpeningData",
-                "Successfully written block pos");
     }
 
     @Override
@@ -401,5 +360,21 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         else if (slot == 0)
             return Util.grindable(stack);
         return false;
+    }
+
+    static class StateHelper extends BooleanStateManager {
+        GrinderBlockEntity blockEntity;
+        public StateHelper(World world, BlockPos pos, GrinderBlockEntity blockEntity) {
+            super(world, pos);
+            this.blockEntity = blockEntity;
+        }
+
+        @Override
+        public void run() {
+            assert this.world != null;
+            boolean b;
+            if (shouldChange(b = blockEntity.isGrinding()))
+                world.setBlockState(pos, world.getBlockState(pos).with(GrinderBlock.GRINDING, b));
+        }
     }
 }

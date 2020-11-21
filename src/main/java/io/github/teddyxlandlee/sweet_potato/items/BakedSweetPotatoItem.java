@@ -1,23 +1,25 @@
 package io.github.teddyxlandlee.sweet_potato.items;
 
-import io.github.teddyxlandlee.debug.NullPointerHelper;
-import io.github.teddyxlandlee.debug.PartType;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoStatus;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoType;
+import io.github.teddyxlandlee.sweet_potato.util.NullSweetPotatoComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import java.util.Objects;
+
 public class BakedSweetPotatoItem extends Item implements WithStatus {
 
     private final SweetPotatoType sweetPotatoType;
 
     public BakedSweetPotatoItem(Settings settings, SweetPotatoType type) {
-        super(settings.food(NullPointerHelper.requiresNonnull(type.getComponent(SweetPotatoStatus.BAKED),
-                BakedSweetPotatoItem.class, PartType.METHOD, "<init>", "NullPointerException").asFoodComponent()));
+        super(settings.food(Objects.requireNonNullElse(
+                type.getComponent(SweetPotatoStatus.BAKED), new NullSweetPotatoComponent())
+                .asFoodComponent()));
         this.sweetPotatoType = type;
     }
 
