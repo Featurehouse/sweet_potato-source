@@ -32,3 +32,5 @@ run/
 updates.log
 .local.gradle/
 libs/
+launcher.sh
+mh
