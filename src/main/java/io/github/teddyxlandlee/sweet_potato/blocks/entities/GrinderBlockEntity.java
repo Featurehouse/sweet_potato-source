@@ -22,13 +22,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
@@ -50,7 +47,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     public final IntGrinderProperties properties;
     //protected DefaultedList<ItemStack> inventory;
 
-    protected StateHelper stateHelper;
+    protected BooleanStateManager stateHelper;
 
     public GrinderBlockEntity() {
         this(SPMMain.GRINDER_BLOCK_ENTITY_TYPE);
@@ -96,7 +93,24 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         this.grindTime = -1;
         this.ingredientData = 0.0D;
 
-        this.stateHelper = new StateHelper(this.world, this.pos, this);
+        this.stateHelper = new BooleanStateManager(GrinderBlock.GRINDING) {
+            public boolean shouldChange(boolean newOne) {
+                assert GrinderBlockEntity.this.world != null;
+                return GrinderBlockEntity.this.world.getBlockState(pos).get(property) != newOne;
+            }
+
+            @Override
+            public void run() {
+                assert GrinderBlockEntity.this.world != null;
+                boolean b;
+                if (this.shouldChange(b = GrinderBlockEntity.this.isGrinding()))
+                    GrinderBlockEntity.this.world.setBlockState(
+                            GrinderBlockEntity.this.pos,
+                            GrinderBlockEntity.this.world.getBlockState(
+                                    GrinderBlockEntity.this.pos).with(
+                                            property, b));
+            }
+        };
     }
 
     @Override
@@ -326,7 +340,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     }*/
 
     /**
-     * @deprecated method's super interface is ExtendedScreenHandlerFactory, while the
+     * @deprecated method's super interface is {@code ExtendedScreenHandlerFactory}, while the
      * screen handler has just changed into simple.
      * @see ExtendedScreenHandlerFactory
      * @see net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry
@@ -334,7 +348,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
      * @see net.fabricmc.fabric.impl.screenhandler.ExtendedScreenHandlerType
      */
     @Deprecated // @Override
-    public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
+    public void writeScreenOpeningData(net.minecraft.server.network.ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
         packetByteBuf.writeBlockPos(this.pos);
     }
 
@@ -362,10 +376,11 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         return false;
     }
 
+    /*@Deprecated
     static class StateHelper extends BooleanStateManager {
         GrinderBlockEntity blockEntity;
-        public StateHelper(World world, BlockPos pos, GrinderBlockEntity blockEntity) {
-            super(world, pos);
+        public StateHelper(GrinderBlockEntity blockEntity) {
+            super(blockEntity);
             this.blockEntity = blockEntity;
         }
 
@@ -376,5 +391,5 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
             if (shouldChange(b = blockEntity.isGrinding()))
                 world.setBlockState(pos, world.getBlockState(pos).with(GrinderBlock.GRINDING, b));
         }
-    }
+    }*/
 }

@@ -1,22 +1,28 @@
 package io.github.teddyxlandlee.sweet_potato.util;
 
-import io.github.teddyxlandlee.sweet_potato.blocks.MagicCubeBlock;
+import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
 
 public abstract class BooleanStateManager {
-    public World world;
-    public BlockPos pos;
+    //public World world;
+    //public BlockPos pos;
+    protected Property<Boolean> property;
 
-    public BooleanStateManager(World world, BlockPos pos) {
-        this.world = world;
-        this.pos = pos;
-    }
-
-    public boolean shouldChange(boolean newOne) {
-        assert this.world != null;
-        return world.getBlockState(pos).get(MagicCubeBlock.ACTIVATED) != newOne;
+    public BooleanStateManager(Property<Boolean> property) {
+        this.property = property;
     }
 
     public abstract void run();
+
+    protected static BlockPos[] calcPos(@Nonnull BlockPos original) {
+        BlockPos downPos = original.down();
+        return new BlockPos[] {
+                downPos,
+                downPos.east(), downPos.south(), downPos.west(), downPos.north(),
+                downPos.east().north(), downPos.east().south(),
+                downPos.west().north(), downPos.west().south()
+        };
+    }
 }
