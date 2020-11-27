@@ -1,7 +1,7 @@
 {
   "mod.sweet_potato": "Sweet Potato Mod",
   "mod.sweet_potato.0": ", by Pigeonia Featurehouse",
-  "mod.sweet_potato.1": "Authors:",
+  "mod.sweet_potato.1": "Contributors:",
   "mod.sweet_potato.2": "Agent in \u00A7oMinecraft China\u00A7: ",
 
   "item.sweet_potato.purple_potato": "Purple Potato",
@@ -50,7 +50,7 @@
   "advancement.nether.sweet_potato.get_magic_cube.description": "Obtain Magic Cube",
 
   "container.sweet_potato.magic_cube": "Magic Cube",
-  "container.sweet_potato.seed_updating": "Seed Updating",
+  "container.sweet_potato.seed_updating": "Crop Upgrading",
   "container.sweet_potato.grinding": "Grinding",
   "container.grinding.ingredientData": "Added %f unit(s) of ingredient"
 }

@@ -20,9 +20,9 @@
   "item.sweet_potato.enchanted_potato": "附魔马铃薯",
   "item.sweet_potato.enchanted_beetroot_seeds": "附魔甜菜种子",
 
-  "block.sweet_potato.purple_potatoes": "紫薯作物",
-  "block.sweet_potato.red_potatoes": "红薯作物",
-  "block.sweet_potato.white_potatoes": "白薯作物",
+  "block.sweet_potato.purple_potatoes": "紫薯",
+  "block.sweet_potato.red_potatoes": "红薯",
+  "block.sweet_potato.white_potatoes": "白薯",
   "block.sweet_potato.magic_cube": "魔法锅",
   "block.sweet_potato.grinder": "研磨器",
   "block.sweet_potato.agroforestry_table": "农林台",
@@ -50,7 +50,7 @@
   "advancement.nether.sweet_potato.get_magic_cube.description": "获得魔法锅",
 
   "container.sweet_potato.magic_cube": "魔法锅",
-  "container.sweet_potato.seed_updating": "升级种子",
+  "container.sweet_potato.seed_updating": "升级作物",
   "container.sweet_potato.grinding": "研磨",
   "container.grinding.ingredientData": "已添加 %f 份原料"
 }
