@@ -12,18 +12,5 @@ import java.util.Random;
 @Unused_InsteadOf
 @Deprecated
 public class EnchantedOakGen extends OakSaplingGenerator {
-    @Deprecated
-    protected ConfiguredFeature<TreeFeatureConfig, ?> oldCreateTreeFeature(Random random, boolean bl) {
-        return random.nextInt(10) == 0 ?
-                Feature.TREE.configure(
-                    bl ? DefaultBiomeFeatures.FANCY_TREE_WITH_MORE_BEEHIVES_CONFIG :
-                            DefaultBiomeFeatures.FANCY_TREE_CONFIG
-                )
-                :
-                Feature.TREE.configure(
-                    bl ? DefaultBiomeFeatures.OAK_TREE_WITH_MORE_BEEHIVES_CONFIG :
-                            DefaultBiomeFeatures.OAK_TREE_CONFIG
-                );
-    }
 
 }
