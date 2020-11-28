@@ -196,7 +196,7 @@ public class SPMMain implements ModInitializer {
 		System.out.println("Successfully loaded Sweet Potato Mod!");
 		// Copyright
 		// Agent in Minecraft China can write his or her name into this copyright AS AN AGENT instead of an author.
-		System.out.printf("%s, by %s\nAuthors:\n%s\n", "Sweet Potato Mod", "Pigeonia Featurehouse", "- Teddy Li (bilibili: teddyxlandlee)\n- Ray Chen (bilibili: 一颗水晶Rayawa)\n- Dennis Lin (bilibili: 印度大米饭)\n- Dennis Lin (bilibili: 小林AWA)");
+		System.out.printf("%s, by %s\nContributors:\n%s\n", "Sweet Potato Mod", "Pigeonia Featurehouse", "- Teddy Li (bilibili: teddyxlandlee)\n- Ray Chen (bilibili: 一颗水晶Rayawa)\n- Peter Yang (bilibili: 印度大米饭)");
 
 		ComposterHelper.register();
 

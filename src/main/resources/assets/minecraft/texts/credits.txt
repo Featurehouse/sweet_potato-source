@@ -479,22 +479,21 @@
 §f          Teddy Li (bilibili: teddyxlandlee)
 §f          Ray MH Chen (bilibili: 一颗水晶Rayawa)
 §f          Peter Yang (bilibili: 印度大米饭)
-§f          Dennis Lin (bilibili: 小林AWA)
 
 [C]§f============
 [C]§eSpecial Thanks from Sweet Potato Mod
 [C]§f============
 §7Collaborators
+§f          Dennis Lin
 §f          Garay
 §f          2333tech
 §f          squid233
 §f          因为所以
 §f          Ironnoob73
-§f          Zn_Ar
 
 §7Supporters
 §f          immibis
-§f          ...
+§f          Zn_Ar
 
 
 
