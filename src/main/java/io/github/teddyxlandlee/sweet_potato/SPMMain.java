@@ -1,5 +1,6 @@
 package io.github.teddyxlandlee.sweet_potato;
 
+import io.github.teddyxlandlee.annotation.FromXmas2020;
 import io.github.teddyxlandlee.annotation.Unused_InsteadOf;
 import io.github.teddyxlandlee.sweet_potato.blocks.GrinderBlock;
 import io.github.teddyxlandlee.sweet_potato.blocks.MagicCubeBlock;
@@ -87,6 +88,8 @@ public class SPMMain implements ModInitializer {
 
 		// Misc
 	public static final Item POTATO_POWDER;
+	@FromXmas2020("protected indeed, instead of public")
+	protected static final Item XMAS_TREATING_BOWL;
 
 	// Blocks
 	public static final Block MAGIC_CUBE;
@@ -242,12 +245,11 @@ public class SPMMain implements ModInitializer {
 		), new Item(new Item.Settings()
 				.group(ItemGroup.MISC)
 				.maxCount(64)));
-		/*ENCHANTED_SWEET_POTATO = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_sweet_potato"
-		), new EnchantedSweetPotatoItem(new Item.Settings()
-				.food(EnchantedSweetPotatoItem.COMPONENT)
-				.group(ItemGroup.FOOD)
-				.maxCount(1)));*/
+		XMAS_TREATING_BOWL = Registry.register(Registry.ITEM, new Identifier(
+				MODID, "treating_bowl"
+		), new Item(new Item.Settings()
+				//.group(ItemGroup.MISC)
+				.maxCount(64)));
 		ENCHANTED_PURPLE_POTATO = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "enchanted_purple_potato"
 		), new EnchantedSweetPotatoItem(new Item.Settings()

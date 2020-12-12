@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "sweet_potato",
-  "version": "1.0.2",
+  "version": "1.0.3",
 
   "name": "Sweet Potato Mod",
   "description": "Try new kinds of food, crops & magic in Sweet Potato Mod!",
@@ -42,6 +42,5 @@
     "minecraft": "1.16.x"
   },
   "suggests": {
-    "flamingo": "*"
   }
 }
