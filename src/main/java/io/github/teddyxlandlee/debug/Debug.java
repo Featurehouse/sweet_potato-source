@@ -1,5 +1,6 @@
 package io.github.teddyxlandlee.debug;
 
+@Deprecated
 public final class Debug {
     //private static final Logger logger = LogManager.getLogger();
     private static final String prefix = "--- Debug Message from Sweet Potato Mod ---\n";

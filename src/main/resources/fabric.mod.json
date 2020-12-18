@@ -27,7 +27,7 @@
       "io.github.teddyxlandlee.sweet_potato.SPMMain"
     ],
     "client": [
-      "io.github.teddyxlandlee.sweet_potato.ClientInitializer"
+      "io.github.teddyxlandlee.sweet_potato.client.ClientInitializer"
     ]
   },
   "mixins": [

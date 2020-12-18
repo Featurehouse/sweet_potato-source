@@ -1,7 +1,6 @@
-package io.github.teddyxlandlee.sweet_potato;
+package io.github.teddyxlandlee.sweet_potato.client;
 
-import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreen;
-import io.github.teddyxlandlee.sweet_potato.screen.SeedUpdaterScreen;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

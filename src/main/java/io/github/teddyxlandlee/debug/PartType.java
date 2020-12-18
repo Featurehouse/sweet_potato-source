@@ -1,5 +1,6 @@
 package io.github.teddyxlandlee.debug;
 
+@Deprecated
 public enum PartType {
     CLASS("Class"),
     METHOD("Method"),

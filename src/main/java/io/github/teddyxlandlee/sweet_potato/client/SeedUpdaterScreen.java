@@ -1,6 +1,7 @@
-package io.github.teddyxlandlee.sweet_potato.screen;
+package io.github.teddyxlandlee.sweet_potato.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import io.github.teddyxlandlee.sweet_potato.screen.SeedUpdaterScreenHandler;
 import net.minecraft.client.gui.screen.ingame.ForgingScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;

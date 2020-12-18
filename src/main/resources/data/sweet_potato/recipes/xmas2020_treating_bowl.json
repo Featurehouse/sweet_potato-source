@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "U",
+    "-"
+  ],
+  "key": {
+    "-": {
+      "item": "minecraft:bowl"
+    },
+    "U": {
+      "item": "sweet_potato:potato_powder"
+    }
+  },
+  "result": {
+    "item": "sweet_potato:treating_bowl"
+  }
+}

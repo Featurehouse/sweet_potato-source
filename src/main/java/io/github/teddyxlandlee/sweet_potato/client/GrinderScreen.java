@@ -1,7 +1,8 @@
-package io.github.teddyxlandlee.sweet_potato.screen;
+package io.github.teddyxlandlee.sweet_potato.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
+import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;

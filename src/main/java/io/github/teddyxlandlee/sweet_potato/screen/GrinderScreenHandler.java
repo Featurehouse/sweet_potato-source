@@ -1,7 +1,6 @@
 package io.github.teddyxlandlee.sweet_potato.screen;
 
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
-import io.github.teddyxlandlee.debug.Debug;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.util.GrindingResultSlot;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
