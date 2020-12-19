@@ -15,7 +15,8 @@
   ],
   "contact": {
     "homepage": "https://github.com/Rayawa/sweet_potato",
-    "sources": "https://github.com/teddyxlandlee/sweet_potato-source"
+    "sources": "https://github.com/teddyxlandlee/sweet_potato-source",
+    "issues": "https://github.com/teddyxlandlee/sweet_potato/issues"
   },
 
   "license": "Apache-2.0",
@@ -42,5 +43,6 @@
     "minecraft": "1.16.x"
   },
   "suggests": {
+    "shurlin": "*"
   }
 }
