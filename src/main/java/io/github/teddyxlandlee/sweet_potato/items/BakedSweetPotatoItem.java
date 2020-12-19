@@ -3,6 +3,7 @@ package io.github.teddyxlandlee.sweet_potato.items;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoStatus;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoType;
+import io.github.teddyxlandlee.sweet_potato.util.inventory.PeelInserter;
 import io.github.teddyxlandlee.sweet_potato.util.properties.objects.NullSweetPotatoComponent;
 import io.github.teddyxlandlee.sweet_potato.util.j9bridge.MObjects;
 import net.minecraft.entity.LivingEntity;
@@ -28,7 +29,7 @@ public class BakedSweetPotatoItem extends Item implements WithStatus {
         super.finishUsing(stack, world, user);
         if (user instanceof PlayerEntity && !((PlayerEntity) user).abilities.creativeMode) {
             PlayerEntity playerEntity = (PlayerEntity)user;
-            playerEntity.inventory.insertStack(new ItemStack(SPMMain.PEEL, 1));
+            PeelInserter.run(playerEntity);
         }
 
         //if (!(user instanceof PlayerEntity && ((PlayerEntity)user).abilities.creativeMode))

@@ -1,4 +1,4 @@
-package io.github.teddyxlandlee.sweet_potato.util;
+package io.github.teddyxlandlee.sweet_potato.util.inventory;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;

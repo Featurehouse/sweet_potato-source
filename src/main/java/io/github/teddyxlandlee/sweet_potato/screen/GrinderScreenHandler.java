@@ -2,7 +2,7 @@ package io.github.teddyxlandlee.sweet_potato.screen;
 
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
-import io.github.teddyxlandlee.sweet_potato.util.GrindingResultSlot;
+import io.github.teddyxlandlee.sweet_potato.util.inventory.GrindingResultSlot;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import io.github.teddyxlandlee.sweet_potato.util.properties.grinder.IntGrinderProperties;
 import io.github.teddyxlandlee.sweet_potato.util.properties.grinder.NullGrinderProperties;

@@ -3,6 +3,7 @@ package io.github.teddyxlandlee.sweet_potato.items;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoStatus;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoType;
+import io.github.teddyxlandlee.sweet_potato.util.inventory.PeelInserter;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -32,7 +33,7 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
         //user.sendPickup(new ItemEntity(world, user.getX(), user.getY(), user.getZ(), new ItemStack(SPMMain.PEEL)), 1);
         if (user instanceof PlayerEntity && !((PlayerEntity) user).abilities.creativeMode) {
             PlayerEntity playerEntity = (PlayerEntity)user;
-            playerEntity.inventory.insertStack(new ItemStack(SPMMain.PEEL, 1));
+            PeelInserter.run(playerEntity);
         }
 
         //if (!(user instanceof PlayerEntity && ((PlayerEntity)user).abilities.creativeMode))
