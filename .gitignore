@@ -34,3 +34,4 @@ updates.log
 libs/
 launcher.sh
 mh
+.build-output.txt

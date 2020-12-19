@@ -28,7 +28,7 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
     public SeedUpdaterScreenHandler(int syncId, PlayerInventory inventory, ScreenHandlerContext context) {
         super(SPMMain.SEED_UPDATER_SCREEN_HANDLER_TYPE, syncId, inventory, context);
         this.world = inventory.player.world;
-        this.list = this.world.getRecipeManager().listAllOfType(SPMMain.SEED_UPDATING_RECIPE_TYPE);
+        this.list = this.world.getRecipeManager().method_30027(SPMMain.SEED_UPDATING_RECIPE_TYPE);
     }
 
     protected boolean canUse(@Nonnull BlockState state) {
