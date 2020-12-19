@@ -14,11 +14,11 @@ import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.screen.SeedUpdaterScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.util.properties.objects.BlockSettings;
 import io.github.teddyxlandlee.sweet_potato.util.properties.objects.ItemSettings;
+import io.github.teddyxlandlee.sweet_potato.util.properties.objects.Materials;
 import io.github.teddyxlandlee.sweet_potato.util.registries.ComposterHelper;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
@@ -27,13 +27,11 @@ import net.minecraft.block.sapling.*;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.passive.PigEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
@@ -42,7 +40,8 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import static io.github.teddyxlandlee.sweet_potato.util.registries.RegistryHelper.sound;
+import static io.github.teddyxlandlee.sweet_potato.util.properties.objects.BlockSettings.*;
+import static io.github.teddyxlandlee.sweet_potato.util.registries.RegistryHelper.*;
 
 public class SPMMain implements ModInitializer {
 	public static SPMMain INSTANCE;
@@ -52,17 +51,6 @@ public class SPMMain implements ModInitializer {
 
 	public static final String MODID = "sweet_potato";
 	//public static final SPMVersion MODVERSION = SPMVersion.BETA_1_0_0;
-
-	public static final Material MATERIAL_STONE = new Material.Builder(MaterialColor.STONE).build();
-	public static final Material MATERIAL_PLANT = new FabricMaterialBuilder(MaterialColor.FOLIAGE).allowsMovement().destroyedByPiston().lightPassesThrough().notSolid().build();
-
-	private static <T extends Recipe<Inventory>> RecipeType<T> register_recipe_type(Identifier id) {
-		return Registry.register(Registry.RECIPE_TYPE, id, new RecipeType<T>() {
-			public String toString() {
-				return id.toString();
-			}
-		});
-	}
 
 	// Items
 	public static final Item PEEL;
@@ -154,23 +142,14 @@ public class SPMMain implements ModInitializer {
 	// -*- -*- MISC -*- -*- //
 
 	// Screen Handlers
-	public static final ScreenHandlerType<SeedUpdaterScreenHandler> SEED_UPDATER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(
-			new Identifier(MODID, "seed_updater"), SeedUpdaterScreenHandler::new
-	);
-
-	public static final ScreenHandlerType<GrinderScreenHandler> GRINDER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(
-			new Identifier(MODID, "grinder"), GrinderScreenHandler::new
-	);
+	public static final ScreenHandlerType<SeedUpdaterScreenHandler> SEED_UPDATER_SCREEN_HANDLER_TYPE;
+	public static final ScreenHandlerType<GrinderScreenHandler> GRINDER_SCREEN_HANDLER_TYPE;
 
 	// Recipe Serializer
-	public static final RecipeSerializer<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_SERIALIZER = SeedUpdatingRecipe.register_recipe_serializer(new Identifier(
-			MODID, "seed_updating"
-	), new SeedUpdatingRecipe.Serializer());
+	public static final RecipeSerializer<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_SERIALIZER;
 
 	// Recipe Type
-	public static final RecipeType<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_TYPE = register_recipe_type(new Identifier(
-			MODID, "seed_updating"
-	));
+	public static final RecipeType<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_TYPE;
 
 	// Block Entities
 	public static final BlockEntityType<GrinderBlockEntity> GRINDER_BLOCK_ENTITY_TYPE;
@@ -205,320 +184,102 @@ public class SPMMain implements ModInitializer {
 
 	static {
 		// Item
-		PEEL = Registry.register(Registry.ITEM, new Identifier(MODID, "peel"), new Item(new Item.Settings()
-				.group(ItemGroup.MISC)
-				.maxCount(64)
-		));
-		//BAKED_PEEL = Registry.register(Registry.ITEM, new Identifier(MODID, "baked_peel"), new Item(new Item.Settings()
-		//		.group(ItemGroup.MISC)
-		//		.maxCount(64)
-		//));
-		// TODO: after beta-1.0.0 releases, get the settings into SweetPotatoItem.java
-		BAKED_PURPLE_POTATO = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "baked_purple_potato"
-		), new BakedSweetPotatoItem(new Item.Settings()
-				//.food(SweetPotatoType.PURPLE, SweetPotatoStatus.BAKED)
-				.group(ItemGroup.FOOD)
-				.maxCount(64), SweetPotatoType.PURPLE));
-		BAKED_RED_POTATO = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "baked_red_potato"
-		), new BakedSweetPotatoItem(new Item.Settings()
-			//.food(SweetPotatoType.RED, SweetPotatoStatus.BAKED)
-			.group(ItemGroup.FOOD)
-			.maxCount(64), SweetPotatoType.RED));
-		BAKED_WHITE_POTATO = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "baked_white_potato"
-		), new BakedSweetPotatoItem(new Item.Settings()
-			//.food(SweetPotatoType.WHITE, SweetPotatoStatus.BAKED)
-			.group(ItemGroup.FOOD)
-			.maxCount(64), SweetPotatoType.WHITE));
-		POTATO_POWDER = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "potato_powder"
-		), new Item(new Item.Settings()
-				.group(ItemGroup.MISC)
-				.maxCount(64)));
-		XMAS_TREATING_BOWL = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "treating_bowl"
-		), new Item(new Item.Settings()
-				//.group(ItemGroup.MISC)
-				.maxCount(64)));
-		ENCHANTED_PURPLE_POTATO = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_purple_potato"
-		), new EnchantedSweetPotatoItem(new Item.Settings()
-				//.food(SweetPotatoType.PURPLE, SweetPotatoStatus.ENCHANTED)
-				.group(ItemGroup.FOOD)
-				.maxCount(1), SweetPotatoType.PURPLE));
-		ENCHANTED_RED_POTATO = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_red_potato"
-		), new EnchantedSweetPotatoItem(new Item.Settings()
-				//.food(SweetPotatoType.RED, SweetPotatoStatus.ENCHANTED)
-				.group(ItemGroup.FOOD)
-				.maxCount(1), SweetPotatoType.RED));
-		ENCHANTED_WHITE_POTATO = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_white_potato"
-		), new EnchantedSweetPotatoItem(new Item.Settings()
-				//.food(SweetPotatoType.WHITE, SweetPotatoStatus.ENCHANTED)
-				.group(ItemGroup.FOOD)
-				.maxCount(1), SweetPotatoType.WHITE));
+		PEEL = defaultItem("peel", new FabricItemSettings().group(ItemGroup.MISC));
+		BAKED_PURPLE_POTATO = item("baked_purple_potato", new BakedSweetPotatoItem(ItemSettings.GROUP_FOOD, SweetPotatoType.PURPLE));
+		BAKED_RED_POTATO = item("baked_red_potato", new BakedSweetPotatoItem(ItemSettings.GROUP_FOOD, SweetPotatoType.RED));
+		BAKED_WHITE_POTATO = item("baked_white_potato", new BakedSweetPotatoItem(ItemSettings.GROUP_FOOD, SweetPotatoType.WHITE));
+		POTATO_POWDER = defaultItem("potato_powder", ItemSettings.MISC);
+		XMAS_TREATING_BOWL = defaultItem("treating_bowl", ItemSettings.EASTER_EGG);
+		ENCHANTED_PURPLE_POTATO = item("enchanted_purple_potato", new EnchantedSweetPotatoItem(ItemSettings.ONE_FOOD, SweetPotatoType.PURPLE));
+		ENCHANTED_RED_POTATO = item("enchanted_purple_potato", new EnchantedSweetPotatoItem(ItemSettings.ONE_FOOD, SweetPotatoType.RED));
+		ENCHANTED_WHITE_POTATO = item("enchanted_white_potato", new EnchantedSweetPotatoItem(ItemSettings.ONE_FOOD, SweetPotatoType.WHITE));
 
 		// Block
-		MAGIC_CUBE = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "magic_cube"
-		), new MagicCubeBlock(FabricBlockSettings
-				.of(MATERIAL_STONE)
-				.hardness(10.0f/*5.0f*/)	// Obsidian variants are 50.0f
-				.breakByTool(FabricToolTags.PICKAXES, 2)
-				.requiresTool()
-				.resistance(1200.0f)		// Same as the Obsidian variants
-		));
-		GRINDER = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "grinder"
-		), new GrinderBlock(FabricBlockSettings
-				.of(MATERIAL_STONE)
-				.hardness(3.5f)
-				.breakByTool(FabricToolTags.PICKAXES, 0)
-				.requiresTool()
-				.resistance(6.0f)
-		));
-		SEED_UPDATER = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "agroforestry_table"
-		), new SeedUpdaterBlock(FabricBlockSettings
-				.of(MATERIAL_STONE)
-				.hardness(3.5f)
-				.breakByTool(FabricToolTags.PICKAXES, 2)
-				.requiresTool()
-				.resistance(6.0f)
-		));
+		MAGIC_CUBE = block("magic_cube", new MagicCubeBlock(functionalMinable(Materials.MATERIAL_STONE, 10.0F, 1200.0F, 2)));
+		GRINDER = block("grinder", new GrinderBlock(functionalMinable(Materials.MATERIAL_STONE, 3.5F, 6.0F, 0)));
+		SEED_UPDATER = block("agroforestry_table", new SeedUpdaterBlock(functionalMinable(Materials.MATERIAL_STONE, 3.5F, 6.0F, 2)));
 		    // Crops
-		PURPLE_POTATO_CROP = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "purple_potatoes"
-		), new SweetPotatoesCropBlock(BlockSettings.GRASS_LIKE, SweetPotatoType.PURPLE));
-		RED_POTATO_CROP = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "red_potatoes"
-		), new SweetPotatoesCropBlock(BlockSettings.GRASS_LIKE, SweetPotatoType.RED));
-		WHITE_POTATO_CROP = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "white_potatoes"
-		), new SweetPotatoesCropBlock(BlockSettings.GRASS_LIKE, SweetPotatoType.WHITE));
-		ENCHANTED_WHEAT_CROP = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_wheat"
-		), new EnchantedWheatBlock(BlockSettings.GRASS_LIKE));
-		ENCHANTED_BEETROOTS_CROP = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_beetroots"
-		), new EnchantedBeetrootsBlock(BlockSettings.GRASS_LIKE));
-		ENCHANTED_VANILLA_POTATOES_CROP = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_potatoes"
-		), new EnchantedVanillaPotatoesBlock(BlockSettings.GRASS_LIKE));
-		ENCHANTED_CARROTS_CROP = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_carrots"
-		), new EnchantedCarrotsBlock(BlockSettings.GRASS_LIKE));
-		ENCHANTED_SUGAR_CANE = Registry.register(Registry.BLOCK, new Identifier(
-		        MODID, "enchanted_sugar_cane"
-        ), new EnchantedSugarCaneBlock(BlockSettings.GRASS));
+		PURPLE_POTATO_CROP = block("purple_potatoes", new SweetPotatoesCropBlock(BlockSettings.GRASS_LIKE, SweetPotatoType.PURPLE));
+		RED_POTATO_CROP = block("red_potatoes", new SweetPotatoesCropBlock(BlockSettings.GRASS_LIKE, SweetPotatoType.RED));
+		WHITE_POTATO_CROP = block("white_potatoes", new SweetPotatoesCropBlock(BlockSettings.GRASS_LIKE, SweetPotatoType.WHITE));
+		ENCHANTED_WHEAT_CROP = block("enchanted_wheat", new EnchantedWheatBlock(BlockSettings.GRASS_LIKE));
+		ENCHANTED_BEETROOTS_CROP = block("enchanted_beetroots", new EnchantedBeetrootsBlock(BlockSettings.GRASS_LIKE));
+		ENCHANTED_VANILLA_POTATOES_CROP = block("enchanted_potatoes", new EnchantedVanillaPotatoesBlock(BlockSettings.GRASS_LIKE));
+		ENCHANTED_CARROTS_CROP = block("enchanted_carrots", new EnchantedCarrotsBlock(BlockSettings.GRASS_LIKE));
+		ENCHANTED_SUGAR_CANE = block("enchanted_sugar_cane", new EnchantedSugarCaneBlock(BlockSettings.GRASS));
 			// Saplings
-		ENCHANTED_OAK_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_oak_sapling"
-		), new EnchantedSaplings(new OakSaplingGenerator(), BlockSettings.GRASS_LIKE));
-		ENCHANTED_SPRUCE_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_spruce_sapling"
-		), new EnchantedSaplings(new SpruceSaplingGenerator(), BlockSettings.GRASS_LIKE));
-		ENCHANTED_BIRCH_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_birch_sapling"
-		), new EnchantedSaplings(new BirchSaplingGenerator(), BlockSettings.GRASS_LIKE));
-		ENCHANTED_JUNGLE_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_jungle_sapling"
-		), new EnchantedSaplings(new JungleSaplingGenerator(), BlockSettings.GRASS_LIKE));
-		ENCHANTED_ACACIA_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_acacia_sapling"
-		), new EnchantedSaplings(new AcaciaSaplingGenerator(), BlockSettings.GRASS_LIKE));
-		ENCHANTED_DARK_OAK_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_dark_oak_sapling"
-		), new EnchantedSaplings(new DarkOakSaplingGenerator(), BlockSettings.GRASS_LIKE));
-		POTTED_ENCHANTED_OAK_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "potted_enchanted_oak_sapling"
-		), new FlowerPotBlock(ENCHANTED_OAK_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED)));
-		POTTED_ENCHANTED_SPRUCE_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "potted_enchanted_spruce_sapling"
-		), new FlowerPotBlock(ENCHANTED_SPRUCE_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED)));
-		POTTED_ENCHANTED_BIRCH_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "potted_enchanted_birch_sapling"
-		), new FlowerPotBlock(ENCHANTED_BIRCH_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED)));
-		POTTED_ENCHANTED_JUNGLE_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "potted_enchanted_jungle_sapling"
-		), new FlowerPotBlock(ENCHANTED_JUNGLE_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED)));
-		POTTED_ENCHANTED_ACACIA_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "potted_enchanted_acacia_sapling"
-		), new FlowerPotBlock(ENCHANTED_ACACIA_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED)));
-		POTTED_ENCHANTED_DARK_OAK_SAPLING = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "potted_enchanted_dark_oak_sapling"
-		), new FlowerPotBlock(ENCHANTED_DARK_OAK_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED)));
-		ENCHANTED_ACACIA_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_acacia_leaves"
-		), BlockSettings.createEnchantedLeavesBlock());
-		ENCHANTED_BIRCH_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_birch_leaves"
-		), BlockSettings.createEnchantedLeavesBlock());
-		ENCHANTED_DARK_OAK_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_dark_oak_leaves"
-		), BlockSettings.createEnchantedLeavesBlock());
-		ENCHANTED_OAK_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_oak_leaves"
-		), BlockSettings.createEnchantedLeavesBlock());
-		ENCHANTED_JUNGLE_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_jungle_leaves"
-		), BlockSettings.createEnchantedLeavesBlock());
-		ENCHANTED_SPRUCE_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
-				MODID, "enchanted_spruce_leaves"
-		), BlockSettings.createEnchantedLeavesBlock());
+		ENCHANTED_OAK_SAPLING = createEnchantedSapling("enchanted_oak_sapling", OakSaplingGenerator::new);
+		ENCHANTED_SPRUCE_SAPLING = createEnchantedSapling("enchanted_spruce_sapling", SpruceSaplingGenerator::new);
+		ENCHANTED_BIRCH_SAPLING = createEnchantedSapling("enchanted_birch_sapling", BirchSaplingGenerator::new);
+		ENCHANTED_JUNGLE_SAPLING = createEnchantedSapling("enchanted_jungle_sapling", JungleSaplingGenerator::new);
+		ENCHANTED_ACACIA_SAPLING = createEnchantedSapling("enchanted_acacia_sapling", AcaciaSaplingGenerator::new);
+		ENCHANTED_DARK_OAK_SAPLING = createEnchantedSapling("enchanted_dark_oak_sapling", DarkOakSaplingGenerator::new);
+			// Potted
+		POTTED_ENCHANTED_OAK_SAPLING = createPotted("potted_enchanted_oak_sapling", ENCHANTED_OAK_SAPLING);
+		POTTED_ENCHANTED_SPRUCE_SAPLING = createPotted("potted_enchanted_spruce_sapling", ENCHANTED_SPRUCE_SAPLING);
+		POTTED_ENCHANTED_BIRCH_SAPLING = createPotted("potted_enchanted_birch_sapling", ENCHANTED_BIRCH_SAPLING);
+		POTTED_ENCHANTED_JUNGLE_SAPLING = createPotted("potted_enchanted_jungle_sapling", ENCHANTED_JUNGLE_SAPLING);
+		POTTED_ENCHANTED_ACACIA_SAPLING = createPotted("potted_enchanted_acacia_sapling", ENCHANTED_ACACIA_SAPLING);
+		POTTED_ENCHANTED_DARK_OAK_SAPLING = createPotted("potted_enchanted_dark_oak_sapling", ENCHANTED_DARK_OAK_SAPLING);
+			// Leaves
+		ENCHANTED_ACACIA_LEAVES = createLeaves("enchanted_acacia_leaves");
+		ENCHANTED_BIRCH_LEAVES = createLeaves("enchanted_birch_leaves");
+		ENCHANTED_DARK_OAK_LEAVES = createLeaves("enchanted_dark_oak_leaves");
+		ENCHANTED_OAK_LEAVES = createLeaves("enchanted_oak_leaves");
+		ENCHANTED_JUNGLE_LEAVES = createLeaves("enchanted_jungle_leaves");
+		ENCHANTED_SPRUCE_LEAVES = createLeaves("enchanted_spruce_leaves");
 
 		// Block Items
-		PURPLE_POTATO = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "purple_potato"
-		), new RawSweetPotatoBlockItem(PURPLE_POTATO_CROP, new Item.Settings()
-				//.food(SweetPotatoType.PURPLE, SweetPotatoStatus.RAW)
-				.group(ItemGroup.FOOD)
-				.maxCount(64), SweetPotatoType.PURPLE
-		));
-		RED_POTATO = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "red_potato"
-		), new RawSweetPotatoBlockItem(RED_POTATO_CROP, new Item.Settings()
-				//.food(SweetPotatoType.RED, SweetPotatoStatus.RAW)
-				.group(ItemGroup.FOOD)
-				.maxCount(64), SweetPotatoType.RED
-		));
-		WHITE_POTATO = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "white_potato"
-		), new RawSweetPotatoBlockItem(WHITE_POTATO_CROP, new Item.Settings()
-				//.food(SweetPotatoType.WHITE, SweetPotatoStatus.RAW)
-				.group(ItemGroup.FOOD)
-				.maxCount(64), SweetPotatoType.WHITE
-		));
-		ENCHANTED_WHEAT_SEEDS = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_wheat_seeds"
-		), new AliasedEnchantedItem(ENCHANTED_WHEAT_CROP, new Item.Settings()
-				.group(ItemGroup.MISC)
-				.maxCount(64)
-		));
-		ENCHANTED_BEETROOT_SEEDS = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_beetroot_seeds"
-		), new AliasedEnchantedItem(ENCHANTED_BEETROOTS_CROP, new Item.Settings()
-				.group(ItemGroup.MISC)
-				.maxCount(64)
-		));
-		ENCHANTED_VANILLA_POTATO_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_potato"
-		), new AliasedEnchantedItem(ENCHANTED_VANILLA_POTATOES_CROP, new Item.Settings()
-				.group(ItemGroup.MISC)	// Need to confirm
-				.maxCount(64)
-				.food(FoodComponents.POTATO)
-		));
-		ENCHANTED_CARROT_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_carrot"
-		), new AliasedEnchantedItem(ENCHANTED_CARROTS_CROP, new Item.Settings()
-				.group(ItemGroup.MISC)	// Need to confirm, too
-				.maxCount(64)
-				.food(FoodComponents.CARROT)
-		));
-		ENCHANTED_SUGAR_CANE_ITEM = Registry.register(Registry.ITEM, new Identifier(
-		        MODID, "enchanted_sugar_cane"
-        ), new EnchantedBlockItem(ENCHANTED_SUGAR_CANE, new Item.Settings()
-                .group(ItemGroup.DECORATIONS)
-                .maxCount(64)
-        ));
+		PURPLE_POTATO = item("purple_potato", new RawSweetPotatoBlockItem(PURPLE_POTATO_CROP, ItemSettings.GROUP_FOOD, SweetPotatoType.PURPLE));
+		RED_POTATO = item("red_potato", new RawSweetPotatoBlockItem(RED_POTATO_CROP, ItemSettings.GROUP_FOOD, SweetPotatoType.RED));
+		WHITE_POTATO = item("white_potato", new RawSweetPotatoBlockItem(WHITE_POTATO_CROP, ItemSettings.GROUP_FOOD, SweetPotatoType.WHITE));
 
-		ENCHANTED_ACACIA_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_acacia_leaves"
-		), new EnchantedBlockItem(ENCHANTED_ACACIA_LEAVES, new Item.Settings()
-				.group(ItemGroup.DECORATIONS)
-				.maxCount(64)
-		));
-		ENCHANTED_BIRCH_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_birch_leaves"
-		), new EnchantedBlockItem(ENCHANTED_BIRCH_LEAVES, new Item.Settings()
-				.group(ItemGroup.DECORATIONS)
-				.maxCount(64)
-		));
-		ENCHANTED_DARK_OAK_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_dark_oak_leaves"
-		), new EnchantedBlockItem(ENCHANTED_DARK_OAK_LEAVES, new Item.Settings()
-				.group(ItemGroup.DECORATIONS)
-				.maxCount(64)
-		));
-		ENCHANTED_JUNGLE_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_jungle_leaves"
-		), new EnchantedBlockItem(ENCHANTED_JUNGLE_LEAVES, new Item.Settings()
-				.group(ItemGroup.DECORATIONS)
-				.maxCount(64)
-		));
-		ENCHANTED_OAK_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_oak_leaves"
-		), new EnchantedBlockItem(ENCHANTED_OAK_LEAVES, new Item.Settings()
-				.group(ItemGroup.DECORATIONS)
-				.maxCount(64)
-		));
-		ENCHANTED_SPRUCE_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_spruce_leaves"
-		), new EnchantedBlockItem(ENCHANTED_SPRUCE_LEAVES, new Item.Settings()
-				.group(ItemGroup.DECORATIONS)
-				.maxCount(64)
-		));
+		ENCHANTED_WHEAT_SEEDS = AliasedEnchantedItem.of("enchanted_wheat_seeds", ENCHANTED_WHEAT_CROP);
+		ENCHANTED_BEETROOT_SEEDS = AliasedEnchantedItem.of("enchanted_beetroot_seeds", ENCHANTED_BEETROOTS_CROP);
+		ENCHANTED_VANILLA_POTATO_ITEM = AliasedEnchantedItem.ofMiscFood("enchanted_potato", ENCHANTED_VANILLA_POTATOES_CROP, FoodComponents.POTATO);
+		ENCHANTED_CARROT_ITEM = AliasedEnchantedItem.ofMiscFood("enchanted_carrot", ENCHANTED_CARROTS_CROP, FoodComponents.CARROT);
+		ENCHANTED_SUGAR_CANE_ITEM = AliasedEnchantedItem.of("enchanted_sugar_cane", ENCHANTED_SUGAR_CANE, ItemGroup.DECORATIONS);
+
+		ENCHANTED_ACACIA_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_acacia_leaves", ENCHANTED_ACACIA_LEAVES, ItemSettings.DECORATIONS);
+		ENCHANTED_BIRCH_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_birch_leaves", ENCHANTED_BIRCH_LEAVES, ItemSettings.DECORATIONS);
+		ENCHANTED_DARK_OAK_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_dark_oak_leaves", ENCHANTED_DARK_OAK_LEAVES, ItemSettings.DECORATIONS);
+		ENCHANTED_JUNGLE_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_jungle_leaves", ENCHANTED_JUNGLE_LEAVES, ItemSettings.DECORATIONS);
+		ENCHANTED_OAK_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_oak_leaves", ENCHANTED_OAK_LEAVES, ItemSettings.DECORATIONS);
+		ENCHANTED_SPRUCE_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_spruce_leaves", ENCHANTED_SPRUCE_LEAVES, ItemSettings.DECORATIONS);
 
 			// Functional Blocks' Items
-		MAGIC_CUBE_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "magic_cube"
-		), new BlockItem(
-				MAGIC_CUBE, new Item.Settings().group(ItemGroup.DECORATIONS)
-		));
-		GRINDER_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "grinder"
-		), new BlockItem(
-				GRINDER, new Item.Settings().group(ItemGroup.DECORATIONS)
-		));
-		SEED_UPDATER_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "agroforestry_table"
-		), new BlockItem(
-				SEED_UPDATER, new Item.Settings().group(ItemGroup.DECORATIONS)
-		));
-		ENCHANTED_OAK_SAPLING_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_oak_sapling"
-		), new EnchantedBlockItem(ENCHANTED_OAK_SAPLING, ItemSettings.UNCDEC));
-		ENCHANTED_SPRUCE_SAPLING_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_spruce_sapling"
-		), new EnchantedBlockItem(ENCHANTED_SPRUCE_SAPLING, ItemSettings.UNCDEC));
-		ENCHANTED_BIRCH_SAPLING_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_birch_sapling"
-		), new EnchantedBlockItem(ENCHANTED_BIRCH_SAPLING, ItemSettings.UNCDEC));
-		ENCHANTED_JUNGLE_SAPLING_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_jungle_sapling"
-		), new EnchantedBlockItem(ENCHANTED_JUNGLE_SAPLING, ItemSettings.UNCDEC));
-		ENCHANTED_ACACIA_SAPLING_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_acacia_sapling"
-		), new EnchantedBlockItem(ENCHANTED_ACACIA_SAPLING, ItemSettings.UNCDEC));
-		ENCHANTED_DARK_OAK_SAPLING_ITEM = Registry.register(Registry.ITEM, new Identifier(
-				MODID, "enchanted_dark_oak_sapling"
-		), new EnchantedBlockItem(ENCHANTED_DARK_OAK_SAPLING, ItemSettings.UNCDEC));
+		MAGIC_CUBE_ITEM = blockItem("magic_cube", MAGIC_CUBE, ItemSettings.DECORATIONS);
+		GRINDER_ITEM = blockItem("grinder", GRINDER, ItemSettings.DECORATIONS);
+		SEED_UPDATER_ITEM = blockItem("agroforestry_table", SEED_UPDATER, ItemSettings.DECORATIONS);
+		ENCHANTED_OAK_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_oak_sapling", ENCHANTED_OAK_SAPLING, ItemSettings.UNCDEC);
+		ENCHANTED_SPRUCE_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_spruce_sapling", ENCHANTED_SPRUCE_SAPLING, ItemSettings.UNCDEC);
+		ENCHANTED_BIRCH_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_birch_sapling", ENCHANTED_BIRCH_SAPLING, ItemSettings.UNCDEC);
+		ENCHANTED_JUNGLE_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_jungle_sapling", ENCHANTED_JUNGLE_SAPLING, ItemSettings.UNCDEC);
+		ENCHANTED_ACACIA_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_acacia_sapling", ENCHANTED_ACACIA_SAPLING, ItemSettings.UNCDEC);
+		ENCHANTED_DARK_OAK_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_dark_oak_sapling", ENCHANTED_DARK_OAK_SAPLING, ItemSettings.UNCDEC);
+
+		// Screen Handler
+		SEED_UPDATER_SCREEN_HANDLER_TYPE = simpleScreenHandler("seed_updater", SeedUpdaterScreenHandler::new);
+		GRINDER_SCREEN_HANDLER_TYPE = simpleScreenHandler("grinder", GrinderScreenHandler::new);
+
+		// Recipe Serializer
+		SEED_UPDATING_RECIPE_SERIALIZER = recipeSerializer("seed_updating", SeedUpdatingRecipe.Serializer::new);
+
+		// Recipe Type
+		SEED_UPDATING_RECIPE_TYPE = recipeType("seed_updating");
 
 		// Block Entity
-		GRINDER_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(
-				MODID, "grinder"
-		), BlockEntityType.Builder.create(GrinderBlockEntity::new, GRINDER).build(null));
-		MAGIC_CUBE_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(
-				MODID, "magic_cube"
-		), BlockEntityType.Builder.create(MagicCubeBlockEntity::new, MAGIC_CUBE).build(null));
+		GRINDER_BLOCK_ENTITY_TYPE = blockEntity("grinder", GrinderBlockEntity::new, GRINDER);
+		MAGIC_CUBE_BLOCK_ENTITY_TYPE = blockEntity("magic_cube", MagicCubeBlockEntity::new, MAGIC_CUBE);
 
 		// Item Tags
-		RAW_SWEET_POTATOES = TagRegistry.item(new Identifier(
-				MODID, "raw_sweet_potatoes"
-		));
-		ENCHANTED_SWEET_POTATOES = TagRegistry.item(new Identifier(
-				MODID, "enchanted_sweet_potatoes"
-		));
+		RAW_SWEET_POTATOES = itemTag("raw_sweet_potatoes");
+		ENCHANTED_SWEET_POTATOES = itemTag("enchanted_sweet_potatoes");
 			// About pig food, parrot food and chicken food
-		PIG_BREEDING_INGREDIENTS = TagRegistry.item(new Identifier(
-				MODID, "pig_breeding_ingredients"
-		));
-		CHICKEN_BREEDING_INGREDIENTS = TagRegistry.item(new Identifier(
-				MODID, "chicken_breeding_ingredients"
-		));
+		PIG_BREEDING_INGREDIENTS = itemTag("pig_breeding_ingredients");
+		CHICKEN_BREEDING_INGREDIENTS = itemTag("chicken_breeding_ingredients");
+
+		// Sounds
 		AGROFORESTRY_TABLE_FINISH = sound("block.agroforestry_table.finish");
 	}
 }

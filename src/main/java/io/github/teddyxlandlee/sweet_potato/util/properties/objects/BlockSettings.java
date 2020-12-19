@@ -1,17 +1,31 @@
 package io.github.teddyxlandlee.sweet_potato.util.properties.objects;
 
-import io.github.teddyxlandlee.sweet_potato.SPMMain;
+import io.github.teddyxlandlee.sweet_potato.blocks.saplings_seeds.EnchantedSaplings;
+import io.github.teddyxlandlee.sweet_potato.util.registries.RegistryHelper;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.Material;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.*;
+import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.entity.EntityType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 
+import java.util.function.Supplier;
+
 public final class BlockSettings {
+    public static FabricBlockSettings functionalMinable(Material material, float hardness, float blastResistance, int miningLevel) {
+        return FabricBlockSettings.of(material).hardness(hardness).resistance(blastResistance).breakByTool(FabricToolTags.PICKAXES, miningLevel).requiresTool();
+    }
+
+    public static EnchantedSaplings createEnchantedSapling(String id, Supplier<SaplingGenerator> saplingGeneratorSupplier) {
+        return (EnchantedSaplings) RegistryHelper.block(id, new EnchantedSaplings(saplingGeneratorSupplier.get(), GRASS_LIKE));
+    }
+
+    public static FlowerPotBlock createPotted(String id, Block inside) {
+        return (FlowerPotBlock) RegistryHelper.block(id, new FlowerPotBlock(inside, FabricBlockSettings.of(Material.SUPPORTED)));
+    }
+
     public static final FabricBlockSettings GRASS_LIKE;
     public static final FabricBlockSettings GRASS;
 
@@ -23,12 +37,12 @@ public final class BlockSettings {
     }
 
     static {
-        GRASS_LIKE = FabricBlockSettings.of(SPMMain.MATERIAL_PLANT) // Wanted: move MATERIAL_PLANT to Util
+        GRASS_LIKE = FabricBlockSettings.of(Materials.MATERIAL_PLANT) // Wanted: move MATERIAL_PLANT to Util
                 .noCollision()
                 .ticksRandomly()
                 .breakInstantly()
                 .sounds(BlockSoundGroup.CROP);
-        GRASS = FabricBlockSettings.of(SPMMain.MATERIAL_PLANT)
+        GRASS = FabricBlockSettings.of(Materials.MATERIAL_PLANT)
                 .noCollision()
                 .ticksRandomly()
                 .breakInstantly()
@@ -39,6 +53,11 @@ public final class BlockSettings {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
     }
 
+    public static LeavesBlock createLeaves(String id) {
+        return (LeavesBlock) RegistryHelper.block(id, new LeavesBlock(FabricBlockSettings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BlockSettings::canSpawnOnLeaves).suffocates((state, world, pos) -> false).blockVision((state, world, pos) -> false)));
+    }
+
+    @Deprecated
     public static LeavesBlock createEnchantedLeavesBlock() {
         return new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES)
                 .strength(0.2F)

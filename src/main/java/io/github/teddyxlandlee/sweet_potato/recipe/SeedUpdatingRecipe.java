@@ -104,7 +104,4 @@ public class SeedUpdatingRecipe implements Recipe<Inventory> {
             buf.writeItemStack(recipe.result);
         }
     }
-    public static SeedUpdatingRecipe.Serializer register_recipe_serializer(Identifier id, SeedUpdatingRecipe.Serializer serializer) {
-        return Registry.register(Registry.RECIPE_SERIALIZER, id, serializer);
-    }
 }
