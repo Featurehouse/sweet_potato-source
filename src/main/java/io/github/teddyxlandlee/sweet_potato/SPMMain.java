@@ -9,7 +9,6 @@ import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
 import io.github.teddyxlandlee.sweet_potato.blocks.entities.MagicCubeBlockEntity;
 import io.github.teddyxlandlee.sweet_potato.blocks.saplings_seeds.*;
 import io.github.teddyxlandlee.sweet_potato.items.*;
-import io.github.teddyxlandlee.sweet_potato.recipe.GrinderRecipe;
 import io.github.teddyxlandlee.sweet_potato.recipe.SeedUpdatingRecipe;
 import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.screen.SeedUpdaterScreenHandler;
@@ -43,7 +42,7 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import static io.github.teddyxlandlee.sweet_potato.util.registries.RegistryHelper.*;
+import static io.github.teddyxlandlee.sweet_potato.util.registries.RegistryHelper.sound;
 
 public class SPMMain implements ModInitializer {
 	public static SPMMain INSTANCE;
@@ -167,16 +166,10 @@ public class SPMMain implements ModInitializer {
 	public static final RecipeSerializer<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_SERIALIZER = SeedUpdatingRecipe.register_recipe_serializer(new Identifier(
 			MODID, "seed_updating"
 	), new SeedUpdatingRecipe.Serializer());
-	public static final RecipeSerializer<GrinderRecipe> GRINDER_RECIPE_SERIALIZER = GrinderRecipe.register_recipe_serializer(new Identifier(
-			MODID, "grinding"
-	), new GrinderRecipe.Serializer());
 
 	// Recipe Type
 	public static final RecipeType<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_TYPE = register_recipe_type(new Identifier(
 			MODID, "seed_updating"
-	));
-	public static final RecipeType<GrinderRecipe> GRINDER_RECIPE_TYPE = register_recipe_type(new Identifier(
-			MODID, "grinding"
 	));
 
 	// Block Entities

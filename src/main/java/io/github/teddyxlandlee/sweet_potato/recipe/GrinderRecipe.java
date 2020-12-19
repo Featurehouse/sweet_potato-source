@@ -15,6 +15,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
+/**
+ * A deprecated grinder recipe option from beta.
+ * @deprecated in a very early time.
+ * @since beta-1.0.0 pres
+ * @author teddyxlandlee
+ */
+@Deprecated
 public class GrinderRecipe implements Recipe<Inventory> {
     protected final Identifier id;
     protected final String group;
@@ -59,12 +66,14 @@ public class GrinderRecipe implements Recipe<Inventory> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return SPMMain.GRINDER_RECIPE_SERIALIZER;
+        //return SPMMain.GRINDER_RECIPE_SERIALIZER;
+        return null;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return SPMMain.GRINDER_RECIPE_TYPE;
+        //return SPMMain.GRINDER_RECIPE_TYPE;
+        return null;
     }
 
     public static class Serializer extends AbstractRecipeSerializer<GrinderRecipe> {
@@ -84,6 +93,7 @@ public class GrinderRecipe implements Recipe<Inventory> {
 
         }
     }
+    @Deprecated
     public static GrinderRecipe.Serializer register_recipe_serializer(Identifier id, GrinderRecipe.Serializer serializer) {
         return Registry.register(Registry.RECIPE_SERIALIZER, id, serializer);
     }
