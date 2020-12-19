@@ -1,4 +1,4 @@
-package io.github.teddyxlandlee.sweet_potato.util;
+package io.github.teddyxlandlee.sweet_potato.util.properties.objects;
 
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoComponent;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoStatus;
@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@Deprecated
 public class SweetPotatoSettings extends Item.Settings {
     Logger logger = LogManager.getLogger();
 
@@ -15,6 +16,7 @@ public class SweetPotatoSettings extends Item.Settings {
         super();
     }
 
+    @Deprecated
     public SweetPotatoSettings food(SweetPotatoType type, SweetPotatoStatus status) {
         SweetPotatoComponent component = type.getComponent(status);
         if (component != null)

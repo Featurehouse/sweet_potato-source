@@ -2,16 +2,14 @@ package io.github.teddyxlandlee.sweet_potato.util;
 
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
+import io.github.teddyxlandlee.sweet_potato.util.properties.objects.BlockSettings;
 import net.minecraft.block.*;
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.Tag;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,26 +32,6 @@ public final class Util {
     @Deprecated
     private static boolean isFlammableWood(Item item) {
         return ItemTags.NON_FLAMMABLE_WOOD.contains(item);
-    }
-
-    public static void registerCompostableItem(float levelIncreaseChance, ItemConvertible item) {
-        ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(item.asItem(), levelIncreaseChance);
-    }
-
-    private static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
-        return type == EntityType.OCELOT || type == EntityType.PARROT;
-    }
-
-    public static LeavesBlock createEnchantedLeavesBlock() {
-        return new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES)
-                .strength(0.2F)
-                .ticksRandomly()
-                .sounds(BlockSoundGroup.GRASS)
-                .nonOpaque()
-                .allowsSpawning(Util::canSpawnOnLeaves)
-                .suffocates((state, world, pos) -> false)
-                .blockVision((state, world, pos) -> false)
-        );
     }
 
     @NonMinecraftNorFabric

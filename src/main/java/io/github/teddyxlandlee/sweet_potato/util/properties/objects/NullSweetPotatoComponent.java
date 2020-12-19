@@ -1,4 +1,4 @@
-package io.github.teddyxlandlee.sweet_potato.util;
+package io.github.teddyxlandlee.sweet_potato.util.properties.objects;
 
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoComponent;
 import net.minecraft.item.FoodComponent;

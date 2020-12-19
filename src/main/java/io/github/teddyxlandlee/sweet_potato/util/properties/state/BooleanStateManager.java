@@ -1,4 +1,4 @@
-package io.github.teddyxlandlee.sweet_potato.util;
+package io.github.teddyxlandlee.sweet_potato.util.properties.state;
 
 import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;

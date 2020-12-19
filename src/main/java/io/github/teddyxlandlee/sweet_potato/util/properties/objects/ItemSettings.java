@@ -1,4 +1,4 @@
-package io.github.teddyxlandlee.sweet_potato.util;
+package io.github.teddyxlandlee.sweet_potato.util.properties.objects;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;

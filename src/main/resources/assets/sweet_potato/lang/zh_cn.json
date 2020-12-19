@@ -45,6 +45,8 @@
   "block.sweet_potato.enchanted_potatoes": "附魔马铃薯",
   "block.sweet_potato.enchanted_beetroots": "附魔甜菜根",
 
+  "subtitles.block.sweet_potato.agroforestry_table.finish": "农林台：升级",
+
   "advancement.husbandry.sweet_potato.get_sweet_potato.title": "香甜软嚅",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "获得地瓜",
   "advancement.nether.sweet_potato.get_magic_cube.title": "灵魂魔法",

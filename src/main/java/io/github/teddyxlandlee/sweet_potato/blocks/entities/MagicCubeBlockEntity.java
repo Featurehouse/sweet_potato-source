@@ -4,7 +4,7 @@ import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
 import io.github.teddyxlandlee.annotation.OperationBeforeDeveloping;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.blocks.MagicCubeBlock;
-import io.github.teddyxlandlee.sweet_potato.util.BooleanStateManager;
+import io.github.teddyxlandlee.sweet_potato.util.properties.state.BooleanStateManager;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;

@@ -3,14 +3,15 @@ package io.github.teddyxlandlee.sweet_potato.items;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoStatus;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoType;
-import io.github.teddyxlandlee.sweet_potato.util.NullSweetPotatoComponent;
+import io.github.teddyxlandlee.sweet_potato.util.properties.objects.NullSweetPotatoComponent;
+import io.github.teddyxlandlee.sweet_potato.util.j9bridge.MObjects;
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.AliasedBlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
-import java.util.Objects;
 
 public class RawSweetPotatoBlockItem extends /*SweetPotatoItem*/ AliasedBlockItem implements WithStatus {
     @Override
@@ -21,7 +22,7 @@ public class RawSweetPotatoBlockItem extends /*SweetPotatoItem*/ AliasedBlockIte
     private final SweetPotatoType sweetPotatoType;
 
     public RawSweetPotatoBlockItem(Block block, Item.Settings settings, SweetPotatoType type) {
-        super(block, settings.food(Objects.requireNonNullElse(
+        super(block, settings.food(MObjects.requireNonNullElse(
                 type.getComponent(SweetPotatoStatus.RAW), new NullSweetPotatoComponent())
                 .asFoodComponent()));
         this.sweetPotatoType = type;

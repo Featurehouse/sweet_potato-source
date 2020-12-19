@@ -4,9 +4,14 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "sweet_potato:enchanted_sugar_cane"
-    }
+    "#": [
+      {
+        "item": "sweet_potato:enchanted_sugar_cane"
+      },
+      {
+        "item": "minecraft:sugar_cane"
+      }
+    ]
   },
   "result": {
     "item": "minecraft:paper",

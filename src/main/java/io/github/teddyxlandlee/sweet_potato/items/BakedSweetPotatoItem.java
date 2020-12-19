@@ -3,21 +3,20 @@ package io.github.teddyxlandlee.sweet_potato.items;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoStatus;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoType;
-import io.github.teddyxlandlee.sweet_potato.util.NullSweetPotatoComponent;
+import io.github.teddyxlandlee.sweet_potato.util.properties.objects.NullSweetPotatoComponent;
+import io.github.teddyxlandlee.sweet_potato.util.j9bridge.MObjects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import java.util.Objects;
-
 public class BakedSweetPotatoItem extends Item implements WithStatus {
 
     private final SweetPotatoType sweetPotatoType;
 
     public BakedSweetPotatoItem(Settings settings, SweetPotatoType type) {
-        super(settings.food(Objects.requireNonNullElse(
+        super(settings.food(MObjects.requireNonNullElse(
                 type.getComponent(SweetPotatoStatus.BAKED), new NullSweetPotatoComponent())
                 .asFoodComponent()));
         this.sweetPotatoType = type;

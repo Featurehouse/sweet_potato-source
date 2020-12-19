@@ -1,7 +1,6 @@
 package io.github.teddyxlandlee.sweet_potato;
 
 import io.github.teddyxlandlee.annotation.FromXmas2020;
-import io.github.teddyxlandlee.annotation.Unused_InsteadOf;
 import io.github.teddyxlandlee.sweet_potato.blocks.GrinderBlock;
 import io.github.teddyxlandlee.sweet_potato.blocks.MagicCubeBlock;
 import io.github.teddyxlandlee.sweet_potato.blocks.SeedUpdaterBlock;
@@ -14,10 +13,9 @@ import io.github.teddyxlandlee.sweet_potato.recipe.GrinderRecipe;
 import io.github.teddyxlandlee.sweet_potato.recipe.SeedUpdatingRecipe;
 import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
 import io.github.teddyxlandlee.sweet_potato.screen.SeedUpdaterScreenHandler;
-import io.github.teddyxlandlee.sweet_potato.util.BlockSettings;
-import io.github.teddyxlandlee.sweet_potato.util.ItemSettings;
-import io.github.teddyxlandlee.sweet_potato.util.Util;
-import io.github.teddyxlandlee.sweet_potato.util.existedmaps.ComposterHelper;
+import io.github.teddyxlandlee.sweet_potato.util.properties.objects.BlockSettings;
+import io.github.teddyxlandlee.sweet_potato.util.properties.objects.ItemSettings;
+import io.github.teddyxlandlee.sweet_potato.util.registries.ComposterHelper;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
@@ -40,9 +38,12 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+
+import static io.github.teddyxlandlee.sweet_potato.util.registries.RegistryHelper.*;
 
 public class SPMMain implements ModInitializer {
 	public static SPMMain INSTANCE;
@@ -52,11 +53,6 @@ public class SPMMain implements ModInitializer {
 
 	public static final String MODID = "sweet_potato";
 	//public static final SPMVersion MODVERSION = SPMVersion.BETA_1_0_0;
-
-	@Unused_InsteadOf @Deprecated
-	public static final String SEED_UPDATER_TRANSLATION_KEY = net.minecraft.util.Util.createTranslationKey("container", new Identifier(
-			MODID, "seed_updating"
-	));
 
 	public static final Material MATERIAL_STONE = new Material.Builder(MaterialColor.STONE).build();
 	public static final Material MATERIAL_PLANT = new FabricMaterialBuilder(MaterialColor.FOLIAGE).allowsMovement().destroyedByPiston().lightPassesThrough().notSolid().build();
@@ -193,6 +189,9 @@ public class SPMMain implements ModInitializer {
 		// About Pigs & Parrots
 	public static final Tag<Item> PIG_BREEDING_INGREDIENTS;
 	public static final Tag<Item> CHICKEN_BREEDING_INGREDIENTS;
+
+	// Sounds
+	public static final SoundEvent AGROFORESTRY_TABLE_FINISH;
 
 	@Override
 	public void onInitialize() {
@@ -361,22 +360,22 @@ public class SPMMain implements ModInitializer {
 		), new FlowerPotBlock(ENCHANTED_DARK_OAK_SAPLING, AbstractBlock.Settings.of(Material.SUPPORTED)));
 		ENCHANTED_ACACIA_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_acacia_leaves"
-		), Util.createEnchantedLeavesBlock());
+		), BlockSettings.createEnchantedLeavesBlock());
 		ENCHANTED_BIRCH_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_birch_leaves"
-		), Util.createEnchantedLeavesBlock());
+		), BlockSettings.createEnchantedLeavesBlock());
 		ENCHANTED_DARK_OAK_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_dark_oak_leaves"
-		), Util.createEnchantedLeavesBlock());
+		), BlockSettings.createEnchantedLeavesBlock());
 		ENCHANTED_OAK_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_oak_leaves"
-		), Util.createEnchantedLeavesBlock());
+		), BlockSettings.createEnchantedLeavesBlock());
 		ENCHANTED_JUNGLE_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_jungle_leaves"
-		), Util.createEnchantedLeavesBlock());
+		), BlockSettings.createEnchantedLeavesBlock());
 		ENCHANTED_SPRUCE_LEAVES = Registry.register(Registry.BLOCK, new Identifier(
 				MODID, "enchanted_spruce_leaves"
-		), Util.createEnchantedLeavesBlock());
+		), BlockSettings.createEnchantedLeavesBlock());
 
 		// Block Items
 		PURPLE_POTATO = Registry.register(Registry.ITEM, new Identifier(
@@ -436,37 +435,37 @@ public class SPMMain implements ModInitializer {
 		ENCHANTED_ACACIA_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "enchanted_acacia_leaves"
 		), new EnchantedBlockItem(ENCHANTED_ACACIA_LEAVES, new Item.Settings()
-				//.group(null)
+				.group(ItemGroup.DECORATIONS)
 				.maxCount(64)
 		));
 		ENCHANTED_BIRCH_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "enchanted_birch_leaves"
 		), new EnchantedBlockItem(ENCHANTED_BIRCH_LEAVES, new Item.Settings()
-				//.group(null)
+				.group(ItemGroup.DECORATIONS)
 				.maxCount(64)
 		));
 		ENCHANTED_DARK_OAK_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "enchanted_dark_oak_leaves"
 		), new EnchantedBlockItem(ENCHANTED_DARK_OAK_LEAVES, new Item.Settings()
-				//.group(null)
+				.group(ItemGroup.DECORATIONS)
 				.maxCount(64)
 		));
 		ENCHANTED_JUNGLE_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "enchanted_jungle_leaves"
 		), new EnchantedBlockItem(ENCHANTED_JUNGLE_LEAVES, new Item.Settings()
-				//.group(null)
+				.group(ItemGroup.DECORATIONS)
 				.maxCount(64)
 		));
 		ENCHANTED_OAK_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "enchanted_oak_leaves"
 		), new EnchantedBlockItem(ENCHANTED_OAK_LEAVES, new Item.Settings()
-				//.group(null)
+				.group(ItemGroup.DECORATIONS)
 				.maxCount(64)
 		));
 		ENCHANTED_SPRUCE_LEAVES_ITEM = Registry.register(Registry.ITEM, new Identifier(
 				MODID, "enchanted_spruce_leaves"
 		), new EnchantedBlockItem(ENCHANTED_SPRUCE_LEAVES, new Item.Settings()
-				//.group(null)
+				.group(ItemGroup.DECORATIONS)
 				.maxCount(64)
 		));
 
@@ -527,5 +526,6 @@ public class SPMMain implements ModInitializer {
 		CHICKEN_BREEDING_INGREDIENTS = TagRegistry.item(new Identifier(
 				MODID, "chicken_breeding_ingredients"
 		));
+		AGROFORESTRY_TABLE_FINISH = sound("block.agroforestry_table.finish");
 	}
 }

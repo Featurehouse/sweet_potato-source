@@ -7,7 +7,7 @@ import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.blocks.GrinderBlock;
 import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
-import io.github.teddyxlandlee.sweet_potato.util.BooleanStateManager;
+import io.github.teddyxlandlee.sweet_potato.util.properties.state.BooleanStateManager;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import io.github.teddyxlandlee.sweet_potato.util.properties.grinder.IntGrinderProperties;
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;

@@ -1,6 +1,7 @@
 package io.github.teddyxlandlee.sweet_potato;
 
 import io.github.teddyxlandlee.sweet_potato.util.Util;
+import io.github.teddyxlandlee.sweet_potato.util.registries.ComposterHelper;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.ItemConvertible;
 
@@ -56,7 +57,7 @@ public class SweetPotatoComponent {
     public void registerCompostableItem(SweetPotatoType type, SweetPotatoStatus status) {
         ItemConvertible item = type.get(status);
         if (item != null)
-            Util.registerCompostableItem(this.compost, Objects.requireNonNull(item));
+            ComposterHelper.registerCompostableItem(this.compost, Objects.requireNonNull(item));
     }
 
     public void registerGrindableItem (SweetPotatoType type, SweetPotatoStatus status) {
