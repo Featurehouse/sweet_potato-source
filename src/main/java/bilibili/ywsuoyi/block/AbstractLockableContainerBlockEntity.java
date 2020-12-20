@@ -6,7 +6,7 @@
 package bilibili.ywsuoyi.block;
 
 import io.github.teddyxlandlee.annotation.DeprecatedFrom;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import io.github.teddyxlandlee.sweet_potato.util.tick.ITickable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
@@ -15,18 +15,17 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.Iterator;
 
-public abstract class AbstractLockableContainerBlockEntity extends LockableContainerBlockEntity {
+public abstract class AbstractLockableContainerBlockEntity extends LockableContainerBlockEntity implements ITickable {
     protected /*private*/ DefaultedList<ItemStack> inventory;
     private final int size;
 
-    public AbstractLockableContainerBlockEntity(BlockEntityType<?> type, int size) {
-        super(type);
+    public AbstractLockableContainerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int size) {
+        super(type, pos, state);
         this.inventory = DefaultedList.ofSize(size, ItemStack.EMPTY);
         this.size = size;
     }
@@ -38,8 +37,8 @@ public abstract class AbstractLockableContainerBlockEntity extends LockableConta
         return tag;
     }
 
-    public void fromTag(BlockState state, CompoundTag tag) {
-        super.fromTag(state, tag);
+    public void fromTag(CompoundTag tag) {
+        super.fromTag(tag);
         this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
         Inventories.fromTag(tag, this.inventory);
     }

@@ -1,6 +1,5 @@
 package io.github.teddyxlandlee.sweet_potato.recipe;
 
-import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import com.google.gson.JsonObject;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

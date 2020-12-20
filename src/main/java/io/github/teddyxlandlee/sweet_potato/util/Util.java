@@ -2,13 +2,9 @@ package io.github.teddyxlandlee.sweet_potato.util;
 
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
-import io.github.teddyxlandlee.sweet_potato.util.properties.objects.BlockSettings;
-import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.Tag;
 
 import javax.annotation.Nonnull;
@@ -28,11 +24,6 @@ public final class Util {
             map.put(item2, fuelTime);
         }
     }*/
-
-    @Deprecated
-    private static boolean isFlammableWood(Item item) {
-        return ItemTags.NON_FLAMMABLE_WOOD.contains(item);
-    }
 
     @NonMinecraftNorFabric
     public static void registerGrindableItem(double ingredientDataAdded, @Nonnull ItemConvertible item) {

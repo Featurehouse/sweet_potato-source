@@ -1,6 +1,7 @@
 package io.github.teddyxlandlee.sweet_potato.util.registries;
 
 import io.github.teddyxlandlee.annotation.FabricApiRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
@@ -48,9 +49,9 @@ public interface RegistryHelper {
         return Registry.register(Registry.ITEM, id2, new BlockItem(block2, settings));
     }
 
-    static <E extends BlockEntity> BlockEntityType<E> blockEntity(String id, Supplier<E> supplier, Block... blocks) {
+    static <E extends BlockEntity> BlockEntityType<E> blockEntity(String id, FabricBlockEntityTypeBuilder.Factory<E> supplier, Block... blocks) {
         Identifier id2 = id(id);
-        return Registry.register(Registry.BLOCK_ENTITY_TYPE, id2, BlockEntityType.Builder.create(supplier, blocks).build(null));
+        return Registry.register(Registry.BLOCK_ENTITY_TYPE, id2, FabricBlockEntityTypeBuilder.create(supplier, blocks).build(null));
     }
 
     //@Environment(EnvType.CLIENT)

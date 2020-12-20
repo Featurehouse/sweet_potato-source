@@ -13,7 +13,7 @@ public interface PeelInserter {
     }
 
     static PeelActionResult insert(PlayerEntity player) {
-        PlayerInventory inventory = player.inventory;
+        PlayerInventory inventory = player.getInventory();
         ItemStack eachStack;
         int i;
         for (i = 0; i < inventory.main.size(); ++i) {

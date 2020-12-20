@@ -1,7 +1,7 @@
 package io.github.teddyxlandlee.sweet_potato.blocks.saplings_seeds;
 
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
-import io.github.teddyxlandlee.sweet_potato.util.RandomTickHelper;
+import io.github.teddyxlandlee.sweet_potato.util.tick.RandomTickHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;

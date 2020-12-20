@@ -1,8 +1,13 @@
 package io.github.teddyxlandlee.sweet_potato.blocks;
 
+import bilibili.ywsuoyi.block.AbstractBlockWithEntity;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -13,10 +18,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-public class GrinderBlock extends BlockWithEntity {
+public class GrinderBlock extends AbstractBlockWithEntity<GrinderBlockEntity> {
     public static BooleanProperty GRINDING = BooleanProperty.of("grinding");
 
     public GrinderBlock(AbstractBlock.Settings settings) {
@@ -25,8 +29,8 @@ public class GrinderBlock extends BlockWithEntity {
     }
 
     @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new GrinderBlockEntity();
+    public GrinderBlockEntity createTileEntity(BlockPos pos, BlockState state) {
+        return new GrinderBlockEntity(pos, state);
     }
 
     @Override
@@ -61,8 +65,8 @@ public class GrinderBlock extends BlockWithEntity {
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public BlockEntityType<GrinderBlockEntity> getBlockEntityType() {
+        return SPMMain.GRINDER_BLOCK_ENTITY_TYPE;
     }
 
     @Override

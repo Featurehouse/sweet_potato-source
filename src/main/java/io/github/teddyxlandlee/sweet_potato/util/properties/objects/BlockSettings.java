@@ -23,7 +23,7 @@ public final class BlockSettings {
     }
 
     public static FlowerPotBlock createPotted(String id, Block inside) {
-        return (FlowerPotBlock) RegistryHelper.block(id, new FlowerPotBlock(inside, FabricBlockSettings.of(Material.SUPPORTED)));
+        return (FlowerPotBlock) RegistryHelper.block(id, new FlowerPotBlock(inside, FabricBlockSettings.of(Material.DECORATION)));
     }
 
     public static final FabricBlockSettings GRASS_LIKE;

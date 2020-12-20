@@ -13,16 +13,8 @@ import net.minecraft.client.render.RenderLayer;
 
 @Environment(EnvType.CLIENT)
 public class ClientInitializer implements ClientModInitializer {
-    //TODO: Enchanted Leaves: Color
     @Override
     public void onInitializeClient() {
-        /*ScreenProviderRegistry.INSTANCE.<SeedUpdaterScreenHandler>registerFactory(new Identifier(
-                SPMMain.MODID, "seed_updating"
-        ), (handler) -> {
-            assert MinecraftClient.getInstance().player != null;
-            return new SeedUpdaterScreen(handler, MinecraftClient.getInstance().player.inventory,
-                    new TranslatableText(SPMMain.SEED_UPDATER_TRANSLATION_KEY));
-        });*/
         ScreenRegistry.register(SPMMain.SEED_UPDATER_SCREEN_HANDLER_TYPE, SeedUpdaterScreen::new);
         ScreenRegistry.register(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, GrinderScreen::new);
 
@@ -32,25 +24,21 @@ public class ClientInitializer implements ClientModInitializer {
         ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> FoliageColors.getBirchColor(), SPMMain.ENCHANTED_BIRCH_LEAVES);
         ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> FoliageColors.getSpruceColor(), SPMMain.ENCHANTED_SPRUCE_LEAVES);
 
-        BlockRenderLayerMap.INSTANCE.putBlock(SPMMain.PURPLE_POTATO_CROP, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(SPMMain.RED_POTATO_CROP, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(SPMMain.WHITE_POTATO_CROP, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(SPMMain.SEED_UPDATER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
+                SPMMain.PURPLE_POTATO_CROP, SPMMain.RED_POTATO_CROP,
+                SPMMain.WHITE_POTATO_CROP, SPMMain.SEED_UPDATER,
                 SPMMain.ENCHANTED_ACACIA_SAPLING, SPMMain.ENCHANTED_BIRCH_SAPLING,
                 SPMMain.ENCHANTED_DARK_OAK_SAPLING, SPMMain.ENCHANTED_OAK_SAPLING,
-                SPMMain.ENCHANTED_JUNGLE_SAPLING, SPMMain.ENCHANTED_SPRUCE_SAPLING);
-        BlockRenderLayerMap.INSTANCE.putBlock(SPMMain.GRINDER, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
+                SPMMain.ENCHANTED_JUNGLE_SAPLING, SPMMain.ENCHANTED_SPRUCE_SAPLING,
+                SPMMain.GRINDER,
                 SPMMain.POTTED_ENCHANTED_ACACIA_SAPLING,
                 SPMMain.POTTED_ENCHANTED_BIRCH_SAPLING,
                 SPMMain.POTTED_ENCHANTED_DARK_OAK_SAPLING,
                 SPMMain.POTTED_ENCHANTED_JUNGLE_SAPLING,
                 SPMMain.POTTED_ENCHANTED_OAK_SAPLING,
-                SPMMain.POTTED_ENCHANTED_SPRUCE_SAPLING);
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
+                SPMMain.POTTED_ENCHANTED_SPRUCE_SAPLING,
                 SPMMain.ENCHANTED_BEETROOTS_CROP, SPMMain.ENCHANTED_CARROTS_CROP,
-                SPMMain.ENCHANTED_VANILLA_POTATOES_CROP, SPMMain.ENCHANTED_WHEAT_CROP);
-        BlockRenderLayerMap.INSTANCE.putBlock(SPMMain.ENCHANTED_SUGAR_CANE, RenderLayer.getCutout());
+                SPMMain.ENCHANTED_VANILLA_POTATOES_CROP, SPMMain.ENCHANTED_WHEAT_CROP,
+                SPMMain.ENCHANTED_SUGAR_CANE);
     }
 }

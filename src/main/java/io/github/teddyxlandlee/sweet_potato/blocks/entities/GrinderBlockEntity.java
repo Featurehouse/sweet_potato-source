@@ -7,9 +7,9 @@ import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.blocks.GrinderBlock;
 import io.github.teddyxlandlee.sweet_potato.screen.GrinderScreenHandler;
-import io.github.teddyxlandlee.sweet_potato.util.properties.state.BooleanStateManager;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
 import io.github.teddyxlandlee.sweet_potato.util.properties.grinder.IntGrinderProperties;
+import io.github.teddyxlandlee.sweet_potato.util.properties.state.BooleanStateManager;
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -24,16 +24,18 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Tickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /* (not javadoc)
  * <h2>Why canceling implementing ExtendedScreenHandlerFactory?</h2>
  * <p>Because it is already implemented in AbstractLockableContainerBlockEntity!</p>
  */
-public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable, SidedInventory {
+public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity implements SidedInventory {
     private int grindTime;
     private int grindTimeTotal;
     private double ingredientData;
@@ -49,12 +51,12 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     protected BooleanStateManager stateHelper;
 
-    public GrinderBlockEntity() {
-        this(SPMMain.GRINDER_BLOCK_ENTITY_TYPE);
+    public GrinderBlockEntity(BlockPos pos, BlockState state) {
+        this(SPMMain.GRINDER_BLOCK_ENTITY_TYPE, pos, state);
     }
 
-    protected GrinderBlockEntity(BlockEntityType<?> blockEntityType) {
-        super(blockEntityType, 2);
+    protected GrinderBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state) {
+        super(blockEntityType, pos, state, 2);
         //this.inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
         this.properties = new IntGrinderProperties() {
@@ -105,17 +107,15 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
                 boolean b;
                 if (this.shouldChange(b = GrinderBlockEntity.this.isGrinding()))
                     GrinderBlockEntity.this.world.setBlockState(
-                            GrinderBlockEntity.this.pos,
-                            GrinderBlockEntity.this.world.getBlockState(
-                                    GrinderBlockEntity.this.pos).with(
-                                            property, b));
+                            pos, GrinderBlockEntity.this.world.getBlockState(pos).with(property, b)
+                    );
             }
         };
     }
 
     @Override
-    public void fromTag(BlockState state, CompoundTag tag) {
-        super.fromTag(state, tag);
+    public void fromTag(CompoundTag tag) {
+        super.fromTag(tag);
         //this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
         //Inventories.fromTag(tag, this.inventory);
         this.grindTime = tag.getShort("GrindTime");
@@ -182,11 +182,10 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @NeedToConfirm
     @Override
-    public void tick() {
-        assert this.world != null;
+    public void tick(@Nonnull World world, BlockPos pos, BlockState state) {
         boolean shallMarkDirty = false;
 
-        if (!this.world.isClient) {
+        if (!world.isClient) {
             // Grind Process
             if (this.grindTime >= this.grindTimeTotal && this.grindTimeTotal != 0 && this.canAcceptRecipeOutput()) { // 200+, 200, yesOutput
                 // Output
@@ -228,7 +227,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
             }
 
             // Check State each 50tick
-            if (this.world.getTime() % 50L == 8L)
+            if (world.getTime() % 50L == 8L)
                 stateHelper.run();
         }
 
@@ -237,18 +236,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     private boolean shallCooldown() {
         return this.absorbCooldown > 0;
-    }
-
-    @Deprecated
-    protected boolean canContinueGrinding(ItemStack input) {
-        if (!(input.getItem().isIn(SPMMain.RAW_SWEET_POTATOES)) && !(input.getItem().isIn(SPMMain.ENCHANTED_SWEET_POTATOES)))
-            //throw new UnsupportedOperationException("[GrinderBlockEntity]
-            // A programmer tries to force non-grindable thing be grinded, which is unsupported");
-            return false;
-        if (input.getItem().isIn(SPMMain.RAW_SWEET_POTATOES))
-            return input.getCount() >= 9;
-        else
-            return input.getCount() >= 3;
     }
 
     @HardCoded
@@ -375,21 +362,4 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
             return Util.grindable(stack);
         return false;
     }
-
-    /*@Deprecated
-    static class StateHelper extends BooleanStateManager {
-        GrinderBlockEntity blockEntity;
-        public StateHelper(GrinderBlockEntity blockEntity) {
-            super(blockEntity);
-            this.blockEntity = blockEntity;
-        }
-
-        @Override
-        public void run() {
-            assert this.world != null;
-            boolean b;
-            if (shouldChange(b = blockEntity.isGrinding()))
-                world.setBlockState(pos, world.getBlockState(pos).with(GrinderBlock.GRINDING, b));
-        }
-    }*/
 }

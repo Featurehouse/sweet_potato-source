@@ -31,7 +31,7 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
         super.finishUsing(stack, world, user);
         //(PlayerEntity)user.inventory.insertStack(new ItemStack(SPMMain.PEEL));
         //user.sendPickup(new ItemEntity(world, user.getX(), user.getY(), user.getZ(), new ItemStack(SPMMain.PEEL)), 1);
-        if (user instanceof PlayerEntity && !((PlayerEntity) user).abilities.creativeMode) {
+        if (user instanceof PlayerEntity && !((PlayerEntity) user).getAbilities().creativeMode) {
             PlayerEntity playerEntity = (PlayerEntity)user;
             PeelInserter.run(playerEntity);
         }

@@ -33,7 +33,7 @@ public class RawSweetPotatoBlockItem extends /*SweetPotatoItem*/ AliasedBlockIte
         //(PlayerEntity)user.inventory.insertStack(new ItemStack(SPMMain.PEEL));
         //user.sendPickup(new ItemEntity(world, user.getX(), user.getY(), user.getZ(), new ItemStack(SPMMain.PEEL)), 1);
         super.finishUsing(stack, world, user);
-        if (user instanceof PlayerEntity && !((PlayerEntity) user).abilities.creativeMode) {
+        if (user instanceof PlayerEntity && !((PlayerEntity) user).getAbilities().creativeMode) {
             PlayerEntity playerEntity = (PlayerEntity)user;
             PeelInserter.run(playerEntity);
         }

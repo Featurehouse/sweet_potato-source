@@ -1,5 +1,6 @@
 package io.github.teddyxlandlee.sweet_potato.util.properties.fproperties;
 
+@Deprecated
 public class NullAccessor implements GrinderPropertiesAccessor {
     private int grindTime;
     private int grindTimeTotal;

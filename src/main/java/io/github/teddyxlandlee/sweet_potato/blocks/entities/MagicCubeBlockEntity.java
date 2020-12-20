@@ -5,6 +5,7 @@ import io.github.teddyxlandlee.annotation.OperationBeforeDeveloping;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.blocks.MagicCubeBlock;
 import io.github.teddyxlandlee.sweet_potato.util.properties.state.BooleanStateManager;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;
@@ -12,24 +13,24 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
 import static net.minecraft.block.Blocks.SOUL_FIRE;
 
-public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable, SidedInventory {
+public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity implements SidedInventory {
     //protected StateHelperV1 stateHelper;
     protected BooleanStateManager stateHelper;
 
-    public MagicCubeBlockEntity() {
-        this(SPMMain.MAGIC_CUBE_BLOCK_ENTITY_TYPE, 5);
+    public MagicCubeBlockEntity(BlockPos pos, BlockState state) {
+        this(SPMMain.MAGIC_CUBE_BLOCK_ENTITY_TYPE, pos, state, 5);
     }
 
-    public MagicCubeBlockEntity(BlockEntityType<?> type, int size) {
-        super(type, size);
+    public MagicCubeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int size) {
+        super(type, pos, state, size);
         this.stateHelper = new BooleanStateManager(MagicCubeBlock.ACTIVATED) {
             public boolean shouldChange(boolean newOne) {
                 assert MagicCubeBlockEntity.this.world != null;
@@ -42,10 +43,8 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
                 boolean b;
                 if (this.shouldChange(b = this.fireCount() > 0)) {
                     MagicCubeBlockEntity.this.world.setBlockState(
-                            MagicCubeBlockEntity.this.pos,
-                            MagicCubeBlockEntity.this.world.getBlockState(
-                                    MagicCubeBlockEntity.this.pos
-                            ).with(property, b));
+                            pos, MagicCubeBlockEntity.this.world.getBlockState(pos).with(property, b)
+                    );
                 }
             }
 
@@ -65,7 +64,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     }
 
     @Override
-    public void tick() {
+    public void tick(World world, BlockPos pos, BlockState state) {
         assert this.world != null;
         if (world.getTime() % 20L == 5L) {
             stateHelper.run();

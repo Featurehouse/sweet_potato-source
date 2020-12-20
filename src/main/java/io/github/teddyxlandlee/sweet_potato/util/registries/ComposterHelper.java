@@ -4,7 +4,6 @@ import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoStatus;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoType;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
-import net.minecraft.block.ComposterBlock;
 import net.minecraft.item.ItemConvertible;
 
 public final class ComposterHelper {

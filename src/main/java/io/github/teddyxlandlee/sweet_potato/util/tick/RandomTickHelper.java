@@ -1,4 +1,4 @@
-package io.github.teddyxlandlee.sweet_potato.util;
+package io.github.teddyxlandlee.sweet_potato.util.tick;
 
 import net.minecraft.block.*;
 import net.minecraft.server.world.ServerWorld;

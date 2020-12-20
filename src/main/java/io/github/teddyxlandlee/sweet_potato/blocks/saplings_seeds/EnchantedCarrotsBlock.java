@@ -1,7 +1,7 @@
 package io.github.teddyxlandlee.sweet_potato.blocks.saplings_seeds;
 
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
-import io.github.teddyxlandlee.sweet_potato.util.RandomTickHelper;
+import io.github.teddyxlandlee.sweet_potato.util.tick.RandomTickHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CarrotsBlock;
 import net.minecraft.item.ItemConvertible;
