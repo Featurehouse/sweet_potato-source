@@ -18,9 +18,9 @@ public final class ItemSettings {
 
     static {
         GROUP_FOOD = new FabricItemSettings().group(ItemGroup.FOOD);
-        ONE_FOOD = GROUP_FOOD.maxCount(1);
+        ONE_FOOD = new FabricItemSettings().group(ItemGroup.FOOD).maxCount(1);
         DECORATIONS = new FabricItemSettings().group(ItemGroup.DECORATIONS);
-        UNCDEC = DECORATIONS.rarity(Rarity.UNCOMMON);
+        UNCDEC = new FabricItemSettings().group(ItemGroup.DECORATIONS).rarity(Rarity.UNCOMMON);
         MISC = new FabricItemSettings().group(ItemGroup.MISC);
         EASTER_EGG = new FabricItemSettings();
     }
