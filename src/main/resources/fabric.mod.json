@@ -32,7 +32,8 @@
     ]
   },
   "mixins": [
-    "sweet_potato.mixins.json"
+    "sweet_potato.mixins.json",
+    "fabric-item-api-v1.2.0.mixins.json"
   ],
 
   "accessWidener": "sweet_potato.accesswidener",
