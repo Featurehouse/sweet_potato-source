@@ -185,7 +185,7 @@ public class SPMMain implements ModInitializer {
 		POTATO_POWDER = defaultItem("potato_powder", ItemSettings.MISC);
 		XMAS_TREATING_BOWL = defaultItem("treating_bowl", ItemSettings.EASTER_EGG);
 		ENCHANTED_PURPLE_POTATO = item("enchanted_purple_potato", new EnchantedSweetPotatoItem(ItemSettings.ONE_FOOD, SweetPotatoType.PURPLE));
-		ENCHANTED_RED_POTATO = item("enchanted_purple_potato", new EnchantedSweetPotatoItem(ItemSettings.ONE_FOOD, SweetPotatoType.RED));
+		ENCHANTED_RED_POTATO = item("enchanted_red_potato", new EnchantedSweetPotatoItem(ItemSettings.ONE_FOOD, SweetPotatoType.RED));
 		ENCHANTED_WHITE_POTATO = item("enchanted_white_potato", new EnchantedSweetPotatoItem(ItemSettings.ONE_FOOD, SweetPotatoType.WHITE));
 
 		// Block

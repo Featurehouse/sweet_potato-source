@@ -40,7 +40,7 @@
   "depends": {
     "fabricloader": ">=0.9.0+build.204",
     "fabric": "*",
-    "minecraft": ">=1.17-Snapshot.20.45.a"
+    "minecraft": "1.16.x"
   },
   "suggests": {
     "shurlin": "*"
