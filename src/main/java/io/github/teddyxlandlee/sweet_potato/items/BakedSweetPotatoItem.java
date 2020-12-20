@@ -1,11 +1,10 @@
 package io.github.teddyxlandlee.sweet_potato.items;
 
-import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoStatus;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoType;
 import io.github.teddyxlandlee.sweet_potato.util.inventory.PeelInserter;
-import io.github.teddyxlandlee.sweet_potato.util.properties.objects.NullSweetPotatoComponent;
 import io.github.teddyxlandlee.sweet_potato.util.j9bridge.MObjects;
+import io.github.teddyxlandlee.sweet_potato.util.properties.objects.NullSweetPotatoComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

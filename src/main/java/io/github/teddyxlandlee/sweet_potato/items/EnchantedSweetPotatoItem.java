@@ -1,6 +1,5 @@
 package io.github.teddyxlandlee.sweet_potato.items;
 
-import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoStatus;
 import io.github.teddyxlandlee.sweet_potato.SweetPotatoType;
 import io.github.teddyxlandlee.sweet_potato.util.inventory.PeelInserter;
