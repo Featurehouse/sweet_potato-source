@@ -37,6 +37,8 @@ public interface PeelInserter {
     static void run(PlayerEntity player) {
         if (insert(player).equals(PeelActionResult.SPAWN)) {
             player.dropItem(PEEL);
+        } else {
+            player.inventory.markDirty();
         }
     }
 }
