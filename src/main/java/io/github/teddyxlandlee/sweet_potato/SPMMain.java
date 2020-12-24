@@ -233,7 +233,7 @@ public class SPMMain implements ModInitializer {
 		ENCHANTED_VANILLA_POTATO_ITEM = AliasedEnchantedItem.ofMiscFood("enchanted_potato", ENCHANTED_VANILLA_POTATOES_CROP, FoodComponents.POTATO);
 		ENCHANTED_CARROT_ITEM = AliasedEnchantedItem.ofMiscFood("enchanted_carrot", ENCHANTED_CARROTS_CROP, FoodComponents.CARROT);
 		//ENCHANTED_SUGAR_CANE_ITEM = AliasedEnchantedItem.of("enchanted_sugar_cane", ENCHANTED_SUGAR_CANE, ItemGroup.DECORATIONS);
-		ENCHANTED_SUGAR_CANE_ITEM = blockItem("enchanted_sugar_cane", ENCHANTED_SUGAR_CANE, ItemSettings.DECORATIONS);
+		ENCHANTED_SUGAR_CANE_ITEM = EnchantedBlockItem.of("enchanted_sugar_cane", ENCHANTED_SUGAR_CANE, ItemSettings.DECORATIONS);
 
 		ENCHANTED_ACACIA_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_acacia_leaves", ENCHANTED_ACACIA_LEAVES, ItemSettings.DECORATIONS);
 		ENCHANTED_BIRCH_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_birch_leaves", ENCHANTED_BIRCH_LEAVES, ItemSettings.DECORATIONS);
