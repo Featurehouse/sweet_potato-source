@@ -16,11 +16,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinWorldEvent {
     @Shadow private ClientWorld world;
 
-    @Inject(at = @At("HEAD"), method = "processWorldEvent")
+    @Inject(at = @At("HEAD"), method = "processWorldEvent", cancellable = true)
     private void agro1044(PlayerEntity source, int eventId, BlockPos blockPos, int data, CallbackInfo ci) {
-        if (eventId == 1044 && data == 8848110) {
+        if (eventId == 1044 && data == 8844110) {
             //world.playSound(blockPos.getX(), blockPos.getY(), blockPos.getZ(), SPMMain.AGROFORESTRY_TABLE_FINISH, SoundCategory.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.1F + 0.9F, false);
             world.playSound(blockPos, SPMMain.AGROFORESTRY_TABLE_FINISH, SoundCategory.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.1F + 0.9F, false);
+            ci.cancel();
         }
     }
 }

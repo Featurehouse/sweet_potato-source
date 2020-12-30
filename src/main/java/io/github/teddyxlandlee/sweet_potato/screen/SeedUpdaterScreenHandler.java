@@ -63,11 +63,9 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
     protected ItemStack onTakeOutput(PlayerEntity player, ItemStack stack) {
         this.putStack(0);
         this.putStack(1);
+        output.markDirty();
         this.context.run((world1, blockPos) -> {
-            world1.syncWorldEvent(1044/*?*/, blockPos, 0/*?*/);
-            if (world1.isClient)
-                world1.playSound(blockPos.getX(), blockPos.getY(), blockPos.getZ(), SPMMain.AGROFORESTRY_TABLE_FINISH, SoundCategory.BLOCKS, 1.0F, world1.getRandom().nextFloat() * 0.1F + 0.9F, false);
-
+            world1.syncWorldEvent(1044, blockPos, 8844110);
         });
         return stack;
     }
