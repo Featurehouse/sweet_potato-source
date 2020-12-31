@@ -40,7 +40,7 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
         return canUse(this.context, player, SPMMain.SEED_UPDATER);
     }
 
-    //@Override
+    @Override
     public void updateResult() {
         List<SeedUpdatingRecipe> list1 = this.world.getRecipeManager().getAllMatches(
                 SPMMain.SEED_UPDATING_RECIPE_TYPE, this.input, this.world
@@ -50,6 +50,7 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
         else {
             this.recipe = list1.get(0);
             ItemStack itemStack = this.recipe.craft(this.input);
+            this.output.setLastRecipe(recipe);
             this.output.setStack(0, itemStack);
         }
     }
@@ -59,8 +60,9 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
         return this.recipe != null && this.recipe.matches(this.input, this.world);
     }
 
-    //@Override
-    protected ItemStack onTakeOutput(PlayerEntity player, ItemStack stack) {
+    @Override
+    protected ItemStack onTakeOutput(PlayerEntity player, @Nonnull ItemStack stack) {
+        stack.onCraft(player.world, player, stack.getCount());
         this.putStack(0);
         this.putStack(1);
         output.markDirty();
