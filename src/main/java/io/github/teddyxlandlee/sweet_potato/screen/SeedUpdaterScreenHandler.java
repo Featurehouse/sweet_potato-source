@@ -50,6 +50,7 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
         else {
             this.recipe = list1.get(0);
             ItemStack itemStack = this.recipe.craft(this.input);
+            this.output.setLastRecipe(this.recipe);
             this.output.setStack(0, itemStack);
         }
     }
