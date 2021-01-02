@@ -1,7 +1,7 @@
 package io.github.teddyxlandlee.sweet_potato.recipe;
 
-import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import com.google.gson.JsonObject;
+import io.github.teddyxlandlee.sweet_potato.SPMMain;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.inventory.Inventory;
@@ -11,7 +11,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;

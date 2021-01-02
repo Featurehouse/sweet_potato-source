@@ -2,8 +2,8 @@ package io.github.teddyxlandlee.sweet_potato.screen;
 
 import io.github.teddyxlandlee.annotation.NonMinecraftNorFabric;
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
-import io.github.teddyxlandlee.sweet_potato.util.inventory.GrindingResultSlot;
 import io.github.teddyxlandlee.sweet_potato.util.Util;
+import io.github.teddyxlandlee.sweet_potato.util.inventory.GrindingResultSlot;
 import io.github.teddyxlandlee.sweet_potato.util.properties.grinder.IntGrinderProperties;
 import io.github.teddyxlandlee.sweet_potato.util.properties.grinder.NullGrinderProperties;
 import net.fabricmc.api.EnvType;
@@ -13,7 +13,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
@@ -28,11 +27,6 @@ public class GrinderScreenHandler extends ScreenHandler {
     private final IntGrinderProperties properties;
 
     protected World world;
-
-    @Deprecated
-    public GrinderScreenHandler(int i, PlayerInventory playerInventory, @Deprecated PacketByteBuf buf) {
-        this(i, playerInventory, playerInventory.player.world, new SimpleInventory(2), new NullGrinderProperties());
-    }
 
     /**
      * From: Registry
@@ -106,25 +100,26 @@ public class GrinderScreenHandler extends ScreenHandler {
 
     @Override
     public ItemStack transferSlot(PlayerEntity player, int index) {
-        ItemStack itemStack = ItemStack.EMPTY;
+        ItemStack itemStack = ItemStack.EMPTY;  // EMPTY if slot == null || !slot.hasStack() else slot.getStack()
         Slot slot = this.slots.get(index);
         if (slot != null && slot.hasStack()) {  // Not void stack
             ItemStack itemStack2 = slot.getStack();
             itemStack = itemStack2.copy();
-            if (index == 1) {
-                if (!this.insertItem(itemStack2, 3, 39, true))
+            if (index == 1) {   // Grinding Result slot
+                if (!this.insertItem(itemStack2, 2, 38, true))
                     return ItemStack.EMPTY;
                 slot.onStackChanged(itemStack2, itemStack);
-            } else if (index != 0) {
+            } else if (index != 0) {    // Not 0 nor 1: Player Inventory
                 if (Util.grindable(itemStack2)) {
                     if (!this.insertItem(itemStack2, 0, 1, false))
                         return ItemStack.EMPTY;
-                } else if (index >= 2 && index < 29) {
+                } else if (index < 29) {    // Main Inventory
                     if (!this.insertItem(itemStack2, 29, 38, false))
                         return ItemStack.EMPTY;
-                } else if (index >= 29 && index < 38 && !this.insertItem(itemStack2, 2, 29, false))
+                } else if (index < 39       // Hot Bar
+                        && !this.insertItem(itemStack2, 2, 29, false))
                     return ItemStack.EMPTY;
-            } else if (!this.insertItem(itemStack2, 2, 38, false))
+            } else if (!this.insertItem(itemStack2, 2, 38, false))  // Grinder Input Slot
                 return ItemStack.EMPTY;
 
             if (itemStack2.isEmpty())
