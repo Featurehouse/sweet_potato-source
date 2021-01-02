@@ -9,7 +9,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -62,10 +61,10 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
 
     @Override
     protected ItemStack onTakeOutput(PlayerEntity player, @Nonnull ItemStack stack) {
-        stack.onCraft(player.world, player, stack.getCount());
+        //stack.onCraft(player.world, player, stack.getCount());
         this.putStack(0);
         this.putStack(1);
-        output.markDirty();
+        //output.markDirty();
         this.context.run((world1, blockPos) -> {
             world1.syncWorldEvent(1044, blockPos, 8844110);
         });
