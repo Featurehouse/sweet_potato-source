@@ -477,7 +477,7 @@
 [C]§eSweet Potato Mod Contributors
 [C]§f============
 §f          Teddy Li (bilibili: teddyxlandlee)
-§f          Ray MH Chen (bilibili: 一颗水晶Rayawa)
+§f          Ray Chen (bilibili: 一颗水晶Rayawa)
 §f          Peter Yang (bilibili: 印度大米饭)
 
 [C]§f============
@@ -492,6 +492,7 @@
 §f          Ironnoob73
 
 §7Supporters
+§f          Teacher Qiu Yuting
 §f          immibis
 §f          Zn_Ar
 

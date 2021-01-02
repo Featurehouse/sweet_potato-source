@@ -108,11 +108,11 @@ public class GrinderScreenHandler extends ScreenHandler {
     public ItemStack transferSlot(PlayerEntity player, int index) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        if (slot != null && slot.hasStack()) {  // Not void stack
+        if (slot.hasStack()) {  // Not void stack
             ItemStack itemStack2 = slot.getStack();
             itemStack = itemStack2.copy();
             if (index == 1) {
-                if (!this.insertItem(itemStack2, 3, 39, true))
+                if (!this.insertItem(itemStack2, 2, 38, true))
                     return ItemStack.EMPTY;
                 slot.onStackChanged(itemStack2, itemStack);
             } else if (index != 0) {
