@@ -1,6 +1,8 @@
 package io.github.teddyxlandlee.sweet_potato.mixin;
 
 import io.github.teddyxlandlee.sweet_potato.SPMMain;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(WorldRenderer.class)
+@Environment(EnvType.CLIENT)
 public class MixinWorldEvent {
     @Shadow private ClientWorld world;
 

@@ -112,17 +112,17 @@ public class GrinderScreenHandler extends ScreenHandler {
             ItemStack itemStack2 = slot.getStack();
             itemStack = itemStack2.copy();
             if (index == 1) {
-                if (!this.insertItem(itemStack2, 3, 39, true))
+                if (!this.insertItem(itemStack2, 2, 38, true))
                     return ItemStack.EMPTY;
                 slot.onStackChanged(itemStack2, itemStack);
             } else if (index != 0) {
                 if (Util.grindable(itemStack2)) {
                     if (!this.insertItem(itemStack2, 0, 1, false))
                         return ItemStack.EMPTY;
-                } else if (index >= 2 && index < 29) {
+                } else if (index < 29) {
                     if (!this.insertItem(itemStack2, 29, 38, false))
                         return ItemStack.EMPTY;
-                } else if (index >= 29 && index < 38 && !this.insertItem(itemStack2, 2, 29, false))
+                } else if (index < 38 && !this.insertItem(itemStack2, 2, 29, false))
                     return ItemStack.EMPTY;
             } else if (!this.insertItem(itemStack2, 2, 38, false))
                 return ItemStack.EMPTY;
