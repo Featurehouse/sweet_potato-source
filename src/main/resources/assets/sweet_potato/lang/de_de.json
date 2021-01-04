@@ -24,7 +24,7 @@
   "block.sweet_potato.purple_potatoes": "Violette Kartoffeln",
   "block.sweet_potato.red_potatoes": "Rote Kartoffeln",
   "block.sweet_potato.white_potatoes": "Weiße Kartoffeln",
-  "block.sweet_potato.magic_cube": "Zauberwürfel",
+  "block.sweet_potato.magic_cube": "Magischer Topf",
   "block.sweet_potato.grinder": "Mühle",
   "block.sweet_potato.agroforestry_table": "Agroforsttisch",
   "block.sweet_potato.enchanted_acacia_sapling": "Verzauberter Akaziensetzling",
@@ -52,7 +52,7 @@
   "advancement.nether.sweet_potato.get_magic_cube.title": "Magie der Seele",
   "advancement.nether.sweet_potato.get_magic_cube.description": "Zauberwürfel erhalten",
 
-  "container.sweet_potato.magic_cube": "Zauberwürfel",
+  "container.sweet_potato.magic_cube": "Magischer Topf",
   "container.sweet_potato.seed_updating": "Nutzpflanzen-Aufwertung",
   "container.sweet_potato.grinding": "Mahlen",
   "container.grinding.ingredientData": "%f Einheit(en) an Zutaten hinzugefügt"
