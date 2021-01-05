@@ -13,5 +13,5 @@ This mod requires:
 Here are the authors' Bilibili account:<br />
 - Teddy Li (bilibili: teddyxlandlee)<br />
 - Peter Yang (bilibili: 印度大米饭)<br />
-- Ray MH Chen (bilibili: 一颗水晶Rayawa)<br />
+- Ray Chen (bilibili: 一颗水晶Rayawa)<br />
 Please subscribe us if you can~
