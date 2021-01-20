@@ -25,10 +25,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.teddyxlandlee.sweet_potato.SPMMain"
+      "io.featurehouse.spm.SPMMain"
     ],
     "client": [
-      "io.github.teddyxlandlee.sweet_potato.client.ClientInitializer"
+      "io.featurehouse.spm.client.SPMClient"
     ]
   },
   "mixins": [
