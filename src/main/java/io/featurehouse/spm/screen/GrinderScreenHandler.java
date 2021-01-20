@@ -51,34 +51,6 @@ public class GrinderScreenHandler extends ScreenHandler {
         this.createPlayerInventory(playerInventory);
     }
 
-    /*protected GrinderScreenHandler(int syncId, PlayerInventory playerInventory, World world, Inventory inventory, GrinderPropertiesAccessor accessor, PacketByteBuf buf) {
-        super(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId);
-        //this.playerInventory = playerInventory;
-        this.inventory = inventory;
-        if (buf != null) {
-            BlockEntity e = playerInventory.player.world.getBlockEntity(buf.readBlockPos());
-            if (e instanceof GrinderBlockEntity) {
-                this.propertiesAccessor = ((GrinderBlockEntity) e).propertiesAccessor;
-                Debug.debug(this, "propertiesAccessor created by buf");
-            } else {
-                this.propertiesAccessor = null;
-                logger.fatal("non-grinder block entity found", new UnsupportedOperationException("non-grinder block entity at buf"));
-            }
-        } else {
-            this.propertiesAccessor = accessor;
-            Debug.debug(this, "propertiesAccessor created by block entity");
-        }
-        inventory.onOpen(playerInventory.player);
-        this.addProperties(accessor);
-        this.world = world;
-
-        this.addSlot(new Slot(inventory, 0, 40, 35));
-        this.addSlot(new GrindingResultSlot(playerInventory.player, inventory, 1, 116, 35));
-
-        this.createPlayerInventory(playerInventory);
-        //TODO: Make client-side block entity available
-    }*/
-
     @NonMinecraftNorFabric
     private void createPlayerInventory(PlayerInventory playerInventory) {
         int k;

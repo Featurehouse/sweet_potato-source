@@ -48,7 +48,7 @@ public class EnchantedSugarCaneBlock extends Block {
 
     }
 
-    @ReallyOverride(as = "Lio/github/teddyxlandlee/spm/blocks/saplings_seeds/DeprecatedEnchantedSugarCaneBlock;randomTick(Lnet/minecraft/block/BlockState;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random)V")
+    @ReallyOverride(as = "Lio/featurehouse/spm/blocks/saplings_seeds/DeprecatedEnchantedSugarCaneBlock;randomTick(Lnet/minecraft/block/BlockState;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random)V")
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (world.isAir(pos.up())) {
             int i;

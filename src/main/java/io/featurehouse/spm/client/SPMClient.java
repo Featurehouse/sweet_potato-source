@@ -13,7 +13,6 @@ import net.minecraft.client.render.RenderLayer;
 
 @Environment(EnvType.CLIENT)
 public class SPMClient implements ClientModInitializer {
-    //TODO: Enchanted Leaves: Color
     @Override
     public void onInitializeClient() {
         /*ScreenProviderRegistry.INSTANCE.<SeedUpdaterScreenHandler>registerFactory(new Identifier(

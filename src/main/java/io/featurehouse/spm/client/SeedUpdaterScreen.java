@@ -9,7 +9,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class SeedUpdaterScreen extends ForgingScreen<SeedUpdaterScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier("spm:textures/gui/container/seed_updating.png");
+    private static final Identifier TEXTURE = new Identifier("sweet_potato:textures/gui/container/seed_updating.png");
 
     public SeedUpdaterScreen(SeedUpdaterScreenHandler handler, PlayerInventory playerInventory, Text title) {
         super(handler, playerInventory, title, TEXTURE);

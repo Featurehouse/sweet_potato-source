@@ -147,7 +147,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @Override
     protected Text getContainerName() {
-        return new TranslatableText("container.spm.grinding");
+        return new TranslatableText("container.sweet_potato.grinding");
     }
 
     @Override

@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 
 // 还原：SmithingTableBlock
 public class SeedUpdaterBlock extends CraftingTableBlock {
-    private static final TranslatableText SCREEN_TITLE = new TranslatableText("container.spm.seed_updating");
+    private static final TranslatableText SCREEN_TITLE = new TranslatableText("container.sweet_potato.seed_updating");
     protected static final VoxelShape SHAPE = Block.createCuboidShape(
             0.0D, 0.0D, 0.0D,
             16.0D, 12.0D, 16.0D

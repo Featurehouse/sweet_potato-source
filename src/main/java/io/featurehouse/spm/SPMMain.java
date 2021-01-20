@@ -42,7 +42,7 @@ public class SPMMain implements ModInitializer {
 		INSTANCE = this;
 	}
 
-	public static final String MODID = "spm";
+	public static final String MODID = "sweet_potato";
 	//public static final SPMVersion MODVERSION = SPMVersion.BETA_1_0_0;
 
 	// Items
