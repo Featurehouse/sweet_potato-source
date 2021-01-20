@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "sweet_potato",
-  "version": "1.0.3",
+  "version": "1.1.0",
 
   "name": "Sweet Potato Mod",
   "description": "Try new kinds of food, crops & magic in Sweet Potato Mod!",
@@ -25,10 +25,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.teddyxlandlee.sweet_potato.SPMMain"
+      "io.featurehouse.spm.SPMMain"
     ],
     "client": [
-      "io.github.teddyxlandlee.sweet_potato.client.ClientInitializer"
+      "io.featurehouse.spm.client.SPMClient"
     ]
   },
   "mixins": [
