@@ -1,6 +1,6 @@
 package bilibili.ywsuoyi.block;
 
-import io.github.teddyxlandlee.sweet_potato.util.tick.ITickable;
+import io.featurehouse.spm.util.tick.ITickable;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;

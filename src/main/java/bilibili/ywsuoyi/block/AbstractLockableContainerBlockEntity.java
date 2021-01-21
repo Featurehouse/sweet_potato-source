@@ -5,8 +5,8 @@
 
 package bilibili.ywsuoyi.block;
 
-import io.github.teddyxlandlee.annotation.DeprecatedFrom;
-import io.github.teddyxlandlee.sweet_potato.util.tick.ITickable;
+import io.featurehouse.annotation.DeprecatedFrom;
+import io.featurehouse.spm.util.tick.ITickable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LockableContainerBlockEntity;

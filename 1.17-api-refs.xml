@@ -2,7 +2,7 @@
 <SPM-Version minecraft="1.17-Snapshot.20.51.a">
     <MinecraftApi>
         <Copies fromMinecraft="1.16.4">
-            <interface name="io.github.teddyxlandlee.sweet_potato.util.tick.ITickable" source="net.minecraft.util.Tickable" />
+            <interface name="io.featurehouse.spm.util.tick.ITickable" source="net.minecraft.util.Tickable" />
         </Copies>
         <Extraction>
             <abstract-class name="bilibili.ywsuoyi.block.AbstractBlockWithEntity" super="net.minecraft.block.BlockWithEntity" />
@@ -10,26 +10,28 @@
         <Addition>
         </Addition>
         <Edition>
-            <class name="io.github.teddyxlandlee.sweet_potato.blocks.GrinderBlock" />
-            <class name="io.github.teddyxlandlee.sweet_potato.blocks.MagicCubeBlock" />
-            <class name="io.github.teddyxlandlee.sweet_potato.blocks.entities.GrinderBlockEntity" />
-            <class name="io.github.teddyxlandlee.sweet_potato.blocks.entities.MagicCubeBlockEntity" />
-            <class name="io.github.teddyxlandlee.sweet_potato.util.registries.RegistryHelper" />
-            <class name="io.github.teddyxlandlee.sweet_potato.items.BakedSweetPotatoItem" />
-            <class name="io.github.teddyxlandlee.sweet_potato.items.EnchantedSweetPotatoItem" />
-            <class name="io.github.teddyxlandlee.sweet_potato.items.RawSweetPotatoBlockItem" />
-            <class name="io.github.teddyxlandlee.sweet_potato.util.inventory.PeelInserter" />
+            <class name="io.featurehouse.spm.blocks.GrinderBlock" />
+            <class name="io.featurehouse.spm.blocks.MagicCubeBlock" />
+            <class name="io.featurehouse.spm.blocks.entities.GrinderBlockEntity" />
+            <class name="io.featurehouse.spm.blocks.entities.MagicCubeBlockEntity" />
+            <class name="io.featurehouse.spm.util.registries.RegistryHelper" />
+            <class name="io.featurehouse.spm.items.BakedSweetPotatoItem" />
+            <class name="io.featurehouse.spm.items.EnchantedSweetPotatoItem" />
+            <class name="io.featurehouse.spm.items.RawSweetPotatoBlockItem" />
+            <class name="io.featurehouse.spm.util.inventory.PeelInserter" />
         </Edition>
     </MinecraftApi>
     <Mappings old="1.16.4" new="1.17-Snapshot.20.51.a">
         <field class="net.minecraft.block.Material" old="SUPPORTED" new="DECORATION">
             <Usage>
-                <class name="io.github.teddyxlandlee.sweet_potato.util.properties.objects.BlockSettings" />
+                <class name="io.featurehouse.spm.util.properties.objects.BlockSettings" />
             </Usage>
         </field>
         <class old="net.minecraft.block.MaterialColor" new="net.minecraft.block.MapColor">
+            <field old="STONE" new="STONE_GRAY" />
+            <field old="FOLIAGE" new="DARK_GREEN" />
             <Usage>
-                <class name="io.github.teddyxlandlee.sweet_potato.util.properties.objects.Materials" />
+                <class name="io.featurehouse.spm.util.properties.objects.Materials" />
             </Usage>
         </class>
     </Mappings>
