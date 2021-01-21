@@ -12,6 +12,7 @@ import io.featurehouse.spm.items.*;
 import io.featurehouse.spm.recipe.SeedUpdatingRecipe;
 import io.featurehouse.spm.screen.GrinderScreenHandler;
 import io.featurehouse.spm.screen.SeedUpdaterScreenHandler;
+import io.featurehouse.spm.structures.tree.gen.EnchantedOakSaplingGen;
 import io.featurehouse.spm.util.properties.objects.BlockSettings;
 import io.featurehouse.spm.util.properties.objects.ItemSettings;
 import io.featurehouse.spm.util.properties.objects.Materials;
@@ -202,7 +203,7 @@ public class SPMMain implements ModInitializer {
 		ENCHANTED_CARROTS_CROP = block("enchanted_carrots", new EnchantedCarrotsBlock(BlockSettings.GRASS_LIKE));
 		ENCHANTED_SUGAR_CANE = block("enchanted_sugar_cane", new EnchantedSugarCaneBlock(BlockSettings.GRASS));
 			// Saplings
-		ENCHANTED_OAK_SAPLING = createEnchantedSapling("enchanted_oak_sapling", OakSaplingGenerator::new);
+		ENCHANTED_OAK_SAPLING = createEnchantedSapling("enchanted_oak_sapling", EnchantedOakSaplingGen::new);
 		ENCHANTED_SPRUCE_SAPLING = createEnchantedSapling("enchanted_spruce_sapling", SpruceSaplingGenerator::new);
 		ENCHANTED_BIRCH_SAPLING = createEnchantedSapling("enchanted_birch_sapling", BirchSaplingGenerator::new);
 		ENCHANTED_JUNGLE_SAPLING = createEnchantedSapling("enchanted_jungle_sapling", JungleSaplingGenerator::new);
