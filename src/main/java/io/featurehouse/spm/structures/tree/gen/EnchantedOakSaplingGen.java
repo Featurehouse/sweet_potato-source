@@ -9,11 +9,11 @@ import java.util.Random;
 
 public class EnchantedOakSaplingGen extends OakSaplingGenerator {
     @Override
-    protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
+    protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean canSpawnBees) {
         if (random.nextInt(10) == 0) {
-            return bl ? TreeFeatures.FANCY_OAK_BEES_005 : TreeFeatures.FANCY_OAK;
+            return canSpawnBees ? TreeFeatures.FANCY_OAK_BEES_005 : TreeFeatures.FANCY_OAK;
         } else {
-            return bl ? TreeFeatures.OAK_BEES_005 : TreeFeatures.OAK;
+            return canSpawnBees ? TreeFeatures.OAK_BEES_005 : TreeFeatures.OAK;
         }
     }
 }
