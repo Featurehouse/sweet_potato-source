@@ -1,6 +1,7 @@
 package io.featurehouse.spm.util.registries;
 
 import io.featurehouse.spm.SPMMain;
+import io.featurehouse.spm.SweetPotatoComponent;
 import io.featurehouse.spm.SweetPotatoStatus;
 import io.featurehouse.spm.SweetPotatoType;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
@@ -35,9 +36,10 @@ public final class ComposterHelper {
 
         for (SweetPotatoType type: SweetPotatoType.values()) {
             for (SweetPotatoStatus status: SweetPotatoStatus.values()) {
-                if (type.getComponent(status) != null) {
-                    type.getComponent(status).registerCompostableItem(type, status);
-                    type.getComponent(status).registerGrindableItem(type, status);
+                SweetPotatoComponent component = type.getComponent(status);
+                if (component != null) {
+                    component.registerCompostableItem(type, status);
+                    component.registerGrindableItem(type, status);
                 }
             }
         }
