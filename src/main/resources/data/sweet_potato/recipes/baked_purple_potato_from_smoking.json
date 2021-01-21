@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smoking",
-  "ingredient": {
-    "item": "sweet_potato:purple_potato"
-  },
-  "result": "sweet_potato:baked_purple_potato",
-  "experience": 0.35,
-  "cookingtime": 100
-}
