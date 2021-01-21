@@ -12,10 +12,7 @@ import io.featurehouse.spm.items.*;
 import io.featurehouse.spm.recipe.SeedUpdatingRecipe;
 import io.featurehouse.spm.screen.GrinderScreenHandler;
 import io.featurehouse.spm.screen.SeedUpdaterScreenHandler;
-import io.featurehouse.spm.structures.tree.gen.EnchantedBirchSaplingGen;
-import io.featurehouse.spm.structures.tree.gen.EnchantedJungleSaplingGen;
-import io.featurehouse.spm.structures.tree.gen.EnchantedOakSaplingGen;
-import io.featurehouse.spm.structures.tree.gen.EnchantedSpruceSaplingGen;
+import io.featurehouse.spm.structures.tree.gen.*;
 import io.featurehouse.spm.util.properties.objects.BlockSettings;
 import io.featurehouse.spm.util.properties.objects.ItemSettings;
 import io.featurehouse.spm.util.properties.objects.Materials;
@@ -210,7 +207,7 @@ public class SPMMain implements ModInitializer {
 		ENCHANTED_SPRUCE_SAPLING = createEnchantedSapling("enchanted_spruce_sapling", EnchantedSpruceSaplingGen::new);
 		ENCHANTED_BIRCH_SAPLING = createEnchantedSapling("enchanted_birch_sapling", EnchantedBirchSaplingGen::new);
 		ENCHANTED_JUNGLE_SAPLING = createEnchantedSapling("enchanted_jungle_sapling", EnchantedJungleSaplingGen::new);
-		ENCHANTED_ACACIA_SAPLING = createEnchantedSapling("enchanted_acacia_sapling", AcaciaSaplingGenerator::new);
+		ENCHANTED_ACACIA_SAPLING = createEnchantedSapling("enchanted_acacia_sapling", EnchantedAcaciaSaplingGen::new);
 		ENCHANTED_DARK_OAK_SAPLING = createEnchantedSapling("enchanted_dark_oak_sapling", DarkOakSaplingGenerator::new);
 			// Potted
 		POTTED_ENCHANTED_OAK_SAPLING = createPotted("potted_enchanted_oak_sapling", ENCHANTED_OAK_SAPLING);

@@ -14,10 +14,7 @@ import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.tree.AlterGroundTreeDecorator;
 import net.minecraft.world.gen.tree.LeaveVineTreeDecorator;
 import net.minecraft.world.gen.tree.TrunkVineTreeDecorator;
-import net.minecraft.world.gen.trunk.GiantTrunkPlacer;
-import net.minecraft.world.gen.trunk.LargeOakTrunkPlacer;
-import net.minecraft.world.gen.trunk.MegaJungleTrunkPlacer;
-import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
+import net.minecraft.world.gen.trunk.*;
 
 import java.util.OptionalInt;
 
@@ -34,7 +31,8 @@ public final class TreeFeatures {
             FANCY_OAK, FANCY_OAK_BEES_005, OAK, OAK_BEES_005,
             SPRUCE, MEGA_SPRUCE, MEGA_PINE,
             BIRCH, BIRCH_BEES_005,
-            JUNGLE_TREE_NO_VINE, MEGA_JUNGLE_TREE;
+            JUNGLE_TREE_NO_VINE, MEGA_JUNGLE_TREE,
+            ACACIA;
 
     static {
         FANCY_OAK = register("fancy_oak", Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(OAK_LOG), new SimpleBlockStateProvider(ENCHANTED_OAK_LEAVES), new LargeOakFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(4), 4), new LargeOakTrunkPlacer(3, 11, 0), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))).ignoreVines().heightmap(Heightmap.Type.MOTION_BLOCKING).build()));
@@ -51,6 +49,8 @@ public final class TreeFeatures {
 
         JUNGLE_TREE_NO_VINE = register("jungle_tree_no_vine", Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(JUNGLE_LOG), new SimpleBlockStateProvider(ENCHANTED_JUNGLE_LEAVES), new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new StraightTrunkPlacer(4, 8, 0), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build()));
         MEGA_JUNGLE_TREE = register("mega_jungle_tree", Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(JUNGLE_LOG), new SimpleBlockStateProvider(ENCHANTED_JUNGLE_LEAVES), new JungleFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 2), new MegaJungleTrunkPlacer(10, 2, 19), new TwoLayersFeatureSize(1, 1, 2)).decorators(ImmutableList.of(TrunkVineTreeDecorator.INSTANCE, LeaveVineTreeDecorator.INSTANCE)).build()));
+
+        ACACIA = register("acacia", Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(ACACIA_LOG), new SimpleBlockStateProvider(ENCHANTED_ACACIA_LEAVES), new AcaciaFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0)), new ForkingTrunkPlacer(5, 2, 2), new TwoLayersFeatureSize(1, 0, 2)).ignoreVines().build()));
 
     }
 }
