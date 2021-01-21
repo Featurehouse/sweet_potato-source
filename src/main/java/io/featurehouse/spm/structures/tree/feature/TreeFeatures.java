@@ -32,7 +32,8 @@ public final class TreeFeatures {
 
     public static final ConfiguredFeature<TreeFeatureConfig, ?>
             FANCY_OAK, FANCY_OAK_BEES_005, OAK, OAK_BEES_005,
-            SPRUCE, MEGA_SPRUCE, MEGA_PINE;
+            SPRUCE, MEGA_SPRUCE, MEGA_PINE,
+            BIRCH, BIRCH_BEES_005;
 
     static {
         FANCY_OAK = register("fancy_oak", Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(OAK_LOG), new SimpleBlockStateProvider(ENCHANTED_OAK_LEAVES), new LargeOakFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(4), 4), new LargeOakTrunkPlacer(3, 11, 0), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))).ignoreVines().heightmap(Heightmap.Type.MOTION_BLOCKING).build()));
@@ -43,6 +44,9 @@ public final class TreeFeatures {
         SPRUCE = register("spruce", Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(SPRUCE_LOG), new SimpleBlockStateProvider(ENCHANTED_SPRUCE_LEAVES), new SpruceFoliagePlacer(UniformIntDistribution.of(2, 1), UniformIntDistribution.of(0, 2), UniformIntDistribution.of(1, 1)), new StraightTrunkPlacer(5, 2, 1), new TwoLayersFeatureSize(2, 0, 2)).ignoreVines().build()));
         MEGA_SPRUCE = register("mega_spruce", Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(SPRUCE_LOG), new SimpleBlockStateProvider(ENCHANTED_SPRUCE_LEAVES), new MegaPineFoliagePlacer(UniformIntDistribution.of(0), UniformIntDistribution.of(0), UniformIntDistribution.of(13, 4)), new GiantTrunkPlacer(13, 2, 14), new TwoLayersFeatureSize(1, 1, 2))).decorators(ImmutableList.of(new AlterGroundTreeDecorator(new SimpleBlockStateProvider(PODZOL)))).build()));
         MEGA_PINE = register("mega_pine", Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(SPRUCE_LOG), new SimpleBlockStateProvider(ENCHANTED_SPRUCE_LEAVES), new MegaPineFoliagePlacer(UniformIntDistribution.of(0), UniformIntDistribution.of(0), UniformIntDistribution.of(3, 4)), new GiantTrunkPlacer(13, 2, 14), new TwoLayersFeatureSize(1, 1, 2))).decorators(ImmutableList.of(new AlterGroundTreeDecorator(new SimpleBlockStateProvider(PODZOL)))).build()));
+
+        BIRCH = register("birch", Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BIRCH_LOG), new SimpleBlockStateProvider(ENCHANTED_BIRCH_LEAVES), new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new StraightTrunkPlacer(5, 2, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()));
+        BIRCH_BEES_005 = register("birch_bees_005", Feature.TREE.configure(BIRCH.getConfig().setTreeDecorators(ImmutableList.of(ConfiguredFeatures.Decorators.MORE_BEEHIVES_TREES))));
 
     }
 }
