@@ -15,6 +15,9 @@ final class TreeFeatures$BlockStates {
     public static final BlockState BIRCH_LOG;
     public static final BlockState ENCHANTED_BIRCH_LEAVES;
 
+    public static final BlockState JUNGLE_LOG;
+    public static final BlockState ENCHANTED_JUNGLE_LEAVES;
+
     static {
         OAK_LOG = Blocks.OAK_LOG.getDefaultState();
         ENCHANTED_OAK_LEAVES = SPMMain.ENCHANTED_OAK_LEAVES.getDefaultState();
@@ -25,5 +28,8 @@ final class TreeFeatures$BlockStates {
 
         BIRCH_LOG = Blocks.BIRCH_LOG.getDefaultState();
         ENCHANTED_BIRCH_LEAVES = SPMMain.ENCHANTED_BIRCH_LEAVES.getDefaultState();
+
+        JUNGLE_LOG = Blocks.JUNGLE_LOG.getDefaultState();
+        ENCHANTED_JUNGLE_LEAVES = SPMMain.ENCHANTED_JUNGLE_LEAVES.getDefaultState();
     }
 }
