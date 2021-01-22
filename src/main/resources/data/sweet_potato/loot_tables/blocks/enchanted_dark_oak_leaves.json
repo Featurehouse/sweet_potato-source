@@ -56,7 +56,7 @@
                   ]
                 }
               ],
-              "name": "minecraft:acacia_sapling"
+              "name": "minecraft:dark_oak_sapling"
             }
           ]
         }
@@ -102,13 +102,13 @@
               "condition": "minecraft:table_bonus",
               "enchantment": "minecraft:fortune",
               "chances": [
+                0.003,
+                0.004,
+                0.005,
                 0.006,
+                0.007,
                 0.008,
-                0.010,
-                0.012,
-                0.014,
-                0.016,
-                0.018
+                0.009
               ]
             }
           ],
