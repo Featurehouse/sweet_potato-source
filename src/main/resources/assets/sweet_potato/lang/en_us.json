@@ -55,5 +55,9 @@
   "container.sweet_potato.magic_cube": "Magic Cube",
   "container.sweet_potato.seed_updating": "Crop Upgrading",
   "container.sweet_potato.grinding": "Grinding",
-  "container.grinding.ingredientData": "Added %f unit(s) of ingredient"
+  "container.grinding.ingredientData": "Added %f unit(s) of ingredient",
+
+  "stat.sweet_potato.interact_with_grinder": "Interactions with Grinder",
+  "stat.sweet_potato.interact_with_agroforestry_table": "Interactions with Agroforestry Table",
+  "stat.sweet_potato.crop_upgraded": "Crops upgraded using Agroforestry Table"
 }

@@ -55,5 +55,9 @@
   "container.sweet_potato.magic_cube": "米 奇 妙 妙 锅",
   "container.sweet_potato.seed_updating": "集 日 月 之 精 华",
   "container.sweet_potato.grinding": "鲜 榨 甜 土 豆",
-  "container.grinding.ingredientData": "%f 份甜土豆待榨"
+  "container.grinding.ingredientData": "%f 份甜土豆待榨",
+
+  "stat.sweet_potato.interact_with_grinder": "调戏打粉机次数",
+  "stat.sweet_potato.interact_with_agroforestry_table": "调戏农 林 福 音次数",
+  "stat.sweet_potato.crop_upgraded": "往作物里砸魔法次数"
 }

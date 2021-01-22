@@ -1,5 +1,6 @@
 package io.featurehouse.spm.blocks;
 
+import io.featurehouse.spm.SPMMain;
 import io.featurehouse.spm.blocks.entities.GrinderBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -38,6 +39,7 @@ public class GrinderBlock extends BlockWithEntity {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof GrinderBlockEntity) {
                 player.openHandledScreen((GrinderBlockEntity) blockEntity);
+                player.incrementStat(SPMMain.INTERACT_WITH_GRINDER);
             }
 
             return ActionResult.CONSUME;

@@ -55,5 +55,9 @@
   "container.sweet_potato.magic_cube": "魔法锅",
   "container.sweet_potato.seed_updating": "升级作物",
   "container.sweet_potato.grinding": "研磨",
-  "container.grinding.ingredientData": "已添加 %f 份原料"
+  "container.grinding.ingredientData": "已添加 %f 份原料",
+
+  "stat.sweet_potato.interact_with_grinder": "与研磨器互动次数",
+  "stat.sweet_potato.interact_with_agroforestry_table": "与农林台互动次数",
+  "stat.sweet_potato.crop_upgraded": "升级作物次数"
 }

@@ -33,6 +33,7 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
 
 import static io.featurehouse.spm.util.properties.objects.BlockSettings.*;
 import static io.featurehouse.spm.util.registries.RegistryHelper.*;
@@ -159,6 +160,11 @@ public class SPMMain implements ModInitializer {
 	// Sounds
 	public static final SoundEvent AGROFORESTRY_TABLE_FINISH;
 
+	// Stats
+	public static final Identifier INTERACT_WITH_GRINDER;
+	public static final Identifier INTERACT_WITH_AGRO;
+	public static final Identifier CROP_UPGRADED;
+
 	@Override
 	public void onInitialize() {
 		System.out.println("Successfully loaded Sweet Potato Mod!");
@@ -276,5 +282,10 @@ public class SPMMain implements ModInitializer {
 
 		// Sounds
 		AGROFORESTRY_TABLE_FINISH = sound("block.agroforestry_table.finish");
+
+		// Stats
+		INTERACT_WITH_GRINDER = stat("interact_with_grinder");
+		INTERACT_WITH_AGRO = stat("interact_with_agroforestry_table");
+		CROP_UPGRADED = stat("crop_upgraded");
 	}
 }
