@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<SPM-Version minecraft="1.17-Snapshot.20.51.a">
+<SPM-Version minecraft="1.17-Snapshot.21.03.a">
     <MinecraftApi>
         <Copies fromMinecraft="1.16.4">
             <interface name="io.featurehouse.spm.util.tick.ITickable" source="net.minecraft.util.Tickable" />
@@ -21,7 +21,7 @@
             <class name="io.featurehouse.spm.util.inventory.PeelInserter" />
         </Edition>
     </MinecraftApi>
-    <Mappings old="1.16.4" new="1.17-Snapshot.20.51.a">
+    <Mappings old="1.16.4" new="1.17-Snapshot.21.03.a">
         <field class="net.minecraft.block.Material" old="SUPPORTED" new="DECORATION">
             <Usage>
                 <class name="io.featurehouse.spm.util.properties.objects.BlockSettings" />
