@@ -80,6 +80,7 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
 
     @Override
     protected boolean method_30025(ItemStack itemStack) {
+        // shouldQuickMoveToAdditionalSlot
         return this.list.stream().anyMatch(seedUpdatingRecipe -> seedUpdatingRecipe.method_30029(itemStack));
     }
 

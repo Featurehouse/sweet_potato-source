@@ -57,7 +57,10 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        this.renderBackground(matrices);
         super.render(matrices, mouseX, mouseY, delta);
+        RenderSystem.disableBlend();
+        //this.renderForeground(matrices, mouseX, mouseY, delta);
         this.drawMouseoverTooltip(matrices, mouseX, mouseY);
     }
 }
