@@ -15,8 +15,8 @@
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/sweet-potato",
-    "sources": "https://github.com/teddyxlandlee/sweet_potato-source",
-    "issues": "https://github.com/teddyxlandlee/sweet_potato/issues"
+    "sources": "https://github.com/Featurehouse/sweet_potato-source",
+    "issues": "https://github.com/Featurehouse/sweet_potato-issueTracker/issues"
   },
 
   "license": "Apache-2.0",
