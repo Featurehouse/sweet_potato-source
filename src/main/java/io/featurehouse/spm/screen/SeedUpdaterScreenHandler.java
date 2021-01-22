@@ -11,8 +11,8 @@ import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
@@ -31,7 +31,7 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
         this.list = this.world.getRecipeManager().listAllOfType(SPMMain.SEED_UPDATING_RECIPE_TYPE);
     }
 
-    protected boolean canUse(@Nonnull BlockState state) {
+    protected boolean canUse(@NotNull BlockState state) {
         return state.isOf(SPMMain.SEED_UPDATER);
     }
 

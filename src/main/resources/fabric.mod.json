@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "sweet_potato",
-  "version": "1.0.3",
+  "version": "1.1.0",
 
   "name": "Sweet Potato Mod",
   "description": "Try new kinds of food, crops & magic in Sweet Potato Mod!",
@@ -14,9 +14,9 @@
     "Peterice"
   ],
   "contact": {
-    "homepage": "https://github.com/Rayawa/sweet_potato",
-    "sources": "https://github.com/teddyxlandlee/sweet_potato-source",
-    "issues": "https://github.com/teddyxlandlee/sweet_potato/issues"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/sweet-potato",
+    "sources": "https://github.com/Featurehouse/sweet_potato-source",
+    "issues": "https://github.com/Featurehouse/sweet_potato-issueTracker/issues"
   },
 
   "license": "Apache-2.0",
@@ -25,10 +25,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.teddyxlandlee.sweet_potato.SPMMain"
+      "io.featurehouse.spm.SPMMain"
     ],
     "client": [
-      "io.github.teddyxlandlee.sweet_potato.client.ClientInitializer"
+      "io.featurehouse.spm.client.ClientInitializer"
     ]
   },
   "mixins": [
@@ -38,9 +38,9 @@
   "accessWidener": "sweet_potato.accesswidener",
 
   "depends": {
-    "fabricloader": ">=0.9.0+build.204",
+    "fabricloader": ">=0.9.0",
     "fabric": "*",
-    "minecraft": ">=1.17-Snapshot.20.45.a"
+    "minecraft": "1.17.x"
   },
   "suggests": {
     "shurlin": "*"

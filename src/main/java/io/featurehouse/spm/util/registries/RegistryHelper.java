@@ -20,7 +20,7 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 import static io.featurehouse.spm.SPMMain.MODID;
@@ -35,7 +35,7 @@ public interface RegistryHelper {
         return Registry.register(Registry.ITEM, id2, item2);
     }
 
-    static Item defaultItem(String id, @Nonnull Item.Settings settings) {
+    static Item defaultItem(String id, @NotNull Item.Settings settings) {
         return item(id, new Item(settings));
     }
 
@@ -44,7 +44,7 @@ public interface RegistryHelper {
         return Registry.register(Registry.BLOCK, id2, block2);
     }
 
-    static BlockItem blockItem(String id, Block block2, @Nonnull Item.Settings settings) {
+    static BlockItem blockItem(String id, Block block2, @NotNull Item.Settings settings) {
         Identifier id2 = id(id);
         return Registry.register(Registry.ITEM, id2, new BlockItem(block2, settings));
     }

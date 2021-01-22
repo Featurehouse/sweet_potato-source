@@ -28,8 +28,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /* (not javadoc)
  * <h2>Why canceling implementing ExtendedScreenHandlerFactory?</h2>
@@ -182,7 +182,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @NeedToConfirm
     @Override
-    public void tick(@Nonnull World world, BlockPos pos, BlockState state) {
+    public void tick(@NotNull World world, BlockPos pos, BlockState state) {
         boolean shallMarkDirty = false;
 
         if (!world.isClient) {

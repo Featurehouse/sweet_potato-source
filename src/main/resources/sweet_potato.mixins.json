@@ -3,10 +3,10 @@
   "minVersion": "0.8",
   "package": "io.featurehouse.spm.mixin",
   "mixins": [
-    "MixinWorldEvent"
   ],
   "client": [
-    "TitleScreenMixin"
+    "TitleScreenMixin",
+    "MixinWorldEvent"
   ],
   "injectors": {
     "defaultRequire": 1
