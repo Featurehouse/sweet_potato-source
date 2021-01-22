@@ -3,7 +3,7 @@ package io.featurehouse.spm.util.properties.state;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class BooleanStateManager {
     //public World world;
@@ -16,7 +16,7 @@ public abstract class BooleanStateManager {
 
     public abstract void run();
 
-    protected static BlockPos[] calcPos(@Nonnull BlockPos original) {
+    protected static BlockPos[] calcPos(@NotNull BlockPos original) {
         BlockPos downPos = original.down();
         return new BlockPos[] {
                 downPos,

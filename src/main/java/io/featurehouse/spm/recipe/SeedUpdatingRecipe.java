@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class SeedUpdatingRecipe implements Recipe<Inventory> {
     private final Ingredient base;
@@ -29,7 +29,7 @@ public class SeedUpdatingRecipe implements Recipe<Inventory> {
     }
 
     //@Override
-    public boolean matches(@Nonnull Inventory inv, World world) {
+    public boolean matches(@NotNull Inventory inv, World world) {
         return this.base.test(inv.getStack(0)) && this.addition.test(inv.getStack(1));
     }
 
@@ -97,7 +97,7 @@ public class SeedUpdatingRecipe implements Recipe<Inventory> {
         }
 
         //@Override
-        public void write(PacketByteBuf buf, @Nonnull SeedUpdatingRecipe recipe) {
+        public void write(PacketByteBuf buf, @NotNull SeedUpdatingRecipe recipe) {
             recipe.base.write(buf);
             recipe.addition.write(buf);
             buf.writeItemStack(recipe.result);

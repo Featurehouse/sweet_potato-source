@@ -27,7 +27,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /* (not javadoc)
  * <h2>Why canceling implementing ExtendedScreenHandlerFactory?</h2>

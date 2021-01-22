@@ -10,7 +10,7 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.Random;
 
 public class EnchantedWheatBlock extends CropBlock {
@@ -25,7 +25,7 @@ public class EnchantedWheatBlock extends CropBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, @Nonnull ServerWorld world, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, @NotNull ServerWorld world, BlockPos pos, Random random) {
         RandomTickHelper.enchantedCropRandomTick(this, state, world, pos, random);
     }
 }
