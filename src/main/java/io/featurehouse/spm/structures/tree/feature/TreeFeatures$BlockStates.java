@@ -21,6 +21,9 @@ final class TreeFeatures$BlockStates {
     public static final BlockState ACACIA_LOG;
     public static final BlockState ENCHANTED_ACACIA_LEAVES;
 
+    public static final BlockState DARK_OAK_LOG;
+    public static final BlockState ENCHANTED_DARK_OAK_LEAVES;
+
     static {
         OAK_LOG = Blocks.OAK_LOG.getDefaultState();
         ENCHANTED_OAK_LEAVES = SPMMain.ENCHANTED_OAK_LEAVES.getDefaultState();
@@ -37,5 +40,8 @@ final class TreeFeatures$BlockStates {
 
         ACACIA_LOG = Blocks.ACACIA_LOG.getDefaultState();
         ENCHANTED_ACACIA_LEAVES = SPMMain.ENCHANTED_ACACIA_LEAVES.getDefaultState();
+
+        DARK_OAK_LOG = Blocks.DARK_OAK_LOG.getDefaultState();
+        ENCHANTED_DARK_OAK_LEAVES = SPMMain.ENCHANTED_DARK_OAK_LEAVES.getDefaultState();
     }
 }

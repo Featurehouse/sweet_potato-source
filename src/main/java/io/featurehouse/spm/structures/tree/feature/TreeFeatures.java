@@ -8,6 +8,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.size.ThreeLayersFeatureSize;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.*;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
@@ -32,7 +33,7 @@ public final class TreeFeatures {
             SPRUCE, MEGA_SPRUCE, MEGA_PINE,
             BIRCH, BIRCH_BEES_005,
             JUNGLE_TREE_NO_VINE, MEGA_JUNGLE_TREE,
-            ACACIA;
+            ACACIA,                     DARK_OAK;
 
     static {
         FANCY_OAK = register("fancy_oak", Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(OAK_LOG), new SimpleBlockStateProvider(ENCHANTED_OAK_LEAVES), new LargeOakFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(4), 4), new LargeOakTrunkPlacer(3, 11, 0), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))).ignoreVines().heightmap(Heightmap.Type.MOTION_BLOCKING).build()));
@@ -51,6 +52,8 @@ public final class TreeFeatures {
         MEGA_JUNGLE_TREE = register("mega_jungle_tree", Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(JUNGLE_LOG), new SimpleBlockStateProvider(ENCHANTED_JUNGLE_LEAVES), new JungleFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 2), new MegaJungleTrunkPlacer(10, 2, 19), new TwoLayersFeatureSize(1, 1, 2)).decorators(ImmutableList.of(TrunkVineTreeDecorator.INSTANCE, LeaveVineTreeDecorator.INSTANCE)).build()));
 
         ACACIA = register("acacia", Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(ACACIA_LOG), new SimpleBlockStateProvider(ENCHANTED_ACACIA_LEAVES), new AcaciaFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0)), new ForkingTrunkPlacer(5, 2, 2), new TwoLayersFeatureSize(1, 0, 2)).ignoreVines().build()));
+
+        DARK_OAK = register("dark_oak", Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(DARK_OAK_LOG), new SimpleBlockStateProvider(ENCHANTED_DARK_OAK_LEAVES), new DarkOakFoliagePlacer(UniformIntDistribution.of(0), UniformIntDistribution.of(0)), new DarkOakTrunkPlacer(6, 2, 1), new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()))).maxWaterDepth(2147483647).heightmap(Heightmap.Type.MOTION_BLOCKING).ignoreVines().build()));
 
     }
 }
