@@ -8,8 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.Tag;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public final class Util {
     private Util() {}
@@ -32,12 +32,12 @@ public final class Util {
     }
 
     @NonMinecraftNorFabric
-    public static void registerGrindableItem(double ingredientDataAdded, @Nonnull ItemConvertible item) {
+    public static void registerGrindableItem(double ingredientDataAdded, @NotNull ItemConvertible item) {
         GrinderBlockEntity.INGREDIENT_DATA_MAP.put(item.asItem(), ingredientDataAdded);
     }
 
     @NonMinecraftNorFabric
-    public static void registerGrindableItems(int ingredientDataAdded, @Nonnull Tag<Item> tag) {
+    public static void registerGrindableItems(int ingredientDataAdded, @NotNull Tag<Item> tag) {
         for (Item item: tag.values())
             registerGrindableItem(ingredientDataAdded, item);
     }

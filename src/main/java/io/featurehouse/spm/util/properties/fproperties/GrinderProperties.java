@@ -3,7 +3,7 @@ package io.featurehouse.spm.util.properties.fproperties;
 import io.featurehouse.spm.util.FloatIntegerizer;
 import net.minecraft.network.PacketByteBuf;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 @Deprecated
 public class GrinderProperties {
@@ -19,7 +19,7 @@ public class GrinderProperties {
 
     // -*- WRITE -*- //
 
-    public void fillPacketByteBuf(@Nonnull PacketByteBuf buf) {
+    public void fillPacketByteBuf(@NotNull PacketByteBuf buf) {
         int fromFloat = FloatIntegerizer.fromFloat(ingredientData);
         byte[] data = new byte[] {
                 (byte) ((grindTime >> 24) & 0b11111111),
@@ -48,7 +48,7 @@ public class GrinderProperties {
 
     // -*- READ -*- //
 
-    public static GrinderProperties readFromPacketByteBuf(@Nonnull PacketByteBuf buf) {
+    public static GrinderProperties readFromPacketByteBuf(@NotNull PacketByteBuf buf) {
         byte[] data = buf.readByteArray();
 
         int grindTime = (data[0] << 24) + (data[1] << 16) + (data[2] << 8) + data[3];
