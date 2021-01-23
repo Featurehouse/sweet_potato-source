@@ -28,7 +28,7 @@
       "io.featurehouse.spm.SPMMain"
     ],
     "client": [
-      "io.featurehouse.spm.client.ClientInitializer"
+      "io.featurehouse.spm.client.SPMClient"
     ]
   },
   "mixins": [
