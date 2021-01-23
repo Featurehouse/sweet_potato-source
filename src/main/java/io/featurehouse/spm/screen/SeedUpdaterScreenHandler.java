@@ -65,6 +65,7 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
         this.context.run((world1, blockPos) -> {
             world1.syncWorldEvent(1044, blockPos, 8844110);
         });
+        player.incrementStat(SPMMain.CROP_UPGRADED);
         return stack;
     }
 

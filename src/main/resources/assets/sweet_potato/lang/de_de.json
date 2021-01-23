@@ -55,5 +55,8 @@
   "container.sweet_potato.magic_cube": "Magischer Topf",
   "container.sweet_potato.seed_updating": "Nutzpflanzen-Aufwertung",
   "container.sweet_potato.grinding": "Mahlen",
-  "container.grinding.ingredientData": "%f Einheit(en) an Zutaten hinzugefügt"
+  "container.grinding.ingredientData": "%f Einheit(en) an Zutaten hinzugefügt",
+
+  "stat.sweet_potato.interact_with_grinder": "Mühle benutzt",
+  "stat.sweet_potato.interact_with_agroforestry_table": "Magischer Topf benutzt"
 }

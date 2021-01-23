@@ -65,5 +65,9 @@
   "block.sweet_potato.enchanted_pear_sapling": "附魔梨树苗",
   "block.sweet_potato.enchanted_pear_leaves": "附魔梨树叶",
   "block.sweet_potato.enchanted_pear_ripe_leaves": "结梨子的附魔梨树叶",
-  "block.sweet_potato.potted_enchanted_pear_sapling": "梨树苗盆栽"
+  "block.sweet_potato.potted_enchanted_pear_sapling": "梨树苗盆栽",
+
+  "stat.sweet_potato.interact_with_grinder": "与研磨器互动次数",
+  "stat.sweet_potato.interact_with_agroforestry_table": "与农林台互动次数",
+  "stat.sweet_potato.crop_upgraded": "升级作物次数"
 }

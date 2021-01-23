@@ -65,5 +65,9 @@
   "block.sweet_potato.enchanted_pear_sapling": "Enchanted Pear Sapling",
   "block.sweet_potato.enchanted_pear_leaves": "Enchanted Pear Leaves",
   "block.sweet_potato.enchanted_pear_ripe_leaves": "Enchanted Pear Ripe Leaves",
-  "block.sweet_potato.potted_enchanted_pear_sapling": "Potted Enchanted Pear Sapling"
+  "block.sweet_potato.potted_enchanted_pear_sapling": "Potted Enchanted Pear Sapling",
+
+  "stat.sweet_potato.interact_with_grinder": "Interactions with Grinder",
+  "stat.sweet_potato.interact_with_agroforestry_table": "Interactions with Agroforestry Table",
+  "stat.sweet_potato.crop_upgraded": "Crops upgraded"
 }
