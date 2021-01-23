@@ -29,6 +29,9 @@
     ],
     "client": [
       "io.featurehouse.spm.client.SPMClient"
+    ],
+    "shurlin": [
+      "xyz.shurlin.linkage.sweet_potato.ShurlinSPMLinkage"
     ]
   },
   "mixins": [
@@ -44,6 +47,6 @@
     "minecraft": ">=1.16 <=1.16.1"
   },
   "suggests": {
-    "shurlin": "*"
+    "shurlin": ">=1.0.2"
   }
 }

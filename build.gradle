@@ -11,6 +11,12 @@ version = project.mod_version
 group = project.maven_group
 
 dependencies {
+	repositories {
+		maven {
+			name = 'COVID-Trump'
+			url = 'https://covid-trump.github.io/'
+		}
+	}
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
