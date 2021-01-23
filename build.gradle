@@ -12,6 +12,7 @@ group = project.maven_group
 
 dependencies {
 	repositories {
+		mavenLocal()
 		maven {
 			name = 'COVID-Trump'
 			url = 'https://covid-trump.github.io/'

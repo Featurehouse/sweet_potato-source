@@ -6,10 +6,6 @@
     "sweet_potato:enchanted_spruce_leaves",
     "sweet_potato:enchanted_dark_oak_leaves",
     "sweet_potato:enchanted_acacia_leaves",
-    "sweet_potato:enchanted_birch_leaves",
-    {
-      "id": "sweet_potato:enchanted_phoenix_leaves",
-      "required": false
-    }
+    "sweet_potato:enchanted_birch_leaves"
   ]
 }

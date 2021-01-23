@@ -32,6 +32,9 @@
     ],
     "shurlin": [
       "xyz.shurlin.linkage.sweet_potato.ShurlinSPMLinkage"
+    ],
+    "shurlin.client": [
+      "xyz.shurlin.linkage.sweet_potato.client.ShurlinSPMLinkageClient"
     ]
   },
   "mixins": [
@@ -47,6 +50,6 @@
     "minecraft": ">=1.16 <=1.16.1"
   },
   "suggests": {
-    "shurlin": ">=1.0.2"
+    "shurlin": ">=0.1.2-beta.2"
   }
 }
