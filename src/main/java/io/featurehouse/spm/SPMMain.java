@@ -9,6 +9,7 @@ import io.featurehouse.spm.blocks.entities.GrinderBlockEntity;
 import io.featurehouse.spm.blocks.entities.MagicCubeBlockEntity;
 import io.featurehouse.spm.blocks.saplings_seeds.*;
 import io.featurehouse.spm.items.*;
+import io.featurehouse.spm.linkage.SPMLinkage;
 import io.featurehouse.spm.recipe.SeedUpdatingRecipe;
 import io.featurehouse.spm.screen.GrinderScreenHandler;
 import io.featurehouse.spm.screen.SeedUpdaterScreenHandler;
@@ -19,6 +20,7 @@ import io.featurehouse.spm.util.properties.objects.Materials;
 import io.featurehouse.spm.util.registries.ComposterHelper;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.passive.ChickenEntity;
@@ -172,6 +174,7 @@ public class SPMMain implements ModInitializer {
 		// Agent in Minecraft China can write his or her name into this copyright AS AN AGENT instead of an author.
 		System.out.printf("%s, by %s\nContributors:\n%s\n", "Sweet Potato Mod", "Pigeonia Featurehouse", "- Teddy Li (bilibili: teddyxlandlee)\n- Ray Chen (bilibili: 一颗水晶Rayawa)\n- Peter Yang (bilibili: 印度大米饭)");
 
+		FabricLoader.getInstance().getEntrypoints("sweet_potato", SPMLinkage.class).forEach(SPMLinkage::init);
 		ComposterHelper.register();
 
 		// Fuel
