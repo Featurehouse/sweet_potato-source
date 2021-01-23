@@ -35,3 +35,4 @@ libs/
 launcher.sh
 mh
 .build-output.txt
+.tmp.shelter/

@@ -12,6 +12,7 @@ import io.featurehouse.spm.items.*;
 import io.featurehouse.spm.recipe.SeedUpdatingRecipe;
 import io.featurehouse.spm.screen.GrinderScreenHandler;
 import io.featurehouse.spm.screen.SeedUpdaterScreenHandler;
+import io.featurehouse.spm.structures.tree.gen.*;
 import io.featurehouse.spm.util.properties.objects.BlockSettings;
 import io.featurehouse.spm.util.properties.objects.ItemSettings;
 import io.featurehouse.spm.util.properties.objects.Materials;
@@ -201,12 +202,12 @@ public class SPMMain implements ModInitializer {
 		ENCHANTED_CARROTS_CROP = block("enchanted_carrots", new EnchantedCarrotsBlock(BlockSettings.GRASS_LIKE));
 		ENCHANTED_SUGAR_CANE = block("enchanted_sugar_cane", new EnchantedSugarCaneBlock(BlockSettings.GRASS));
 			// Saplings
-		ENCHANTED_OAK_SAPLING = BlockSettings.createEnchantedSapling("enchanted_oak_sapling", OakSaplingGenerator::new);
-		ENCHANTED_SPRUCE_SAPLING = BlockSettings.createEnchantedSapling("enchanted_spruce_sapling", SpruceSaplingGenerator::new);
-		ENCHANTED_BIRCH_SAPLING = BlockSettings.createEnchantedSapling("enchanted_birch_sapling", BirchSaplingGenerator::new);
-		ENCHANTED_JUNGLE_SAPLING = BlockSettings.createEnchantedSapling("enchanted_jungle_sapling", JungleSaplingGenerator::new);
-		ENCHANTED_ACACIA_SAPLING = BlockSettings.createEnchantedSapling("enchanted_acacia_sapling", AcaciaSaplingGenerator::new);
-		ENCHANTED_DARK_OAK_SAPLING = BlockSettings.createEnchantedSapling("enchanted_dark_oak_sapling", DarkOakSaplingGenerator::new);
+		ENCHANTED_OAK_SAPLING = BlockSettings.createEnchantedSapling("enchanted_oak_sapling", EnchantedOakSaplingGen::new);
+		ENCHANTED_SPRUCE_SAPLING = BlockSettings.createEnchantedSapling("enchanted_spruce_sapling", EnchantedSpruceSaplingGen::new);
+		ENCHANTED_BIRCH_SAPLING = BlockSettings.createEnchantedSapling("enchanted_birch_sapling", EnchantedBirchSaplingGen::new);
+		ENCHANTED_JUNGLE_SAPLING = BlockSettings.createEnchantedSapling("enchanted_jungle_sapling", EnchantedJungleSaplingGen::new);
+		ENCHANTED_ACACIA_SAPLING = BlockSettings.createEnchantedSapling("enchanted_acacia_sapling", EnchantedAcaciaSaplingGen::new);
+		ENCHANTED_DARK_OAK_SAPLING = BlockSettings.createEnchantedSapling("enchanted_dark_oak_sapling", EnchantedDarkOakSaplingGen::new);
 			// Potted
 		POTTED_ENCHANTED_OAK_SAPLING = BlockSettings.createPotted("potted_enchanted_oak_sapling", ENCHANTED_OAK_SAPLING);
 		POTTED_ENCHANTED_SPRUCE_SAPLING = BlockSettings.createPotted("potted_enchanted_spruce_sapling", ENCHANTED_SPRUCE_SAPLING);
