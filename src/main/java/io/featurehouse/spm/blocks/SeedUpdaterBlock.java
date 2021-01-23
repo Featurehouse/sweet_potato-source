@@ -1,5 +1,6 @@
 package io.featurehouse.spm.blocks;
 
+import io.featurehouse.spm.SPMMain;
 import io.featurehouse.spm.screen.SeedUpdaterScreenHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -51,35 +52,19 @@ public class SeedUpdaterBlock extends CraftingTableBlock {
     //    return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
     //}
 
-
-
-    /*public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
-        return new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
-            return new SmithingScreenHandler(i, playerInventory, ScreenHandlerContext.create(world, pos));
-        }, SCREEN_TITLE);
-    }
-
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
-        } else {
-            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
-            return ActionResult.CONSUME;
-        }
-    }*/
-    //@Override
     public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
         return new SimpleNamedScreenHandlerFactory((syncId, inv, player) -> new SeedUpdaterScreenHandler(
                 syncId, inv, ScreenHandlerContext.create(world, pos)
         ), SCREEN_TITLE);
     }
 
-   //@Override
+   @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hitResult) {
         if (world.isClient)
             return ActionResult.SUCCESS;
         player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
+        player.incrementStat(SPMMain.INTERACT_WITH_AGRO);
         return ActionResult.CONSUME;
     }
 

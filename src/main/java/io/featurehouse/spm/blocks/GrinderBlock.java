@@ -42,6 +42,7 @@ public class GrinderBlock extends AbstractBlockWithEntity<GrinderBlockEntity> {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof GrinderBlockEntity) {
                 player.openHandledScreen((GrinderBlockEntity) blockEntity);
+                player.incrementStat(SPMMain.INTERACT_WITH_GRINDER);
             }
 
             return ActionResult.CONSUME;

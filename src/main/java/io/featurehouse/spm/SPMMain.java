@@ -13,6 +13,7 @@ import io.featurehouse.spm.linkage.SPMLinkage;
 import io.featurehouse.spm.recipe.SeedUpdatingRecipe;
 import io.featurehouse.spm.screen.GrinderScreenHandler;
 import io.featurehouse.spm.screen.SeedUpdaterScreenHandler;
+import io.featurehouse.spm.structures.tree.gen.*;
 import io.featurehouse.spm.util.properties.objects.BlockSettings;
 import io.featurehouse.spm.util.properties.objects.ItemSettings;
 import io.featurehouse.spm.util.properties.objects.Materials;
@@ -22,7 +23,6 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.sapling.*;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.passive.PigEntity;
@@ -35,6 +35,7 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
 
 import static io.featurehouse.spm.util.properties.objects.BlockSettings.*;
 import static io.featurehouse.spm.util.registries.RegistryHelper.*;
@@ -161,6 +162,11 @@ public class SPMMain implements ModInitializer {
 	// Sounds
 	public static final SoundEvent AGROFORESTRY_TABLE_FINISH;
 
+	// Stats
+	public static final Identifier INTERACT_WITH_GRINDER;
+	public static final Identifier INTERACT_WITH_AGRO;
+	public static final Identifier CROP_UPGRADED;
+
 	@Override
 	public void onInitialize() {
 		System.out.println("Successfully loaded Sweet Potato Mod!");
@@ -205,12 +211,12 @@ public class SPMMain implements ModInitializer {
 		ENCHANTED_CARROTS_CROP = block("enchanted_carrots", new EnchantedCarrotsBlock(BlockSettings.GRASS_LIKE));
 		ENCHANTED_SUGAR_CANE = block("enchanted_sugar_cane", new EnchantedSugarCaneBlock(BlockSettings.GRASS));
 			// Saplings
-		ENCHANTED_OAK_SAPLING = createEnchantedSapling("enchanted_oak_sapling", OakSaplingGenerator::new);
-		ENCHANTED_SPRUCE_SAPLING = createEnchantedSapling("enchanted_spruce_sapling", SpruceSaplingGenerator::new);
-		ENCHANTED_BIRCH_SAPLING = createEnchantedSapling("enchanted_birch_sapling", BirchSaplingGenerator::new);
-		ENCHANTED_JUNGLE_SAPLING = createEnchantedSapling("enchanted_jungle_sapling", JungleSaplingGenerator::new);
-		ENCHANTED_ACACIA_SAPLING = createEnchantedSapling("enchanted_acacia_sapling", AcaciaSaplingGenerator::new);
-		ENCHANTED_DARK_OAK_SAPLING = createEnchantedSapling("enchanted_dark_oak_sapling", DarkOakSaplingGenerator::new);
+		ENCHANTED_OAK_SAPLING = createEnchantedSapling("enchanted_oak_sapling", EnchantedOakSaplingGen::new);
+		ENCHANTED_SPRUCE_SAPLING = createEnchantedSapling("enchanted_spruce_sapling", EnchantedSpruceSaplingGen::new);
+		ENCHANTED_BIRCH_SAPLING = createEnchantedSapling("enchanted_birch_sapling", EnchantedBirchSaplingGen::new);
+		ENCHANTED_JUNGLE_SAPLING = createEnchantedSapling("enchanted_jungle_sapling", EnchantedJungleSaplingGen::new);
+		ENCHANTED_ACACIA_SAPLING = createEnchantedSapling("enchanted_acacia_sapling", EnchantedAcaciaSaplingGen::new);
+		ENCHANTED_DARK_OAK_SAPLING = createEnchantedSapling("enchanted_dark_oak_sapling", EnchantedDarkOakSaplingGen::new);
 			// Potted
 		POTTED_ENCHANTED_OAK_SAPLING = createPotted("potted_enchanted_oak_sapling", ENCHANTED_OAK_SAPLING);
 		POTTED_ENCHANTED_SPRUCE_SAPLING = createPotted("potted_enchanted_spruce_sapling", ENCHANTED_SPRUCE_SAPLING);
@@ -279,5 +285,10 @@ public class SPMMain implements ModInitializer {
 
 		// Sounds
 		AGROFORESTRY_TABLE_FINISH = sound("block.agroforestry_table.finish");
+
+		// Stats
+		INTERACT_WITH_GRINDER = stat("interact_with_grinder");
+		INTERACT_WITH_AGRO = stat("interact_with_agroforestry_table");
+		CROP_UPGRADED = stat("crop_upgraded");
 	}
 }

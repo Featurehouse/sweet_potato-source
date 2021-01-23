@@ -16,6 +16,8 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.stat.StatFormatter;
+import net.minecraft.stat.Stats;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -85,5 +87,16 @@ public interface RegistryHelper {
     static Tag<Item> itemTag(String id) {
         Identifier id2 = id(id);
         return TagRegistry.item(id2);
+    }
+
+    static Identifier stat(String id) {
+        return stat(id, StatFormatter.DEFAULT);
+    }
+
+    static Identifier stat(String id, StatFormatter statFormatter) {
+        Identifier id2 = id(id);
+        Registry.register(Registry.CUSTOM_STAT, id2, id2);
+        Stats.CUSTOM.getOrCreateStat(id2, statFormatter);
+        return id2;
     }
 }
