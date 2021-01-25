@@ -14,23 +14,6 @@ import org.jetbrains.annotations.Nullable;
 public final class Util {
     private Util() {}
 
-    /*@Unused_InsteadOf @Deprecated
-    public static void registerFurnaceFuel(Map<Item, Integer> map, ItemConvertible item, int fuelTime) {
-        Item item2 = item.asItem();
-        if (isFlammableWood(item2)) {
-            if (SharedConstants.isDevelopment) {
-                throw net.minecraft.util.Util.throwOrPause(new IllegalStateException("A developer tried to explicitly make fire resistant item " + item2.getName((ItemStack)null).getString() + " a furnace fuel. That will not work!"));
-            }
-        } else {
-            map.put(item2, fuelTime);
-        }
-    }*/
-
-    @Deprecated
-    private static boolean isFlammableWood(Item item) {
-        return ItemTags.NON_FLAMMABLE_WOOD.contains(item);
-    }
-
     @NonMinecraftNorFabric
     public static void registerGrindableItem(double ingredientDataAdded, @NotNull ItemConvertible item) {
         GrinderBlockEntity.INGREDIENT_DATA_MAP.put(item.asItem(), ingredientDataAdded);
