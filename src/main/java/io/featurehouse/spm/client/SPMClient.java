@@ -30,13 +30,12 @@ public class SPMClient implements ClientModInitializer {
                 SPMMain.ENCHANTED_JUNGLE_LEAVES, SPMMain.ENCHANTED_OAK_LEAVES);
         ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> FoliageColors.getBirchColor(), SPMMain.ENCHANTED_BIRCH_LEAVES);
         ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> FoliageColors.getSpruceColor(), SPMMain.ENCHANTED_SPRUCE_LEAVES);
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
-                    BlockState blockState = ((BlockItem) (stack.getItem())).getBlock().getDefaultState();
-                    return vanillaBlockColors.getColor(blockState, null, null, tintIndex);
-                }, SPMMain.ENCHANTED_ACACIA_LEAVES_ITEM, SPMMain.ENCHANTED_BIRCH_LEAVES_ITEM,
-                SPMMain.ENCHANTED_DARK_OAK_LEAVES_ITEM, SPMMain.ENCHANTED_JUNGLE_LEAVES_ITEM,
-                SPMMain.ENCHANTED_OAK_LEAVES_ITEM, SPMMain.ENCHANTED_SPRUCE_LEAVES_ITEM
+        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.getDefaultColor(),
+                SPMMain.ENCHANTED_ACACIA_LEAVES_ITEM, SPMMain.ENCHANTED_DARK_OAK_LEAVES_ITEM,
+                SPMMain.ENCHANTED_JUNGLE_LEAVES_ITEM, SPMMain.ENCHANTED_OAK_LEAVES_ITEM
         );
+        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.getBirchColor(), SPMMain.ENCHANTED_BIRCH_LEAVES_ITEM);
+        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.getSpruceColor(), SPMMain.ENCHANTED_SPRUCE_LEAVES_ITEM);
 
         FabricLoader.getInstance().getEntrypoints("sweet_potato.client", SPMLinkageClient.class).forEach(SPMLinkageClient::initClient);
 
