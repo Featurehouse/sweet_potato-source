@@ -9,21 +9,19 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.item.BlockItem;
 
 @Environment(EnvType.CLIENT)
 public class SPMClient implements ClientModInitializer {
+    public static final BlockColors vanillaBlockColors = new BlockColors();
+
     @Override
     public void onInitializeClient() {
-        /*ScreenProviderRegistry.INSTANCE.<SeedUpdaterScreenHandler>registerFactory(new Identifier(
-                SPMMain.MODID, "seed_updating"
-        ), (handler) -> {
-            assert MinecraftClient.getInstance().player != null;
-            return new SeedUpdaterScreen(handler, MinecraftClient.getInstance().player.inventory,
-                    new TranslatableText(SPMMain.SEED_UPDATER_TRANSLATION_KEY));
-        });*/
         ScreenRegistry.register(SPMMain.SEED_UPDATER_SCREEN_HANDLER_TYPE, SeedUpdaterScreen::new);
         ScreenRegistry.register(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, GrinderScreen::new);
 
@@ -33,6 +31,13 @@ public class SPMClient implements ClientModInitializer {
         );
         ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> FoliageColors.getBirchColor(), SPMMain.ENCHANTED_BIRCH_LEAVES);
         ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> FoliageColors.getSpruceColor(), SPMMain.ENCHANTED_SPRUCE_LEAVES);
+        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
+            BlockState blockState = ((BlockItem) (stack.getItem())).getBlock().getDefaultState();
+            return vanillaBlockColors.getColor(blockState, null, null, tintIndex);
+        }, SPMMain.ENCHANTED_ACACIA_LEAVES_ITEM, SPMMain.ENCHANTED_BIRCH_LEAVES_ITEM,
+           SPMMain.ENCHANTED_DARK_OAK_LEAVES_ITEM, SPMMain.ENCHANTED_JUNGLE_LEAVES_ITEM,
+           SPMMain.ENCHANTED_OAK_LEAVES_ITEM, SPMMain.ENCHANTED_SPRUCE_LEAVES_ITEM
+        );
 
         FabricLoader.getInstance().getEntrypoints("sweet_potato.client", SPMLinkageClient.class).forEach(SPMLinkageClient::initClient);
 
