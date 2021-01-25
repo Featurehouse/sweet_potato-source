@@ -51,5 +51,11 @@
   },
   "suggests": {
     "shurlin": ">=0.1.2-beta.2"
+  },
+  "custom": {
+    "Pigeonia Linkage Standard": {
+      "url": "https://featurehouse.github.io/pigeonia-linkage-standard/v1.0.0/STANDARD.txt",
+      "version": "v1.0.0"
+    }
   }
 }
