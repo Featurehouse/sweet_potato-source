@@ -6,7 +6,8 @@
   ],
   "client": [
     "TitleScreenMixin",
-    "MixinWorldEvent"
+    "MixinWorldEvent",
+    "CreditsScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
