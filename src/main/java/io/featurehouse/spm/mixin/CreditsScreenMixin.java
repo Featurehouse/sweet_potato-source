@@ -28,10 +28,11 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 @Mixin(CreditsScreen.class)
-public abstract class CreditsScreenMixin extends Screen {
+public class CreditsScreenMixin extends Screen {
     @Shadow private IntSet centeredLines;
     @Shadow private List<OrderedText> credits;
     @Shadow @Final private static Logger LOGGER;
+    @Shadow private int creditsHeight;
 
     @Deprecated
     protected CreditsScreenMixin(Text title) {
@@ -39,14 +40,19 @@ public abstract class CreditsScreenMixin extends Screen {
     }
 
     @Inject(
-            method = "init()V",
-            at = @At(
+            /*at = @At(
                     value = "INVOKE_ASSIGN",
                     target = "java/io/InputStream.close()V",
                     ordinal = 1
-            )
+            ),*/
+            at = @At("TAIL"),
+            method = "init()V"
     )
     private void onInit(CallbackInfo ci) {
+        printSPMCredits();
+    }
+
+    private void printSPMCredits() {
         assert this.client != null;
         Resource resource1 = null;
         try {
@@ -70,6 +76,8 @@ public abstract class CreditsScreenMixin extends Screen {
                 }
                 this.credits.add(OrderedText.EMPTY);
             } inputStream1.close();
+
+            this.creditsHeight = this.credits.size() * 12;
         } catch (IOException e) {
             LOGGER.error("Couldn't load credits from Sweet Potato Mod", e);
         } finally {
