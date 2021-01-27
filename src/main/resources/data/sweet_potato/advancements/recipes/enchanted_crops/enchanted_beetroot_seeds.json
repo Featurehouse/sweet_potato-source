@@ -2,21 +2,21 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "sweet_potato:enchanted_beetroot"
+      "sweet_potato:enchanted_beetroot_seeds"
     ]
   },
   "criteria": {
     "_": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "sweet_potato:enchanted_beetroot"
+        "recipe": "sweet_potato:enchanted_beetroot_seeds"
       }
     },
     "vanilla_crop": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [{
-          "item": "minecraft:beetroot"
+          "item": "minecraft:beetroot_seeds"
         }]
       }
     }

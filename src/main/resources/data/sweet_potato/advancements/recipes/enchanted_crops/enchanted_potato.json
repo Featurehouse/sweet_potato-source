@@ -2,14 +2,14 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "sweet_potato:enchanted_potato"
+      "sweet_potato:enchanted_vanilla_potato"
     ]
   },
   "criteria": {
     "_": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "sweet_potato:enchanted_potato"
+        "recipe": "sweet_potato:enchanted_vanilla_potato"
       }
     },
     "vanilla_crop": {
