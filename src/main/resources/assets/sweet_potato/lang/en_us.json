@@ -69,5 +69,7 @@
 
   "stat.sweet_potato.interact_with_grinder": "Interactions with Grinder",
   "stat.sweet_potato.interact_with_agroforestry_table": "Interactions with Agroforestry Table",
-  "stat.sweet_potato.crop_upgraded": "Crops upgraded"
+  "stat.sweet_potato.crop_upgraded": "Crops upgraded",
+  "stat.sweet_potato.sweet_potato_eaten": "Sweet Potatoes eaten"
+
 }

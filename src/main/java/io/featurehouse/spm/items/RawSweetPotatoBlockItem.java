@@ -1,5 +1,6 @@
 package io.featurehouse.spm.items;
 
+import io.featurehouse.spm.SPMMain;
 import io.featurehouse.spm.SweetPotatoStatus;
 import io.featurehouse.spm.SweetPotatoType;
 import io.featurehouse.spm.util.inventory.PeelInserter;
@@ -29,16 +30,14 @@ public class RawSweetPotatoBlockItem extends /*SweetPotatoItem*/ AliasedBlockIte
     }
 
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        //(PlayerEntity)user.inventory.insertStack(new ItemStack(SPMMain.PEEL));
-        //user.sendPickup(new ItemEntity(world, user.getX(), user.getY(), user.getZ(), new ItemStack(SPMMain.PEEL)), 1);
         super.finishUsing(stack, world, user);
-        if (user instanceof PlayerEntity && !((PlayerEntity) user).abilities.creativeMode) {
-            PlayerEntity playerEntity = (PlayerEntity)user;
-            PeelInserter.run(playerEntity);
+        if (user instanceof PlayerEntity) {
+            PlayerEntity playerEntity = (PlayerEntity) user;
+            playerEntity.incrementStat(SPMMain.SWEET_POTATO_EATEN);
+            if (!((PlayerEntity) user).abilities.creativeMode)
+                PeelInserter.run(playerEntity);
         }
 
-        //if (!(user instanceof PlayerEntity && ((PlayerEntity)user).abilities.creativeMode))
-        //    stack.setCount(stack.getCount() - 1);
         return stack;
     }
 
