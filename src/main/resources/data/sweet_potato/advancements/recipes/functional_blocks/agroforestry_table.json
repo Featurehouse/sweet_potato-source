@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "sweet_potato:agroforestry_table"
+    ]
+  },
+  "criteria": {
+    "_": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "sweet_potato:agroforestry_table"
+      }
+    },
+    "sppowder": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{
+          "item": "sweet_potato:potato_powder"
+        }]
+      }
+    },
+    "golden_i | blackstones": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{
+          "item": "minecraft:gold_ingot"
+        }, {
+          "tag": "sweet_potato:blackstones"
+        }]
+      }
+    }
+  },
+  "requirements": [[
+    "sppowder", "_",
+    "golden_i | blackstones"
+  ]]
+}

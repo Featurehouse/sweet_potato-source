@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "sweet_potato:grinder"
+      "sweet_potato:magic_cube"
     ]
   },
   "criteria": {
     "_": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "sweet_potato:grinder"
+        "recipe": "sweet_potato:magic_cube"
       }
     },
-    "blackstones": {
+    "#s:blackstones": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [{
@@ -20,27 +20,27 @@
         }]
       }
     },
-    "slab": {
+    "cry_ob": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [{
-          "item": "minecraft:smooth_stone_slab"
+          "item": "minecraft:crying_obsidian"
         }]
       }
     },
-    "iron_in | redstone": {
+    "smoker": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [{
-          "item": "minecraft:iron_ingot"
-        }, {
-          "item": "minecraft:redstone"
+          "item": "minecraft:smoker"
         }]
       }
     }
   },
   "requirements": [[
-    "_", "blackstones", "slab",
-    "iron_in | redstone"
+      "#s:blackstones",
+      "cry_ob",
+      "smoker",
+      "_"
   ]]
 }
