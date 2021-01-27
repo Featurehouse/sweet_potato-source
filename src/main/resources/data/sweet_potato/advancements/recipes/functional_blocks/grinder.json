@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "sweet_potato:grinder"
+    ]
+  },
+  "criteria": {
+    
+  }
+}
