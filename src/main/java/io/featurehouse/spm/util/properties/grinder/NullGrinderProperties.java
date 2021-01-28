@@ -2,8 +2,6 @@ package io.featurehouse.spm.util.properties.grinder;
 
 import io.featurehouse.annotation.Unused_InsteadOf;
 
-import org.jetbrains.annotations.NotNull;
-
 public class NullGrinderProperties implements IntGrinderProperties {
     public NullGrinderProperties() {}
 

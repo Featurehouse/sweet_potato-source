@@ -67,6 +67,7 @@ public class SweetPotatoComponent {
             this.grindData.ifPresent(aDouble -> Util.registerGrindableItem(aDouble, item));
     }
 
+    @Deprecated
     public static class InvalidComponentException extends Exception {
         public InvalidComponentException() {
             super();
