@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "sweet_potato:vanilla_baked_potato_from_smoking"
+    ]
+  },
+  "criteria": {
+    "vp": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{
+          "item": "sweet_potato:enchanted_potato"
+        }]
+      }
+    },
+    "_": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "sweet_potato:vanilla_baked_potato_from_smoking"
+      }
+    }
+  },
+  "requirements": [[
+    "vp", "_"
+  ]]
+}
