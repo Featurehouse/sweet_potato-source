@@ -166,6 +166,7 @@ public class SPMMain implements ModInitializer {
 	public static final Identifier INTERACT_WITH_GRINDER;
 	public static final Identifier INTERACT_WITH_AGRO;
 	public static final Identifier CROP_UPGRADED;
+	public static final Identifier SWEET_POTATO_EATEN;
 
 	@Override
 	public void onInitialize() {
@@ -290,5 +291,6 @@ public class SPMMain implements ModInitializer {
 		INTERACT_WITH_GRINDER = stat("interact_with_grinder");
 		INTERACT_WITH_AGRO = stat("interact_with_agroforestry_table");
 		CROP_UPGRADED = stat("crop_upgraded");
+		SWEET_POTATO_EATEN = stat("sweet_potato_eaten");
 	}
 }

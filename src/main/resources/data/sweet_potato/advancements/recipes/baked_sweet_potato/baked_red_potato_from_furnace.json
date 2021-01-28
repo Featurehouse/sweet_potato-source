@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "sweet_potato:baked_red_potato"
+    ]
+  },
+  "criteria": {
+    "raw": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{
+          "item": "sweet_potato:red_potato"
+        }]
+      }
+    },
+    "_": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "sweet_potato:baked_red_potato"
+      }
+    }
+  },
+  "requirements": [[
+    "raw", "_"
+  ]]
+}

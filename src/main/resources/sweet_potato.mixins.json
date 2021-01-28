@@ -5,8 +5,9 @@
   "mixins": [
   ],
   "client": [
+    "MixinWorldEvent",
     "TitleScreenMixin",
-    "MixinWorldEvent"
+    "CreditsScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
