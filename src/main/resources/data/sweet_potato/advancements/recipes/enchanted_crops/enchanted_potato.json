@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "sweet_potato:enchanted_vanilla_potato"
+    ]
+  },
+  "criteria": {
+    "_": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "sweet_potato:enchanted_vanilla_potato"
+      }
+    },
+    "vanilla_crop": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{
+          "item": "minecraft:potato"
+        }]
+      }
+    }
+  },
+  "requirements": [[
+    "_", "vanilla_crop"
+  ]]
+}

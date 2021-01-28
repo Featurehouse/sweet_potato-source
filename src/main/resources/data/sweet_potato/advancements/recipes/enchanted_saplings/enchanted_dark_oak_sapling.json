@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "sweet_potato:enchanted_dark_oak_sapling"
+    ]
+  },
+  "criteria": {
+    "_": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "sweet_potato:enchanted_dark_oak_sapling"
+      }
+    },
+    "vanilla_crop": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{
+          "item": "minecraft:dark_oak_sapling"
+        }]
+      }
+    }
+  },
+  "requirements": [[
+    "_", "vanilla_crop"
+  ]]
+}

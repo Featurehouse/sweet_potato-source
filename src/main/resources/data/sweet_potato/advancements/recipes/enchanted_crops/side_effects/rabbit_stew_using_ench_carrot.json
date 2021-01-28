@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "sweet_potato:rabbit_stew_using_ench_carrot"
+    ]
+  },
+  "criteria": {
+    "ecrt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{
+          "item": "sweet_potato:enchanted_carrot"
+        }]
+      }
+    },
+    "_": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "sweet_potato:rabbit_stew_using_ench_carrot"
+      }
+    }
+  },
+  "requirements": [[
+    "ecrt", "_"
+  ]]
+}

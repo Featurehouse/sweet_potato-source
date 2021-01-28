@@ -1,0 +1,46 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "sweet_potato:magic_cube"
+    ]
+  },
+  "criteria": {
+    "_": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "sweet_potato:magic_cube"
+      }
+    },
+    "#s:blackstones": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{
+          "tag": "sweet_potato:blackstones"
+        }]
+      }
+    },
+    "cry_ob": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{
+          "item": "minecraft:crying_obsidian"
+        }]
+      }
+    },
+    "smoker": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{
+          "item": "minecraft:smoker"
+        }]
+      }
+    }
+  },
+  "requirements": [[
+      "#s:blackstones",
+      "cry_ob",
+      "smoker",
+      "_"
+  ]]
+}

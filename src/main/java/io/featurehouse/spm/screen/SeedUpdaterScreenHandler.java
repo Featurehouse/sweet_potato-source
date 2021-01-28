@@ -7,12 +7,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeUnlocker;
 import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.world.World;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
@@ -58,8 +59,9 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
         return this.recipe != null && this.recipe.matches(this.input, this.world);
     }
 
-    //@Override
+    @Override
     protected ItemStack onTakeOutput(PlayerEntity player, ItemStack stack) {
+        ((RecipeUnlocker) this.output).unlockLastRecipe(player);    // Stuuuuupppiiidddd Jvav
         this.putStack(0);
         this.putStack(1);
         this.context.run((world1, blockPos) -> {
