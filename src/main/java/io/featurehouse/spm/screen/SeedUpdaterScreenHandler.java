@@ -62,7 +62,8 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
     @Override
     protected ItemStack onTakeOutput(PlayerEntity player, @NotNull ItemStack stack) {
         //stack.onCraft(player.world, player, stack.getCount());
-        this.putStack(0);
+        this.output.unlockLastRecipe(player);
+        this.putStack(0);   // method_29539
         this.putStack(1);
         //output.markDirty();
         this.context.run((world1, blockPos) -> {
