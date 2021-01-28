@@ -3,11 +3,11 @@
   "minVersion": "0.8",
   "package": "io.featurehouse.spm.mixin",
   "mixins": [
-    "CreditsScreenMixin"
   ],
   "client": [
     "MixinWorldEvent",
-    "TitleScreenMixin"
+    "TitleScreenMixin",
+    "CreditsScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
