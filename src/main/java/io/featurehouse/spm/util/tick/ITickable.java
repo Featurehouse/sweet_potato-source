@@ -18,4 +18,8 @@ public interface ITickable {
             return (world, pos, state, blockEntity1) -> this.tick(world, pos, state);
         return null;
     }
+
+    static <T extends ITickable> void iTick(World world, BlockPos pos, BlockState state, T blockEntity) {
+        blockEntity.tick(world, pos, state);
+    }
 }
