@@ -82,7 +82,6 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         return null; // INDEED TODO
     }
 
-
     @OperationBeforeDeveloping
     @Override
     public int[] getAvailableSlots(Direction side) {
@@ -101,6 +100,5 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         return false;
     }
 
-    @interface FireBelow {
-    }
+    @interface FireBelow { }
 }

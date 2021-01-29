@@ -12,6 +12,7 @@ import io.featurehouse.spm.items.*;
 import io.featurehouse.spm.linkage.SPMLinkage;
 import io.featurehouse.spm.recipe.SeedUpdatingRecipe;
 import io.featurehouse.spm.screen.GrinderScreenHandler;
+import io.featurehouse.spm.screen.MagicCubeScreenHandler;
 import io.featurehouse.spm.screen.SeedUpdaterScreenHandler;
 import io.featurehouse.spm.structures.tree.gen.*;
 import io.featurehouse.spm.util.properties.objects.BlockSettings;
@@ -141,6 +142,7 @@ public class SPMMain implements ModInitializer {
 	// Screen Handlers
 	public static final ScreenHandlerType<SeedUpdaterScreenHandler> SEED_UPDATER_SCREEN_HANDLER_TYPE;
 	public static final ScreenHandlerType<GrinderScreenHandler> GRINDER_SCREEN_HANDLER_TYPE;
+	public static final ScreenHandlerType<MagicCubeScreenHandler> MAGIC_CUBE_SCREEN_HANDLER_TYPE;
 
 	// Recipe Serializer
 	public static final RecipeSerializer<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_SERIALIZER;
@@ -266,6 +268,7 @@ public class SPMMain implements ModInitializer {
 		// Screen Handler
 		SEED_UPDATER_SCREEN_HANDLER_TYPE = simpleScreenHandler("seed_updater", SeedUpdaterScreenHandler::new);
 		GRINDER_SCREEN_HANDLER_TYPE = simpleScreenHandler("grinder", GrinderScreenHandler::new);
+		MAGIC_CUBE_SCREEN_HANDLER_TYPE = simpleScreenHandler("magic_cube", MagicCubeScreenHandler::new);
 
 		// Recipe Serializer
 		SEED_UPDATING_RECIPE_SERIALIZER = recipeSerializer("seed_updating", SeedUpdatingRecipe.Serializer::new);
