@@ -83,6 +83,12 @@ public interface RegistryHelper {
     }
 
     @FabricApiRegistry
+    static <H extends ScreenHandler> ScreenHandlerType<H> extendedScreenHandler(String id, ScreenHandlerRegistry.ExtendedClientHandlerFactory<H> factory) {
+        Identifier id2 = id(id);
+        return ScreenHandlerRegistry.registerExtended(id2, factory);
+    }
+
+    @FabricApiRegistry
     static Tag<Item> itemTag(String id) {
         Identifier id2 = id(id);
         return TagRegistry.item(id2);

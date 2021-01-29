@@ -268,7 +268,7 @@ public class SPMMain implements ModInitializer {
 		// Screen Handler
 		SEED_UPDATER_SCREEN_HANDLER_TYPE = simpleScreenHandler("seed_updater", SeedUpdaterScreenHandler::new);
 		GRINDER_SCREEN_HANDLER_TYPE = simpleScreenHandler("grinder", GrinderScreenHandler::new);
-		MAGIC_CUBE_SCREEN_HANDLER_TYPE = simpleScreenHandler("magic_cube", MagicCubeScreenHandler::new);
+		MAGIC_CUBE_SCREEN_HANDLER_TYPE = extendedScreenHandler("magic_cube", MagicCubeScreenHandler::new);
 
 		// Recipe Serializer
 		SEED_UPDATING_RECIPE_SERIALIZER = recipeSerializer("seed_updating", SeedUpdatingRecipe.Serializer::new);
