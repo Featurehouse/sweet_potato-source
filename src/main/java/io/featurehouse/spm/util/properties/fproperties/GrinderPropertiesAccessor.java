@@ -3,6 +3,7 @@ package io.featurehouse.spm.util.properties.fproperties;
 import io.featurehouse.spm.util.FloatIntegerizer;
 import net.minecraft.screen.PropertyDelegate;
 
+@Deprecated
 public interface GrinderPropertiesAccessor extends PropertyDelegate, TriAccessor<Integer, Integer, Float> {
     int getGrindTime();
     int getGrindTimeTotal();

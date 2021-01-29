@@ -1,5 +1,6 @@
 package io.featurehouse.spm.util.properties.fproperties;
 
+@Deprecated
 public class NullAccessor implements GrinderPropertiesAccessor {
     private int grindTime;
     private int grindTimeTotal;
