@@ -46,11 +46,13 @@ public interface IntMagicCubeProperties extends PropertyDelegate {
     /* *--* IMPLEMENTATIONS *--*/
 
     @Override
+    @Deprecated
     default int get(int index) {
         return index == 0 ? ((getMainFuelTime() << 16) + getViceFuelTime()) : -2;
     }
 
     @Override
+    @Deprecated
     default void set(int index, int value) {
         if (index == 0) {
             setMainFuelTime((short) ((value >> 16)));
@@ -59,6 +61,7 @@ public interface IntMagicCubeProperties extends PropertyDelegate {
     }
 
     @Override
+    @Deprecated
     default int size() {
         return 1;
     }

@@ -3,7 +3,7 @@ package io.featurehouse.spm.screen;
 import io.featurehouse.annotation.NonMinecraftNorFabric;
 import io.featurehouse.spm.SPMMain;
 import io.featurehouse.spm.util.Util;
-import io.featurehouse.spm.util.inventory.GrindingResultSlot;
+import io.featurehouse.spm.util.inventory.UniversalResultSlot;
 import io.featurehouse.spm.util.properties.grinder.IntGrinderProperties;
 import io.featurehouse.spm.util.properties.grinder.NullGrinderProperties;
 import net.fabricmc.api.EnvType;
@@ -41,7 +41,7 @@ public class GrinderScreenHandler extends ScreenHandler {
         this.world = world;
 
         this.addSlot(new Slot(inventory, 0, 40, 35));
-        this.addSlot(new GrindingResultSlot(playerInventory.player, inventory, 1, 116, 35));
+        this.addSlot(new UniversalResultSlot(playerInventory.player, inventory, 1, 116, 35));
 
         this.createPlayerInventory(playerInventory);
     }

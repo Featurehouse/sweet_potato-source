@@ -3,18 +3,23 @@ package io.featurehouse.spm.blocks.entities;
 import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
 import io.featurehouse.spm.SPMMain;
 import io.featurehouse.spm.blocks.MagicCubeBlock;
+import io.featurehouse.spm.items.RawSweetPotatoBlockItem;
 import io.featurehouse.spm.screen.MagicCubeScreenHandler;
 import io.featurehouse.spm.util.properties.magiccube.IntMagicCubeProperties;
 import io.featurehouse.spm.util.properties.state.BooleanStateManager;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -25,6 +30,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
 import static net.minecraft.block.Blocks.SOUL_FIRE;
 
 public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable, SidedInventory, ExtendedScreenHandlerFactory, IntMagicCubeProperties {
@@ -34,6 +43,9 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     private static final int[] SIDE_SLOTS = new int[] { 6, 7 };
 
     private boolean activationCache = false;
+    @FireBelow
+    private byte fireCountCache = 0;
+    private final Random random = this.world != null ? this.world.random : new Random();
 
     protected BooleanStateManager stateHelper;
     protected short mainFuelTime;
@@ -55,7 +67,9 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
             public void run() {
                 assert MagicCubeBlockEntity.this.world != null;
                 boolean b;
-                if (this.shouldChange(b = this.fireCount() > 0)) {
+                byte fc = this.fireCount();
+                MagicCubeBlockEntity.this.fireCountCache = this.fireCount();
+                if (this.shouldChange(b = fc > 0)) {
                     MagicCubeBlockEntity.this.world.setBlockState(
                             MagicCubeBlockEntity.this.pos,
                             MagicCubeBlockEntity.this.world.getBlockState(
@@ -125,7 +139,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
             calculateOutput();
         }
 
-        if (this.isProcessing()) {
+        if (this.isProcessing() && this.outputIsClear()) {
             --this.mainFuelTime;
             if (withViceFuel())
                 --viceFuelTime;
@@ -138,12 +152,65 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     }
 
     protected void calculateOutput() {
+        for (int i = 0; i < 3; ++i) {
+            if (!(this.inventory.get(0).isEmpty()))
+                calculateOneOutput(i, i + 3);
+        }
+    }
 
+    private void calculateOneOutput(int inputIndex, int outputIndex) {
+        ItemStack inputCopy = this.getStack(inputIndex).copy();
+        Item item = inputCopy.getItem();
+        int count = inputCopy.getCount();
+        if (!outputIsClear()) return;
+        this.setStack(inputIndex, ItemStack.EMPTY);
+
+        if (random.nextDouble() <= (withViceFuel() ? 0.4D : 0.3D)) {
+            // ENCHANT
+            this.setStack(outputIndex, this.enchant(this.getStack(inputIndex)));
+        } else if (random.nextDouble() <= (withViceFuel() ? 0.5D : 0.4D)) {
+            // GENE-WORK
+            List<ItemConvertible> itemSet = new ObjectArrayList<>(2);
+            if (item instanceof RawSweetPotatoBlockItem && item.isIn(SPMMain.RAW_SWEET_POTATOES)) {
+                RawSweetPotatoBlockItem sweetPotato = (RawSweetPotatoBlockItem) item;
+                sweetPotato.asType().getOtherTwo().forEach(sweetPotatoType -> itemSet.add(sweetPotatoType.getRaw()));
+                this.setStack(outputIndex, new ItemStack(
+                        random.nextBoolean() ? itemSet.get(0).asItem() : itemSet.get(1).asItem()
+                , count));
+            }
+        } else if (random.nextDouble() > (0.3D - 0.02D * fireCountCache)) {
+            this.setStack(outputIndex, inputCopy);
+        } // else EATEN
+    }
+
+    private ItemStack enchant(ItemStack originRaw) {
+        Item item;
+        if (!((item = originRaw.getItem()).isIn(SPMMain.RAW_SWEET_POTATOES)) || !(item instanceof RawSweetPotatoBlockItem))
+            return originRaw;
+        RawSweetPotatoBlockItem sweetPotato = (RawSweetPotatoBlockItem) item;
+        CompoundTag tag = new CompoundTag();
+        ListTag listTag = new ListTag();
+        Set<StatusEffectInstance> enchantments = calcEnchantments();
+        enchantments.forEach(statusEffectInstance -> listTag.add(statusEffectInstance.toTag(new CompoundTag())));
+        tag.put("statusEffects", listTag);
+        ItemStack outputStack = new ItemStack(sweetPotato.asType().getEnchanted(), originRaw.getCount());
+        outputStack.setTag(tag);
+        return outputStack;
+    }
+
+    private Set<StatusEffectInstance> calcEnchantments() {
+        //TODO
     }
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return new MagicCubeScreenHandler(syncId, playerInventory, world, pos, this, this); // INDEED TODO
+    }
+
+    private boolean outputIsClear() {
+        for (int i = 3; i < 6; ++i) {
+            if (!(this.getStack(i).isEmpty())) return false;
+        } return true;
     }
 
     @Override

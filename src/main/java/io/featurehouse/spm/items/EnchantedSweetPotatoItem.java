@@ -7,15 +7,14 @@ import io.featurehouse.spm.util.NbtUtils;
 import io.featurehouse.spm.util.inventory.PeelInserter;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.World;
 
 import java.util.Objects;
@@ -63,17 +62,8 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
         for (Tag oneStatusEffect: statusEffects) {
             if (NbtUtils.notCompoundTag(oneStatusEffect)) continue;
             CompoundTag compoundTag1 = (CompoundTag) oneStatusEffect;
-
-            Tag tag = compoundTag1.get("id");
-            if (NbtUtils.notStringTag(tag)) continue;
-            StringTag id = (StringTag) tag;
-            tag = compoundTag1.get("lvl");
-            int lvl = NbtUtils.notIntTag(tag) ? 0 : ((IntTag) tag).getInt();
-            tag = compoundTag1.get("duration");
-            int duration = NbtUtils.notIntTag(tag) ? 0 : ((IntTag) tag).getInt();
-
-            StatusEffect statusEffect = Registry.STATUS_EFFECT.get(new Identifier(id.asString()));
-            effectInstances.add(new StatusEffectInstance(statusEffect, duration, lvl));
+            StatusEffectInstance statusEffectInstance = StatusEffectInstance.fromTag(compoundTag1);
+            effectInstances.add(statusEffectInstance);
         }
         return Optional.of(effectInstances);
     }

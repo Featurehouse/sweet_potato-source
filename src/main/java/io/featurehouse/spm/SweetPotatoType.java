@@ -3,6 +3,8 @@ package io.featurehouse.spm;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemConvertible;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.OptionalDouble;
 
 public enum SweetPotatoType {
@@ -104,5 +106,11 @@ public enum SweetPotatoType {
                 return this.getCrop();
         }
         return null;
+    }
+
+    public List<SweetPotatoType> getOtherTwo() {
+        List<SweetPotatoType> list = Arrays.asList(values());
+        list.remove(this);
+        return list;
     }
 }
