@@ -5,6 +5,7 @@ import net.minecraft.screen.PropertyDelegate;
 public interface IntMagicCubeProperties extends PropertyDelegate {
     /**
      * <h2>Main Fuel Time</h2>
+     * <div>200: Start up.</div>
      * <div>199-- => 1 : Running.</div>
      * <div>0 : Done. Shall output.</div>
      * <div>-1 : Not Processing.</div>
@@ -15,7 +16,9 @@ public interface IntMagicCubeProperties extends PropertyDelegate {
     short getMainFuelTime();    // 200 at most
     /**
      * <h2>Vice Fuel Time</h2>
-     * <div>399 => 0. Decrement if {@link #isProcessing()}.</div>
+     * <div>401: Start up.</div>
+     * <div>400 => 1. Decrement if {@link #isProcessing()}.</div>
+     * <div>Decrement to 0. 0 equals to stop and check.</div>
      * <div>-1, -2, -3 or below: ERROR</div>
      */
     short getViceFuelTime();  // 400 at most
@@ -30,6 +33,14 @@ public interface IntMagicCubeProperties extends PropertyDelegate {
 
     default boolean shouldOutput() {
         return getMainFuelTime() == 0;
+    }
+
+    default boolean withViceFuel() {
+        return getViceFuelTime() > 0;
+    }
+
+    default boolean shouldUpdateViceFuel() {
+        return getViceFuelTime() == 0;
     }
 
     /* *--* IMPLEMENTATIONS *--*/
