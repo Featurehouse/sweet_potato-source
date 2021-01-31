@@ -58,5 +58,7 @@
   "container.grinding.ingredientData": "%f Einheit(en) an Zutaten hinzugefügt",
 
   "stat.sweet_potato.interact_with_grinder": "Mühle benutzt",
-  "stat.sweet_potato.interact_with_agroforestry_table": "Magischer Topf benutzt"
+  "stat.sweet_potato.interact_with_agroforestry_table": "Magischer Topf benutzt",
+  "stat.sweet_potato.crop_upgraded": "Nutzpflanzen aufgewertet",
+  "stat.sweet_potato.sweet_potato_eaten": "Süßkartoffeln gegessen"
 }
