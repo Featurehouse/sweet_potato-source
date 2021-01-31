@@ -15,7 +15,7 @@ dependencies {
 		mavenLocal()
 		maven {
 			name = 'COVID-Trump'
-			url = 'https://covid-trump.github.io/'
+			url = 'https://covid-trump.github.io/mvn/'
 		}
 	}
 	//to change the versions see the gradle.properties file
