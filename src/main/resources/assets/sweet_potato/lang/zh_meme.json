@@ -59,5 +59,6 @@
 
   "stat.sweet_potato.interact_with_grinder": "调戏打粉机次数",
   "stat.sweet_potato.interact_with_agroforestry_table": "调戏农 林 福 音次数",
-  "stat.sweet_potato.crop_upgraded": "往作物里砸魔法次数"
+  "stat.sweet_potato.crop_upgraded": "往作物里砸魔法次数",
+  "stat.sweet_potato.sweet_potato_eaten": "干掉的甜土豆数"
 }
