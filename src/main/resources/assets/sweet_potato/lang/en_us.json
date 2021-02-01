@@ -46,6 +46,9 @@
   "block.sweet_potato.enchanted_beetroots": "Enchanted Beetroots",
 
   "subtitles.block.sweet_potato.agroforestry_table.finish": "Crop Upgraded",
+  "subtitles.block.sweet_potato.grinder.grind": "Grinder Grinding",
+  "subtitles.block.sweet_potato.magic_cube.activate": "Magic Cube Activated",
+  "subtitles.block.sweet_potato.magic_cube.deactivate": "Magic Cube Deactivated",
 
   "advancement.husbandry.sweet_potato.get_sweet_potato.title": "Sweet and Soft",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "Obtain Sweet Potato",
