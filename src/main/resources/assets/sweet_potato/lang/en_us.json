@@ -46,6 +46,9 @@
   "block.sweet_potato.enchanted_beetroots": "Enchanted Beetroots",
 
   "subtitles.block.sweet_potato.agroforestry_table.finish": "Crop Upgraded",
+  "subtitles.block.sweet_potato.grinder.grind": "Grinder Grinds",
+  "subtitles.block.sweet_potato.magic_cube.activate": "Magic Cube Activates",
+  "subtitles.block.sweet_potato.magic_cube.deactivate": "Magic Cube Deactivates",
 
   "advancement.husbandry.sweet_potato.get_sweet_potato.title": "Sweet and Soft",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "Obtain Sweet Potato",
@@ -57,19 +60,8 @@
   "container.sweet_potato.grinding": "Grinding",
   "container.grinding.ingredientData": "Added %f unit(s) of ingredient",
 
-
-  "_comment": "Below: Shurlin Linkage",
-  "block.sweet_potato.enchanted_phoenix_sapling": "Enchanted Phoenix Sapling",
-  "block.sweet_potato.enchanted_phoenix_leaves": "Enchanted Phoenix Leaves",
-  "block.sweet_potato.potted_enchanted_phoenix_sapling": "Potted Enchanted Phoenix Sapling",
-  "block.sweet_potato.enchanted_pear_sapling": "Enchanted Pear Sapling",
-  "block.sweet_potato.enchanted_pear_leaves": "Enchanted Pear Leaves",
-  "block.sweet_potato.enchanted_pear_ripe_leaves": "Enchanted Pear Ripe Leaves",
-  "block.sweet_potato.potted_enchanted_pear_sapling": "Potted Enchanted Pear Sapling",
-
   "stat.sweet_potato.interact_with_grinder": "Interactions with Grinder",
   "stat.sweet_potato.interact_with_agroforestry_table": "Interactions with Agroforestry Table",
   "stat.sweet_potato.crop_upgraded": "Crops upgraded",
   "stat.sweet_potato.sweet_potato_eaten": "Sweet Potatoes eaten"
-
 }

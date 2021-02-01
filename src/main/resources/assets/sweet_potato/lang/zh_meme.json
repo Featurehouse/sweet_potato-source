@@ -45,7 +45,10 @@
   "block.sweet_potato.enchanted_potatoes": "覆 膜 育 碧",
   "block.sweet_potato.enchanted_beetroots": "覆膜甜菜根",
 
-  "subtitles.block.sweet_potato.agroforestry_table.finish": "铿锵作响",
+  "subtitles.block.sweet_potato.agroforestry_table.finish": "农林台：造福于民",
+  "subtitles.block.sweet_potato.grinder.grind": "打粉机：打粉",
+  "subtitles.block.sweet_potato.magic_cube.activate": "米 奇 妙 妙 锅：激活",
+  "subtitles.block.sweet_potato.magic_cube.deactivate": "米 奇 妙 妙 锅：不行了",
 
   "advancement.husbandry.sweet_potato.get_sweet_potato.title": "艾玛，真香！",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "获得甜土豆",
@@ -56,16 +59,6 @@
   "container.sweet_potato.seed_updating": "集 日 月 之 精 华",
   "container.sweet_potato.grinding": "鲜 榨 甜 土 豆",
   "container.grinding.ingredientData": "%f 份甜土豆待榨",
-
-
-  "_comment": "以下为与Shurlin Mod联动内容",
-  "block.sweet_potato.enchanted_phoenix_sapling": "覆膜梧桐树宝宝",
-  "block.sweet_potato.enchanted_phoenix_leaves": "覆膜梧桐树叶",
-  "block.sweet_potato.potted_enchanted_phoenix_sapling": "覆膜梧桐树宝宝盆栽",
-  "block.sweet_potato.enchanted_pear_sapling": "覆膜梨树宝宝",
-  "block.sweet_potato.enchanted_pear_leaves": "覆膜梨树叶",
-  "block.sweet_potato.enchanted_pear_ripe_leaves": "茂盛的覆膜梨树叶",
-  "block.sweet_potato.potted_enchanted_pear_sapling": "覆膜梨树宝宝盆栽",
 
   "stat.sweet_potato.interact_with_grinder": "调戏打粉机次数",
   "stat.sweet_potato.interact_with_agroforestry_table": "调戏农 林 福 音次数",

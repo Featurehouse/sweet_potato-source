@@ -46,6 +46,9 @@
   "block.sweet_potato.enchanted_beetroots": "附魔甜菜根",
 
   "subtitles.block.sweet_potato.agroforestry_table.finish": "农林台：升级",
+  "subtitles.block.sweet_potato.grinder.grind": "研磨器：研磨",
+  "subtitles.block.sweet_potato.magic_cube.activate": "魔法锅：激活",
+  "subtitles.block.sweet_potato.magic_cube.deactivate": "魔法锅：失效",
 
   "advancement.husbandry.sweet_potato.get_sweet_potato.title": "香甜软嚅",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "获得地瓜",
@@ -56,16 +59,6 @@
   "container.sweet_potato.seed_updating": "升级作物",
   "container.sweet_potato.grinding": "研磨",
   "container.grinding.ingredientData": "已添加 %f 份原料",
-
-
-  "_comment": "以下为与Shurlin Mod联动内容",
-  "block.sweet_potato.enchanted_phoenix_sapling": "附魔梧桐树苗",
-  "block.sweet_potato.enchanted_phoenix_leaves": "附魔梧桐树叶",
-  "block.sweet_potato.potted_enchanted_phoenix_sapling": "附魔梧桐树苗盆栽",
-  "block.sweet_potato.enchanted_pear_sapling": "附魔梨树苗",
-  "block.sweet_potato.enchanted_pear_leaves": "附魔梨树叶",
-  "block.sweet_potato.enchanted_pear_ripe_leaves": "结梨子的附魔梨树叶",
-  "block.sweet_potato.potted_enchanted_pear_sapling": "梨树苗盆栽",
 
   "stat.sweet_potato.interact_with_grinder": "与研磨器互动次数",
   "stat.sweet_potato.interact_with_agroforestry_table": "与农林台互动次数",
