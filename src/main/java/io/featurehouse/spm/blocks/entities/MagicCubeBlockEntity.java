@@ -11,6 +11,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
@@ -44,6 +45,10 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
                 if (this.shouldChange(b = this.fireCount() > 0)) {
                     MagicCubeBlockEntity.this.world.setBlockState(
                             pos, MagicCubeBlockEntity.this.world.getBlockState(pos).with(property, b)
+                    );
+                    MagicCubeBlockEntity.this.world.playSound(null, MagicCubeBlockEntity.this.pos,
+                            b ? SPMMain.MAGIC_CUBE_ACTIVATE : SPMMain.MAGIC_CUBE_DEACTIVATE,
+                            SoundCategory.BLOCKS, 1.0F, 1.0F
                     );
                 }
             }
