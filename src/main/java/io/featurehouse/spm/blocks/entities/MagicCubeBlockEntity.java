@@ -23,6 +23,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
@@ -80,6 +81,13 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
                     if (!b) {
                         MagicCubeBlockEntity.this.mainFuelTime = -1;
                         MagicCubeBlockEntity.this.viceFuelTime = 0;
+                        MagicCubeBlockEntity.this.world.playSound(null, MagicCubeBlockEntity.this.pos,
+                                SPMMain.MAGIC_CUBE_DEACTIVATE, SoundCategory.BLOCKS,
+                                1.0F, 1.0F);
+                    } else {
+                        MagicCubeBlockEntity.this.world.playSound(null, MagicCubeBlockEntity.this.pos,
+                                SPMMain.MAGIC_CUBE_ACTIVATE, SoundCategory.BLOCKS,
+                                1.0F, 1.0F);
                     }
                 }
             }

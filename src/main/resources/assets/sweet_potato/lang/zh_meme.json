@@ -45,7 +45,10 @@
   "block.sweet_potato.enchanted_potatoes": "覆 膜 育 碧",
   "block.sweet_potato.enchanted_beetroots": "覆膜甜菜根",
 
-  "subtitles.block.sweet_potato.agroforestry_table.finish": "铿锵作响",
+  "subtitles.block.sweet_potato.agroforestry_table.finish": "农林台：造福于民",
+  "subtitles.block.sweet_potato.grinder.grind": "打粉机：打粉",
+  "subtitles.block.sweet_potato.magic_cube.activate": "米 奇 妙 妙 锅：激活",
+  "subtitles.block.sweet_potato.magic_cube.deactivate": "米 奇 妙 妙 锅：不行了",
 
   "advancement.husbandry.sweet_potato.get_sweet_potato.title": "艾玛，真香！",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "获得甜土豆",

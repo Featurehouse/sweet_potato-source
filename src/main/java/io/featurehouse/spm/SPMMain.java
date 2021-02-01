@@ -163,6 +163,10 @@ public class SPMMain implements ModInitializer {
 
 	// Sounds
 	public static final SoundEvent AGROFORESTRY_TABLE_FINISH;
+	public static final SoundEvent GRINDER_GRIND;
+	public static final SoundEvent MAGIC_CUBE_ACTIVATE;
+	public static final SoundEvent MAGIC_CUBE_DEACTIVATE;
+	public static final SoundEvent MAGIC_CUBE_AMBIENT;
 
 	// Stats
 	public static final Identifier INTERACT_WITH_GRINDER;
@@ -289,6 +293,10 @@ public class SPMMain implements ModInitializer {
 
 		// Sounds
 		AGROFORESTRY_TABLE_FINISH = sound("block.agroforestry_table.finish");
+		GRINDER_GRIND = sound("block.grinder.grind");
+		MAGIC_CUBE_ACTIVATE = sound("block.magic_cube.activate");
+		MAGIC_CUBE_DEACTIVATE = sound("block.magic_cube.deactivate");
+		MAGIC_CUBE_AMBIENT = sound("block.magic_cube.ambient");
 
 		// Stats
 		INTERACT_WITH_GRINDER = stat("interact_with_grinder");

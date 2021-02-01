@@ -46,6 +46,9 @@
   "block.sweet_potato.enchanted_beetroots": "附魔甜菜根",
 
   "subtitles.block.sweet_potato.agroforestry_table.finish": "农林台：升级",
+  "subtitles.block.sweet_potato.grinder.grind": "研磨器：研磨",
+  "subtitles.block.sweet_potato.magic_cube.activate": "魔法锅：激活",
+  "subtitles.block.sweet_potato.magic_cube.deactivate": "魔法锅：失效",
 
   "advancement.husbandry.sweet_potato.get_sweet_potato.title": "香甜软嚅",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "获得地瓜",
