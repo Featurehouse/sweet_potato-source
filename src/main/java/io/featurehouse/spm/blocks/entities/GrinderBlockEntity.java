@@ -109,6 +109,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
                     GrinderBlockEntity.this.world.setBlockState(
                             pos, GrinderBlockEntity.this.world.getBlockState(pos).with(property, b)
                     );
+                GrinderBlockEntity.this.world.syncWorldEvent(1132119, GrinderBlockEntity.this.pos, 805);
             }
         };
     }
