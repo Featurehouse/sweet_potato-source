@@ -192,21 +192,25 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     }
 
     private ItemStack enchant(ItemStack originRaw) {
+        assert this.world != null;
         Item item;
         if (!((item = originRaw.getItem()).isIn(SPMMain.RAW_SWEET_POTATOES)) || !(item instanceof RawSweetPotatoBlockItem))
             return originRaw;
         RawSweetPotatoBlockItem sweetPotato = (RawSweetPotatoBlockItem) item;
         CompoundTag tag = new CompoundTag();
         ListTag listTag = new ListTag();
-        Set<StatusEffectInstance> enchantments = calcEnchantments();
+        List<StatusEffectInstance> enchantments = calcEnchantments();
         enchantments.forEach(statusEffectInstance -> listTag.add(statusEffectInstance.toTag(new CompoundTag())));
+        int length = enchantments.size();
+        short randomIndex = (short) (this.world.random.nextDouble() * length);
         tag.put("statusEffects", listTag);
+        tag.putShort("displayIndex", randomIndex);
         ItemStack outputStack = new ItemStack(sweetPotato.asType().getEnchanted(), originRaw.getCount());
         outputStack.setTag(tag);
         return outputStack;
     }
 
-    private Set<StatusEffectInstance> calcEnchantments() {
+    private List<StatusEffectInstance> calcEnchantments() {
         //TODO
     }
 
