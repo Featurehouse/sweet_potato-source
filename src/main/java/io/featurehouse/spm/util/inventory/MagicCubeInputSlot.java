@@ -1,5 +1,6 @@
 package io.featurehouse.spm.util.inventory;
 
+import io.featurehouse.spm.SPMMain;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
@@ -17,5 +18,10 @@ public class MagicCubeInputSlot extends Slot {
     @Override
     public int getMaxItemCount(ItemStack stack) {
         return 1;
+    }
+
+    @Override
+    public boolean canInsert(ItemStack stack) {
+        return stack.getItem().isIn(SPMMain.RAW_SWEET_POTATOES);
     }
 }

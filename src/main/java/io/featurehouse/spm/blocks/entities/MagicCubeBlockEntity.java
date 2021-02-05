@@ -31,13 +31,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import static net.minecraft.block.Blocks.SOUL_FIRE;
 
-public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable, SidedInventory, ExtendedScreenHandlerFactory, IntMagicCubeProperties {
+public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity implements Tickable, SidedInventory, ExtendedScreenHandlerFactory {
     //protected StateHelperV1 stateHelper;
     private static final int[] TOP_SLOTS = new int[] { 0, 1, 2 };
     private static final int[] BOTTOM_SLOTS = new int[] { 3, 4, 5 };
@@ -52,12 +52,35 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     protected short mainFuelTime;
     protected short viceFuelTime;
 
+    protected IntMagicCubeProperties propertyDelegate;
+
     public MagicCubeBlockEntity() {
         this(SPMMain.MAGIC_CUBE_BLOCK_ENTITY_TYPE, 8);
     }
 
     public MagicCubeBlockEntity(BlockEntityType<?> type, int size) {
         super(type, size);
+        this.propertyDelegate = new IntMagicCubeProperties() {
+            @Override
+            public short getMainFuelTime() {
+                return mainFuelTime;
+            }
+
+            @Override
+            public short getViceFuelTime() {
+                return viceFuelTime;
+            }
+
+            @Override
+            public void setMainFuelTime(short time) {
+                mainFuelTime = time;
+            }
+
+            @Override
+            public void setViceFuelTime(short time) {
+                viceFuelTime = time;
+            }
+        };
         this.stateHelper = new BooleanStateManager(MagicCubeBlock.ACTIVATED) {
             public boolean shouldChange(boolean newOne) {
                 assert MagicCubeBlockEntity.this.world != null;
@@ -107,6 +130,22 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         };
         this.mainFuelTime = -1;
         this.viceFuelTime = 0;
+    }
+
+    public boolean isProcessing() {
+        return mainFuelTime >= 0;
+    }
+
+    public boolean shouldOutput() {
+        return mainFuelTime == 0;
+    }
+
+    public boolean withViceFuel() {
+        return viceFuelTime > 0;
+    }
+
+    public boolean shouldUpdateViceFuel() {
+        return viceFuelTime == 0;
     }
 
     @Override
@@ -212,11 +251,12 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
 
     private List<StatusEffectInstance> calcEnchantments() {
         //TODO
+        return Collections.emptyList();
     }
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return new MagicCubeScreenHandler(syncId, playerInventory, world, pos, this, this); // INDEED TODO
+        return new MagicCubeScreenHandler(syncId, playerInventory, world, pos, this, propertyDelegate); // INDEED TODO
     }
 
     private boolean outputIsClear() {
@@ -276,26 +316,6 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
             return item == SPMMain.POTATO_POWDER;
         if ((slot >= 3 && slot <= 5) || slot > 7 || slot < 0) return false;
         return item.isIn(SPMMain.RAW_SWEET_POTATOES);
-    }
-
-    @Override
-    public short getMainFuelTime() {
-        return mainFuelTime;
-    }
-
-    @Override
-    public short getViceFuelTime() {
-        return viceFuelTime;
-    }
-
-    @Override
-    public void setMainFuelTime(short time) {
-        mainFuelTime = time;
-    }
-
-    @Override
-    public void setViceFuelTime(short time) {
-        viceFuelTime = time;
     }
 
     @Override

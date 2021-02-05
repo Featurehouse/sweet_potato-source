@@ -7,7 +7,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
@@ -28,6 +27,7 @@ public class MagicCubeBlock extends AbstractBlockWithEntity {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
+            if (state.getBlock() instanceof MagicCubeBlock && !state.get(ACTIVATED)) return ActionResult.PASS;
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof MagicCubeBlockEntity && state.getBlock() instanceof MagicCubeBlock && state.get(ACTIVATED)) {
                 player.openHandledScreen((NamedScreenHandlerFactory) blockEntity);
