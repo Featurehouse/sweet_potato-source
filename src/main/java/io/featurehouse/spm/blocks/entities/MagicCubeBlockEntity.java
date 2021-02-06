@@ -29,6 +29,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -151,46 +152,58 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     @Override
     public void tick() {
         assert this.world != null;
-        if (world.getTime() % 20L == 5L) {
-            stateHelper.run();
-        }
-        if (!activationCache) return;
+        boolean shallMarkDirty = false;
 
-        /*-* * PROPERTIES * *-*/
-        if (!this.isProcessing()) {
-            // Check inventory
-            if (this.inventory.get(6).getItem() == SPMMain.PEEL) {
-                boolean bl = false;
-                for (int i = 0; i < 3; ++i) {
-                    if (this.inventory.get(i).getItem().isIn(SPMMain.RAW_SWEET_POTATOES)) {
-                        this.mainFuelTime = 200;
-                        bl = true;
-                        break;
+        if (!world.isClient) {
+            if (world.getTime() % 20L == 5L) {
+                stateHelper.run();
+            }
+            if (!activationCache) return;
+
+            /*-* * PROPERTIES * *-*/
+            if (!this.isProcessing()) {
+                // Check inventory
+                if (this.inventory.get(6).getItem() == SPMMain.PEEL) {
+                    boolean bl = false;
+                    for (int i = 0; i < 3; ++i) {
+                        if (this.inventory.get(i).getItem().isIn(SPMMain.RAW_SWEET_POTATOES)) {
+                            this.mainFuelTime = 200;
+                            bl = true;
+                            break;
+                        }
+                    }
+                    if (bl) {
+                        // DECREMENT PEEL, START PROGRESS, MARK DIRTY.
+                        this.inventory.get(6).decrement(1);
+                        shallMarkDirty = true;
                     }
                 }
-                if (bl) {
-                    // DECREMENT PEEL, START PROGRESS.
-                    this.inventory.get(6).decrement(1);
+            }
+            // CHECK VICE FUEL
+            if (this.shouldUpdateViceFuel()) {
+                if (this.inventory.get(7).getItem() == SPMMain.POTATO_POWDER) {
+                    this.viceFuelTime = 401;
+                    this.inventory.get(7).decrement(1);
+                    shallMarkDirty = true;
                 }
             }
-        }
-        // CHECK VICE FUEL
-        if (this.shouldUpdateViceFuel()) {
-            if (this.inventory.get(7).getItem() == SPMMain.POTATO_POWDER) {
-                this.viceFuelTime = 401;
-                this.inventory.get(7).decrement(1);
+
+            if (this.shouldOutput()) {
+                calculateOutput();
+                shallMarkDirty = true;
+            }
+
+            if (this.isProcessing() && this.outputIsClear()) {
+                --this.mainFuelTime;
+                if (withViceFuel())
+                    --viceFuelTime;
+                shallMarkDirty = true;
+            } else if (!this.outputIsClear()) {
+                this.mainFuelTime = (short) MathHelper.clamp(mainFuelTime + 2, 0, 200);
+                shallMarkDirty = true;
             }
         }
-
-        if (this.shouldOutput()) {
-            calculateOutput();
-        }
-
-        if (this.isProcessing() && this.outputIsClear()) {
-            --this.mainFuelTime;
-            if (withViceFuel())
-                --viceFuelTime;
-        }
+        if (shallMarkDirty) markDirty();
     }
 
     @Override
@@ -199,8 +212,9 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     }
 
     protected void calculateOutput() {
+        if (!outputIsClear()) return;
         for (int i = 0; i < 3; ++i) {
-            if (!(this.inventory.get(0).isEmpty()))
+            if (!(this.inventory.get(i).isEmpty()))
                 calculateOneOutput(i, i + 3);
         }
     }
@@ -209,7 +223,6 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         ItemStack inputCopy = this.getStack(inputIndex).copy();
         Item item = inputCopy.getItem();
         int count = inputCopy.getCount();
-        if (!outputIsClear()) return;
         this.setStack(inputIndex, ItemStack.EMPTY);
 
         if (random.nextDouble() <= (withViceFuel() ? 0.4D : 0.3D)) {

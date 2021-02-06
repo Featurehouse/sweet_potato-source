@@ -4,12 +4,15 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import io.featurehouse.annotation.OperationBeforeDeveloping;
 import io.featurehouse.spm.SPMMain;
 import io.featurehouse.spm.screen.MagicCubeScreenHandler;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+@Environment(EnvType.CLIENT)
 public class MagicCubeScreen extends HandledScreen<MagicCubeScreenHandler> {
     private static final Identifier BG = new Identifier(SPMMain.MODID, "textures/gui/container/magic_cube.png");
 
@@ -31,7 +34,7 @@ public class MagicCubeScreen extends HandledScreen<MagicCubeScreenHandler> {
         int md = mainFuelDisplayHeight(m), vd = viceFuelDisplayHeight(v);
         if (m >= 0) this.drawTexture(matrices, this.x + 55,  this.y + 59, 176, 29, 18, 4);
         if (v >  0) this.drawTexture(matrices, this.x + 101, this.y + 59, 176, 29, 17, 4);
-        this.drawTexture(matrices, this.x + 57 , this.y + 70 - md, 199, 13 - md, 13, md);
+        this.drawTexture(matrices, this.x + 57 , this.y + 58 - md, 199, 13 - md, 13, md);
         this.drawTexture(matrices, this.x + 105, this.y + 57 - vd, 176, 20 - vd, 10, vd);
     }
 

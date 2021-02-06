@@ -20,6 +20,8 @@ public interface IntMagicCubeProperties extends PropertyDelegate {
      * <div>400 => 1. Decrement if {@link #isProcessing()}.</div>
      * <div>Decrement to 0. 0 equals to stop and check.</div>
      * <div>-1, -2, -3 or below: ERROR</div>
+     * @see #withViceFuel()
+     * @see #shouldUpdateViceFuel()
      */
     short getViceFuelTime();  // 400 at most
 

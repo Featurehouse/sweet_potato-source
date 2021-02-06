@@ -1,5 +1,9 @@
 package io.featurehouse.spm;
 
+import com.google.common.collect.ImmutableList;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.objects.ObjectList;
+import it.unimi.dsi.fastutil.objects.ObjectLists;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemConvertible;
 
@@ -109,7 +113,7 @@ public enum SweetPotatoType {
     }
 
     public List<SweetPotatoType> getOtherTwo() {
-        List<SweetPotatoType> list = Arrays.asList(values());
+        List<SweetPotatoType> list = ObjectArrayList.wrap(values());
         list.remove(this);
         return list;
     }
