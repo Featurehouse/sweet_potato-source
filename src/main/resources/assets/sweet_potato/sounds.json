@@ -33,5 +33,13 @@
       "pitch": 1
     }],
     "subtitles": "subtitles.block.sweet_potato.magic_cube.deactivate"
+  },
+  "block.magic_cube.ambient": {
+    "sounds": [{
+      "name": "sweet_potato:block/magic_cube/ambient",
+      "volume": 1,
+      "pitch": 1
+    }],
+    "subtitles": "subtitles.block.sweet_potato.magic_cube.ambient"
   }
 }

@@ -1,7 +1,6 @@
 package io.featurehouse.spm.util.registries;
 
 import io.featurehouse.annotation.FabricApiRegistry;
-import io.featurehouse.spm.SPMMain;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
@@ -21,13 +20,15 @@ import net.minecraft.stat.Stats;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import org.jetbrains.annotations.NotNull;
 
+import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
+
+import static io.featurehouse.spm.SPMMain.MODID;
 
 public interface RegistryHelper {
     static Identifier id(String id) {
-        return new Identifier(SPMMain.MODID, id);
+        return new Identifier(MODID, id);
     }
 
     static Item item(String id, Item item2) {
@@ -82,13 +83,15 @@ public interface RegistryHelper {
     }
 
     @FabricApiRegistry
+    static <H extends ScreenHandler> ScreenHandlerType<H> extendedScreenHandler(String id, ScreenHandlerRegistry.ExtendedClientHandlerFactory<H> factory) {
+        Identifier id2 = id(id);
+        return ScreenHandlerRegistry.registerExtended(id2, factory);
+    }
+
+    @FabricApiRegistry
     static Tag<Item> itemTag(String id) {
         Identifier id2 = id(id);
         return TagRegistry.item(id2);
-    }
-
-    static Identifier stat(String id) {
-        return stat(id, StatFormatter.DEFAULT);
     }
 
     static Identifier stat(String id, StatFormatter statFormatter) {
@@ -97,4 +100,6 @@ public interface RegistryHelper {
         Stats.CUSTOM.getOrCreateStat(id2, statFormatter);
         return id2;
     }
+
+    static Identifier stat(String id) { return stat(id, StatFormatter.DEFAULT); }
 }

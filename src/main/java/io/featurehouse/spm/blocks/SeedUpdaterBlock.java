@@ -54,14 +54,14 @@ public class SeedUpdaterBlock extends CraftingTableBlock {
 
 
 
-    //@Override
+    @Override
     public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
         return new SimpleNamedScreenHandlerFactory((syncId, inv, player) -> new SeedUpdaterScreenHandler(
                 syncId, inv, ScreenHandlerContext.create(world, pos)
         ), SCREEN_TITLE);
     }
 
-   //@Override
+    @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hitResult) {
         if (world.isClient)
             return ActionResult.SUCCESS;

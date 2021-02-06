@@ -1,7 +1,7 @@
 package io.featurehouse.spm.recipe;
 
-import com.google.gson.JsonObject;
 import io.featurehouse.spm.SPMMain;
+import com.google.gson.JsonObject;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.inventory.Inventory;

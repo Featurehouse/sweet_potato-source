@@ -12,6 +12,7 @@ import io.featurehouse.spm.items.*;
 import io.featurehouse.spm.linkage.SPMLinkage;
 import io.featurehouse.spm.recipe.SeedUpdatingRecipe;
 import io.featurehouse.spm.screen.GrinderScreenHandler;
+import io.featurehouse.spm.screen.MagicCubeScreenHandler;
 import io.featurehouse.spm.screen.SeedUpdaterScreenHandler;
 import io.featurehouse.spm.structures.tree.gen.*;
 import io.featurehouse.spm.util.properties.objects.BlockSettings;
@@ -37,6 +38,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 
+import static io.featurehouse.spm.util.properties.objects.BlockSettings.*;
 import static io.featurehouse.spm.util.registries.RegistryHelper.*;
 
 public class SPMMain implements ModInitializer {
@@ -140,6 +142,7 @@ public class SPMMain implements ModInitializer {
 	// Screen Handlers
 	public static final ScreenHandlerType<SeedUpdaterScreenHandler> SEED_UPDATER_SCREEN_HANDLER_TYPE;
 	public static final ScreenHandlerType<GrinderScreenHandler> GRINDER_SCREEN_HANDLER_TYPE;
+	public static final ScreenHandlerType<MagicCubeScreenHandler> MAGIC_CUBE_SCREEN_HANDLER_TYPE;
 
 	// Recipe Serializer
 	public static final RecipeSerializer<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_SERIALIZER;
@@ -163,6 +166,7 @@ public class SPMMain implements ModInitializer {
 	public static final SoundEvent GRINDER_GRIND;
 	public static final SoundEvent MAGIC_CUBE_ACTIVATE;
 	public static final SoundEvent MAGIC_CUBE_DEACTIVATE;
+	public static final SoundEvent MAGIC_CUBE_AMBIENT;
 
 	// Stats
 	public static final Identifier INTERACT_WITH_GRINDER;
@@ -177,8 +181,8 @@ public class SPMMain implements ModInitializer {
 		// Agent in Minecraft China can write his or her name into this copyright AS AN AGENT instead of an author.
 		System.out.printf("%s, by %s\nContributors:\n%s\n", "Sweet Potato Mod", "Pigeonia Featurehouse", "- Teddy Li (bilibili: teddyxlandlee)\n- Ray Chen (bilibili: 一颗水晶Rayawa)\n- Peter Yang (bilibili: 印度大米饭)");
 
-		ComposterHelper.register();
 		FabricLoader.getInstance().getEntrypoints("sweet_potato", SPMLinkage.class).forEach(SPMLinkage::init);
+		ComposterHelper.register();
 
 		// Fuel
 		//Util.registerFurnaceFuel(null, Items.AIR, -1);
@@ -201,9 +205,9 @@ public class SPMMain implements ModInitializer {
 		ENCHANTED_WHITE_POTATO = item("enchanted_white_potato", new EnchantedSweetPotatoItem(ItemSettings.ONE_FOOD, SweetPotatoType.WHITE));
 
 		// Block
-		MAGIC_CUBE = block("magic_cube", new MagicCubeBlock(BlockSettings.functionalMinable(Materials.MATERIAL_STONE, 10.0F, 1200.0F, 2)));
-		GRINDER = block("grinder", new GrinderBlock(BlockSettings.functionalMinable(Materials.MATERIAL_STONE, 3.5F, 6.0F, 0)));
-		SEED_UPDATER = block("agroforestry_table", new SeedUpdaterBlock(BlockSettings.functionalMinable(Materials.MATERIAL_STONE, 3.5F, 6.0F, 2)));
+		MAGIC_CUBE = block("magic_cube", new MagicCubeBlock(functionalMinable(Materials.MATERIAL_STONE, 10.0F, 1200.0F, 2)));
+		GRINDER = block("grinder", new GrinderBlock(functionalMinable(Materials.MATERIAL_STONE, 3.5F, 6.0F, 0)));
+		SEED_UPDATER = block("agroforestry_table", new SeedUpdaterBlock(functionalMinable(Materials.MATERIAL_STONE, 3.5F, 6.0F, 2)));
 		    // Crops
 		PURPLE_POTATO_CROP = block("purple_potatoes", new SweetPotatoesCropBlock(BlockSettings.GRASS_LIKE, SweetPotatoType.PURPLE));
 		RED_POTATO_CROP = block("red_potatoes", new SweetPotatoesCropBlock(BlockSettings.GRASS_LIKE, SweetPotatoType.RED));
@@ -214,26 +218,26 @@ public class SPMMain implements ModInitializer {
 		ENCHANTED_CARROTS_CROP = block("enchanted_carrots", new EnchantedCarrotsBlock(BlockSettings.GRASS_LIKE));
 		ENCHANTED_SUGAR_CANE = block("enchanted_sugar_cane", new EnchantedSugarCaneBlock(BlockSettings.GRASS));
 			// Saplings
-		ENCHANTED_OAK_SAPLING = BlockSettings.createEnchantedSapling("enchanted_oak_sapling", EnchantedOakSaplingGen::new);
-		ENCHANTED_SPRUCE_SAPLING = BlockSettings.createEnchantedSapling("enchanted_spruce_sapling", EnchantedSpruceSaplingGen::new);
-		ENCHANTED_BIRCH_SAPLING = BlockSettings.createEnchantedSapling("enchanted_birch_sapling", EnchantedBirchSaplingGen::new);
-		ENCHANTED_JUNGLE_SAPLING = BlockSettings.createEnchantedSapling("enchanted_jungle_sapling", EnchantedJungleSaplingGen::new);
-		ENCHANTED_ACACIA_SAPLING = BlockSettings.createEnchantedSapling("enchanted_acacia_sapling", EnchantedAcaciaSaplingGen::new);
-		ENCHANTED_DARK_OAK_SAPLING = BlockSettings.createEnchantedSapling("enchanted_dark_oak_sapling", EnchantedDarkOakSaplingGen::new);
+		ENCHANTED_OAK_SAPLING = createEnchantedSapling("enchanted_oak_sapling", EnchantedOakSaplingGen::new);
+		ENCHANTED_SPRUCE_SAPLING = createEnchantedSapling("enchanted_spruce_sapling", EnchantedSpruceSaplingGen::new);
+		ENCHANTED_BIRCH_SAPLING = createEnchantedSapling("enchanted_birch_sapling", EnchantedBirchSaplingGen::new);
+		ENCHANTED_JUNGLE_SAPLING = createEnchantedSapling("enchanted_jungle_sapling", EnchantedJungleSaplingGen::new);
+		ENCHANTED_ACACIA_SAPLING = createEnchantedSapling("enchanted_acacia_sapling", EnchantedAcaciaSaplingGen::new);
+		ENCHANTED_DARK_OAK_SAPLING = createEnchantedSapling("enchanted_dark_oak_sapling", EnchantedDarkOakSaplingGen::new);
 			// Potted
-		POTTED_ENCHANTED_OAK_SAPLING = BlockSettings.createPotted("potted_enchanted_oak_sapling", ENCHANTED_OAK_SAPLING);
-		POTTED_ENCHANTED_SPRUCE_SAPLING = BlockSettings.createPotted("potted_enchanted_spruce_sapling", ENCHANTED_SPRUCE_SAPLING);
-		POTTED_ENCHANTED_BIRCH_SAPLING = BlockSettings.createPotted("potted_enchanted_birch_sapling", ENCHANTED_BIRCH_SAPLING);
-		POTTED_ENCHANTED_JUNGLE_SAPLING = BlockSettings.createPotted("potted_enchanted_jungle_sapling", ENCHANTED_JUNGLE_SAPLING);
-		POTTED_ENCHANTED_ACACIA_SAPLING = BlockSettings.createPotted("potted_enchanted_acacia_sapling", ENCHANTED_ACACIA_SAPLING);
-		POTTED_ENCHANTED_DARK_OAK_SAPLING = BlockSettings.createPotted("potted_enchanted_dark_oak_sapling", ENCHANTED_DARK_OAK_SAPLING);
+		POTTED_ENCHANTED_OAK_SAPLING = createPotted("potted_enchanted_oak_sapling", ENCHANTED_OAK_SAPLING);
+		POTTED_ENCHANTED_SPRUCE_SAPLING = createPotted("potted_enchanted_spruce_sapling", ENCHANTED_SPRUCE_SAPLING);
+		POTTED_ENCHANTED_BIRCH_SAPLING = createPotted("potted_enchanted_birch_sapling", ENCHANTED_BIRCH_SAPLING);
+		POTTED_ENCHANTED_JUNGLE_SAPLING = createPotted("potted_enchanted_jungle_sapling", ENCHANTED_JUNGLE_SAPLING);
+		POTTED_ENCHANTED_ACACIA_SAPLING = createPotted("potted_enchanted_acacia_sapling", ENCHANTED_ACACIA_SAPLING);
+		POTTED_ENCHANTED_DARK_OAK_SAPLING = createPotted("potted_enchanted_dark_oak_sapling", ENCHANTED_DARK_OAK_SAPLING);
 			// Leaves
-		ENCHANTED_ACACIA_LEAVES = BlockSettings.createLeaves("enchanted_acacia_leaves");
-		ENCHANTED_BIRCH_LEAVES = BlockSettings.createLeaves("enchanted_birch_leaves");
-		ENCHANTED_DARK_OAK_LEAVES = BlockSettings.createLeaves("enchanted_dark_oak_leaves");
-		ENCHANTED_OAK_LEAVES = BlockSettings.createLeaves("enchanted_oak_leaves");
-		ENCHANTED_JUNGLE_LEAVES = BlockSettings.createLeaves("enchanted_jungle_leaves");
-		ENCHANTED_SPRUCE_LEAVES = BlockSettings.createLeaves("enchanted_spruce_leaves");
+		ENCHANTED_ACACIA_LEAVES = createLeaves("enchanted_acacia_leaves");
+		ENCHANTED_BIRCH_LEAVES = createLeaves("enchanted_birch_leaves");
+		ENCHANTED_DARK_OAK_LEAVES = createLeaves("enchanted_dark_oak_leaves");
+		ENCHANTED_OAK_LEAVES = createLeaves("enchanted_oak_leaves");
+		ENCHANTED_JUNGLE_LEAVES = createLeaves("enchanted_jungle_leaves");
+		ENCHANTED_SPRUCE_LEAVES = createLeaves("enchanted_spruce_leaves");
 
 		// Block Items
 		PURPLE_POTATO = item("purple_potato", new RawSweetPotatoBlockItem(PURPLE_POTATO_CROP, ItemSettings.GROUP_FOOD, SweetPotatoType.PURPLE));
@@ -268,6 +272,7 @@ public class SPMMain implements ModInitializer {
 		// Screen Handler
 		SEED_UPDATER_SCREEN_HANDLER_TYPE = simpleScreenHandler("seed_updater", SeedUpdaterScreenHandler::new);
 		GRINDER_SCREEN_HANDLER_TYPE = simpleScreenHandler("grinder", GrinderScreenHandler::new);
+		MAGIC_CUBE_SCREEN_HANDLER_TYPE = extendedScreenHandler("magic_cube", MagicCubeScreenHandler::new);
 
 		// Recipe Serializer
 		SEED_UPDATING_RECIPE_SERIALIZER = recipeSerializer("seed_updating", SeedUpdatingRecipe.Serializer::new);
@@ -291,6 +296,7 @@ public class SPMMain implements ModInitializer {
 		GRINDER_GRIND = sound("block.grinder.grind");
 		MAGIC_CUBE_ACTIVATE = sound("block.magic_cube.activate");
 		MAGIC_CUBE_DEACTIVATE = sound("block.magic_cube.deactivate");
+		MAGIC_CUBE_AMBIENT = sound("block.magic_cube.ambient");
 
 		// Stats
 		INTERACT_WITH_GRINDER = stat("interact_with_grinder");

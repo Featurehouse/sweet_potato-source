@@ -5,11 +5,11 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 
-public class GrindingResultSlot extends Slot {
+public class UniversalResultSlot extends Slot {
     private final PlayerEntity player;
     private int amount;
 
-    public GrindingResultSlot(PlayerEntity player, Inventory inventory, int index, int x, int y) {
+    public UniversalResultSlot(PlayerEntity player, Inventory inventory, int index, int x, int y) {
         super(inventory, index, x, y);
         this.player = player;
     }

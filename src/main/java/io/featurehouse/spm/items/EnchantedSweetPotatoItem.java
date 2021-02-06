@@ -5,19 +5,29 @@ import io.featurehouse.spm.SweetPotatoStatus;
 import io.featurehouse.spm.SweetPotatoType;
 import io.featurehouse.spm.util.NbtUtils;
 import io.featurehouse.spm.util.inventory.PeelInserter;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.ShortTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -45,13 +55,12 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
                 PeelInserter.run(playerEntity);
         }
 
-        Optional<Set<StatusEffectInstance>> statusEffectInstances = calcEffect(stack);
+        Optional<List<StatusEffectInstance>> statusEffectInstances = calcEffect(stack);
         statusEffectInstances.ifPresent(set -> set.forEach(user::applyStatusEffect));
 
         return stack;
     }
-
-    protected static Optional<Set<StatusEffectInstance>> calcEffect(ItemStack stack) {
+    protected static Optional<List<StatusEffectInstance>> calcEffect(ItemStack stack) {
         Item item = stack.getItem();
         if (!(item instanceof EnchantedSweetPotatoItem)) return Optional.empty();
         CompoundTag compoundTag = stack.getOrCreateTag();
@@ -59,21 +68,12 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
         if (NbtUtils.notListTag(statusEffectsTag)) return Optional.empty();
         ListTag statusEffects = (ListTag) statusEffectsTag;
 
-        Set<StatusEffectInstance> effectInstances = new ObjectOpenHashSet<>();
+        List<StatusEffectInstance> effectInstances = new ObjectArrayList<>();
         for (Tag oneStatusEffect: statusEffects) {
             if (NbtUtils.notCompoundTag(oneStatusEffect)) continue;
             CompoundTag compoundTag1 = (CompoundTag) oneStatusEffect;
-
-            Tag tag = compoundTag1.get("id");
-            if (NbtUtils.notStringTag(tag)) continue;
-            StringTag id = (StringTag) tag;
-            tag = compoundTag1.get("lvl");
-            int lvl = NbtUtils.notIntTag(tag) ? 0 : ((IntTag) tag).getInt();
-            tag = compoundTag1.get("duration");
-            int duration = NbtUtils.notIntTag(tag) ? 0 : ((IntTag) tag).getInt();
-
-            StatusEffect statusEffect = Registry.STATUS_EFFECT.get(new Identifier(id.asString()));
-            effectInstances.add(new StatusEffectInstance(statusEffect, duration, lvl));
+            StatusEffectInstance statusEffectInstance = StatusEffectInstance.fromTag(compoundTag1);
+            effectInstances.add(statusEffectInstance);
         }
         return Optional.of(effectInstances);
     }
@@ -94,5 +94,37 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
     @Override
     public SweetPotatoType asType() {
         return this.sweetPotatoType;
+    }
+
+    @Override
+    @Environment(EnvType.CLIENT)
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        super.appendTooltip(stack, world, tooltip, context);
+
+        CompoundTag root;
+        BaseText mainTip = new TranslatableText("tooltip.sweet_potato.enchanted_sweet_potato.effects");
+        if ((root = stack.getOrCreateTag()).isEmpty()) {
+            mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
+            return;
+        }
+        Tag tag = root.get("displayIndex");
+        if (NbtUtils.notShortTag(tag)) {
+            mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
+            return;
+        }
+        short index = ((ShortTag) tag).getShort();
+        Optional<List<StatusEffectInstance>> statusEffectInstances = calcEffect(stack);
+        if (!statusEffectInstances.isPresent()) {
+            mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
+            return;
+        }
+        List<StatusEffectInstance> sei = statusEffectInstances.get();
+        StatusEffectInstance toBeShown = (index < 0 || sei.size() <= index) ? null : sei.get(index);
+        if (toBeShown != null)
+            mainTip.append(new TranslatableText(toBeShown.getTranslationKey()).formatted(Formatting.ITALIC)
+                .append(new LiteralText(" ...").formatted(Formatting.ITALIC)));
+        else mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
+
+        tooltip.add(mainTip);
     }
 }

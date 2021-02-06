@@ -11,9 +11,9 @@ import net.minecraft.recipe.RecipeUnlocker;
 import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.world.World;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.List;
 
 public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
@@ -40,7 +40,7 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
         return canUse(this.context, player, SPMMain.SEED_UPDATER);
     }
 
-    //@Override
+    @Override
     public void updateResult() {
         List<SeedUpdatingRecipe> list1 = this.world.getRecipeManager().getAllMatches(
                 SPMMain.SEED_UPDATING_RECIPE_TYPE, this.input, this.world
@@ -80,6 +80,7 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
 
     @Override
     protected boolean method_30025(ItemStack itemStack) {
+        // shouldQuickMoveToAdditionalSlot
         return this.list.stream().anyMatch(seedUpdatingRecipe -> seedUpdatingRecipe.method_30029(itemStack));
     }
 
