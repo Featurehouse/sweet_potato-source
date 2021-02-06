@@ -118,8 +118,13 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
             mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
             return;
         }
-        StatusEffectInstance toBeShown = statusEffectInstances.get().get(index);
-        mainTip.append(new TranslatableText(toBeShown.getTranslationKey()).formatted(Formatting.ITALIC)
-            .append(new LiteralText(" ...").formatted(Formatting.ITALIC)));
+        List<StatusEffectInstance> sei = statusEffectInstances.get();
+        StatusEffectInstance toBeShown = (index < 0 || sei.size() <= index) ? null : sei.get(index);
+        if (toBeShown != null)
+            mainTip.append(new TranslatableText(toBeShown.getTranslationKey()).formatted(Formatting.ITALIC)
+                .append(new LiteralText(" ...").formatted(Formatting.ITALIC)));
+        else mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
+
+        tooltip.add(mainTip);
     }
 }

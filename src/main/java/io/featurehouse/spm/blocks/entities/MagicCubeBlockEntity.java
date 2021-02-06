@@ -29,7 +29,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -101,7 +100,6 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
                                     MagicCubeBlockEntity.this.pos
                             ).with(property, b)
                     );
-                    MagicCubeBlockEntity.this.activationCache = b;
                     if (!b) {
                         MagicCubeBlockEntity.this.mainFuelTime = -1;
                         MagicCubeBlockEntity.this.viceFuelTime = 0;
@@ -114,6 +112,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
                                 1.0F, 1.0F);
                     }
                 }
+                MagicCubeBlockEntity.this.activationCache = b;
             }
 
             @FireBelow
@@ -193,13 +192,10 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
                 shallMarkDirty = true;
             }
 
-            if (this.isProcessing() && this.outputIsClear()) {
+            if (this.isProcessing() && this.anyOutputIsClear()) {
                 --this.mainFuelTime;
                 if (withViceFuel())
                     --viceFuelTime;
-                shallMarkDirty = true;
-            } else if (!this.outputIsClear()) {
-                this.mainFuelTime = (short) MathHelper.clamp(mainFuelTime + 2, 0, 200);
                 shallMarkDirty = true;
             }
         }
@@ -212,7 +208,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     }
 
     protected void calculateOutput() {
-        if (!outputIsClear()) return;
+        if (!anyOutputIsClear()) return;
         for (int i = 0; i < 3; ++i) {
             if (!(this.inventory.get(i).isEmpty()))
                 calculateOneOutput(i, i + 3);
@@ -227,7 +223,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
 
         if (random.nextDouble() <= (withViceFuel() ? 0.4D : 0.3D)) {
             // ENCHANT
-            this.setStack(outputIndex, this.enchant(this.getStack(inputIndex)));
+            this.setStack(outputIndex, this.enchant(inputCopy));
         } else if (random.nextDouble() <= (withViceFuel() ? 0.5D : 0.4D)) {
             // GENE-WORK
             List<ItemConvertible> itemSet = new ObjectArrayList<>(2);
@@ -235,7 +231,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
                 RawSweetPotatoBlockItem sweetPotato = (RawSweetPotatoBlockItem) item;
                 sweetPotato.asType().getOtherTwo().forEach(sweetPotatoType -> itemSet.add(sweetPotatoType.getRaw()));
                 this.setStack(outputIndex, new ItemStack(
-                        random.nextBoolean() ? itemSet.get(0).asItem() : itemSet.get(1).asItem()
+                        random.nextBoolean() ? itemSet.get(0) : itemSet.get(1)
                 , count));
             }
         } else if (random.nextDouble() > (0.3D - 0.02D * fireCountCache)) {
@@ -244,7 +240,6 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     }
 
     private ItemStack enchant(ItemStack originRaw) {
-        assert this.world != null;
         Item item;
         if (!((item = originRaw.getItem()).isIn(SPMMain.RAW_SWEET_POTATOES)) || !(item instanceof RawSweetPotatoBlockItem))
             return originRaw;
@@ -254,7 +249,8 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         List<StatusEffectInstance> enchantments = calcEnchantments();
         enchantments.forEach(statusEffectInstance -> listTag.add(statusEffectInstance.toTag(new CompoundTag())));
         int length = enchantments.size();
-        short randomIndex = (short) (this.world.random.nextDouble() * length);
+        //short randomIndex = (short) (this.world.random.nextDouble() * length);
+        short randomIndex = (short) (length == 0 ? -1 : random.nextInt(length));
         tag.put("statusEffects", listTag);
         tag.putShort("displayIndex", randomIndex);
         ItemStack outputStack = new ItemStack(sweetPotato.asType().getEnchanted(), originRaw.getCount());
@@ -272,7 +268,14 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         return new MagicCubeScreenHandler(syncId, playerInventory, world, pos, this, propertyDelegate); // INDEED TODO
     }
 
-    private boolean outputIsClear() {
+    private boolean anyOutputIsClear() {
+        for (int i = 0; i < 3; ++i) {
+            if ((!(this.getStack(i + 3).isEmpty())) && (!(this.getStack(i).isEmpty()))) return false;
+        } return true;
+    }
+
+    @Deprecated
+    boolean outputIsClear() {
         for (int i = 3; i < 6; ++i) {
             if (!(this.getStack(i).isEmpty())) return false;
         } return true;
@@ -312,7 +315,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
 
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-        return (slot == 6 || slot == 7) && dir == Direction.DOWN;
+        return slot > 2 && slot < 6 && dir == Direction.DOWN;
     }
 
     @Override
@@ -321,14 +324,15 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     }
 
     @Override
-    public boolean isValid(int slot, ItemStack stack) {
-        Item item = stack.getItem();
+    public boolean isValid(int slot, ItemStack fromHopperStack) {
+        Item item = fromHopperStack.getItem();
+        ItemStack toSlotStack = this.getStack(slot);
         if (slot == 6)
             return item == SPMMain.PEEL;
         if (slot == 7)
             return item == SPMMain.POTATO_POWDER;
         if ((slot >= 3 && slot <= 5) || slot > 7 || slot < 0) return false;
-        return item.isIn(SPMMain.RAW_SWEET_POTATOES);
+        return item.isIn(SPMMain.RAW_SWEET_POTATOES) && toSlotStack.isEmpty();
     }
 
     @Override

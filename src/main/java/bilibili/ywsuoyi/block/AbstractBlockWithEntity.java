@@ -77,6 +77,7 @@ public abstract class AbstractBlockWithEntity extends BlockWithEntity {
                 world.updateComparators(pos, this);
             }
         }
+        super.onStateReplaced(state, world, pos, newState, moved);
     }
 
     @Override
