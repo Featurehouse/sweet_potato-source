@@ -52,6 +52,8 @@ public class SeedUpdaterBlock extends CraftingTableBlock {
     //    return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
     //}
 
+
+
     @Override
     public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
         return new SimpleNamedScreenHandlerFactory((syncId, inv, player) -> new SeedUpdaterScreenHandler(
@@ -59,7 +61,7 @@ public class SeedUpdaterBlock extends CraftingTableBlock {
         ), SCREEN_TITLE);
     }
 
-   @Override
+    @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hitResult) {
         if (world.isClient)
             return ActionResult.SUCCESS;
@@ -67,6 +69,4 @@ public class SeedUpdaterBlock extends CraftingTableBlock {
         player.incrementStat(SPMMain.INTERACT_WITH_AGRO);
         return ActionResult.CONSUME;
     }
-
-
 }

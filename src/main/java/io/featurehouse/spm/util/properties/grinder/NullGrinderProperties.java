@@ -2,8 +2,6 @@ package io.featurehouse.spm.util.properties.grinder;
 
 import io.featurehouse.annotation.Unused_InsteadOf;
 
-import org.jetbrains.annotations.NotNull;
-
 public class NullGrinderProperties implements IntGrinderProperties {
     public NullGrinderProperties() {}
 
@@ -52,7 +50,7 @@ public class NullGrinderProperties implements IntGrinderProperties {
 
         @Unused_InsteadOf
         @Deprecated
-        GrinderProperties(@NotNull int... values) {
+        GrinderProperties(int... values) {
             this(values[0], values[1], (values[2] / 10.0D));
             if (values.length != 3) {
                 throw new UnsupportedOperationException("Values shall be three");

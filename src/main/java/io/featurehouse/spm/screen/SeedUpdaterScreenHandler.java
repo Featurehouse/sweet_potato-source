@@ -39,7 +39,7 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
         return canUse(this.context, player, SPMMain.SEED_UPDATER);
     }
 
-    //@Override
+    @Override
     public void updateResult() {
         List<SeedUpdatingRecipe> list1 = this.world.getRecipeManager().getAllMatches(
                 SPMMain.SEED_UPDATING_RECIPE_TYPE, this.input, this.world
@@ -49,7 +49,7 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
         else {
             this.recipe = list1.get(0);
             ItemStack itemStack = this.recipe.craft(this.input);
-            this.output.setLastRecipe(this.recipe);
+            this.output.setLastRecipe(recipe);
             this.output.setStack(0, itemStack);
         }
     }
@@ -59,11 +59,13 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
         return this.recipe != null && this.recipe.matches(this.input, this.world);
     }
 
-    //@Override
-    protected ItemStack onTakeOutput(PlayerEntity player, ItemStack stack) {
+    @Override
+    protected ItemStack onTakeOutput(PlayerEntity player, @NotNull ItemStack stack) {
+        //stack.onCraft(player.world, player, stack.getCount());
         this.output.unlockLastRecipe(player);
         this.putStack(0);
         this.putStack(1);
+        //output.markDirty();
         this.context.run((world1, blockPos) -> {
             world1.syncWorldEvent(1044, blockPos, 8844110);
         });
@@ -80,6 +82,7 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
 
     @Override
     protected boolean method_30025(ItemStack itemStack) {
+        // shouldQuickMoveToAdditionalSlot
         return this.list.stream().anyMatch(seedUpdatingRecipe -> seedUpdatingRecipe.method_30029(itemStack));
     }
 

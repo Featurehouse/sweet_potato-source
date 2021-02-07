@@ -84,13 +84,15 @@ public interface RegistryHelper {
     }
 
     @FabricApiRegistry
+    static <H extends ScreenHandler> ScreenHandlerType<H> extendedScreenHandler(String id, ScreenHandlerRegistry.ExtendedClientHandlerFactory<H> factory) {
+        Identifier id2 = id(id);
+        return ScreenHandlerRegistry.registerExtended(id2, factory);
+    }
+
+    @FabricApiRegistry
     static Tag<Item> itemTag(String id) {
         Identifier id2 = id(id);
         return TagRegistry.item(id2);
-    }
-
-    static Identifier stat(String id) {
-        return stat(id, StatFormatter.DEFAULT);
     }
 
     static Identifier stat(String id, StatFormatter statFormatter) {
@@ -99,4 +101,6 @@ public interface RegistryHelper {
         Stats.CUSTOM.getOrCreateStat(id2, statFormatter);
         return id2;
     }
+
+    static Identifier stat(String id) { return stat(id, StatFormatter.DEFAULT); }
 }
