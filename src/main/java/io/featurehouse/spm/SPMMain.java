@@ -1,6 +1,5 @@
 package io.featurehouse.spm;
 
-import io.featurehouse.annotation.FromXmas2020;
 import io.featurehouse.spm.blocks.GrinderBlock;
 import io.featurehouse.spm.blocks.MagicCubeBlock;
 import io.featurehouse.spm.blocks.SeedUpdaterBlock;
@@ -69,7 +68,7 @@ public class SPMMain implements ModInitializer {
 
 		// Misc
 	public static final Item POTATO_POWDER;
-	@FromXmas2020("protected indeed, instead of public")
+	/** From Xmas 2020. Protected indeed, instead of public. */
 	protected static final Item XMAS_TREATING_BOWL;
 
 	// Blocks
