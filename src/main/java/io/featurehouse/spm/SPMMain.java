@@ -9,6 +9,10 @@ import io.featurehouse.spm.blocks.entities.MagicCubeBlockEntity;
 import io.featurehouse.spm.blocks.saplings_seeds.*;
 import io.featurehouse.spm.items.*;
 import io.featurehouse.spm.linkage.SPMLinkage;
+import io.featurehouse.spm.loot.LootTables;
+import io.featurehouse.spm.mixin.global.ChickenEntityAccessor;
+import io.featurehouse.spm.mixin.global.ParrotEntityAccessor;
+import io.featurehouse.spm.mixin.global.PigEntityAccessor;
 import io.featurehouse.spm.recipe.SeedUpdatingRecipe;
 import io.featurehouse.spm.screen.GrinderScreenHandler;
 import io.featurehouse.spm.screen.MagicCubeScreenHandler;
@@ -23,9 +27,6 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.passive.ChickenEntity;
-import net.minecraft.entity.passive.ParrotEntity;
-import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -36,6 +37,8 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
+
+import java.util.Set;
 
 import static io.featurehouse.spm.util.properties.objects.BlockSettings.*;
 import static io.featurehouse.spm.util.registries.RegistryHelper.*;
@@ -183,12 +186,14 @@ public class SPMMain implements ModInitializer {
 		FabricLoader.getInstance().getEntrypoints("sweet_potato", SPMLinkage.class).forEach(SPMLinkage::init);
 		ComposterHelper.register();
 
+		LootTables.init();
+
 		// Fuel
 		//Util.registerFurnaceFuel(null, Items.AIR, -1);
-		PigEntity.BREEDING_INGREDIENT = Ingredient.fromTag(PIG_BREEDING_INGREDIENTS);
-		ParrotEntity.TAMING_INGREDIENTS.add(ENCHANTED_WHEAT_SEEDS);
-		ParrotEntity.TAMING_INGREDIENTS.add(ENCHANTED_BEETROOT_SEEDS);
-		ChickenEntity.BREEDING_INGREDIENT = Ingredient.fromTag(CHICKEN_BREEDING_INGREDIENTS);
+		PigEntityAccessor.setBreedingIngredient(Ingredient.fromTag(PIG_BREEDING_INGREDIENTS));
+		ChickenEntityAccessor.setBreedingIngredient(Ingredient.fromTag(CHICKEN_BREEDING_INGREDIENTS));
+		Set<Item> parrotTamingIngredients = ParrotEntityAccessor.getTamingIngredients();
+		parrotTamingIngredients.add(ENCHANTED_BEETROOT_SEEDS); parrotTamingIngredients.add(ENCHANTED_WHEAT_SEEDS);
 	}
 
 	static {
