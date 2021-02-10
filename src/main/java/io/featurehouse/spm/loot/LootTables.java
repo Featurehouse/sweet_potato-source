@@ -10,22 +10,18 @@ import net.minecraft.util.Identifier;
 import static io.featurehouse.spm.SPMMain.MODID;
 
 public class LootTables {
-    public static final Identifier
-        ENTITIES_HUSK, ENTITIES_ZOMBIE, ENTITIES_ZOMBIE_VILLAGER,
-        RAW_SWEET_POTATOES, MORE_RAW_SWEET_POTATOES;
+    static final Identifier RAW_SWEET_POTATOES, MORE_RAW_SWEET_POTATOES;
 
     public static void init() {
         LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, identifier, fabricLootSupplierBuilder, lootTableSetter) -> {
-            if (identifier.getPath().matches("^(entities/((husk)|(zombie(_villager)?)))$") && isVanilla(identifier)) {
+            if (!isVanilla(identifier)) return;
+            String idPath = identifier.getPath();
+            if (idPath.matches("^(entities/((husk)|(zombie(_villager)?)))$")) {
                 LootSupplierBuilderHooks builderHooks = (LootSupplierBuilderHooks) fabricLootSupplierBuilder;
                 LootPool newPool1 = FabricLootPoolBuilder.of(builderHooks.getPools().get(1))
                         .withEntry(LootTableEntry.builder(RAW_SWEET_POTATOES).build()).build();
                 builderHooks.getPools().set(1, newPool1);
-            }
-        });
-        LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, identifier, fabricLootSupplierBuilder, lootTableSetter) -> {
-            String idPath;
-            if ((idPath = identifier.getPath()).matches("^(chests/village/village_\\w+_house)$") && isVanilla(identifier)) {
+            } else if (idPath.matches("^(chests/village/village_\\w+_house)$")) {
                 LootSupplierBuilderHooks builderHooks = (LootSupplierBuilderHooks) fabricLootSupplierBuilder;
                 switch (idPath.substring(23, idPath.length() - 6)) {
                     case "plains":
@@ -35,15 +31,31 @@ public class LootTables {
                     case "taiga":
                         VillagerLootTables.taiga(builderHooks);
                 }
+            } else if (idPath.startsWith("chests/")) {
+                String suf = idPath.substring(7);
+                if (suf.matches("^(underwater_ruin_((big)|(small)))$")) {
+                    LootSupplierBuilderHooks builderHooks = (LootSupplierBuilderHooks) fabricLootSupplierBuilder;
+                    if (suf.substring(16).equals("big"))
+                        UnderwaterRuinLootTables.big(builderHooks);
+                    else
+                        UnderwaterRuinLootTables.small(builderHooks);
+                } else if (suf.matches("^(stronghold_c((orridor)|(rossing)))")) {
+                    LootSupplierBuilderHooks builderHooks = (LootSupplierBuilderHooks) fabricLootSupplierBuilder;
+                    if (suf.substring(12).equals("orridor"))
+                        StrongholdLootTables.corridor(builderHooks);
+                    else
+                        StrongholdLootTables.crossing(builderHooks);
+                } else if (suf.equals("shipwreck_supply"))
+                    MiscLootTables.shipwreckSupply((LootSupplierBuilderHooks) fabricLootSupplierBuilder);
+                else if (suf.equals("pillager_outpost"))
+                    MiscLootTables.pillagerOutpost((LootSupplierBuilderHooks) fabricLootSupplierBuilder);
+                else if (suf.equals("woodland_mansion"))
+                    MiscLootTables.woodlandMansion((LootSupplierBuilderHooks) fabricLootSupplierBuilder);
             }
         });
     }
 
     static {
-        ENTITIES_HUSK = new Identifier("entities/husk");
-        ENTITIES_ZOMBIE = new Identifier("entities/zombie");
-        ENTITIES_ZOMBIE_VILLAGER = new Identifier("entities/zombie_villager");
-
         RAW_SWEET_POTATOES = new Identifier(MODID, "misc/raw_sweet_potatoes");
         MORE_RAW_SWEET_POTATOES = new Identifier(MODID, "misc/more_raw_sweet_potatoes");
     }

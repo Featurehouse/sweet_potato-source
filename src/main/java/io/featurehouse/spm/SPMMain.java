@@ -159,6 +159,7 @@ public class SPMMain implements ModInitializer {
 	// Item Tags
 	public static final Tag<Item> RAW_SWEET_POTATOES;
 	public static final Tag<Item> ENCHANTED_SWEET_POTATOES;
+	public static final Tag<Item> ALL_SWEET_POTATOES;
 		// About Pigs & Parrots
 	public static final Tag<Item> PIG_BREEDING_INGREDIENTS;
 	public static final Tag<Item> CHICKEN_BREEDING_INGREDIENTS;
@@ -198,7 +199,7 @@ public class SPMMain implements ModInitializer {
 
 	static {
 		// Item
-		PEEL = defaultItem("peel", new FabricItemSettings().group(ItemGroup.MISC));
+		PEEL = defaultItem("peel", ItemSettings.MISC);
 		BAKED_PURPLE_POTATO = item("baked_purple_potato", new BakedSweetPotatoItem(ItemSettings.GROUP_FOOD, SweetPotatoType.PURPLE));
 		BAKED_RED_POTATO = item("baked_red_potato", new BakedSweetPotatoItem(ItemSettings.GROUP_FOOD, SweetPotatoType.RED));
 		BAKED_WHITE_POTATO = item("baked_white_potato", new BakedSweetPotatoItem(ItemSettings.GROUP_FOOD, SweetPotatoType.WHITE));
@@ -291,6 +292,7 @@ public class SPMMain implements ModInitializer {
 		// Item Tags
 		RAW_SWEET_POTATOES = itemTag("raw_sweet_potatoes");
 		ENCHANTED_SWEET_POTATOES = itemTag("enchanted_sweet_potatoes");
+		ALL_SWEET_POTATOES = itemTag("sweet_potatoes");
 			// About pig food, parrot food and chicken food
 		PIG_BREEDING_INGREDIENTS = itemTag("pig_breeding_ingredients");
 		CHICKEN_BREEDING_INGREDIENTS = itemTag("chicken_breeding_ingredients");

@@ -3,7 +3,9 @@
   "minVersion": "0.8",
   "package": "io.featurehouse.spm.mixin",
   "mixins": [
+    "global.AdvancementTaskAccessor",
     "global.ChickenEntityAccessor",
+    "global.MixinAdvancementTask",
     "global.ParrotEntityAccessor",
     "global.PigEntityAccessor"
   ],
