@@ -10,7 +10,7 @@
   ],
   "contributors": [
     "teddyxlandlee",
-    "一颗水晶Rayawa",
+    "\u4e00\u9897\u6c34\u6676Rayawa",
     "Peterice"
   ],
   "contact": {
@@ -29,6 +29,12 @@
     ],
     "client": [
       "io.featurehouse.spm.client.SPMClient"
+    ],
+    "shurlin": [
+      "xyz.shurlin.linkage.sweet_potato.ShurlinSPMLinkage"
+    ],
+    "shurlin.client": [
+      "xyz.shurlin.linkage.sweet_potato.client.ShurlinSPMLinkageClient"
     ]
   },
   "mixins": [
@@ -41,7 +47,7 @@
     "minecraft": ">=1.16.2 <1.17"
   },
   "suggests": {
-    "shurlin": "*"
+    "shurlin": ">=0.1.3"
   },
   "custom": {
     "Pigeonia Linkage Standard": {
