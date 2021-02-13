@@ -24,12 +24,12 @@ public class MixinWorldEvent {
     @Shadow @Final private MinecraftClient client;
 
     @Inject(at = @At("HEAD"), method = "processWorldEvent", cancellable = true)
-    private void agro1044(PlayerEntity source, int eventId, BlockPos blockPos, int data, CallbackInfo ci) {
+    private void spmSounds(PlayerEntity source, int eventId, BlockPos blockPos, int data, CallbackInfo ci) {
         if (eventId == 1044 && data == 8844110) {
             world.playSound(blockPos, SPMMain.AGROFORESTRY_TABLE_FINISH, SoundCategory.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.1F + 0.9F, false);
             ci.cancel();
         } else if (eventId == 1132119 && data == 805) {
-            client.getSoundManager().play(new GrindingSoundInstance(1.0F, 1.0F, world, blockPos, client.player));
+            client.getSoundManager().play(new GrindingSoundInstance(1.0F, world, blockPos, client.player));
             ci.cancel();
         }
     }
