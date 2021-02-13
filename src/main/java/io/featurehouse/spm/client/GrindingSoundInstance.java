@@ -20,8 +20,8 @@ public class GrindingSoundInstance extends PositionedSoundInstance implements Ti
     public BlockPos pos;
     protected boolean done = false;
 
-    public GrindingSoundInstance(float volume, float pitch, ClientWorld world, BlockPos pos, ClientPlayerEntity player) {
-        super(SPMMain.GRINDER_GRIND, SoundCategory.BLOCKS, volume, pitch, pos);
+    public GrindingSoundInstance(float pitch, ClientWorld world, BlockPos pos, ClientPlayerEntity player) {
+        super(SPMMain.GRINDER_GRIND, SoundCategory.BLOCKS, 1.0F, pitch, pos);
         this.repeat = true;
         this.pos = pos;
         this.world = world;
