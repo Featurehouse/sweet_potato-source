@@ -1,6 +1,5 @@
 package io.featurehouse.spm;
 
-import io.featurehouse.annotation.FromXmas2020;
 import io.featurehouse.spm.blocks.GrinderBlock;
 import io.featurehouse.spm.blocks.MagicCubeBlock;
 import io.featurehouse.spm.blocks.SeedUpdaterBlock;
@@ -10,6 +9,10 @@ import io.featurehouse.spm.blocks.entities.MagicCubeBlockEntity;
 import io.featurehouse.spm.blocks.saplings_seeds.*;
 import io.featurehouse.spm.items.*;
 import io.featurehouse.spm.linkage.SPMLinkage;
+import io.featurehouse.spm.loot.LootTables;
+import io.featurehouse.spm.mixin.global.ChickenEntityAccessor;
+import io.featurehouse.spm.mixin.global.ParrotEntityAccessor;
+import io.featurehouse.spm.mixin.global.PigEntityAccessor;
 import io.featurehouse.spm.recipe.SeedUpdatingRecipe;
 import io.featurehouse.spm.screen.GrinderScreenHandler;
 import io.featurehouse.spm.screen.MagicCubeScreenHandler;
@@ -20,7 +23,6 @@ import io.featurehouse.spm.util.properties.objects.ItemSettings;
 import io.featurehouse.spm.util.properties.objects.Materials;
 import io.featurehouse.spm.util.registries.ComposterHelper;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
@@ -29,7 +31,6 @@ import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -38,11 +39,13 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 
+import java.util.Set;
+
 import static io.featurehouse.spm.util.properties.objects.BlockSettings.*;
 import static io.featurehouse.spm.util.registries.RegistryHelper.*;
 
 public class SPMMain implements ModInitializer {
-	public static SPMMain INSTANCE;
+    public static SPMMain INSTANCE;
 	public SPMMain() {
 		INSTANCE = this;
 	}
@@ -69,7 +72,7 @@ public class SPMMain implements ModInitializer {
 
 		// Misc
 	public static final Item POTATO_POWDER;
-	@FromXmas2020("protected indeed, instead of public")
+	/** From Xmas 2020. Protected indeed, instead of public. */
 	protected static final Item XMAS_TREATING_BOWL;
 
 	// Blocks
@@ -157,6 +160,7 @@ public class SPMMain implements ModInitializer {
 	// Item Tags
 	public static final Tag<Item> RAW_SWEET_POTATOES;
 	public static final Tag<Item> ENCHANTED_SWEET_POTATOES;
+	public static final Tag<Item> ALL_SWEET_POTATOES;
 		// About Pigs & Parrots
 	public static final Tag<Item> PIG_BREEDING_INGREDIENTS;
 	public static final Tag<Item> CHICKEN_BREEDING_INGREDIENTS;
@@ -184,17 +188,19 @@ public class SPMMain implements ModInitializer {
 		FabricLoader.getInstance().getEntrypoints("sweet_potato", SPMLinkage.class).forEach(SPMLinkage::init);
 		ComposterHelper.register();
 
+		LootTables.init();
+
 		// Fuel
 		//Util.registerFurnaceFuel(null, Items.AIR, -1);
-		PigEntity.BREEDING_INGREDIENT = Ingredient.fromTag(PIG_BREEDING_INGREDIENTS);
-		ParrotEntity.TAMING_INGREDIENTS.add(ENCHANTED_WHEAT_SEEDS);
-		ParrotEntity.TAMING_INGREDIENTS.add(ENCHANTED_BEETROOT_SEEDS);
-		ChickenEntity.BREEDING_INGREDIENT = Ingredient.fromTag(CHICKEN_BREEDING_INGREDIENTS);
+		PigEntityAccessor.setBreedingIngredient(Ingredient.fromTag(PIG_BREEDING_INGREDIENTS));
+		ChickenEntityAccessor.setBreedingIngredient(Ingredient.fromTag(CHICKEN_BREEDING_INGREDIENTS));
+		Set<Item> parrotTamingIngredients = ParrotEntityAccessor.getTamingIngredients();
+		parrotTamingIngredients.add(ENCHANTED_BEETROOT_SEEDS); parrotTamingIngredients.add(ENCHANTED_WHEAT_SEEDS);
 	}
 
 	static {
 		// Item
-		PEEL = defaultItem("peel", new FabricItemSettings().group(ItemGroup.MISC));
+		PEEL = defaultItem("peel", ItemSettings.MISC);
 		BAKED_PURPLE_POTATO = item("baked_purple_potato", new BakedSweetPotatoItem(ItemSettings.GROUP_FOOD, SweetPotatoType.PURPLE));
 		BAKED_RED_POTATO = item("baked_red_potato", new BakedSweetPotatoItem(ItemSettings.GROUP_FOOD, SweetPotatoType.RED));
 		BAKED_WHITE_POTATO = item("baked_white_potato", new BakedSweetPotatoItem(ItemSettings.GROUP_FOOD, SweetPotatoType.WHITE));
@@ -287,6 +293,7 @@ public class SPMMain implements ModInitializer {
 		// Item Tags
 		RAW_SWEET_POTATOES = itemTag("raw_sweet_potatoes");
 		ENCHANTED_SWEET_POTATOES = itemTag("enchanted_sweet_potatoes");
+		ALL_SWEET_POTATOES = itemTag("sweet_potatoes");
 			// About pig food, parrot food and chicken food
 		PIG_BREEDING_INGREDIENTS = itemTag("pig_breeding_ingredients");
 		CHICKEN_BREEDING_INGREDIENTS = itemTag("chicken_breeding_ingredients");

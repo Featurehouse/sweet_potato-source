@@ -2,31 +2,26 @@ package io.featurehouse.spm.util;
 
 import net.minecraft.nbt.*;
 
-public class NbtUtils {
-    public static final int BYTE_TAG     = 1;
-    public static final int SHORT_TAG    = 2;
-    public static final int INT_TAG      = 3;
-    public static final int STRING_TAG   = 8;
-    public static final int LIST_TAG     = 9;
-    public static final int COMPOUND_TAG = 10;
+import static net.fabricmc.fabric.api.util.NbtType.*;
 
+public class NbtUtils {
     public static boolean notShortTag(Tag tag) {
-        return tag == null || tag.getType() != SHORT_TAG || !(tag instanceof ShortTag);
+        return tag == null || tag.getType() != SHORT || !(tag instanceof ShortTag);
     }
 
     public static boolean notListTag(Tag tag) {
-        return tag == null || tag.getType() != LIST_TAG || !(tag instanceof ListTag);
+        return tag == null || tag.getType() != LIST || !(tag instanceof ListTag);
     }
 
     public static boolean notCompoundTag(Tag tag) {
-        return tag == null || tag.getType() != COMPOUND_TAG || !(tag instanceof CompoundTag);
+        return tag == null || tag.getType() != COMPOUND || !(tag instanceof CompoundTag);
     }
 
     public static boolean notStringTag(Tag tag) {
-        return tag == null || tag.getType() != STRING_TAG || !(tag instanceof StringTag);
+        return tag == null || tag.getType() != STRING || !(tag instanceof StringTag);
     }
 
     public static boolean notIntTag(Tag tag) {
-        return tag == null || tag.getType() != INT_TAG || !(tag instanceof IntTag);
+        return tag == null || tag.getType() != INT || !(tag instanceof IntTag);
     }
 }

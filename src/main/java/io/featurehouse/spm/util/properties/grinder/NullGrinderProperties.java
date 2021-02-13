@@ -1,42 +1,43 @@
 package io.featurehouse.spm.util.properties.grinder;
 
-import io.featurehouse.annotation.Unused_InsteadOf;
-
 public class NullGrinderProperties implements IntGrinderProperties {
     public NullGrinderProperties() {}
 
-    GrinderProperties properties = new GrinderProperties(0, 0, 0.0D);
+    int grindTime;
+    int grindTimeTotal;
+    double ingredientData;
 
     @Override
     public int getGrindTime() {
-        return properties.grindTime;
+        return this.grindTime;
     }
 
     @Override
     public int getGrindTimeTotal() {
-        return properties.grindTimeTotal;
+        return this.grindTimeTotal;
     }
 
     @Override
     public double getIngredientData() {
-        return properties.ingredientData;
+        return this.ingredientData;
     }
 
     @Override
     public void setGrindTime(int grindTime) {
-        properties.grindTime = grindTime;
+        this.grindTime = grindTime;
     }
 
     @Override
     public void setGrindTimeTotal(int grindTimeTotal) {
-        properties.grindTimeTotal = grindTimeTotal;
+        this.grindTimeTotal = grindTimeTotal;
     }
 
     @Override
     public void setIngredientData(double ingredientData) {
-        properties.ingredientData = ingredientData;
+        this.ingredientData = ingredientData;
     }
 
+    @Deprecated
     static class GrinderProperties {
         int grindTime;
         int grindTimeTotal;
@@ -48,7 +49,6 @@ public class NullGrinderProperties implements IntGrinderProperties {
             this.ingredientData = ingredientData;
         }
 
-        @Unused_InsteadOf
         @Deprecated
         GrinderProperties(int... values) {
             this(values[0], values[1], (values[2] / 10.0D));
