@@ -4,12 +4,10 @@
         <Copies fromMinecraft="1.16.4">
             <interface name="io.featurehouse.spm.util.tick.ITickable" source="net.minecraft.util.Tickable" />
         </Copies>
-        <Extraction>
-            <abstract-class name="bilibili.ywsuoyi.block.AbstractBlockWithEntity" super="net.minecraft.block.BlockWithEntity" />
-        </Extraction>
         <Addition>
         </Addition>
         <Edition>
+            <class name="bilibili.ywsuoyi.block.AbstractBlockWithEntity" super="net.minecraft.block.BlockWithEntity" />
             <class name="io.featurehouse.spm.blocks.GrinderBlock" />
             <class name="io.featurehouse.spm.blocks.MagicCubeBlock" />
             <class name="io.featurehouse.spm.blocks.entities.GrinderBlockEntity" />
@@ -21,7 +19,7 @@
             <class name="io.featurehouse.spm.util.inventory.PeelInserter" />
         </Edition>
     </MinecraftApi>
-    <Mappings old="1.16.4" new="1.17-Snapshot.21.03.a">
+    <Mappings old="1.16.4" new="1.17-Snapshot.21.6.a">
         <field class="net.minecraft.block.Material" old="SUPPORTED" new="DECORATION">
             <Usage>
                 <class name="io.featurehouse.spm.util.properties.objects.BlockSettings" />
@@ -32,6 +30,16 @@
             <field old="FOLIAGE" new="DARK_GREEN" />
             <Usage>
                 <class name="io.featurehouse.spm.util.properties.objects.Materials" />
+            </Usage>
+        </class>
+        <class old="net.minecraft.loot.LootTableRange" new="net.minecraft.loot.provider.number.LootNumberProvider">
+            <Usage>
+                <class name="io.featurehouse.spm.loot.VillagerLootTables" />
+            </Usage>
+        </class>
+        <class old="net.minecraft.loot.UniformLootTableRange" new="net.minecraft.loot.provider.number.UniformLootNumberProvider">
+            <Usage>
+                <class name="io.featurehouse.spm.loot.VillagerLootTables" />
             </Usage>
         </class>
     </Mappings>
