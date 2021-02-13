@@ -32,7 +32,7 @@ public class GrindingSoundInstance extends PositionedSoundInstance implements Ti
     public boolean canPlay() {
         BlockState state = world.getBlockState(pos);
         return state.getBlock() instanceof GrinderBlock // important
-                && world.getBlockState(pos).get(GrinderBlock.GRINDING);
+                && state.get(GrinderBlock.GRINDING);
     }
 
     @Override
