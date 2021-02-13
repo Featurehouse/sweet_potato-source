@@ -5,12 +5,7 @@
 
 package io.featurehouse.spm.blocks.saplings_seeds;
 
-import io.featurehouse.annotation.CopiedFrom;
-import io.featurehouse.annotation.ReallyOverride;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager.Builder;
@@ -27,7 +22,14 @@ import net.minecraft.world.WorldView;
 
 import java.util.Random;
 
-@CopiedFrom(net.minecraft.block.SugarCaneBlock.class)
+/**
+ * Because of the difficulty of extending {@link SugarCaneBlock},
+ * we copied most of the codes from the class, and make
+ * {@code EnchantedSugarCaneBlock} extend {@link Block}.
+ *
+ * @see SugarCaneBlock
+ * @see #setDefaultState(BlockState)
+ */
 public class EnchantedSugarCaneBlock extends Block {
     public static final IntProperty AGE;
     protected static final VoxelShape SHAPE;
@@ -48,7 +50,6 @@ public class EnchantedSugarCaneBlock extends Block {
 
     }
 
-    @ReallyOverride(as = "Lio/github/teddyxlandlee/spm/blocks/saplings_seeds/DeprecatedEnchantedSugarCaneBlock;randomTick(Lnet/minecraft/block/BlockState;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random)V")
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (world.isAir(pos.up())) {
             int i;

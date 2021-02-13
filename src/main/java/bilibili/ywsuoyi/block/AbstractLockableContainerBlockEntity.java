@@ -5,7 +5,6 @@
 
 package bilibili.ywsuoyi.block;
 
-import io.featurehouse.annotation.DeprecatedFrom;
 import io.featurehouse.spm.util.tick.ITickable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
@@ -55,12 +54,12 @@ public abstract class AbstractLockableContainerBlockEntity extends LockableConta
         }
     }
 
-    @Deprecated @DeprecatedFrom(LootableContainerBlockEntity.class)
+    /** @deprecated from {@link LootableContainerBlockEntity} */ @Deprecated
     public DefaultedList<ItemStack> getInvStackList() {
         return this.inventory;
     }
 
-    @Deprecated @DeprecatedFrom(LootableContainerBlockEntity.class)
+    /** @deprecated from {@link LootableContainerBlockEntity} */ @Deprecated
     public void setInvStackList(DefaultedList<ItemStack> list) {
         this.inventory = list;
     }

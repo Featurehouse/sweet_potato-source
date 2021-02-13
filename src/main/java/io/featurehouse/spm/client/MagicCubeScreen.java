@@ -26,7 +26,6 @@ public class MagicCubeScreen extends HandledScreen<MagicCubeScreenHandler> {
     @Override
     @OperationBeforeDeveloping
     protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-        //TODO
         assert this.client != null;
         this.client.getTextureManager().bindTexture(BG);
         this.drawTexture(matrices, this.x, this.y, 0, 0, backgroundWidth, backgroundHeight);

@@ -2,14 +2,13 @@ package io.featurehouse.spm.blocks.entities;
 
 import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
 import io.featurehouse.annotation.HardCoded;
-import io.featurehouse.annotation.NeedToConfirm;
 import io.featurehouse.annotation.NonMinecraftNorFabric;
 import io.featurehouse.spm.SPMMain;
 import io.featurehouse.spm.blocks.GrinderBlock;
 import io.featurehouse.spm.screen.GrinderScreenHandler;
-import io.featurehouse.spm.util.properties.state.BooleanStateManager;
 import io.featurehouse.spm.util.Util;
 import io.featurehouse.spm.util.properties.grinder.IntGrinderProperties;
+import io.featurehouse.spm.util.properties.state.BooleanStateManager;
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -27,7 +26,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -181,7 +179,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         super.setStack(slot, stack);
     }
 
-    @NeedToConfirm
     @Override
     public void tick(@NotNull World world, BlockPos pos, BlockState state) {
         boolean shallMarkDirty = false;
@@ -319,13 +316,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     protected int getGrindTime() {
         return 200;
     }
-
-    /*
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
-        GrinderProperties grinderProperties = new GrinderProperties(this.grindTime, this.grindTimeTotal, this.ingredientData);
-        grinderProperties.fillPacketByteBuf(packetByteBuf);
-    }*/
 
     /**
      * @deprecated method's super interface is {@code ExtendedScreenHandlerFactory}, while the
