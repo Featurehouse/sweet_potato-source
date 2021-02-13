@@ -1,15 +1,16 @@
 {
   "schemaVersion": 1,
   "id": "sweet_potato",
-  "name": "Sweet Potato Mod",
   "version": "1.2.0",
+
+  "name": "Sweet Potato Mod",
   "description": "Try new kinds of food, crops & magic in Sweet Potato Mod!",
   "authors": [
     "Pigeonia Featurehouse"
   ],
   "contributors": [
     "teddyxlandlee",
-    "一颗水晶Rayawa",
+    "\u4e00\u9897\u6c34\u6676Rayawa",
     "Peterice"
   ],
   "contact": {
@@ -17,8 +18,10 @@
     "sources": "https://github.com/Featurehouse/sweet_potato-source",
     "issues": "https://github.com/Featurehouse/sweet_potato-issueTracker/issues"
   },
+
   "license": "Apache-2.0",
   "icon": "assets/sweet_potato/icon.png",
+
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -31,6 +34,7 @@
   "mixins": [
     "sweet_potato.mixins.json"
   ],
+
   "depends": {
     "fabricloader": ">=0.9.0",
     "fabric": "*",
