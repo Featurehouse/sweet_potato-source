@@ -65,5 +65,13 @@
   "stat.sweet_potato.crop_upgraded": "升级作物次数",
   "stat.sweet_potato.sweet_potato_eaten": "吃掉的地瓜数",
 
-  "tooltip.sweet_potato.enchanted_sweet_potato.effects": "效果： "
+  "tooltip.sweet_potato.enchanted_sweet_potato.effects": "效果： ",
+
+  "block.sweet_potato.enchanted_phoenix_sapling": "附魔梧桐树苗",
+  "block.sweet_potato.enchanted_phoenix_leaves": "附魔梧桐树叶",
+  "block.sweet_potato.potted_enchanted_phoenix_sapling": "附魔梧桐树苗盆栽",
+  "block.sweet_potato.enchanted_pear_sapling": "附魔梨树苗",
+  "block.sweet_potato.enchanted_pear_leaves": "附魔梨树叶",
+  "block.sweet_potato.enchanted_pear_ripe_leaves": "结梨子的附魔梨树叶",
+  "block.sweet_potato.potted_enchanted_pear_sapling": "梨树苗盆栽"
 }
