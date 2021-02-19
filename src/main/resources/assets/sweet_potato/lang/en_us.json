@@ -65,5 +65,13 @@
   "stat.sweet_potato.crop_upgraded": "Crops upgraded",
   "stat.sweet_potato.sweet_potato_eaten": "Sweet Potatoes eaten",
 
-  "tooltip.sweet_potato.enchanted_sweet_potato.effects": "Effects: "
+  "tooltip.sweet_potato.enchanted_sweet_potato.effects": "Effects: ",
+
+  "block.sweet_potato.enchanted_phoenix_sapling": "Enchanted Phoenix Sapling",
+  "block.sweet_potato.enchanted_phoenix_leaves": "Enchanted Phoenix Leaves",
+  "block.sweet_potato.potted_enchanted_phoenix_sapling": "Potted Enchanted Phoenix Sapling",
+  "block.sweet_potato.enchanted_pear_sapling": "Enchanted Pear Sapling",
+  "block.sweet_potato.enchanted_pear_leaves": "Enchanted Pear Leaves",
+  "block.sweet_potato.enchanted_pear_ripe_leaves": "Enchanted Pear Ripe Leaves",
+  "block.sweet_potato.potted_enchanted_pear_sapling": "Potted Enchanted Pear Sapling"
 }
