@@ -42,5 +42,16 @@
                 <class name="io.featurehouse.spm.loot.VillagerLootTables" />
             </Usage>
         </class>
+        <method class="*" old="fromTag" new="readNbt">
+            <Usage ref="*" />
+        </method>
+        <method class="*" old="toTag" new="writeNbt">
+            <Usage ref="*" />
+        </method>
+        <method class="net.minecraft.entity.effect.StatusEffectInstance" old="fromTag" new="fromNbt">
+            <Usage>
+                <class name="io.featurehouse.spm.items.EnchantedSweetPotatoItem" />
+            </Usage>
+        </method>
     </Mappings>
 </SPM-Version>

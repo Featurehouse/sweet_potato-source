@@ -113,10 +113,10 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
+    public void readNbt(CompoundTag tag) {
+        super.readNbt(tag);
         //this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        //Inventories.fromTag(tag, this.inventory);
+        //Inventories.readNbt(tag, this.inventory);
         this.grindTime = tag.getShort("GrindTime");
         this.grindTimeTotal = tag.getShort("GrindTimeTotal");
         //this.propertyDelegate.set(2 /*IngredientData*/, tag.getInt("IngredientData"));
@@ -130,11 +130,11 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     }
 
     @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        super.toTag(tag);
+    public CompoundTag writeNbt(CompoundTag tag) {
+        super.writeNbt(tag);
         tag.putShort("GrindTime", (short) grindTime);
         tag.putShort("GrindTimeTotal", (short) grindTimeTotal);
-        //Inventories.toTag(tag, this.inventory);
+        //Inventories.writeNbt(tag, this.inventory);
         tag.putDouble("IngredientData", ingredientData);
         tag.putByte("absorbCooldown", absorbCooldown);
 

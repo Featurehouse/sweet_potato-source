@@ -10,7 +10,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,7 +30,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatus {
     @Override
@@ -73,7 +71,7 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
         for (Tag oneStatusEffect: statusEffects) {
             if (NbtUtils.notCompoundTag(oneStatusEffect)) continue;
             CompoundTag compoundTag1 = (CompoundTag) oneStatusEffect;
-            StatusEffectInstance statusEffectInstance = StatusEffectInstance.fromTag(compoundTag1);
+            StatusEffectInstance statusEffectInstance = StatusEffectInstance.fromNbt(compoundTag1);
             effectInstances.add(statusEffectInstance);
         }
         return Optional.of(effectInstances);

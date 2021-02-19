@@ -245,7 +245,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         CompoundTag tag = new CompoundTag();
         ListTag listTag = new ListTag();
         List<StatusEffectInstance> enchantments = calcEnchantments();
-        enchantments.forEach(statusEffectInstance -> listTag.add(statusEffectInstance.toTag(new CompoundTag())));
+        enchantments.forEach(statusEffectInstance -> listTag.add(statusEffectInstance.writeNbt(new CompoundTag())));
         int length = enchantments.size();
         //short randomIndex = (short) (this.world.random.nextDouble() * length);
         short randomIndex = (short) (length == 0 ? -1 : random.nextInt(length));
@@ -280,15 +280,15 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
+    public void readNbt(CompoundTag tag) {
+        super.readNbt(tag);
         this.mainFuelTime = tag.getShort("EnergyTime");
         this.viceFuelTime = tag.getShort("SublimateTime");
     }
 
     @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        super.toTag(tag);
+    public CompoundTag writeNbt(CompoundTag tag) {
+        super.writeNbt(tag);
         tag.putShort("EnergyTime", this.mainFuelTime);
         tag.putShort("SublimateTime", this.viceFuelTime);
         return tag;

@@ -29,17 +29,17 @@ public abstract class AbstractLockableContainerBlockEntity extends LockableConta
         this.size = size;
     }
 
-    public CompoundTag toTag(CompoundTag tag) {
-        super.toTag(tag);
-        Inventories.toTag(tag, this.inventory);
+    public CompoundTag writeNbt(CompoundTag tag) {  // toTag
+        super.writeNbt(tag);
+        Inventories.writeNbt(tag, this.inventory);
 
         return tag;
     }
 
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
+    public void readNbt(CompoundTag tag) {          // fromTag
+        super.readNbt(tag);
         this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        Inventories.fromTag(tag, this.inventory);
+        Inventories.readNbt(tag, this.inventory);
     }
 
     public int size() {
