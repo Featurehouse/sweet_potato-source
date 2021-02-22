@@ -99,33 +99,31 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
 
-        CompoundTag root;
+        CompoundTag root = stack.getOrCreateTag();
         BaseText mainTip = new TranslatableText("tooltip.sweet_potato.enchanted_sweet_potato.effects");
-        if ((root = stack.getOrCreateTag()).isEmpty()) {
-            mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
-            return;
-        }
-        if (!root.contains("displayIndex", NbtType.SHORT)) {
-            mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
-            return;
-        }
+        tooltip.add(mainTip);
+
         short index = root.getShort("displayIndex");
+        if (index == -1 || root.isEmpty()) {
+            mainTip.append(new TranslatableText("effect.none").formatted(Formatting.ITALIC));
+            return;
+        }
+        if (!root.contains("displayIndex", NbtType.NUMBER)) {
+            mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
+            return;
+        }
+
         Optional<List<StatusEffectInstance>> statusEffectInstances = calcEffect(stack);
         if (!statusEffectInstances.isPresent()) {
             mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
             return;
         }
         List<StatusEffectInstance> sei = statusEffectInstances.get();
-        StatusEffectInstance toBeShown = (index < 0 || sei.size() <= index) ? null : sei.get(index);
+        StatusEffectInstance toBeShown = (sei.size() <= index) ? null : sei.get(index);
         if (toBeShown != null) {
             mainTip.append(new TranslatableText(toBeShown.getTranslationKey()).formatted(Formatting.ITALIC));
-            if (toBeShown.getAmplifier() != 0) {
-                mainTip.append(" ").append(new TranslatableText("enchantment.level." + (toBeShown.getAmplifier() + 1)));
-            }
+            mainTip.append(" ").append(new TranslatableText("potion.potency." + toBeShown.getAmplifier()));
             mainTip.append(new LiteralText(" ...").formatted(Formatting.ITALIC));
-        }
-        else mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
-
-        tooltip.add(mainTip);
+        } else mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
     }
 }
