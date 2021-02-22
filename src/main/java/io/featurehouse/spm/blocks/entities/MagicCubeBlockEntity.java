@@ -6,6 +6,7 @@ import io.featurehouse.spm.blocks.MagicCubeBlock;
 import io.featurehouse.spm.items.RawSweetPotatoBlockItem;
 import io.featurehouse.spm.screen.MagicCubeScreenHandler;
 import io.featurehouse.spm.util.properties.magiccube.IntMagicCubeProperties;
+import io.featurehouse.spm.util.properties.objects.StatusEffectInstances;
 import io.featurehouse.spm.util.properties.state.BooleanStateManager;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -247,7 +248,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         CompoundTag tag = new CompoundTag();
         ListTag listTag = new ListTag();
         List<StatusEffectInstance> enchantments = calcEnchantments();
-        enchantments.forEach(statusEffectInstance -> listTag.add(statusEffectInstance.toTag(new CompoundTag())));
+        enchantments.forEach(statusEffectInstance -> listTag.add(StatusEffectInstances.writeNbt(statusEffectInstance)));
         int length = enchantments.size();
         //short randomIndex = (short) (this.world.random.nextDouble() * length);
         short randomIndex = (short) (length == 0 ? -1 : random.nextInt(length));
