@@ -5,9 +5,11 @@ import io.featurehouse.spm.SweetPotatoStatus;
 import io.featurehouse.spm.SweetPotatoType;
 import io.featurehouse.spm.util.NbtUtils;
 import io.featurehouse.spm.util.inventory.PeelInserter;
+import io.featurehouse.spm.util.properties.objects.StatusEffectInstances;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -17,7 +19,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.ShortTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.LiteralText;
@@ -50,12 +51,12 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
         if (user instanceof PlayerEntity) {
             PlayerEntity playerEntity = (PlayerEntity) user;
             playerEntity.incrementStat(SPMMain.SWEET_POTATO_EATEN);
-            if (!((PlayerEntity) user).getAbilities().creativeMode)
+            if (!((PlayerEntity) user).abilities.creativeMode)
                 PeelInserter.run(playerEntity);
         }
 
         Optional<List<StatusEffectInstance>> statusEffectInstances = calcEffect(stack);
-        statusEffectInstances.ifPresent(set -> set.forEach(user::applyStatusEffect));
+        statusEffectInstances.ifPresent(set -> set.forEach(user::addStatusEffect));
 
         return stack;
     }
@@ -63,15 +64,15 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
         Item item = stack.getItem();
         if (!(item instanceof EnchantedSweetPotatoItem)) return Optional.empty();
         CompoundTag compoundTag = stack.getOrCreateTag();
-        Tag statusEffectsTag = compoundTag.get("statusEffects");
-        if (NbtUtils.notListTag(statusEffectsTag)) return Optional.empty();
-        ListTag statusEffects = (ListTag) statusEffectsTag;
+        if (!compoundTag.contains("statusEffects", NbtType.LIST)) return Optional.empty();
+        ListTag statusEffects = compoundTag.getList("statusEffects", NbtType.COMPOUND);
 
         List<StatusEffectInstance> effectInstances = new ObjectArrayList<>();
         for (Tag oneStatusEffect: statusEffects) {
             if (NbtUtils.notCompoundTag(oneStatusEffect)) continue;
             CompoundTag compoundTag1 = (CompoundTag) oneStatusEffect;
-            StatusEffectInstance statusEffectInstance = StatusEffectInstance.fromNbt(compoundTag1);
+            StatusEffectInstance statusEffectInstance = StatusEffectInstances.readNbt(compoundTag1);
+            if (statusEffectInstance == null) continue;
             effectInstances.add(statusEffectInstance);
         }
         return Optional.of(effectInstances);
@@ -106,12 +107,11 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
             mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
             return;
         }
-        Tag tag = root.get("displayIndex");
-        if (NbtUtils.notShortTag(tag)) {
+        if (!root.contains("displayIndex", NbtType.SHORT)) {
             mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
             return;
         }
-        short index = ((ShortTag) tag).getShort();
+        short index = root.getShort("displayIndex");
         Optional<List<StatusEffectInstance>> statusEffectInstances = calcEffect(stack);
         if (!statusEffectInstances.isPresent()) {
             mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
@@ -119,9 +119,13 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
         }
         List<StatusEffectInstance> sei = statusEffectInstances.get();
         StatusEffectInstance toBeShown = (index < 0 || sei.size() <= index) ? null : sei.get(index);
-        if (toBeShown != null)
-            mainTip.append(new TranslatableText(toBeShown.getTranslationKey()).formatted(Formatting.ITALIC)
-                .append(new LiteralText(" ...").formatted(Formatting.ITALIC)));
+        if (toBeShown != null) {
+            mainTip.append(new TranslatableText(toBeShown.getTranslationKey()).formatted(Formatting.ITALIC));
+            if (toBeShown.getAmplifier() != 0) {
+                mainTip.append(" ").append(new TranslatableText("enchantment.level." + (toBeShown.getAmplifier() + 1)));
+            }
+            mainTip.append(new LiteralText(" ...").formatted(Formatting.ITALIC));
+        }
         else mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
 
         tooltip.add(mainTip);
