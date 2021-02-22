@@ -23,6 +23,7 @@ public class StatusEffectInstances {
         Identifier id = new Identifier(raw);
         if (!Registry.STATUS_EFFECT.containsId(id)) {
             LOGGER.error("Cannot apply status effect: {}", raw);
+            return null;
         } StatusEffect effect = Registry.STATUS_EFFECT.get(id);
         int duration = tag.getInt("duration"), amplifier = tag.getInt("amplifier"); // defaulted as 0
         return new StatusEffectInstance(effect, duration, amplifier);
@@ -36,6 +37,7 @@ public class StatusEffectInstances {
         StatusEffect statusEffect = effect.getEffectType();
         if (Registry.STATUS_EFFECT.stream().noneMatch(statusEffect1 -> statusEffect1 == statusEffect)) {
             LOGGER.error("Cannot write status effect: {}", statusEffect.getName());
+            return tag;
         }
         Identifier id = Registry.STATUS_EFFECT.getId(statusEffect);
         assert id != null;  // Stupid, STATUS_EFFECT is instance of DefaultedRegistry,
