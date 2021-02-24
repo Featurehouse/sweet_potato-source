@@ -1,4 +1,4 @@
-package io.featurehouse.spm.util.properties.objects;
+package io.featurehouse.spm.util.effects;
 
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.entity.effect.StatusEffect;

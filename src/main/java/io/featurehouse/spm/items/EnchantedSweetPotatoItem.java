@@ -5,7 +5,7 @@ import io.featurehouse.spm.SweetPotatoStatus;
 import io.featurehouse.spm.SweetPotatoType;
 import io.featurehouse.spm.util.NbtUtils;
 import io.featurehouse.spm.util.inventory.PeelInserter;
-import io.featurehouse.spm.util.properties.objects.StatusEffectInstances;
+import io.featurehouse.spm.util.effects.StatusEffectInstances;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -53,8 +53,16 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
                 PeelInserter.run(playerEntity);
         }
 
-        Optional<List<StatusEffectInstance>> statusEffectInstances = calcEffect(stack);
-        statusEffectInstances.ifPresent(set -> set.forEach(user::addStatusEffect));
+        if (!world.isClient) {
+            Optional<List<StatusEffectInstance>> statusEffectInstances = calcEffect(stack);
+            statusEffectInstances.ifPresent(set -> set.forEach(statusEffectInstance -> {
+                if (!statusEffectInstance.getEffectType().isInstant()) {
+                    user.addStatusEffect(statusEffectInstance);
+                } else {
+                    statusEffectInstance.getEffectType().applyInstantEffect(user, user, user, statusEffectInstance.getAmplifier(), 1.0D);
+                }
+            }));
+        }
 
         return stack;
     }

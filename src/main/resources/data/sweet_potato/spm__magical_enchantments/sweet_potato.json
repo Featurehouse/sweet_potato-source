@@ -1,0 +1,280 @@
+[{
+  "id": "speed",
+  "duration": 3600,
+  "weight": 27
+},{
+  "id": "speed",
+  "amplifier": 1,
+  "duration": 1800,
+  "weight": 18
+},{
+  "id": "speed",
+  "amplifier": 2,
+  "duration": 900,
+  "weight": 9
+},{
+  "id": "slowness",
+  "duration": 2800,
+  "weight": 32,
+  "powder_adds": 0
+},{
+  "id": "slowness",
+  "amplifier": 1,
+  "duration": 1400,
+  "weight": 16,
+  "powder_adds": 0
+},{
+  "id": "slowness",
+  "amplifier": 2,
+  "duration": 700,
+  "weight": 8,
+  "powder_adds": 0
+},{
+  "id": "haste",
+  "duration": 1600,
+  "weight": 38
+},{
+  "id": "haste",
+  "amplifier": 1,
+  "duration": 800,
+  "weight": 19
+},{
+  "id": "mining_fatigue",
+  "duration": 4000,
+  "weight": 36,
+  "powder_adds": 0
+},{
+  "id": "mining_fatigue",
+  "amplifier": 1,
+  "duration": 2000,
+  "weight": 18,
+  "powder_adds": 0
+},{
+  "id": "strength",
+  "duration": 3600,
+  "weight": 36
+},{
+  "id": "strength",
+  "amplifier": 1,
+  "duration": 1800,
+  "weight": 18
+},{
+  "id": "strength",
+  "amplifier": 2,
+  "duration": 900,
+  "weight": 9
+},{
+  "id": "instant_health",
+  "weight": 40
+},{
+  "id": "instant_health",
+  "amplifier": 1,
+  "weight": 20
+},{
+  "id": "instant_damage",
+  "weight": 40,
+  "powder_adds": 0
+},{
+  "id": "instant_damage",
+  "amplifier": 1,
+  "weight": 20,
+  "powder_adds": 0
+},{
+  "id": "jump_boost",
+  "duration": 3600,
+  "weight": 40
+},{
+  "id": "jump_boost",
+  "amplifier": 1,
+  "duration": 1800,
+  "weight": 20
+},{
+  "id": "nausea",
+  "duration": 200,
+  "weight": 54,
+  "powder_adds": 0
+},{
+  "id": "regeneration",
+  "duration": 600,
+  "weight": 48
+},{
+  "id": "resistance",
+  "duration": 1000,
+  "weight": 32
+},{
+  "id": "resistance",
+  "amplifier": 1,
+  "duration": 500,
+  "weight": 16
+},{
+  "id": "fire_resistance",
+  "duration": 3000,
+  "weight": 60
+},{
+  "id": "water_breathing",
+  "duration": 3000,
+  "weight": 60
+},{
+  "id": "invisibility",
+  "duration": 2700,
+  "weight": 60
+},{
+  "id": "blindness",
+  "duration": 280,
+  "weight": 56,
+  "powder_adds": 0
+},{
+  "id": "night_vision",
+  "duration": 3600,
+  "weight": 60
+},{
+  "id": "hunger",
+  "duration": 600,
+  "weight": 40,
+  "powder_adds": 0
+},{
+  "id": "hunger",
+  "amplifier": 1,
+  "duration": 300,
+  "weight": 20,
+  "powder_adds": 0
+},{
+  "id": "weakness",
+  "duration": 1500,
+  "weight": 39,
+  "powder_adds": 0
+},{
+  "id": "poison",
+  "duration": 300,
+  "weight": 36,
+  "powder_adds": 0
+},{
+  "id": "poison",
+  "amplifier": 1,
+  "duration": 140,
+  "weight": 18,
+  "powder_adds": 0
+},{
+  "id": "wither",
+  "duration": 300,
+  "weight": 20,
+  "powder_adds": 0
+},{
+  "id": "wither",
+  "amplifier": 1,
+  "duration": 140,
+  "weight": 10,
+  "powder_adds": 0
+},{
+  "id": "wither",
+  "amplifier": 2,
+  "duration": 60,
+  "weight": 5,
+  "powder_adds": 0
+},{
+  "id": "health_boost",
+  "duration": 900,
+  "weight": 10
+},{
+  "id": "health_boost",
+  "amplifier": 1,
+  "duration": 440,
+  "weight": 5
+},{
+  "id": "absorption",
+  "duration": 1500,
+  "weight": 36
+},{
+  "id": "absorption",
+  "amplifier": 1,
+  "duration": 740,
+  "weight": 18
+},{
+  "id": "absorption",
+  "amplifier": 2,
+  "duration": 360,
+  "weight": 9
+},{
+  "id": "saturation",
+  "duration": 100,
+  "weight": 16
+},{
+  "id": "saturation",
+  "amplifier": 1,
+  "duration": 40,
+  "weight": 8
+},{
+  "id": "saturation",
+  "amplifier": 2,
+  "duration": 20,
+  "weight": 4
+},{
+  "id": "glowing",
+  "duration": 140,
+  "weight": 48,
+  "powder_adds": 0
+},{
+  "id": "levitation",
+  "duration": 200,
+  "weight": 15,
+  "powder_adds": 0
+},{
+  "id": "luck",
+  "duration": 1400,
+  "weight": 10
+},{
+  "id": "luck",
+  "amplifier": 1,
+  "duration": 660,
+  "weight": 5
+},{
+  "id": "unluck",
+  "duration": 12000,
+  "weight": 10,
+  "powder_adds": 0
+},{
+  "id": "unluck",
+  "amplifier": 1,
+  "duration": 6000,
+  "weight": 5,
+  "powder_adds": 0
+},{
+  "id": "slow_falling",
+  "duration": 900,
+  "weight": 47
+},{
+  "id": "conduit_power",
+  "duration": 200,
+  "weight": 11
+},{
+  "id": "dolphins_grace",
+  "duration": 100,
+  "weight": 40
+},{
+  "id": "bad_omen",
+  "duration": 24000,
+  "weight": 24
+},{
+  "id": "bad_omen",
+  "amplifier": 1,
+  "duration": 20000,
+  "weight": 12
+},{
+  "id": "bad_omen",
+  "amplifier": 2,
+  "duration": 16000,
+  "weight": 6
+},{
+  "id": "hero_of_the_village",
+  "duration": 20000,
+  "weight": 4
+},{
+  "id": "hero_of_the_village",
+  "amplifier": 1,
+  "duration": 12000,
+  "weight": 2
+},{
+  "id": "hero_of_the_village",
+  "amplifier": 2,
+  "duration": 8500
+}]
