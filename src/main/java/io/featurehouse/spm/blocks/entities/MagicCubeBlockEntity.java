@@ -51,7 +51,6 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     private static final int[] SIDE_SLOTS = new int[] { 6, 7 };
 
     private boolean activationCache = false;
-    @FireBelow
     private byte fireCountCache = 0;
     private final Random random = this.world != null ? this.world.random : new Random();
 
@@ -122,7 +121,6 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
                 MagicCubeBlockEntity.this.activationCache = b;
             }
 
-            @FireBelow
             byte fireCount() {
                 BlockPos[] blockPosList = calcPos(MagicCubeBlockEntity.this.getPos());
 
@@ -161,7 +159,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         boolean shallMarkDirty = false;
 
         if (!world.isClient) {
-            if (world.getTime() % 20L == 5L) {
+            if (world.getTime() % 10L == 5L) {
                 stateHelper.run();
             }
             if (!activationCache) return;
@@ -360,6 +358,4 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
                 && (blockState = this.world.getBlockState(pos)).getBlock() instanceof MagicCubeBlock
                 && blockState.get(MagicCubeBlock.ACTIVATED);
     }
-
-    @interface FireBelow {}
 }

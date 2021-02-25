@@ -45,7 +45,6 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        super.finishUsing(stack, world, user);
         if (user instanceof PlayerEntity) {
             PlayerEntity playerEntity = (PlayerEntity) user;
             playerEntity.incrementStat(SPMMain.SWEET_POTATO_EATEN);
@@ -57,14 +56,14 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
             Optional<List<StatusEffectInstance>> statusEffectInstances = calcEffect(stack);
             statusEffectInstances.ifPresent(set -> set.forEach(statusEffectInstance -> {
                 if (!statusEffectInstance.getEffectType().isInstant()) {
-                    user.addStatusEffect(statusEffectInstance);
+                    user.addStatusEffect(new StatusEffectInstance(statusEffectInstance));
                 } else {
                     statusEffectInstance.getEffectType().applyInstantEffect(user, user, user, statusEffectInstance.getAmplifier(), 1.0D);
                 }
             }));
         }
 
-        return stack;
+        return super.finishUsing(stack, world, user);
     }
     protected static Optional<List<StatusEffectInstance>> calcEffect(ItemStack stack) {
         Item item = stack.getItem();
