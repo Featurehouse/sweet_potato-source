@@ -14,6 +14,7 @@ import io.featurehouse.spm.mixin.global.ChickenEntityAccessor;
 import io.featurehouse.spm.mixin.global.ParrotEntityAccessor;
 import io.featurehouse.spm.mixin.global.PigEntityAccessor;
 import io.featurehouse.spm.recipe.SeedUpdatingRecipe;
+import io.featurehouse.spm.resource.SPMDataPackFormats;
 import io.featurehouse.spm.screen.GrinderScreenHandler;
 import io.featurehouse.spm.screen.MagicCubeScreenHandler;
 import io.featurehouse.spm.screen.SeedUpdaterScreenHandler;
@@ -26,9 +27,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.passive.ChickenEntity;
-import net.minecraft.entity.passive.ParrotEntity;
-import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.Ingredient;
@@ -177,6 +175,7 @@ public class SPMMain implements ModInitializer {
 	public static final Identifier INTERACT_WITH_AGRO;
 	public static final Identifier CROP_UPGRADED;
 	public static final Identifier SWEET_POTATO_EATEN;
+	public static final Identifier INTERACT_WITH_MAGIC_CUBE;
 
 	@Override
 	public void onInitialize() {
@@ -189,6 +188,7 @@ public class SPMMain implements ModInitializer {
 		ComposterHelper.register();
 
 		LootTables.init();
+		SPMDataPackFormats.init();
 
 		// Fuel
 		//Util.registerFurnaceFuel(null, Items.AIR, -1);
@@ -310,5 +310,6 @@ public class SPMMain implements ModInitializer {
 		INTERACT_WITH_AGRO = stat("interact_with_agroforestry_table");
 		CROP_UPGRADED = stat("crop_upgraded");
 		SWEET_POTATO_EATEN = stat("sweet_potato_eaten");
+		INTERACT_WITH_MAGIC_CUBE = stat("interact_with_magic_cube");
 	}
 }

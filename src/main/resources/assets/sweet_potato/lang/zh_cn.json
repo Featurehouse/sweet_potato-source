@@ -49,6 +49,7 @@
   "subtitles.block.sweet_potato.grinder.grind": "研磨器：研磨",
   "subtitles.block.sweet_potato.magic_cube.activate": "魔法锅：激活",
   "subtitles.block.sweet_potato.magic_cube.deactivate": "魔法锅：失效",
+  "subtitles.block.sweet_potato.magic_cube.ambient": "魔法锅：轰鸣",
 
   "advancement.husbandry.sweet_potato.get_sweet_potato.title": "香甜软嚅",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "获得地瓜",
@@ -64,6 +65,7 @@
   "stat.sweet_potato.interact_with_agroforestry_table": "与农林台互动次数",
   "stat.sweet_potato.crop_upgraded": "升级作物次数",
   "stat.sweet_potato.sweet_potato_eaten": "吃掉的地瓜数",
+  "stat.sweet_potato.interact_with_magic_cube": "与魔法锅互动次数",
 
   "tooltip.sweet_potato.enchanted_sweet_potato.effects": "效果： ",
 

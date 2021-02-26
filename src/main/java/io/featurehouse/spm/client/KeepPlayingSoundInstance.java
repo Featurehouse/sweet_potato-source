@@ -1,38 +1,38 @@
 package io.featurehouse.spm.client;
 
-import io.featurehouse.spm.SPMMain;
-import io.featurehouse.spm.blocks.GrinderBlock;
 import io.featurehouse.spm.util.MathUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.sound.TickableSoundInstance;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.function.BiPredicate;
+
 @Environment(EnvType.CLIENT)
-public class GrindingSoundInstance extends PositionedSoundInstance implements TickableSoundInstance {
+public class KeepPlayingSoundInstance extends PositionedSoundInstance implements TickableSoundInstance {
     public final ClientPlayerEntity player;
     public ClientWorld world;
     public BlockPos pos;
     protected boolean done = false;
+    protected BiPredicate<ClientWorld, BlockPos> playCondition;
 
-    public GrindingSoundInstance(float pitch, ClientWorld world, BlockPos pos, ClientPlayerEntity player) {
-        super(SPMMain.GRINDER_GRIND, SoundCategory.BLOCKS, 1.0F, pitch, pos);
+    public KeepPlayingSoundInstance(SoundEvent sound, float pitch, ClientWorld world, BlockPos pos, ClientPlayerEntity player, BiPredicate<ClientWorld, BlockPos> playCondition) {
+        super(sound, SoundCategory.BLOCKS, 1.0F, pitch, pos);
         this.repeat = true;
         this.pos = pos;
         this.world = world;
         this.player = player;
+        this.playCondition = playCondition;
     }
 
     @Override
     public boolean canPlay() {
-        BlockState state = world.getBlockState(pos);
-        return state.getBlock() instanceof GrinderBlock // important
-                && state.get(GrinderBlock.GRINDING);
+        return playCondition.test(world, pos);
     }
 
     @Override

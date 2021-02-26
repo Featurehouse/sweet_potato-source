@@ -1,4 +1,4 @@
-package io.featurehouse.spm.util.properties.objects;
+package io.featurehouse.spm.util.effects;
 
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.entity.effect.StatusEffect;
@@ -21,7 +21,7 @@ public class StatusEffectInstances {
         if (!tag.contains("id", NbtType.STRING)) return null;
         String raw = tag.getString("id");
         Identifier id = new Identifier(raw);
-        if (!Registry.STATUS_EFFECT.containsId(id)) {
+        if (!Registry.STATUS_EFFECT.getIds().contains(id)) {
             LOGGER.error("Cannot apply status effect: {}", raw);
             return null;
         } StatusEffect effect = Registry.STATUS_EFFECT.get(id);
@@ -41,7 +41,7 @@ public class StatusEffectInstances {
         }
         Identifier id = Registry.STATUS_EFFECT.getId(statusEffect);
         assert id != null;  // Stupid, STATUS_EFFECT is instance of DefaultedRegistry,
-                            // getId(StatusEffect) is annotated as @NotNull
+        // getId(StatusEffect) is annotated as @NotNull
         tag.putString("id", id.toString());
         tag.putInt("duration", effect.getDuration());
         tag.putInt("amplifier", effect.getAmplifier());

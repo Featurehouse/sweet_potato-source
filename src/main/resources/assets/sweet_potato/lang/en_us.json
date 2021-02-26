@@ -49,6 +49,7 @@
   "subtitles.block.sweet_potato.grinder.grind": "Grinder Grinds",
   "subtitles.block.sweet_potato.magic_cube.activate": "Magic Cube Activates",
   "subtitles.block.sweet_potato.magic_cube.deactivate": "Magic Cube Deactivates",
+  "subtitles.block.sweet_potato.magic_cube.ambient": "Magic Cube Hums",
 
   "advancement.husbandry.sweet_potato.get_sweet_potato.title": "Sweet and Soft",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "Obtain Sweet Potato",
@@ -64,6 +65,7 @@
   "stat.sweet_potato.interact_with_agroforestry_table": "Interactions with Agroforestry Table",
   "stat.sweet_potato.crop_upgraded": "Crops upgraded",
   "stat.sweet_potato.sweet_potato_eaten": "Sweet Potatoes eaten",
+  "stat.sweet_potato.interact_with_magic_cube": "Interactions with Magic Cube",
 
   "tooltip.sweet_potato.enchanted_sweet_potato.effects": "Effects: ",
 

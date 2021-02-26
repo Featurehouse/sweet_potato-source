@@ -1,9 +1,11 @@
 package io.featurehouse.spm.mixin;
 
 import io.featurehouse.spm.SPMMain;
-import io.featurehouse.spm.client.GrindingSoundInstance;
+import io.featurehouse.spm.blocks.GrinderBlock;
+import io.featurehouse.spm.client.KeepPlayingSoundInstance;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
@@ -29,7 +31,11 @@ public class MixinWorldEvent {
             world.playSound(blockPos, SPMMain.AGROFORESTRY_TABLE_FINISH, SoundCategory.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.1F + 0.9F, false);
             ci.cancel();
         } else if (eventId == 1132119 && data == 805) {
-            client.getSoundManager().play(new GrindingSoundInstance(1.0F, world, blockPos, client.player));
+            client.getSoundManager().play(new KeepPlayingSoundInstance(SPMMain.GRINDER_GRIND, 1.0F, world, blockPos, client.player, (world1, blockPos1) -> {
+                BlockState state = world1.getBlockState(blockPos1);
+                return state.getBlock() instanceof GrinderBlock // important
+                        && state.get(GrinderBlock.GRINDING);
+            }));
             ci.cancel();
         }
     }
