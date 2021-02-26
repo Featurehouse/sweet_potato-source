@@ -64,6 +64,14 @@
   "stat.sweet_potato.interact_with_agroforestry_table": "Magischer Topf benutzt",
   "stat.sweet_potato.crop_upgraded": "Nutzpflanzen aufgewertet",
   "stat.sweet_potato.sweet_potato_eaten": "Süßkartoffeln gegessen",
+  
+  "tooltip.sweet_potato.enchanted_sweet_potato.effects": "Effekte: ",
 
-  "tooltip.sweet_potato.enchanted_sweet_potato.effects": "Effekte: "
+  "block.sweet_potato.enchanted_phoenix_leaves": "Verzaubertes Phönixlaub",
+  "block.sweet_potato.enchanted_phoenix_sapling": "Verzauberter Phönixsetzling",
+  "block.sweet_potato.potted_enchanted_phoenix_sapling": "Getopfter verzauberter Phönixsetzling",
+  "block.sweet_potato.enchanted_pear_sapling": "Verzauberter Birnensetzling",
+  "block.sweet_potato.enchanted_pear_leaves": "Verzaubertes Birnenlaub",
+  "block.sweet_potato.enchanted_pear_ripe_leaves": "Verzaubertes reifes Birnenlaub",
+  "block.sweet_potato.potted_enchanted_pear_sapling": "Getopfter verzauberter Birnensetzling"
 }
