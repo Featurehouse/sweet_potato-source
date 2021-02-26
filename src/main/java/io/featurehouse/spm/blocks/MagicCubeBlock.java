@@ -1,6 +1,7 @@
 package io.featurehouse.spm.blocks;
 
 import bilibili.ywsuoyi.block.AbstractBlockWithEntity;
+import com.google.common.collect.ImmutableList;
 import io.featurehouse.spm.SPMMain;
 import io.featurehouse.spm.blocks.entities.MagicCubeBlockEntity;
 import net.minecraft.block.Block;
@@ -9,16 +10,25 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class MagicCubeBlock extends AbstractBlockWithEntity<MagicCubeBlockEntity> {
     public static BooleanProperty ACTIVATED = BooleanProperty.of("activated");
+
+    @Override
+    public List<Identifier> incrementWhileOnUse(BlockState state, World world, BlockPos pos, ServerPlayerEntity serverPlayerEntity, Hand hand, BlockHitResult blockHitResult) {
+        return ImmutableList.of(SPMMain.INTERACT_WITH_MAGIC_CUBE);
+    }
 
     @Override
     protected boolean blockEntityPredicate(BlockEntity blockEntity) {

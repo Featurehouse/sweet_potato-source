@@ -4,9 +4,10 @@ import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
 import io.featurehouse.spm.SPMMain;
 import io.featurehouse.spm.blocks.MagicCubeBlock;
 import io.featurehouse.spm.items.RawSweetPotatoBlockItem;
+import io.featurehouse.spm.resource.magicalenchantment.WeightedStatusEffect;
 import io.featurehouse.spm.screen.MagicCubeScreenHandler;
 import io.featurehouse.spm.util.properties.magiccube.IntMagicCubeProperties;
-import io.featurehouse.spm.util.properties.objects.StatusEffectInstances;
+import io.featurehouse.spm.util.effects.StatusEffectInstances;
 import io.featurehouse.spm.util.properties.state.BooleanStateManager;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -27,10 +28,13 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.collection.WeightedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -41,13 +45,14 @@ import static io.featurehouse.spm.util.properties.objects.Tags.inTag;
 import static net.minecraft.block.Blocks.SOUL_FIRE;
 
 public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity implements SidedInventory, ExtendedScreenHandlerFactory {
+    private static final Logger LOGGER = LogManager.getLogger();
+
     //protected StateHelperV1 stateHelper;
     private static final int[] TOP_SLOTS = new int[] { 0, 1, 2 };
     private static final int[] BOTTOM_SLOTS = new int[] { 3, 4, 5 };
     private static final int[] SIDE_SLOTS = new int[] { 6, 7 };
 
     private boolean activationCache = false;
-    @FireBelow
     private byte fireCountCache = 0;
     private final Random random = this.world != null ? this.world.random : new Random();
 
@@ -115,7 +120,6 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
                 MagicCubeBlockEntity.this.activationCache = b;
             }
 
-            @FireBelow
             byte fireCount() {
                 BlockPos[] blockPosList = calcPos(MagicCubeBlockEntity.this.getPos());
 
@@ -153,7 +157,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         boolean shallMarkDirty = false;
 
         if (!world.isClient) {
-            if (world.getTime() % 20L == 5L) {
+            if (world.getTime() % 10L == 5L) {
                 stateHelper.run();
             }
             if (!activationCache) return;
@@ -259,12 +263,23 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
 
     private List<StatusEffectInstance> calcEnchantments() {
         //TODO
-        return Collections.emptyList();
+        List<StatusEffectInstance> enchantmentList = new ObjectArrayList<>();
+        WeightedList<StatusEffectInstance> weightedList = new WeightedList<>();
+        WeightedStatusEffect.dump2weightedList(weightedList, WeightedStatusEffect.EFFECTS, withViceFuel());
+        if (weightedList.isEmpty()) {
+            LOGGER.warn("No effects can be applied: empty weighted list");
+            return Collections.emptyList();
+        }
+        for (byte times = 0; times < 5; ++times) {
+            enchantmentList.add(weightedList.pickRandom(random));
+            if (random.nextBoolean()) break;
+        }
+        return enchantmentList;
     }
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return new MagicCubeScreenHandler(syncId, playerInventory, world, pos, this, propertyDelegate); // INDEED TODO
+        return new MagicCubeScreenHandler(syncId, playerInventory, world, pos, this, propertyDelegate);
     }
 
     private boolean anyOutputIsClear() {
@@ -341,6 +356,4 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
                 && (blockState = this.world.getBlockState(pos)).getBlock() instanceof MagicCubeBlock
                 && blockState.get(MagicCubeBlock.ACTIVATED);
     }
-
-    @interface FireBelow {}
 }

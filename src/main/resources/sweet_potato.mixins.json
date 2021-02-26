@@ -5,9 +5,11 @@
   "mixins": [
     "global.AdvancementTaskAccessor",
     "global.ChickenEntityAccessor",
+    "global.LevelPropertiesMixin",
     "global.MixinAdvancementTask",
     "global.ParrotEntityAccessor",
-    "global.PigEntityAccessor"
+    "global.PigEntityAccessor",
+    "global.ServerPropertiesMixin"
   ],
   "client": [
     "CreditsScreenMixin",

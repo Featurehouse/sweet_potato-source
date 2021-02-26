@@ -5,7 +5,7 @@ import io.featurehouse.spm.SweetPotatoStatus;
 import io.featurehouse.spm.SweetPotatoType;
 import io.featurehouse.spm.util.NbtUtils;
 import io.featurehouse.spm.util.inventory.PeelInserter;
-import io.featurehouse.spm.util.properties.objects.StatusEffectInstances;
+import io.featurehouse.spm.util.effects.StatusEffectInstances;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -47,7 +47,6 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        super.finishUsing(stack, world, user);
         if (user instanceof PlayerEntity) {
             PlayerEntity playerEntity = (PlayerEntity) user;
             playerEntity.incrementStat(SPMMain.SWEET_POTATO_EATEN);
@@ -55,10 +54,18 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
                 PeelInserter.run(playerEntity);
         }
 
-        Optional<List<StatusEffectInstance>> statusEffectInstances = calcEffect(stack);
-        statusEffectInstances.ifPresent(set -> set.forEach(user::addStatusEffect));
+        if (!world.isClient) {
+            Optional<List<StatusEffectInstance>> statusEffectInstances = calcEffect(stack);
+            statusEffectInstances.ifPresent(set -> set.forEach(statusEffectInstance -> {
+                if (!statusEffectInstance.getEffectType().isInstant()) {
+                    user.addStatusEffect(new StatusEffectInstance(statusEffectInstance));
+                } else {
+                    statusEffectInstance.getEffectType().applyInstantEffect(user, user, user, statusEffectInstance.getAmplifier(), 1.0D);
+                }
+            }));
+        }
 
-        return stack;
+        return super.finishUsing(stack, world, user);
     }
     protected static Optional<List<StatusEffectInstance>> calcEffect(ItemStack stack) {
         Item item = stack.getItem();
