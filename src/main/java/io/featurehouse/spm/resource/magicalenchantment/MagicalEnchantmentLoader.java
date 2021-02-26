@@ -37,7 +37,7 @@ public class MagicalEnchantmentLoader extends JsonDataLoader implements Identifi
             for (JsonElement je: root) {
                 JsonObject eachObj = JsonHelper.asObject(je, "Element #" + i);
                 Identifier id = new Identifier(JsonHelper.getString(eachObj, "id"));
-                if (!Registry.STATUS_EFFECT.containsId(id)) {
+                if (!Registry.STATUS_EFFECT.getIds().contains(id)) {
                     LOGGER.error(new JsonSyntaxException("Invalid status effect id: " + id.toString()));
                     continue;
                 } StatusEffect effect = Registry.STATUS_EFFECT.get(id);

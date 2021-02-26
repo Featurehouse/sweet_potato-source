@@ -21,7 +21,7 @@ public class StatusEffectInstances {
         if (!tag.contains("id", NbtType.STRING)) return null;
         String raw = tag.getString("id");
         Identifier id = new Identifier(raw);
-        if (!Registry.STATUS_EFFECT.containsId(id)) {
+        if (!Registry.STATUS_EFFECT.getIds().contains(id)) {
             LOGGER.error("Cannot apply status effect: {}", raw);
             return null;
         } StatusEffect effect = Registry.STATUS_EFFECT.get(id);
