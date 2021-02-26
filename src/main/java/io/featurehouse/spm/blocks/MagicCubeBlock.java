@@ -59,7 +59,7 @@ public class MagicCubeBlock extends AbstractBlockWithEntity {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof MagicCubeBlockEntity && state.getBlock() instanceof MagicCubeBlock && state.get(ACTIVATED)) {
                 player.openHandledScreen((NamedScreenHandlerFactory) blockEntity);
-                incrementWhileOnUse(state, world, pos, (ServerPlayerEntity) player, hand, hit);
+                incrementWhileOnUse(state, world, pos, (ServerPlayerEntity) player, hand, hit).forEach(player::incrementStat);
             }
             return ActionResult.CONSUME;
         }
