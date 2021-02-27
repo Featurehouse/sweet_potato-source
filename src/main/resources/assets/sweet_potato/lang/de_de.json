@@ -2,8 +2,7 @@
   "mod.sweet_potato": "Sweet Potato Mod",
   "mod.sweet_potato.0": ", von Pigeonia Featurehouse",
   "mod.sweet_potato.1": "Mitwirkende:",
-  "mod.sweet_potato.2": "Agent in \u00A7oMinecraft China\u00A7: ",
-
+  "mod.sweet_potato.2": "Agent in §oMinecraft China§r: ",
   "item.sweet_potato.purple_potato": "Violette Süßkartoffel",
   "item.sweet_potato.red_potato": "Rote Süßkartoffel",
   "item.sweet_potato.white_potato": "Weiße Süßkartoffel",
@@ -20,7 +19,6 @@
   "item.sweet_potato.enchanted_potato": "Verzauberte Kartoffel",
   "item.sweet_potato.enchanted_beetroot_seeds": "Verzauberte Rote-Bete-Samen",
   "item.sweet_potato.treating_bowl": "Wunschschüssel",
-
   "block.sweet_potato.purple_potatoes": "Violette Süßkartoffeln",
   "block.sweet_potato.red_potatoes": "Rote Süßkartoffeln",
   "block.sweet_potato.white_potatoes": "Weiße Süßkartoffeln",
@@ -44,34 +42,30 @@
   "block.sweet_potato.enchanted_carrots": "Verzauberte Karotten",
   "block.sweet_potato.enchanted_potatoes": "Verzauberte Kartoffeln",
   "block.sweet_potato.enchanted_beetroots": "Verzauberte Rote Bete",
-
   "subtitles.block.sweet_potato.agroforestry_table.finish": "Nutzpflanze aufgewertet",
   "subtitles.block.sweet_potato.grinder.grind": "Mühle mahlt",
   "subtitles.block.sweet_potato.magic_cube.activate": "Magischer Topf aktiviert",
   "subtitles.block.sweet_potato.magic_cube.deactivate": "Magischer Topf deaktiviert",
-
+  "subtitles.block.sweet_potato.magic_cube.ambient": "Magischer Topf brummt",
   "advancement.husbandry.sweet_potato.get_sweet_potato.title": "Süß und weich",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "Süßkartoffel erhalten",
   "advancement.nether.sweet_potato.get_magic_cube.title": "Magie der Seele",
   "advancement.nether.sweet_potato.get_magic_cube.description": "Magischer Topf erhalten",
-
   "container.sweet_potato.magic_cube": "Magischer Topf",
   "container.sweet_potato.seed_updating": "Nutzpflanzen-Aufwertung",
   "container.sweet_potato.grinding": "Mahlen",
   "container.grinding.ingredientData": "%f Einheit(en) an Zutaten hinzugefügt",
-
   "stat.sweet_potato.interact_with_grinder": "Mühle benutzt",
-  "stat.sweet_potato.interact_with_agroforestry_table": "Magischer Topf benutzt",
+  "stat.sweet_potato.interact_with_agroforestry_table": "Agroforsttisch benutzt",
   "stat.sweet_potato.crop_upgraded": "Nutzpflanzen aufgewertet",
   "stat.sweet_potato.sweet_potato_eaten": "Süßkartoffeln gegessen",
-  
+  "stat.sweet_potato.interact_with_magic_cube": "Interaktionen mit Magischer Topf",
   "tooltip.sweet_potato.enchanted_sweet_potato.effects": "Effekte: ",
-
-  "block.sweet_potato.enchanted_phoenix_leaves": "Verzaubertes Phönixlaub",
   "block.sweet_potato.enchanted_phoenix_sapling": "Verzauberter Phönixsetzling",
+  "block.sweet_potato.enchanted_phoenix_leaves": "Verzaubertes Phönixlaub",
   "block.sweet_potato.potted_enchanted_phoenix_sapling": "Getopfter verzauberter Phönixsetzling",
-  "block.sweet_potato.enchanted_pear_sapling": "Verzauberter Birnensetzling",
-  "block.sweet_potato.enchanted_pear_leaves": "Verzaubertes Birnenlaub",
-  "block.sweet_potato.enchanted_pear_ripe_leaves": "Verzaubertes reifes Birnenlaub",
-  "block.sweet_potato.potted_enchanted_pear_sapling": "Getopfter verzauberter Birnensetzling"
+  "block.sweet_potato.enchanted_pear_sapling": "Verzauberter Birnbaumsetzling",
+  "block.sweet_potato.enchanted_pear_leaves": "Verzaubertes Birnbaumlaub",
+  "block.sweet_potato.enchanted_pear_ripe_leaves": "Verzaubertes reifes Birnbaumlaub",
+  "block.sweet_potato.potted_enchanted_pear_sapling": "Getopfter verzauberter Birnbaumsetzling"
 }
