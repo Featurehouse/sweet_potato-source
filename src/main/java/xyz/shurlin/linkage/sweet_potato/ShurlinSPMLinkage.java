@@ -1,8 +1,8 @@
 package xyz.shurlin.linkage.sweet_potato;
 
-import io.featurehouse.spm.items.EnchantedBlockItem;
-import io.featurehouse.spm.util.properties.objects.ItemSettings;
-import io.featurehouse.spm.util.registries.ComposterHelper;
+import org.featurehouse.spm.items.EnchantedBlockItem;
+import org.featurehouse.spm.util.properties.objects.ItemSettings;
+import org.featurehouse.spm.util.registries.ComposterHelper;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -10,7 +10,7 @@ import xyz.shurlin.linkage.ShurlinLinkageApi;
 import xyz.shurlin.linkage.sweet_potato.block.sapling.EnchantedPearSaplingGen;
 import xyz.shurlin.linkage.sweet_potato.block.sapling.EnchantedPhoenixSaplingGen;
 
-import static io.featurehouse.spm.util.properties.objects.BlockSettings.*;
+import static org.featurehouse.spm.util.properties.objects.BlockSettings.*;
 
 public class ShurlinSPMLinkage implements ShurlinLinkageApi {
     public static final Block ENCHANTED_PHOENIX_LEAVES;
