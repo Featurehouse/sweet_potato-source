@@ -5,7 +5,7 @@
 
 package bilibili.ywsuoyi.block;
 
-import io.featurehouse.spm.util.tick.ITickable;
+import org.featurehouse.spm.util.tick.ITickable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LockableContainerBlockEntity;

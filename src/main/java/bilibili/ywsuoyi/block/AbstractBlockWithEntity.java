@@ -1,6 +1,6 @@
 package bilibili.ywsuoyi.block;
 
-import io.featurehouse.spm.util.tick.ITickable;
+import org.featurehouse.spm.util.tick.ITickable;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;

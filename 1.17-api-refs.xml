@@ -2,44 +2,44 @@
 <SPM-Version minecraft="1.17-Snapshot.21.03.a">
     <MinecraftApi>
         <Copies fromMinecraft="1.16.4">
-            <interface name="io.featurehouse.spm.util.tick.ITickable" source="net.minecraft.util.Tickable" />
+            <interface name="org.featurehouse.spm.util.tick.ITickable" source="net.minecraft.util.Tickable" />
         </Copies>
         <Addition>
         </Addition>
         <Edition>
             <class name="bilibili.ywsuoyi.block.AbstractBlockWithEntity" super="net.minecraft.block.BlockWithEntity" />
-            <class name="io.featurehouse.spm.blocks.GrinderBlock" />
-            <class name="io.featurehouse.spm.blocks.MagicCubeBlock" />
-            <class name="io.featurehouse.spm.blocks.entities.GrinderBlockEntity" />
-            <class name="io.featurehouse.spm.blocks.entities.MagicCubeBlockEntity" />
-            <class name="io.featurehouse.spm.util.registries.RegistryHelper" />
-            <class name="io.featurehouse.spm.items.BakedSweetPotatoItem" />
-            <class name="io.featurehouse.spm.items.EnchantedSweetPotatoItem" />
-            <class name="io.featurehouse.spm.items.RawSweetPotatoBlockItem" />
-            <class name="io.featurehouse.spm.util.inventory.PeelInserter" />
+            <class name="org.featurehouse.spm.blocks.GrinderBlock" />
+            <class name="org.featurehouse.spm.blocks.MagicCubeBlock" />
+            <class name="org.featurehouse.spm.blocks.entities.GrinderBlockEntity" />
+            <class name="org.featurehouse.spm.blocks.entities.MagicCubeBlockEntity" />
+            <class name="org.featurehouse.spm.util.registries.RegistryHelper" />
+            <class name="org.featurehouse.spm.items.BakedSweetPotatoItem" />
+            <class name="org.featurehouse.spm.items.EnchantedSweetPotatoItem" />
+            <class name="org.featurehouse.spm.items.RawSweetPotatoBlockItem" />
+            <class name="org.featurehouse.spm.util.inventory.PeelInserter" />
         </Edition>
     </MinecraftApi>
     <Mappings old="1.16.4" new="1.17-Snapshot.21.6.a">
         <field class="net.minecraft.block.Material" old="SUPPORTED" new="DECORATION">
             <Usage>
-                <class name="io.featurehouse.spm.util.properties.objects.BlockSettings" />
+                <class name="org.featurehouse.spm.util.properties.objects.BlockSettings" />
             </Usage>
         </field>
         <class old="net.minecraft.block.MaterialColor" new="net.minecraft.block.MapColor">
             <field old="STONE" new="STONE_GRAY" />
             <field old="FOLIAGE" new="DARK_GREEN" />
             <Usage>
-                <class name="io.featurehouse.spm.util.properties.objects.Materials" />
+                <class name="org.featurehouse.spm.util.properties.objects.Materials" />
             </Usage>
         </class>
         <class old="net.minecraft.loot.LootTableRange" new="net.minecraft.loot.provider.number.LootNumberProvider">
             <Usage>
-                <class name="io.featurehouse.spm.loot.VillagerLootTables" />
+                <class name="org.featurehouse.spm.loot.VillagerLootTables" />
             </Usage>
         </class>
         <class old="net.minecraft.loot.UniformLootTableRange" new="net.minecraft.loot.provider.number.UniformLootNumberProvider">
             <Usage>
-                <class name="io.featurehouse.spm.loot.VillagerLootTables" />
+                <class name="org.featurehouse.spm.loot.VillagerLootTables" />
             </Usage>
         </class>
         <method class="*" old="fromTag" new="readNbt">
@@ -50,7 +50,7 @@
         </method>
         <method class="net.minecraft.entity.effect.StatusEffectInstance" old="fromTag" new="fromNbt">
             <Usage>
-                <class name="io.featurehouse.spm.items.EnchantedSweetPotatoItem" />
+                <class name="org.featurehouse.spm.items.EnchantedSweetPotatoItem" />
             </Usage>
         </method>
     </Mappings>

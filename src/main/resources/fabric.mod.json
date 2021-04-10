@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "sweet_potato",
-  "version": "1.2.0",
+  "version": "1.2.1",
 
   "name": "Sweet Potato Mod",
   "description": "Try new kinds of food, crops & magic in Sweet Potato Mod!",
@@ -25,10 +25,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.featurehouse.spm.SPMMain"
+      "org.featurehouse.spm.SPMMain"
     ],
     "client": [
-      "io.featurehouse.spm.client.SPMClient"
+      "org.featurehouse.spm.client.SPMClient"
     ]
   },
   "mixins": [
@@ -38,7 +38,7 @@
   "depends": {
     "fabricloader": ">=0.9.0",
     "fabric": ">0.30.2",
-    "minecraft": "~1.17-alpha.21.5.a"
+    "minecraft": "~1.17-alpha.21.14.a"
   },
   "suggests": {
     "shurlin": "*"
