@@ -5,17 +5,16 @@
 
 package bilibili.ywsuoyi.block;
 
-import org.featurehouse.spm.util.tick.ITickable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import org.featurehouse.spm.util.tick.ITickable;
 
 import java.util.Iterator;
 
@@ -29,14 +28,14 @@ public abstract class AbstractLockableContainerBlockEntity extends LockableConta
         this.size = size;
     }
 
-    public CompoundTag writeNbt(CompoundTag tag) {  // toTag
+    public NbtCompound writeNbt(NbtCompound tag) {  // toTag
         super.writeNbt(tag);
         Inventories.writeNbt(tag, this.inventory);
 
         return tag;
     }
 
-    public void readNbt(CompoundTag tag) {          // fromTag
+    public void readNbt(NbtCompound tag) {          // fromTag
         super.readNbt(tag);
         this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
         Inventories.readNbt(tag, this.inventory);
@@ -52,16 +51,6 @@ public abstract class AbstractLockableContainerBlockEntity extends LockableConta
         if (stack.getCount() > this.getMaxCountPerStack()) {
             stack.setCount(this.getMaxCountPerStack());
         }
-    }
-
-    /** @deprecated from {@link LootableContainerBlockEntity} */ @Deprecated
-    public DefaultedList<ItemStack> getInvStackList() {
-        return this.inventory;
-    }
-
-    /** @deprecated from {@link LootableContainerBlockEntity} */ @Deprecated
-    public void setInvStackList(DefaultedList<ItemStack> list) {
-        this.inventory = list;
     }
 
     @Override

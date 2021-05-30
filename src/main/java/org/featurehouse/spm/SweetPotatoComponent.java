@@ -1,6 +1,6 @@
 package org.featurehouse.spm;
 
-import org.featurehouse.spm.util.Util;
+import org.featurehouse.spm.util.GrindingUtils;
 import org.featurehouse.spm.util.registries.ComposterHelper;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.ItemConvertible;
@@ -8,43 +8,9 @@ import net.minecraft.item.ItemConvertible;
 import java.util.Objects;
 import java.util.OptionalDouble;
 
-public class SweetPotatoComponent {
-    protected int hunger;
-    protected float sat;
-    protected float compost;
-    protected OptionalDouble grindData;
-    protected boolean alwaysEdible;
-
+public record SweetPotatoComponent(int hunger, float sat, float compost, OptionalDouble grindData, boolean alwaysEdible) {
     public SweetPotatoComponent(int hunger, float sat, float compost, OptionalDouble grindData) {
         this(hunger, sat, compost, grindData, false);
-    }
-
-    public SweetPotatoComponent(int hunger, float sat, float compost, OptionalDouble grindData, boolean alwaysEdible) {
-        this.hunger = hunger;
-        this.sat = sat;
-        this.compost = compost;
-        this.grindData = grindData;
-        this.alwaysEdible = alwaysEdible;
-    }
-
-    public int getHunger() {
-        return hunger;
-    }
-
-    public float getSat() {
-        return sat;
-    }
-
-    public float getCompost() {
-        return compost;
-    }
-
-    public OptionalDouble getGrindData() {
-        return grindData;
-    }
-
-    public boolean isAlwaysEdible() {
-        return alwaysEdible;
     }
 
     public FoodComponent asFoodComponent() {
@@ -64,7 +30,7 @@ public class SweetPotatoComponent {
         ItemConvertible item = type.get(status);
         if (item != null)
             // grindable
-            this.grindData.ifPresent(aDouble -> Util.registerGrindableItem(aDouble, item));
+            this.grindData.ifPresent(aDouble -> GrindingUtils.registerGrindableItem(aDouble, item));
     }
 
     @Deprecated

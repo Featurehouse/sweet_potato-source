@@ -17,9 +17,9 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatus {
+public class EnchantedSweetPotatoItem extends EnchantedItem implements SweetPotatoProperties {
     @Override
     public boolean isFood() {
         return true;
@@ -47,8 +47,7 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        if (user instanceof PlayerEntity) {
-            PlayerEntity playerEntity = (PlayerEntity) user;
+        if (user instanceof PlayerEntity playerEntity) {
             playerEntity.incrementStat(SPMMain.SWEET_POTATO_EATEN);
             if (!((PlayerEntity) user).getAbilities().creativeMode)
                 PeelInserter.run(playerEntity);
@@ -70,15 +69,15 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
     protected static Optional<List<StatusEffectInstance>> calcEffect(ItemStack stack) {
         Item item = stack.getItem();
         if (!(item instanceof EnchantedSweetPotatoItem)) return Optional.empty();
-        CompoundTag compoundTag = stack.getOrCreateTag();
-        if (!compoundTag.contains("statusEffects", NbtType.LIST)) return Optional.empty();
-        ListTag statusEffects = compoundTag.getList("statusEffects", NbtType.COMPOUND);
+        NbtCompound compoundNbtElement = stack.getOrCreateTag();
+        if (!compoundNbtElement.contains("statusEffects", NbtType.LIST)) return Optional.empty();
+        NbtList statusEffects = compoundNbtElement.getList("statusEffects", NbtType.COMPOUND);
 
         List<StatusEffectInstance> effectInstances = new ObjectArrayList<>();
-        for (Tag oneStatusEffect: statusEffects) {
+        for (NbtElement oneStatusEffect: statusEffects) {
             if (NbtUtils.notCompoundTag(oneStatusEffect)) continue;
-            CompoundTag compoundTag1 = (CompoundTag) oneStatusEffect;
-            StatusEffectInstance statusEffectInstance = StatusEffectInstances.readNbt(compoundTag1);
+            NbtCompound compoundNbtElement1 = (NbtCompound) oneStatusEffect;
+            StatusEffectInstance statusEffectInstance = StatusEffectInstances.readNbt(compoundNbtElement1);
             if (statusEffectInstance == null) continue;
             effectInstances.add(statusEffectInstance);
         }
@@ -86,6 +85,7 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
     }
 
     @Deprecated
+    @SuppressWarnings("unused")
     private static StatusEffectInstance calcEffect() {
         return new StatusEffectInstance(StatusEffects.LUCK, 200, 1);    // Luck II 10s
         // Remember, this is just a trial.
@@ -108,7 +108,7 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
 
-        CompoundTag root = stack.getOrCreateTag();
+        NbtCompound root = stack.getOrCreateTag();
         BaseText mainTip = new TranslatableText("tooltip.sweet_potato.enchanted_sweet_potato.effects");
         tooltip.add(mainTip);
 
@@ -123,7 +123,7 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatu
         }
 
         Optional<List<StatusEffectInstance>> statusEffectInstances = calcEffect(stack);
-        if (!statusEffectInstances.isPresent()) {
+        if (statusEffectInstances.isEmpty()) {
             mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
             return;
         }

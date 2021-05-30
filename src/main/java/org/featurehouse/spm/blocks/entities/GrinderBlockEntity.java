@@ -6,19 +6,17 @@ import org.featurehouse.annotation.NonMinecraftNorFabric;
 import org.featurehouse.spm.SPMMain;
 import org.featurehouse.spm.blocks.GrinderBlock;
 import org.featurehouse.spm.screen.GrinderScreenHandler;
-import org.featurehouse.spm.util.Util;
-import org.featurehouse.spm.util.properties.grinder.IntGrinderProperties;
-import org.featurehouse.spm.util.properties.state.BooleanStateManager;
+import org.featurehouse.spm.util.GrindingUtils;
+import org.featurehouse.spm.util.iprops.IntGrinderProperties;
+import org.featurehouse.spm.util.BooleanStateManager;
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
@@ -29,10 +27,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/* (not javadoc)
- * <h2>Why canceling implementing ExtendedScreenHandlerFactory?</h2>
- * <p>Because it is already implemented in AbstractLockableContainerBlockEntity!</p>
- */
 public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity implements SidedInventory {
     private int grindTime;
     private int grindTimeTotal;
@@ -113,24 +107,18 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     }
 
     @Override
-    public void readNbt(CompoundTag tag) {
+    public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
-        //this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        //Inventories.readNbt(tag, this.inventory);
         this.grindTime = tag.getShort("GrindTime");
         this.grindTimeTotal = tag.getShort("GrindTimeTotal");
         //this.propertyDelegate.set(2 /*IngredientData*/, tag.getInt("IngredientData"));
         this.ingredientData = tag.getDouble("IngredientData");
         this.absorbCooldown = tag.getByte("absorbCooldown");
 
-        //CompoundTag recipeUsed = new CompoundTag();
-        //for (String nextKey : recipeUsed.getKeys()) {
-        //    this.recipesUsed.put(new Identifier(nextKey), recipeUsed.getInt(nextKey));
-        //}
     }
 
     @Override
-    public CompoundTag writeNbt(CompoundTag tag) {
+    public NbtCompound writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
         tag.putShort("GrindTime", (short) grindTime);
         tag.putShort("GrindTimeTotal", (short) grindTimeTotal);
@@ -138,9 +126,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         tag.putDouble("IngredientData", ingredientData);
         tag.putByte("absorbCooldown", absorbCooldown);
 
-        //CompoundTag recipeUsed = new CompoundTag();
-        //this.recipesUsed.forEach(((identifier, integer) -> recipeUsed.putInt(identifier.toString(), integer)));
-        //tag.put("RecipesUsed", recipeUsed);
         return tag;
     }
 
@@ -205,7 +190,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
             // Cooldown
             if (!this.shallCooldown()) {
                 // New round tern
-                if (Util.grindable(this.inventory.get(0))) {
+                if (GrindingUtils.grindable(this.inventory.get(0))) {
                     // Absorb
                     this.ingredientData += INGREDIENT_DATA_MAP.getDouble(this.inventory.get(0).getItem());
                     this.inventory.get(0).decrement(1);
@@ -238,27 +223,17 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @HardCoded
     private void craftRecipe() {
-        this.craftRecipe(false);
+        this.craftRecipe(new ItemStack(SPMMain.POTATO_POWDER));
     }
 
     @HardCoded
-    private void craftRecipe(boolean checkIfCanOutput) {
-        this.craftRecipe(new ItemStack(SPMMain.POTATO_POWDER), checkIfCanOutput);
-    }
+    private void craftRecipe(ItemStack shallOutput) {
+        ItemStack invOutput = this.inventory.get(1);
 
-    @HardCoded
-    private void craftRecipe(ItemStack shallOutput, boolean checkIfCanOutput) {
-        if (this.canAcceptRecipeOutput(shallOutput.getItem()) || !checkIfCanOutput) {
-            //ItemStack input = this.inventory.get(0);
-            ItemStack invOutput = this.inventory.get(1);
-
-            if (!invOutput.isItemEqualIgnoreDamage(shallOutput))
-                this.inventory.set(1, shallOutput.copy());
-            else if (invOutput.getItem() == SPMMain.POTATO_POWDER)
-                invOutput.increment(1);
-
-            //input.decrement(input.getItem().isIn(SPMMain.RAW_SWEET_POTATOES) ? 9 : 3);
-        }
+        if (!invOutput.isItemEqualIgnoreDamage(shallOutput))
+            this.inventory.set(1, shallOutput.copy());
+        else if (invOutput.getItem() == SPMMain.POTATO_POWDER)
+            invOutput.increment(1);
     }
 
     @Deprecated
@@ -292,6 +267,11 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
      * </sup>&nbsp;Now we've found it is a nonsense.
      * <s>Actually, it's a feature.</s></p>
      *
+     * <p>Besides, we use the {@link ItemConvertible} interface
+     * instead of inline {@link SPMMain#POTATO_POWDER} because
+     * {@link GrinderBlockEntity} can be changed upside-down
+     * at any time. This method can be a great API.</p>
+     *
      * @since beta-1.0.0
      */
     @HardCoded
@@ -317,19 +297,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         return 200;
     }
 
-    /**
-     * @deprecated method's super interface is {@code ExtendedScreenHandlerFactory}, while the
-     * screen handler has just changed into simple.
-     * @see ExtendedScreenHandlerFactory
-     * @see net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry
-     * @see net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry.ExtendedClientHandlerFactory
-     * @see net.fabricmc.fabric.impl.screenhandler.ExtendedScreenHandlerType
-     */
-    @Deprecated // @Override
-    public void writeScreenOpeningData(net.minecraft.server.network.ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
-        packetByteBuf.writeBlockPos(this.pos);
-    }
-
     @Override
     public int[] getAvailableSlots(Direction side) {
         return side == Direction.DOWN ? new int[]{1} : new int[]{0};
@@ -350,7 +317,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         if (slot == 1)
             return false;
         else if (slot == 0)
-            return Util.grindable(stack);
+            return GrindingUtils.grindable(stack);
         return false;
     }
 }

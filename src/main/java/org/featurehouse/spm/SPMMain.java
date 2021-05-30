@@ -18,10 +18,10 @@ import org.featurehouse.spm.resource.SPMDataPackFormats;
 import org.featurehouse.spm.screen.GrinderScreenHandler;
 import org.featurehouse.spm.screen.MagicCubeScreenHandler;
 import org.featurehouse.spm.screen.SeedUpdaterScreenHandler;
-import org.featurehouse.spm.structures.tree.gen.*;
-import org.featurehouse.spm.util.properties.objects.BlockSettings;
-import org.featurehouse.spm.util.properties.objects.ItemSettings;
-import org.featurehouse.spm.util.properties.objects.Materials;
+import org.featurehouse.spm.world.gen.tree.*;
+import org.featurehouse.spm.util.objsettings.BlockSettings;
+import org.featurehouse.spm.util.objsettings.ItemSettings;
+import org.featurehouse.spm.util.objsettings.Materials;
 import org.featurehouse.spm.util.registries.ComposterHelper;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -39,7 +39,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.Set;
 
-import static org.featurehouse.spm.util.properties.objects.BlockSettings.*;
+import static org.featurehouse.spm.util.objsettings.BlockSettings.*;
 import static org.featurehouse.spm.util.registries.RegistryHelper.*;
 
 public class SPMMain implements ModInitializer {

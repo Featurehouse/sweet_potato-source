@@ -5,7 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.util.Identifier;
@@ -14,20 +14,11 @@ import net.minecraft.world.World;
 import org.featurehouse.spm.SPMMain;
 import org.jetbrains.annotations.NotNull;
 
-public class SeedUpdatingRecipe implements Recipe<Inventory> {
-    private final Ingredient base;
-    private final Ingredient addition;
-    private final ItemStack result;
-    private final Identifier id;
+public record SeedUpdatingRecipe(Identifier id, Ingredient base,
+                                 Ingredient addition,
+                                 ItemStack result) implements Recipe<Inventory> {
 
-    public SeedUpdatingRecipe(Identifier id, Ingredient base, Ingredient addition, ItemStack result) {
-        this.base = base;
-        this.addition = addition;
-        this.result = result;
-        this.id = id;
-    }
-
-    //@Override
+    @Override
     public boolean matches(@NotNull Inventory inv, World world) {
         return this.base.test(inv.getStack(0)) && this.addition.test(inv.getStack(1));
     }
@@ -35,7 +26,7 @@ public class SeedUpdatingRecipe implements Recipe<Inventory> {
     @Override
     public ItemStack craft(Inventory inv) {
         ItemStack itemStack = this.result.copy();
-        CompoundTag compoundTag = inv.getStack(0).getTag();
+        NbtCompound compoundTag = inv.getStack(0).getTag();
         if (compoundTag != null) {
             itemStack.setTag(compoundTag.copy());
         }
@@ -43,32 +34,32 @@ public class SeedUpdatingRecipe implements Recipe<Inventory> {
         return itemStack;
     }
 
-    @Environment(EnvType.CLIENT)//@Override
+    @Environment(EnvType.CLIENT) @Override
     public boolean fits(int width, int height) {
         return width * height >= 2;
     }
 
-    //@Override
+    @Override
     public ItemStack getOutput() {
         return this.result;
     }
 
-    @Environment(EnvType.CLIENT)
+    @Environment(EnvType.CLIENT) @Deprecated
     public ItemStack getRecipeKindIcon() {
         return new ItemStack(SPMMain.SEED_UPDATER);
     }
 
-    //@Override
+    @Override
     public Identifier getId() {
         return this.id;
     }
 
-    //@Override
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return SPMMain.SEED_UPDATING_RECIPE_SERIALIZER;
     }
 
-    //@Override
+    @Override
     public RecipeType<?> getType() {
         return SPMMain.SEED_UPDATING_RECIPE_TYPE;
     }
@@ -77,7 +68,7 @@ public class SeedUpdatingRecipe implements Recipe<Inventory> {
         return this.addition.test(itemStack);
     }
 
-    public static class Serializer extends AbstractRecipeSerializer<SeedUpdatingRecipe> {
+    public static class Serializer implements RecipeSerializer<SeedUpdatingRecipe> {
 
         @Override
         public SeedUpdatingRecipe read(Identifier identifier, JsonObject jsonObject) {

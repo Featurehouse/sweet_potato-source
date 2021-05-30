@@ -2,10 +2,9 @@ package org.featurehouse.spm.screen;
 
 import org.featurehouse.annotation.NonMinecraftNorFabric;
 import org.featurehouse.spm.SPMMain;
-import org.featurehouse.spm.util.Util;
+import org.featurehouse.spm.util.GrindingUtils;
 import org.featurehouse.spm.util.inventory.UniversalResultSlot;
-import org.featurehouse.spm.util.properties.grinder.IntGrinderProperties;
-import org.featurehouse.spm.util.properties.grinder.NullGrinderProperties;
+import org.featurehouse.spm.util.iprops.IntGrinderProperties;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,7 +26,7 @@ public class GrinderScreenHandler extends ScreenHandler {
      * From: Registry
      */
     public GrinderScreenHandler(int i, PlayerInventory playerInventory) {
-        this(i, playerInventory, playerInventory.player.world, new SimpleInventory(2), new NullGrinderProperties());
+        this(i, playerInventory, playerInventory.player.world, new SimpleInventory(2), new IntGrinderProperties.Impl());
     }
 
     /**
@@ -75,9 +74,9 @@ public class GrinderScreenHandler extends ScreenHandler {
             if (index == 1) {
                 if (!this.insertItem(itemStack2, 2, 38, true))
                     return ItemStack.EMPTY;
-                slot.onStackChanged(itemStack2, itemStack);
+                slot.onQuickTransfer(itemStack2, itemStack);
             } else if (index != 0) {
-                if (Util.grindable(itemStack2)) {
+                if (GrindingUtils.grindable(itemStack2)) {
                     if (!this.insertItem(itemStack2, 0, 1, false))
                         return ItemStack.EMPTY;
                 } else if (index < 29) {

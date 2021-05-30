@@ -1,7 +1,7 @@
 package org.featurehouse.spm.util.inventory;
 
 import org.featurehouse.spm.SPMMain;
-import org.featurehouse.spm.util.properties.objects.Tags;
+import org.featurehouse.spm.util.objsettings.Tags;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;

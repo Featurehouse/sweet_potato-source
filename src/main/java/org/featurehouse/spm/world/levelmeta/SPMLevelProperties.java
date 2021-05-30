@@ -1,8 +1,8 @@
 package org.featurehouse.spm.world.levelmeta;
 
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 
 public interface SPMLevelProperties {
-    CompoundTag sweetPotato_getSPMMetaRaw();
-    void sweetPotato_setSPMMetaRaw(CompoundTag tag);
+    NbtCompound sweetPotato_getSPMMetaRaw();
+    void sweetPotato_setSPMMetaRaw(NbtCompound tag);
 }

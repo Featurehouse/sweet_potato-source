@@ -1,11 +1,11 @@
 package org.featurehouse.spm;
 
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemConvertible;
 
-import java.util.List;
+import java.util.Arrays;
 import java.util.OptionalDouble;
+import java.util.stream.Stream;
 
 public enum SweetPotatoType {
     PURPLE(
@@ -34,83 +34,62 @@ public enum SweetPotatoType {
     }
 
     public SweetPotatoComponent getComponent(SweetPotatoStatus status) {
-        switch (status) {
-            case RAW:
-                return raw;
-            case BAKED:
-                return baked;
-            case ENCHANTED:
-                return enchanted;
-            default:
-                return null;
-        }
+        return switch (status) {
+            case RAW -> raw;
+            case BAKED -> baked;
+            case ENCHANTED -> enchanted;
+            default -> null;
+        };
     }
 
     public ItemConvertible getRaw() {
-        switch (this) {
-            case PURPLE:
-                return SPMMain.PURPLE_POTATO;
-            case RED:
-                return SPMMain.RED_POTATO;
-            case WHITE:
-                return SPMMain.WHITE_POTATO;
-        }
-        return null;
+        return switch (this) {
+            case PURPLE -> SPMMain.PURPLE_POTATO;
+            case RED -> SPMMain.RED_POTATO;
+            case WHITE -> SPMMain.WHITE_POTATO;
+        };
     }
 
     public ItemConvertible getBaked() {
-        switch (this) {
-            case PURPLE:
-                return SPMMain.BAKED_PURPLE_POTATO;
-            case RED:
-                return SPMMain.BAKED_RED_POTATO;
-            case WHITE:
-                return SPMMain.BAKED_WHITE_POTATO;
-        }
-        return null;
+        return switch (this) {
+            case PURPLE -> SPMMain.BAKED_PURPLE_POTATO;
+            case RED -> SPMMain.BAKED_RED_POTATO;
+            case WHITE -> SPMMain.BAKED_WHITE_POTATO;
+        };
     }
 
     public Block getCrop() {
-        switch (this) {
-            case PURPLE:
-                return SPMMain.PURPLE_POTATO_CROP;
-            case RED:
-                return SPMMain.RED_POTATO_CROP;
-            case WHITE:
-                return SPMMain.WHITE_POTATO_CROP;
-        }
-        return null;
+        return switch (this) {
+            case PURPLE -> SPMMain.PURPLE_POTATO_CROP;
+            case RED -> SPMMain.RED_POTATO_CROP;
+            case WHITE -> SPMMain.WHITE_POTATO_CROP;
+        };
     }
 
     public ItemConvertible getEnchanted() {
-        switch (this) {
-            case PURPLE:
-                return SPMMain.ENCHANTED_PURPLE_POTATO;
-            case RED:
-                return SPMMain.ENCHANTED_RED_POTATO;
-            case WHITE:
-                return SPMMain.ENCHANTED_WHITE_POTATO;
-        }
-        return null;
+        return switch (this) {
+            case PURPLE -> SPMMain.ENCHANTED_PURPLE_POTATO;
+            case RED -> SPMMain.ENCHANTED_RED_POTATO;
+            case WHITE -> SPMMain.ENCHANTED_WHITE_POTATO;
+        };
     }
 
     public ItemConvertible get(SweetPotatoStatus status) {
-        switch (status) {
-            case RAW:
-                return this.getRaw();
-            case BAKED:
-                return this.getBaked();
-            case ENCHANTED:
-                return this.getEnchanted();
-            case CROP:
-                return this.getCrop();
-        }
-        return null;
+        return switch (status) {
+            case RAW -> this.getRaw();
+            case BAKED -> this.getBaked();
+            case ENCHANTED -> this.getEnchanted();
+            case CROP -> this.getCrop();
+        };
     }
 
-    public List<SweetPotatoType> getOtherTwo() {
+    /*public List<SweetPotatoType> getOtherTwo() {
         List<SweetPotatoType> list = ObjectArrayList.wrap(values());
         list.remove(this);
         return list;
+    }*/
+
+    public Stream<SweetPotatoType> getOtherTwo() {
+        return Arrays.stream(values()).filter(type -> this != type);
     }
 }

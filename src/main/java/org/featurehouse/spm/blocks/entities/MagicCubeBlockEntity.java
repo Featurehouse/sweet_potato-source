@@ -6,9 +6,9 @@ import org.featurehouse.spm.blocks.MagicCubeBlock;
 import org.featurehouse.spm.items.RawSweetPotatoBlockItem;
 import org.featurehouse.spm.resource.magicalenchantment.WeightedStatusEffect;
 import org.featurehouse.spm.screen.MagicCubeScreenHandler;
-import org.featurehouse.spm.util.properties.magiccube.IntMagicCubeProperties;
+import org.featurehouse.spm.util.iprops.IntMagicCubeProperties;
 import org.featurehouse.spm.util.effects.StatusEffectInstances;
-import org.featurehouse.spm.util.properties.state.BooleanStateManager;
+import org.featurehouse.spm.util.BooleanStateManager;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -20,8 +20,8 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import static org.featurehouse.spm.util.properties.objects.Tags.inTag;
+import static org.featurehouse.spm.util.objsettings.Tags.inTag;
 import static net.minecraft.block.Blocks.SOUL_FIRE;
 
 public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity implements SidedInventory, ExtendedScreenHandlerFactory {
@@ -231,8 +231,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         } else if (random.nextDouble() <= (withViceFuel() ? 0.5D : 0.4D)) {
             // GENE-WORK
             List<ItemConvertible> itemSet = new ObjectArrayList<>(2);
-            if (item instanceof RawSweetPotatoBlockItem && inTag(item, SPMMain.RAW_SWEET_POTATOES)) {
-                RawSweetPotatoBlockItem sweetPotato = (RawSweetPotatoBlockItem) item;
+            if (item instanceof RawSweetPotatoBlockItem sweetPotato && inTag(item, SPMMain.RAW_SWEET_POTATOES)) {
                 sweetPotato.asType().getOtherTwo().forEach(sweetPotatoType -> itemSet.add(sweetPotatoType.getRaw()));
                 this.setStack(outputIndex, new ItemStack(
                         random.nextBoolean() ? itemSet.get(0) : itemSet.get(1)
@@ -248,8 +247,8 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         if (!inTag(item = originRaw.getItem(), SPMMain.RAW_SWEET_POTATOES) || !(item instanceof RawSweetPotatoBlockItem))
             return originRaw;
         RawSweetPotatoBlockItem sweetPotato = (RawSweetPotatoBlockItem) item;
-        CompoundTag tag = new CompoundTag();
-        ListTag listTag = new ListTag();
+        NbtCompound tag = new NbtCompound();
+        NbtList listTag = new NbtList();
         List<StatusEffectInstance> enchantments = calcEnchantments();
         enchantments.forEach(statusEffectInstance -> listTag.add(StatusEffectInstances.writeNbt(statusEffectInstance)));
         int length = enchantments.size();
@@ -299,14 +298,14 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     }
 
     @Override
-    public void readNbt(CompoundTag tag) {
+    public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
         this.mainFuelTime = tag.getShort("EnergyTime");
         this.viceFuelTime = tag.getShort("SublimateTime");
     }
 
     @Override
-    public CompoundTag writeNbt(CompoundTag tag) {
+    public NbtCompound writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
         tag.putShort("EnergyTime", this.mainFuelTime);
         tag.putShort("SublimateTime", this.viceFuelTime);

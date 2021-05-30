@@ -13,7 +13,8 @@ public final class RandomTickHelper {
     }
 
     /**
-     * <h1>From: Vanilla-1.16.1:net.minecraft.block.CropBlock</h1>
+     * <h3>From: Vanilla-1.16.1:
+     *             {@link net.minecraft.block.CropBlock}</h3>
      * <p>Because of its protected accessibility, teddyxlandlee
      * copies it into this helper class.</p>
      */

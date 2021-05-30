@@ -22,14 +22,14 @@
     <Mappings old="1.16.4" new="1.17-Snapshot.21.6.a">
         <field class="net.minecraft.block.Material" old="SUPPORTED" new="DECORATION">
             <Usage>
-                <class name="org.featurehouse.spm.util.properties.objects.BlockSettings" />
+                <class name="org.featurehouse.spm.util.objsettings.BlockSettings" />
             </Usage>
         </field>
         <class old="net.minecraft.block.MaterialColor" new="net.minecraft.block.MapColor">
             <field old="STONE" new="STONE_GRAY" />
             <field old="FOLIAGE" new="DARK_GREEN" />
             <Usage>
-                <class name="org.featurehouse.spm.util.properties.objects.Materials" />
+                <class name="org.featurehouse.spm.util.objsettings.Materials" />
             </Usage>
         </class>
         <class old="net.minecraft.loot.LootTableRange" new="net.minecraft.loot.provider.number.LootNumberProvider">

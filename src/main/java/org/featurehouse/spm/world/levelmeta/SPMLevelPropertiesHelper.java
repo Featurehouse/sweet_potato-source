@@ -1,6 +1,6 @@
 package org.featurehouse.spm.world.levelmeta;
 
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.SaveProperties;
 
@@ -17,7 +17,7 @@ public class SPMLevelPropertiesHelper {
 
     /* Zero: wasn't loaded */
     public static int getLevelSPMDataVersion(SPMLevelProperties spmLevelProperties) {
-        CompoundTag tag = spmLevelProperties.sweetPotato_getSPMMetaRaw();
+        NbtCompound tag = spmLevelProperties.sweetPotato_getSPMMetaRaw();
         return tag.getInt("DataVersion");
     }
 
