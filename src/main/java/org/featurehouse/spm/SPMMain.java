@@ -192,7 +192,7 @@ public class SPMMain implements ModInitializer {
 
 		// Fuel
 		//Util.registerFurnaceFuel(null, Items.AIR, -1);
-		PigEntityAccessor.setBreedingIngredient(Ingredient.fromTag(PIG_BREEDING_INGREDIENTS));
+		PigEntityAccessor.setBreedingIngredient(Ingredient.fromTag(PIG_BREEDING_INGREDIENTS));	// TODO bugfix: java.lang.IllegalAccessError: 尝试从非 <clinit> 方法“setBreedingIngredient_$md$d00418$0”设置 static final 字段 net/minecraft/entity/passive/PigEntity.BREEDING_INGREDIENT
 		ChickenEntityAccessor.setBreedingIngredient(Ingredient.fromTag(CHICKEN_BREEDING_INGREDIENTS));
 		Set<Item> parrotTamingIngredients = ParrotEntityAccessor.getTamingIngredients();
 		parrotTamingIngredients.add(ENCHANTED_BEETROOT_SEEDS); parrotTamingIngredients.add(ENCHANTED_WHEAT_SEEDS);
