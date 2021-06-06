@@ -10,7 +10,7 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [{
-          "item": "sweet_potato:purple_potato"
+          "items": ["sweet_potato:purple_potato"]
         }]
       }
     },

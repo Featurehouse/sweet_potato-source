@@ -20,7 +20,7 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [{
-          "item": "sweet_potato:magic_cube"
+          "items": ["sweet_potato:magic_cube"]
         }]
       }
     }

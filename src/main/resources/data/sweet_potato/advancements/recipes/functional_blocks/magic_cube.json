@@ -24,7 +24,7 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [{
-          "item": "minecraft:crying_obsidian"
+          "items": ["minecraft:crying_obsidian"]
         }]
       }
     },
@@ -32,7 +32,7 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [{
-          "item": "minecraft:smoker"
+          "items": ["minecraft:smoker"]
         }]
       }
     }

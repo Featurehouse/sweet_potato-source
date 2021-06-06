@@ -16,7 +16,7 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [{
-          "item": "minecraft:dark_oak_sapling"
+          "items": ["minecraft:dark_oak_sapling"]
         }]
       }
     }

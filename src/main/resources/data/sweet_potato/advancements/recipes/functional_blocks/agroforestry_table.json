@@ -16,7 +16,7 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [{
-          "item": "sweet_potato:potato_powder"
+          "items": ["sweet_potato:potato_powder"]
         }]
       }
     },
@@ -24,7 +24,7 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [{
-          "item": "minecraft:gold_ingot"
+          "items": ["minecraft:gold_ingot"]
         }, {
           "tag": "sweet_potato:blackstones"
         }]

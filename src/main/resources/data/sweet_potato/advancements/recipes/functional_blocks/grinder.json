@@ -24,7 +24,7 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [{
-          "item": "minecraft:smooth_stone_slab"
+          "items": ["minecraft:smooth_stone_slab"]
         }]
       }
     },
@@ -32,9 +32,9 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [{
-          "item": "minecraft:iron_ingot"
+          "items": ["minecraft:iron_ingot"]
         }, {
-          "item": "minecraft:redstone"
+          "items": ["minecraft:redstone"]
         }]
       }
     }

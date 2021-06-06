@@ -10,7 +10,7 @@
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [{
-          "item": "sweet_potato:enchanted_sugar_cane"
+          "items": ["sweet_potato:enchanted_sugar_cane"]
         }]
       }
     },
