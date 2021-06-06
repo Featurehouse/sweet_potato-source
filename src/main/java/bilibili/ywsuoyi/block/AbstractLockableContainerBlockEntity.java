@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import org.featurehouse.spm.util.tick.ITickable;
+import org.featurehouse.mcmod.spm.util.tick.ITickable;
 
 import java.util.Iterator;
 

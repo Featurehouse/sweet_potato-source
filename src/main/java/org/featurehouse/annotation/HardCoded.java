@@ -5,7 +5,7 @@ import java.lang.annotation.Target;
 
 /**
  * Hardcoded elements, instead of these from JSON, etc.
- * @see org.featurehouse.spm.blocks.entities.GrinderBlockEntity
+ * @see org.featurehouse.mcmod.spm.blocks.entities.GrinderBlockEntity
  */
 @Target({ElementType.METHOD})
 public @interface HardCoded {

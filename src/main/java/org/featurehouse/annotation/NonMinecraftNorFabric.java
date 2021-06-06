@@ -1,6 +1,6 @@
 package org.featurehouse.annotation;
 
-import org.featurehouse.spm.util.GrindingUtils;
+import org.featurehouse.mcmod.spm.util.GrindingUtils;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;

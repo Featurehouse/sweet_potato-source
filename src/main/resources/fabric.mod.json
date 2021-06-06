@@ -25,10 +25,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "org.featurehouse.spm.SPMMain"
+      "org.featurehouse.mcmod.spm.SPMMain"
     ],
     "client": [
-      "org.featurehouse.spm.client.SPMClient"
+      "org.featurehouse.mcmod.spm.client.SPMClient"
     ]
   },
   "mixins": [
@@ -38,7 +38,8 @@
   "depends": {
     "fabricloader": ">=0.9.0",
     "fabric": ">0.30.2",
-    "minecraft": "~1.17-alpha.21.14.a"
+    "minecraft": "1.17.x",
+    "java": ">=16"
   },
   "suggests": {
     "shurlin": "*"
