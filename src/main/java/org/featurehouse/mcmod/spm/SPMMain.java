@@ -1,29 +1,5 @@
 package org.featurehouse.mcmod.spm;
 
-import org.featurehouse.mcmod.spm.blocks.GrinderBlock;
-import org.featurehouse.mcmod.spm.blocks.MagicCubeBlock;
-import org.featurehouse.mcmod.spm.blocks.SeedUpdaterBlock;
-import org.featurehouse.mcmod.spm.blocks.SweetPotatoesCropBlock;
-import org.featurehouse.mcmod.spm.blocks.entities.GrinderBlockEntity;
-import org.featurehouse.mcmod.spm.blocks.entities.MagicCubeBlockEntity;
-import org.featurehouse.mcmod.spm.blocks.saplings_seeds.*;
-import org.featurehouse.mcmod.spm.items.*;
-import org.featurehouse.mcmod.spm.linkage.SPMLinkage;
-import org.featurehouse.mcmod.spm.loot.LootTables;
-import org.featurehouse.mcmod.spm.mixin.acc.ChickenEntityAccessor;
-import org.featurehouse.mcmod.spm.mixin.acc.ParrotEntityAccessor;
-import org.featurehouse.mcmod.spm.mixin.acc.PigEntityAccessor;
-import org.featurehouse.mcmod.spm.recipe.SeedUpdatingRecipe;
-import org.featurehouse.mcmod.spm.resource.SPMDataPackFormats;
-import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
-import org.featurehouse.mcmod.spm.screen.MagicCubeScreenHandler;
-import org.featurehouse.mcmod.spm.screen.SeedUpdaterScreenHandler;
-import org.featurehouse.mcmod.spm.sweetpotato.SweetPotatoType;
-import org.featurehouse.mcmod.spm.world.gen.tree.*;
-import org.featurehouse.mcmod.spm.util.objsettings.BlockSettings;
-import org.featurehouse.mcmod.spm.util.objsettings.ItemSettings;
-import org.featurehouse.mcmod.spm.util.objsettings.Materials;
-import org.featurehouse.mcmod.spm.util.registries.ComposterHelper;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
@@ -37,8 +13,30 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
-
-import java.util.Set;
+import org.featurehouse.mcmod.spm.blocks.GrinderBlock;
+import org.featurehouse.mcmod.spm.blocks.MagicCubeBlock;
+import org.featurehouse.mcmod.spm.blocks.SeedUpdaterBlock;
+import org.featurehouse.mcmod.spm.blocks.SweetPotatoesCropBlock;
+import org.featurehouse.mcmod.spm.blocks.entities.GrinderBlockEntity;
+import org.featurehouse.mcmod.spm.blocks.entities.MagicCubeBlockEntity;
+import org.featurehouse.mcmod.spm.blocks.saplings_seeds.*;
+import org.featurehouse.mcmod.spm.items.*;
+import org.featurehouse.mcmod.spm.linkage.SPMLinkage;
+import org.featurehouse.mcmod.spm.loot.LootTables;
+import org.featurehouse.mcmod.spm.mixin.acc.ChickenEntityAccessor;
+import org.featurehouse.mcmod.spm.mixin.acc.PigEntityAccessor;
+import org.featurehouse.mcmod.spm.recipe.SeedUpdatingRecipe;
+import org.featurehouse.mcmod.spm.resource.SPMDataPackFormats;
+import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
+import org.featurehouse.mcmod.spm.screen.MagicCubeScreenHandler;
+import org.featurehouse.mcmod.spm.screen.SeedUpdaterScreenHandler;
+import org.featurehouse.mcmod.spm.sweetpotato.SweetPotatoType;
+import org.featurehouse.mcmod.spm.util.objsettings.BlockSettings;
+import org.featurehouse.mcmod.spm.util.objsettings.ItemSettings;
+import org.featurehouse.mcmod.spm.util.objsettings.Materials;
+import org.featurehouse.mcmod.spm.util.registries.AnimalIngredients;
+import org.featurehouse.mcmod.spm.util.registries.ComposterHelper;
+import org.featurehouse.mcmod.spm.world.gen.tree.*;
 
 import static org.featurehouse.mcmod.spm.util.objsettings.BlockSettings.*;
 import static org.featurehouse.mcmod.spm.util.registries.RegistryHelper.*;
@@ -162,7 +160,7 @@ public class SPMMain implements ModInitializer {
 	public static final Tag<Item> ALL_SWEET_POTATOES;
 		// About Pigs & Parrots
 	public static final Tag<Item> PIG_BREEDING_INGREDIENTS;
-	public static final Tag<Item> CHICKEN_BREEDING_INGREDIENTS;
+    public static final Tag<Item> CHICKEN_BREEDING_INGREDIENTS;
 
 	// Sounds
 	public static final SoundEvent AGROFORESTRY_TABLE_FINISH;
@@ -193,10 +191,10 @@ public class SPMMain implements ModInitializer {
 
 		// Fuel
 		//Util.registerFurnaceFuel(null, Items.AIR, -1);
-		PigEntityAccessor.setBreedingIngredient(Ingredient.fromTag(PIG_BREEDING_INGREDIENTS));	// TODO bugfix: java.lang.IllegalAccessError: 尝试从非 <clinit> 方法“setBreedingIngredient_$md$d00418$0”设置 static final 字段 net/minecraft/entity/passive/PigEntity.BREEDING_INGREDIENT
+		//TODO Using soft-adding for Pig & Chicken ingredients
+		PigEntityAccessor.setBreedingIngredient(Ingredient.fromTag(PIG_BREEDING_INGREDIENTS));
 		ChickenEntityAccessor.setBreedingIngredient(Ingredient.fromTag(CHICKEN_BREEDING_INGREDIENTS));
-		Set<Item> parrotTamingIngredients = ParrotEntityAccessor.getTamingIngredients();
-		parrotTamingIngredients.add(ENCHANTED_BEETROOT_SEEDS); parrotTamingIngredients.add(ENCHANTED_WHEAT_SEEDS);
+		AnimalIngredients.configureParrot();
 	}
 
 	static {
