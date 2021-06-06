@@ -15,7 +15,7 @@ public abstract class MixinAdvancementTask {
     @Inject(method = "fromJson", at = @At("RETURN"))
     private static void onModifyFromJson(JsonObject obj, AdvancementEntityPredicateDeserializer predicateDeserializer, CallbackInfoReturnable<Task> cir) {
         Identifier id = predicateDeserializer.getAdvancementId();
-        if (id.getPath().equals("balanced_diet") && id.getNamespace().equals("minecraft")) {
+        if ("balanced_diet".equals(id.getPath()) && "minecraft".equals(id.getNamespace())) {
             BalancedDietHelper.setupCriteria(cir.getReturnValue());
         }
     }

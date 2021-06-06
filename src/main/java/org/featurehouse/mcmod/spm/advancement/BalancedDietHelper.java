@@ -6,6 +6,7 @@ import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.criterion.ConsumeItemCriterion;
 import net.minecraft.item.Item;
 import net.minecraft.predicate.entity.EntityPredicate;
+import org.featurehouse.mcmod.spm.util.SimpleItemPredicate;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public final class BalancedDietHelper {
         System.arraycopy(requirementsOld, 0, requirementsNew, itemListSize, requirementsOld.length);
 
         for (int i = 0; i < itemListSize; ++i) {
-            String reqId = "sweet_potato:balanced_diet__food$" + i;
+            String reqId = "sweet_potato:balanced_diet__food$" + itemList.get(i);
             task.criterion(reqId,
                     new ConsumeItemCriterion.Conditions(EntityPredicate.Extended.EMPTY,
                             new SimpleItemPredicate(itemList.get(i))));

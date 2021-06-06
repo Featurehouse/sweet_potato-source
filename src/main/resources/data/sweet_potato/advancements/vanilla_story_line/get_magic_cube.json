@@ -16,15 +16,14 @@
   },
   "parent": "minecraft:nether/obtain_crying_obsidian",
   "criteria": {
-    "sweet_potato:get_sweet_potato": {
+    "get_magic_cube": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "items": [
-          {
-            "item": "sweet_potato:magic_cube"
-          }
-        ]
+        "items": [{
+          "item": "sweet_potato:magic_cube"
+        }]
       }
     }
-  }
+  },
+  "requirements": [["get_magic_cube"]]
 }

@@ -2,6 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "org.featurehouse.mcmod.spm.mixin",
+  "compatibilityLevel": "JAVA_16",
   "mixins": [
     "acc.AdvancementTaskAccessor",
     "acc.ChickenEntityAccessor",

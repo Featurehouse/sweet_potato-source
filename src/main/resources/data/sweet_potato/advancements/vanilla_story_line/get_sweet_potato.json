@@ -19,12 +19,11 @@
     "sweet_potato:get_sweet_potato": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "items": [
-          {
-            "tag": "sweet_potato:sweet_potatoes"
-          }
-        ]
+        "items": [{
+          "tag": "sweet_potato:sweet_potatoes"
+        }]
       }
     }
-  }
+  },
+  "requirements": [["sweet_potato:get_sweet_potato"]]
 }

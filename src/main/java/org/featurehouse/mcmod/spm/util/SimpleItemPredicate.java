@@ -1,4 +1,4 @@
-package org.featurehouse.mcmod.spm.advancement;
+package org.featurehouse.mcmod.spm.util;
 
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.item.Item;
