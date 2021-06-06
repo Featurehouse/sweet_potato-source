@@ -1,4 +1,4 @@
-package org.featurehouse.mcmod.spm.sweetpotato;
+package org.featurehouse.mcmod.spm.util.objsettings.sweetpotato;
 
 import org.featurehouse.mcmod.spm.util.GrindingUtils;
 import org.featurehouse.mcmod.spm.util.registries.ComposterHelper;

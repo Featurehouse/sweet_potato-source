@@ -1,8 +1,8 @@
 package org.featurehouse.mcmod.spm.items;
 
 import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.sweetpotato.SweetPotatoStatus;
-import org.featurehouse.mcmod.spm.sweetpotato.SweetPotatoType;
+import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoStatus;
+import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoType;
 import org.featurehouse.mcmod.spm.util.NbtUtils;
 import org.featurehouse.mcmod.spm.util.inventory.PeelInserter;
 import org.featurehouse.mcmod.spm.util.effects.StatusEffectInstances;

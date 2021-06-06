@@ -1,9 +1,9 @@
 package org.featurehouse.mcmod.spm.util.registries;
 
 import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.sweetpotato.SweetPotatoComponent;
-import org.featurehouse.mcmod.spm.sweetpotato.SweetPotatoStatus;
-import org.featurehouse.mcmod.spm.sweetpotato.SweetPotatoType;
+import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoComponent;
+import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoStatus;
+import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoType;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.item.ItemConvertible;
 
