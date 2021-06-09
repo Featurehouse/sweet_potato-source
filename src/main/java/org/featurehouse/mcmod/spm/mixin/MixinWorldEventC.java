@@ -25,12 +25,12 @@ public class MixinWorldEventC {
     @Shadow private ClientWorld world;
     @Shadow @Final private MinecraftClient client;
 
+    /**
+     * When {@link ClientWorld#syncWorldEvent(PlayerEntity, int, BlockPos, int)} calls.
+     */
     @Inject(at = @At("HEAD"), method = "processWorldEvent", cancellable = true)
     private void spmSounds(PlayerEntity source, int eventId, BlockPos blockPos, int data, CallbackInfo ci) {
-        if (eventId == 1044 && data == 8844110) {
-            world.playSound(blockPos, SPMMain.AGROFORESTRY_TABLE_FINISH, SoundCategory.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.1F + 0.9F, false);
-            ci.cancel();
-        } else if (eventId == 1132119 && data == 805) {
+        if (eventId == 1132119 && data == 805) {
             client.getSoundManager().play(new KeepPlayingSoundInstance(SPMMain.GRINDER_GRIND, 1.0F, world, blockPos, client.player, (world1, blockPos1) -> {
                 BlockState state = world1.getBlockState(blockPos1);
                 return state.getBlock() instanceof GrinderBlock // important

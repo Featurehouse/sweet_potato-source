@@ -1,14 +1,6 @@
 package org.featurehouse.mcmod.spm.blocks.entities;
 
-import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
-import org.featurehouse.annotation.HardCoded;
-import org.featurehouse.annotation.NonMinecraftNorFabric;
-import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.blocks.GrinderBlock;
-import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
-import org.featurehouse.mcmod.spm.util.GrindingUtils;
-import org.featurehouse.mcmod.spm.util.iprops.IntGrinderProperties;
-import org.featurehouse.mcmod.spm.util.BooleanStateManager;
+import org.featurehouse.mcmod.spm.api.block.entity.AbstractLockableContainerBlockEntity;
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
@@ -24,6 +16,14 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.featurehouse.annotation.HardCoded;
+import org.featurehouse.annotation.NonMinecraftNorFabric;
+import org.featurehouse.mcmod.spm.SPMMain;
+import org.featurehouse.mcmod.spm.blocks.GrinderBlock;
+import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
+import org.featurehouse.mcmod.spm.util.BooleanStateManager;
+import org.featurehouse.mcmod.spm.util.GrindingUtils;
+import org.featurehouse.mcmod.spm.util.iprops.IntGrinderProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -314,10 +314,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     @Override
     public boolean isValid(int slot, ItemStack stack) {
-        if (slot == 1)
-            return false;
-        else if (slot == 0)
-            return GrindingUtils.grindable(stack);
-        return false;
+        return slot == 0 && GrindingUtils.grindable(stack);
     }
 }

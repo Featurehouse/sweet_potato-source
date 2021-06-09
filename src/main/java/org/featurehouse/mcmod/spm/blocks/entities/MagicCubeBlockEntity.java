@@ -1,6 +1,6 @@
 package org.featurehouse.mcmod.spm.blocks.entities;
 
-import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
+import org.featurehouse.mcmod.spm.api.block.entity.AbstractLockableContainerBlockEntity;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.blocks.MagicCubeBlock;
 import org.featurehouse.mcmod.spm.items.RawSweetPotatoBlockItem;

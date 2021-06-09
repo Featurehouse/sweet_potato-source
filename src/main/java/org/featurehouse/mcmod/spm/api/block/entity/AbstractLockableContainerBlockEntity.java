@@ -3,7 +3,7 @@
 // (powered by Fernflower decompiler)
 //
 
-package bilibili.ywsuoyi.block;
+package org.featurehouse.mcmod.spm.api.block.entity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;

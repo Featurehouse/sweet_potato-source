@@ -1,0 +1,61 @@
+{
+  "type": "sweet_potato:celeste",
+  "seed": "888444888",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": {
+      "bedrock_roof_position": -2147483648,
+      "bedrock_floor_position": -2147483648,
+      "sea_level": 0,
+      "disable_mob_generation": false,
+      "noise_caves_enabled": false,
+      "noodle_caves_enabled": false,
+      "deepslate_enabled": false,
+      "aquifers_enabled": false,
+      "default_block": {
+        "Name": "minecraft:diorite"
+      },
+      "default_fluid": {
+        "Properties": { "level": 0 },
+        "Name": "minecraft:water"
+      },
+      "structures": {
+        "structures": {
+          "spacing": 32,
+          "separation": 8,
+          "salt": 10387312
+        }
+      },
+      "noise": {
+        "min_y": 32,
+        "height": 128,
+        "size_horizontal": 6,
+        "size_vertical": 2,
+        "density_factor": 0.0,
+        "density_offset": 0.0,
+        "simplex_surface_noise": true,
+        "sapling": {
+          "xz_sacle": 2.0,
+          "y_scale": 1.5,
+          "xz_factor": 80.0,
+          "y_fator": 160.0
+        },
+        "top_slide": {
+          "target": "-3000",
+          "size": 64,
+          "offset": -46
+        },
+        "bottom_slide": {
+          "target": -30,
+          "size": 7,
+          "offset": 1
+        }
+      }
+    },
+    "biome_source": {
+      "seed": "888444888",
+      "biomes": ["spm_dimensions_testmod_v0:copied_end"],
+      "type": ""
+    }
+  }
+}

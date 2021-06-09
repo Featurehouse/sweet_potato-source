@@ -7,7 +7,7 @@
         <Addition>
         </Addition>
         <Edition>
-            <class name="bilibili.ywsuoyi.block.AbstractBlockWithEntity" super="net.minecraft.block.BlockWithEntity" />
+            <class name="org.featurehouse.mcmod.spm.api.block.entity.AbstractBlockWithEntity" super="net.minecraft.block.BlockWithEntity" />
             <class name="org.featurehouse.mcmod.spm.blocks.GrinderBlock" />
             <class name="org.featurehouse.mcmod.spm.blocks.MagicCubeBlock" />
             <class name="org.featurehouse.mcmod.spm.blocks.entities.GrinderBlockEntity" />

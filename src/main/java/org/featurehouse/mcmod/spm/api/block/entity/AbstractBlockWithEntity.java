@@ -1,4 +1,4 @@
-package bilibili.ywsuoyi.block;
+package org.featurehouse.mcmod.spm.api.block.entity;
 
 import org.featurehouse.mcmod.spm.util.tick.ITickable;
 import com.google.common.collect.ImmutableList;

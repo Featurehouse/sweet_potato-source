@@ -1,26 +1,40 @@
 package org.featurehouse.mcmod.spm.client;
 
-import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.linkage.SPMLinkageClient;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.featurehouse.mcmod.spm.SPMMain;
+import org.featurehouse.mcmod.spm.blocks.GrinderBlock;
+import org.featurehouse.mcmod.spm.linkage.SPMLinkageClient;
+import org.featurehouse.mcmod.spm.util.registries.RegistryHelper;
+
+import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class SPMClient implements ClientModInitializer {
+    private static final Logger LOGGER = LogManager.getLogger(SPMClient.class);
 
     @Override
     public void onInitializeClient() {
+        /* Client Screens */
+
         ScreenRegistry.register(SPMMain.SEED_UPDATER_SCREEN_HANDLER_TYPE, SeedUpdaterScreen::new);
         ScreenRegistry.register(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, GrinderScreen::new);
         ScreenRegistry.register(SPMMain.MAGIC_CUBE_SCREEN_HANDLER_TYPE, MagicCubeScreen::new);
+
+        /* Color Providers */
 
         ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(),
                 SPMMain.ENCHANTED_ACACIA_LEAVES, SPMMain.ENCHANTED_DARK_OAK_LEAVES,
@@ -35,8 +49,11 @@ public class SPMClient implements ClientModInitializer {
         ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.getBirchColor(), SPMMain.ENCHANTED_BIRCH_LEAVES_ITEM);
         ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.getSpruceColor(), SPMMain.ENCHANTED_SPRUCE_LEAVES_ITEM);
 
+        /* Linkage */
 
         FabricLoader.getInstance().getEntrypoints("sweet_potato.client", SPMLinkageClient.class).forEach(SPMLinkageClient::initClient);
+
+        /* Rendering */
 
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),
                 SPMMain.PURPLE_POTATO_CROP, SPMMain.RED_POTATO_CROP,

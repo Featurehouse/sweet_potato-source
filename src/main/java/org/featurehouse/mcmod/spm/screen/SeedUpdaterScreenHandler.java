@@ -1,5 +1,7 @@
 package org.featurehouse.mcmod.spm.screen;
 
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.math.Vec3d;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.recipe.SeedUpdatingRecipe;
 import net.minecraft.block.BlockState;
@@ -62,11 +64,15 @@ public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
     @Override
     protected void onTakeOutput(PlayerEntity player, @NotNull ItemStack stack) {
         //stack.onCraft(player.world, player, stack.getCount());
+
         this.output.unlockLastRecipe(player);
         this.putStack(0);
         this.putStack(1);
         //output.markDirty();
-        this.context.run((world1, blockPos) -> world1.syncWorldEvent(1044, blockPos, 8844110));
+        this.context.run((world1, blockPos) -> {
+            /*world1.syncWorldEvent(1044, blockPos, 8844110));*/
+            world1.playSound(null, blockPos, SPMMain.AGROFORESTRY_TABLE_FINISH, SoundCategory.BLOCKS, 1.0F, world1.getRandom().nextFloat() * 0.1F + 0.9F);
+        });
         player.incrementStat(SPMMain.CROP_UPGRADED);
         //return stack;
     }

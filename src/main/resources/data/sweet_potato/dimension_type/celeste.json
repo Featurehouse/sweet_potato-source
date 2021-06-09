@@ -1,0 +1,18 @@
+{
+  "name": "sweet_potato:celeste",
+  "has_skylight": true,
+  "has_ceiling": false,
+  "ultrawarm": false,
+  "natural": true,
+  "coordinate_scale": 1.0,
+  "piglin_safe": true,
+  "bed_works": false,
+  "respawn_anchor_works": true,
+  "has_raids": false,
+  "min_y": 0,
+  "height": 256,
+  "logical_height": 256,
+  "infiniburn": "minecraft:infiniburn_overworld",
+  "effects": "minecraft:the_nether",
+  "ambient_light": 0.1
+}
