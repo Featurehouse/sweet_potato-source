@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "org.featurehouse.spm.mixin",
+  "package": "org.featurehouse.mcmod.spm.mixin",
   "mixins": [
     "global.AdvancementTaskAccessor",
     "global.ChickenEntityAccessor",

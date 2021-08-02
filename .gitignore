@@ -27,6 +27,7 @@ bin/
 # fabric
 
 run/
+remappedSrc/
 
 # User Defined
 updates.log

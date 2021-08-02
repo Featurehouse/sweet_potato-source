@@ -12,7 +12,7 @@ import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.collection.DefaultedList;
 
 import java.util.Iterator;
@@ -27,17 +27,17 @@ public abstract class AbstractLockableContainerBlockEntity extends LockableConta
         this.size = size;
     }
 
-    public CompoundTag toTag(CompoundTag tag) {
-        super.toTag(tag);
-        Inventories.toTag(tag, this.inventory);
+    public NbtCompound writeNbt(NbtCompound tag) {
+        super.writeNbt(tag);
+        Inventories.writeNbt(tag, this.inventory);
 
         return tag;
     }
 
-    public void fromTag(BlockState state, CompoundTag tag) {
+    public void fromTag(BlockState state, NbtCompound tag) {
         super.fromTag(state, tag);
         this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        Inventories.fromTag(tag, this.inventory);
+        Inventories.readNbt(tag, this.inventory);
     }
 
     public int size() {

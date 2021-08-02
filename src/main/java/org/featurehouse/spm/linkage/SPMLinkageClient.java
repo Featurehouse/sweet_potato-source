@@ -1,10 +1,4 @@
 package org.featurehouse.spm.linkage;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
-@Environment(EnvType.CLIENT)
-@FunctionalInterface
-public interface SPMLinkageClient {
-    void initClient();
-}
+@Deprecated
+public interface SPMLinkageClient extends org.featurehouse.mcmod.spm.linkage.SPMLinkageClient {}

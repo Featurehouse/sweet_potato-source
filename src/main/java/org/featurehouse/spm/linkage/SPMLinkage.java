@@ -1,6 +1,4 @@
 package org.featurehouse.spm.linkage;
 
-@FunctionalInterface
-public interface SPMLinkage {
-    void init();
-}
+@Deprecated
+public interface SPMLinkage extends org.featurehouse.mcmod.spm.linkage.SPMLinkage {}
