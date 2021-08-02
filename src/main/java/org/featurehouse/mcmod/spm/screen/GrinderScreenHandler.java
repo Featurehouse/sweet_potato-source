@@ -1,8 +1,8 @@
 package org.featurehouse.mcmod.spm.screen;
 
-import org.featurehouse.annotation.NonMinecraftNorFabric;
+import org.featurehouse.mcmod.spm.util.annotation.NonMinecraftNorFabric;
 import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.util.GrindingUtils;
+import org.featurehouse.mcmod.spm.util.registries.GrindingUtils;
 import org.featurehouse.mcmod.spm.util.inventory.UniversalResultSlot;
 import org.featurehouse.mcmod.spm.util.iprops.IntGrinderProperties;
 import net.fabricmc.api.EnvType;
@@ -76,7 +76,7 @@ public class GrinderScreenHandler extends ScreenHandler {
                     return ItemStack.EMPTY;
                 slot.onQuickTransfer(itemStack2, itemStack);
             } else if (index != 0) {
-                if (GrindingUtils.grindable(itemStack2)) {
+                if (GrindingUtils.isGrindable(itemStack2)) {
                     if (!this.insertItem(itemStack2, 0, 1, false))
                         return ItemStack.EMPTY;
                 } else if (index < 29) {

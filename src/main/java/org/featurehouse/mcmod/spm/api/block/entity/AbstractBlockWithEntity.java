@@ -20,10 +20,13 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.featurehouse.mcmod.spm.util.annotation.StableApi;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+@ApiStatus.Experimental
 public abstract class AbstractBlockWithEntity extends BlockWithEntity {
     protected abstract boolean blockEntityPredicate(BlockEntity blockEntity);
 

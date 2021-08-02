@@ -1,6 +1,6 @@
 package org.featurehouse.mcmod.spm.util.objsettings.sweetpotato;
 
-import org.featurehouse.mcmod.spm.util.GrindingUtils;
+import org.featurehouse.mcmod.spm.util.registries.GrindingUtils;
 import org.featurehouse.mcmod.spm.util.registries.ComposterHelper;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.ItemConvertible;

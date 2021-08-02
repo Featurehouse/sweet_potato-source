@@ -30,16 +30,19 @@ import org.featurehouse.mcmod.spm.resource.SPMDataPackFormats;
 import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
 import org.featurehouse.mcmod.spm.screen.MagicCubeScreenHandler;
 import org.featurehouse.mcmod.spm.screen.SeedUpdaterScreenHandler;
+import org.featurehouse.mcmod.spm.util.annotation.StableApi;
 import org.featurehouse.mcmod.spm.util.objsettings.BlockSettings;
 import org.featurehouse.mcmod.spm.util.objsettings.ItemSettings;
 import org.featurehouse.mcmod.spm.util.objsettings.Materials;
 import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoType;
+import org.featurehouse.mcmod.spm.util.registries.AnimalIngredients;
 import org.featurehouse.mcmod.spm.util.registries.ComposterHelper;
 import org.featurehouse.mcmod.spm.world.gen.tree.*;
 
 import static org.featurehouse.mcmod.spm.util.objsettings.BlockSettings.*;
 import static org.featurehouse.mcmod.spm.util.registries.RegistryHelper.*;
 
+@StableApi
 public class SPMMain implements ModInitializer {
 	public static SPMMain INSTANCE;
 	public SPMMain() {
@@ -192,6 +195,7 @@ public class SPMMain implements ModInitializer {
 		//Util.registerFurnaceFuel(null, Items.AIR, -1);
 		PigEntityAccessor.setBreedingIngredient(Ingredient.fromTag(PIG_BREEDING_INGREDIENTS));
 		ChickenEntityAccessor.setBreedingIngredient(Ingredient.fromTag(CHICKEN_BREEDING_INGREDIENTS));
+		AnimalIngredients.configureParrot();
 	}
 
 	static {

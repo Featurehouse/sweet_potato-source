@@ -1,4 +1,4 @@
-package org.featurehouse.annotation;
+package org.featurehouse.mcmod.spm.util.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;

@@ -1,12 +1,12 @@
 package org.featurehouse.mcmod.spm.blocks.entities;
 
 import org.featurehouse.mcmod.spm.api.block.entity.AbstractLockableContainerBlockEntity;
-import org.featurehouse.annotation.HardCoded;
-import org.featurehouse.annotation.NonMinecraftNorFabric;
+import org.featurehouse.mcmod.spm.util.annotation.HardCoded;
+import org.featurehouse.mcmod.spm.util.annotation.NonMinecraftNorFabric;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.blocks.GrinderBlock;
 import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
-import org.featurehouse.mcmod.spm.util.GrindingUtils;
+import org.featurehouse.mcmod.spm.util.registries.GrindingUtils;
 import org.featurehouse.mcmod.spm.util.iprops.IntGrinderProperties;
 import org.featurehouse.mcmod.spm.util.BooleanStateManager;
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;
@@ -204,7 +204,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
             // Cooldown
             if (!this.shallCooldown()) {
                 // New round tern
-                if (GrindingUtils.grindable(this.inventory.get(0))) {
+                if (GrindingUtils.isGrindable(this.inventory.get(0))) {
                     // Absorb
                     this.ingredientData += INGREDIENT_DATA_MAP.getDouble(this.inventory.get(0).getItem());
                     this.inventory.get(0).decrement(1);
@@ -348,7 +348,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         if (slot == 1)
             return false;
         else if (slot == 0)
-            return GrindingUtils.grindable(stack);
+            return GrindingUtils.isGrindable(stack);
         return false;
     }
 }

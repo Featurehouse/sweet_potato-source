@@ -1,4 +1,4 @@
-package org.featurehouse.annotation;
+package org.featurehouse.mcmod.spm.util.annotation;
 
 /**
  * Annotates methods, fields, etc. from Fabric API

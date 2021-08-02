@@ -7,6 +7,8 @@ import org.featurehouse.mcmod.spm.mixin.acc.ParrotEntityAccessor;
 import java.util.Set;
 
 public class AnimalIngredients {
+    private AnimalIngredients() {}
+
     public static void configureParrot() {
         Set<Item> parrotTamingIngredients = ParrotEntityAccessor.getTamingIngredients();
         parrotTamingIngredients.add(SPMMain.ENCHANTED_BEETROOT_SEEDS);

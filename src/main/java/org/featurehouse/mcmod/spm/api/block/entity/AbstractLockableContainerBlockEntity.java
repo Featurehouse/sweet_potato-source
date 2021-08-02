@@ -13,9 +13,11 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.collection.DefaultedList;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Iterator;
 
+@ApiStatus.Experimental
 public abstract class AbstractLockableContainerBlockEntity extends LockableContainerBlockEntity {
     protected /*private*/ DefaultedList<ItemStack> inventory;
     private final int size;
