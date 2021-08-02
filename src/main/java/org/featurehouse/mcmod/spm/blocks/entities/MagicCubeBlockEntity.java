@@ -1,14 +1,14 @@
 package org.featurehouse.mcmod.spm.blocks.entities;
 
-import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
+import org.featurehouse.mcmod.spm.api.block.entity.AbstractLockableContainerBlockEntity;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.blocks.MagicCubeBlock;
 import org.featurehouse.mcmod.spm.items.RawSweetPotatoBlockItem;
 import org.featurehouse.mcmod.spm.resource.magicalenchantment.WeightedStatusEffect;
 import org.featurehouse.mcmod.spm.screen.MagicCubeScreenHandler;
 import org.featurehouse.mcmod.spm.util.effects.StatusEffectInstances;
-import org.featurehouse.mcmod.spm.util.properties.magiccube.IntMagicCubeProperties;
-import org.featurehouse.mcmod.spm.util.properties.state.BooleanStateManager;
+import org.featurehouse.mcmod.spm.util.iprops.IntMagicCubeProperties;
+import org.featurehouse.mcmod.spm.util.BooleanStateManager;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;

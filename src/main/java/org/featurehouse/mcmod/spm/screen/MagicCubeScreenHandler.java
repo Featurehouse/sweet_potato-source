@@ -2,11 +2,9 @@ package org.featurehouse.mcmod.spm.screen;
 
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.blocks.MagicCubeBlock;
-import org.featurehouse.mcmod.spm.screen.MagicCubeScreenHandler.FuelSlot;
 import org.featurehouse.mcmod.spm.util.inventory.MagicCubeInputSlot;
 import org.featurehouse.mcmod.spm.util.inventory.UniversalResultSlot;
-import org.featurehouse.mcmod.spm.util.properties.magiccube.IntMagicCubeProperties;
-import org.featurehouse.mcmod.spm.util.properties.magiccube.NullMagicCubeProperties;
+import org.featurehouse.mcmod.spm.util.iprops.IntMagicCubeProperties;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -34,7 +32,7 @@ public class MagicCubeScreenHandler extends ScreenHandler {
     protected final Slot mainFuelSlot, viceFuelSlot;
 
     public MagicCubeScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
-        this(syncId, inventory, inventory.player.world, buf.readBlockPos(), new SimpleInventory(8), new NullMagicCubeProperties());
+        this(syncId, inventory, inventory.player.world, buf.readBlockPos(), new SimpleInventory(8), new IntMagicCubeProperties.Impl());
     }
 
     public MagicCubeScreenHandler(int syncId, PlayerInventory playerInventory, World world, BlockPos pos, Inventory inventory, IntMagicCubeProperties properties) {

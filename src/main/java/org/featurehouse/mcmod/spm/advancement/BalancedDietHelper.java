@@ -1,7 +1,7 @@
 package org.featurehouse.mcmod.spm.advancement;
 
 import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.mixin.global.AdvancementTaskAccessor;
+import org.featurehouse.mcmod.spm.mixin.acc.AdvancementTaskAccessor;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.criterion.ConsumeItemCriterion;
 import net.minecraft.item.Item;

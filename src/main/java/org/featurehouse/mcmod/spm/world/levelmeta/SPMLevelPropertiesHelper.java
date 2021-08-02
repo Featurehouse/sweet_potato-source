@@ -5,7 +5,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.SaveProperties;
 
 public class SPMLevelPropertiesHelper {
-    public static final int DATA_VERSION = 15;  // 1.2.0.
+    public static final int DATA_VERSION = 17;  // 1.3.0.
 
     public static int getLevelSPMDataVersion(MinecraftServer server) {
         return getLevelSPMDataVersion(server.getSaveProperties());

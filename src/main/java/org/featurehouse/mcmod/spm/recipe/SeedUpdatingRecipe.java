@@ -78,7 +78,7 @@ public class SeedUpdatingRecipe implements Recipe<Inventory> {
         return this.addition.test(itemStack);
     }
 
-    public static class Serializer extends AbstractRecipeSerializer<SeedUpdatingRecipe> {
+    public static class Serializer implements RecipeSerializer<SeedUpdatingRecipe> {
 
         //@Override
         public SeedUpdatingRecipe read(Identifier identifier, JsonObject jsonObject) {

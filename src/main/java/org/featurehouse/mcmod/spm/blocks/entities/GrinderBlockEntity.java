@@ -1,16 +1,15 @@
 package org.featurehouse.mcmod.spm.blocks.entities;
 
-import bilibili.ywsuoyi.block.AbstractLockableContainerBlockEntity;
+import org.featurehouse.mcmod.spm.api.block.entity.AbstractLockableContainerBlockEntity;
 import org.featurehouse.annotation.HardCoded;
 import org.featurehouse.annotation.NonMinecraftNorFabric;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.blocks.GrinderBlock;
 import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
-import org.featurehouse.mcmod.spm.util.Util;
-import org.featurehouse.mcmod.spm.util.properties.grinder.IntGrinderProperties;
-import org.featurehouse.mcmod.spm.util.properties.state.BooleanStateManager;
+import org.featurehouse.mcmod.spm.util.GrindingUtils;
+import org.featurehouse.mcmod.spm.util.iprops.IntGrinderProperties;
+import org.featurehouse.mcmod.spm.util.BooleanStateManager;
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerInventory;
@@ -18,7 +17,6 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
@@ -206,7 +204,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
             // Cooldown
             if (!this.shallCooldown()) {
                 // New round tern
-                if (Util.grindable(this.inventory.get(0))) {
+                if (GrindingUtils.grindable(this.inventory.get(0))) {
                     // Absorb
                     this.ingredientData += INGREDIENT_DATA_MAP.getDouble(this.inventory.get(0).getItem());
                     this.inventory.get(0).decrement(1);
@@ -330,26 +328,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         return 200;
     }
 
-    /*
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
-        GrinderProperties grinderProperties = new GrinderProperties(this.grindTime, this.grindTimeTotal, this.ingredientData);
-        grinderProperties.fillPacketByteBuf(packetByteBuf);
-    }*/
-
-    /**
-     * @deprecated method's super interface is {@code ExtendedScreenHandlerFactory}, while the
-     * screen handler has just changed into simple.
-     * @see ExtendedScreenHandlerFactory
-     * @see net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry
-     * @see net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry.ExtendedClientHandlerFactory
-     * @see net.fabricmc.fabric.impl.screenhandler.ExtendedScreenHandlerType
-     */
-    @Deprecated // @Override
-    public void writeScreenOpeningData(net.minecraft.server.network.ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
-        packetByteBuf.writeBlockPos(this.pos);
-    }
-
     @Override
     public int[] getAvailableSlots(Direction side) {
         return side == Direction.DOWN ? new int[]{1} : new int[]{0};
@@ -370,24 +348,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         if (slot == 1)
             return false;
         else if (slot == 0)
-            return Util.grindable(stack);
+            return GrindingUtils.grindable(stack);
         return false;
     }
-
-    /*@Deprecated
-    static class StateHelper extends BooleanStateManager {
-        GrinderBlockEntity blockEntity;
-        public StateHelper(GrinderBlockEntity blockEntity) {
-            super(blockEntity);
-            this.blockEntity = blockEntity;
-        }
-
-        @Override
-        public void run() {
-            assert this.world != null;
-            boolean b;
-            if (shouldChange(b = blockEntity.isGrinding()))
-                world.setBlockState(pos, world.getBlockState(pos).with(GrinderBlock.GRINDING, b));
-        }
-    }*/
 }

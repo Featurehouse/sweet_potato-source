@@ -1,6 +1,6 @@
 package org.featurehouse.mcmod.spm.blocks;
 
-import org.featurehouse.mcmod.spm.SweetPotatoType;
+import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;

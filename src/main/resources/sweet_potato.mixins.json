@@ -3,18 +3,18 @@
   "minVersion": "0.8",
   "package": "org.featurehouse.mcmod.spm.mixin",
   "mixins": [
-    "global.AdvancementTaskAccessor",
-    "global.ChickenEntityAccessor",
-    "global.LevelPropertiesMixin",
-    "global.MixinAdvancementTask",
-    "global.ParrotEntityAccessor",
-    "global.PigEntityAccessor",
-    "global.ServerPropertiesMixin"
+    "acc.AdvancementTaskAccessor",
+    "acc.ChickenEntityAccessor",
+    "modinfo.LevelPropertiesMixin",
+    "MixinAdvancementTask",
+    "acc.ParrotEntityAccessor",
+    "acc.PigEntityAccessor",
+    "modinfo.ServerPropertiesMixin"
   ],
   "client": [
-    "CreditsScreenMixin",
-    "MixinWorldEvent",
-    "TitleScreenMixin"
+    "modinfo.CreditsScreenMixinC",
+    "MixinWorldEventC",
+    "modinfo.TitleScreenMixinC"
   ],
   "injectors": {
     "defaultRequire": 1

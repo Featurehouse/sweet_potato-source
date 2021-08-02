@@ -1,8 +1,8 @@
 package org.featurehouse.mcmod.spm.items;
 
 import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.SweetPotatoStatus;
-import org.featurehouse.mcmod.spm.SweetPotatoType;
+import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoStatus;
+import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoType;
 import org.featurehouse.mcmod.spm.util.NbtUtils;
 import org.featurehouse.mcmod.spm.util.inventory.PeelInserter;
 import org.featurehouse.mcmod.spm.util.effects.StatusEffectInstances;
@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class EnchantedSweetPotatoItem extends EnchantedItem implements WithStatus {
+public class EnchantedSweetPotatoItem extends EnchantedItem implements SweetPotatoProperties {
     @Override
     public boolean isFood() {
         return true;
