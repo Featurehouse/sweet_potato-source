@@ -10,7 +10,7 @@ import java.util.OptionalDouble;
 
 public class SweetPotatoComponent {
     protected int hunger;
-    protected float sat;
+    protected float saturationModifier;
     protected float compost;
     protected OptionalDouble grindData;
     protected boolean alwaysEdible;
@@ -19,9 +19,11 @@ public class SweetPotatoComponent {
         this(hunger, sat, compost, grindData, false);
     }
 
+    /** @see net.minecraft.entity.player.HungerManager#add(int, float)  */
     public SweetPotatoComponent(int hunger, float sat, float compost, OptionalDouble grindData, boolean alwaysEdible) {
         this.hunger = hunger;
-        this.sat = sat;
+        /* saturation = food * saturationModifier * 2.0F */
+        this.saturationModifier = sat / hunger / 2.0F;
         this.compost = compost;
         this.grindData = grindData;
         this.alwaysEdible = alwaysEdible;
@@ -31,8 +33,8 @@ public class SweetPotatoComponent {
         return hunger;
     }
 
-    public float getSat() {
-        return sat;
+    public float getSaturationModifier() {
+        return saturationModifier;
     }
 
     public float getCompost() {
@@ -50,7 +52,7 @@ public class SweetPotatoComponent {
     public FoodComponent asFoodComponent() {
         FoodComponent.Builder builder = new FoodComponent.Builder()
                 .hunger(this.hunger)
-                .saturationModifier(this.sat);
+                .saturationModifier(this.saturationModifier);
         return this.alwaysEdible ? (builder.alwaysEdible().build()) : (builder.build());
     }
 

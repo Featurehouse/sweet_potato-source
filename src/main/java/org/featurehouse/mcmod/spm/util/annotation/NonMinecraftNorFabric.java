@@ -3,6 +3,8 @@ package org.featurehouse.mcmod.spm.util.annotation;
 import org.featurehouse.mcmod.spm.util.registries.GrindingUtils;
 
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
@@ -12,5 +14,6 @@ import java.lang.annotation.Target;
  * @see FabricApiRegistry
  */
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.LOCAL_VARIABLE, ElementType.PARAMETER})
+@Retention(RetentionPolicy.SOURCE)
 public @interface NonMinecraftNorFabric {
 }

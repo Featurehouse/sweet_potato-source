@@ -31,11 +31,6 @@ public final class BlockSettings {
 
     private BlockSettings() {}
 
-    @Deprecated
-    public static FabricBlockSettings create(AbstractBlock.Settings settings) {
-        return (FabricBlockSettings)settings;
-    }
-
     static {
         GRASS_LIKE = FabricBlockSettings.of(Materials.MATERIAL_PLANT) // Wanted: move MATERIAL_PLANT to Util
                 .noCollision()
@@ -55,18 +50,5 @@ public final class BlockSettings {
 
     public static LeavesBlock createLeaves(String id) {
         return (LeavesBlock) RegistryHelper.block(id, new LeavesBlock(FabricBlockSettings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BlockSettings::canSpawnOnLeaves).suffocates((state, world, pos) -> false).blockVision((state, world, pos) -> false)));
-    }
-
-    @Deprecated
-    public static LeavesBlock createEnchantedLeavesBlock() {
-        return new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES)
-                .strength(0.2F)
-                .ticksRandomly()
-                .sounds(BlockSoundGroup.GRASS)
-                .nonOpaque()
-                .allowsSpawning(BlockSettings::canSpawnOnLeaves)
-                .suffocates((state, world, pos) -> false)
-                .blockVision((state, world, pos) -> false)
-        );
     }
 }

@@ -1,6 +1,6 @@
 package org.featurehouse.mcmod.spm.blocks;
 
-import org.featurehouse.mcmod.spm.api.block.entity.AbstractBlockWithEntity;
+import org.featurehouse.mcmod.spm.lib.block.entity.AbstractBlockWithEntity;
 import com.google.common.collect.ImmutableList;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.blocks.entities.GrinderBlockEntity;

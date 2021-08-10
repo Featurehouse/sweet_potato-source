@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * used by other mods. <br />
  * These elements won't be deleted or moved.
  */
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.RUNTIME) // can be detected with reflection or ASM
 @Target({ElementType.PACKAGE, ElementType.FIELD, ElementType.METHOD, ElementType.TYPE})
 public @interface StableApi {
     String since() default "1.3.0";

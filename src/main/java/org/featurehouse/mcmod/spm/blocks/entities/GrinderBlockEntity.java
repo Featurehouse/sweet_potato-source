@@ -1,6 +1,6 @@
 package org.featurehouse.mcmod.spm.blocks.entities;
 
-import org.featurehouse.mcmod.spm.api.block.entity.AbstractLockableContainerBlockEntity;
+import org.featurehouse.mcmod.spm.lib.block.entity.AbstractLockableContainerBlockEntity;
 import org.featurehouse.mcmod.spm.util.annotation.HardCoded;
 import org.featurehouse.mcmod.spm.util.annotation.NonMinecraftNorFabric;
 import org.featurehouse.mcmod.spm.SPMMain;

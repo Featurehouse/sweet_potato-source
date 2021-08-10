@@ -4,7 +4,9 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Rarity;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Experimental
 public final class ItemSettings {
     public static final Settings GROUP_FOOD;
     public static final Settings ONE_FOOD; // unstackable food item
