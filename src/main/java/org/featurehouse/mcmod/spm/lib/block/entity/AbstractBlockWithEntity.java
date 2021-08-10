@@ -23,10 +23,12 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+@ApiStatus.Experimental
 public abstract class AbstractBlockWithEntity<E extends BlockEntity & ITickable> extends BlockWithEntity {
     protected abstract boolean blockEntityPredicate(BlockEntity blockEntity);
 

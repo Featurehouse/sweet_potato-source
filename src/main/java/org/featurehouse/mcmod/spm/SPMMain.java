@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
@@ -23,8 +22,6 @@ import org.featurehouse.mcmod.spm.blocks.plants.*;
 import org.featurehouse.mcmod.spm.items.*;
 import org.featurehouse.mcmod.spm.linkage.SPMLinkage;
 import org.featurehouse.mcmod.spm.loot.LootTables;
-import org.featurehouse.mcmod.spm.mixin.acc.ChickenEntityAccessor;
-import org.featurehouse.mcmod.spm.mixin.acc.PigEntityAccessor;
 import org.featurehouse.mcmod.spm.recipe.SeedUpdatingRecipe;
 import org.featurehouse.mcmod.spm.resource.SPMDataPackFormats;
 import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
@@ -193,9 +190,6 @@ public class SPMMain implements ModInitializer {
 
 		// Fuel
 		//Util.registerFurnaceFuel(null, Items.AIR, -1);
-		//TODO Using soft-adding for Pig & Chicken ingredients
-		PigEntityAccessor.setBreedingIngredient(Ingredient.fromTag(PIG_BREEDING_INGREDIENTS));
-		ChickenEntityAccessor.setBreedingIngredient(Ingredient.fromTag(CHICKEN_BREEDING_INGREDIENTS));
 		AnimalIngredients.configureParrot();
 	}
 

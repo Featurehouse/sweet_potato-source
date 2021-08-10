@@ -4,7 +4,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Experimental
 public class UniversalResultSlot extends Slot {
     private final PlayerEntity player;
     private int amount;

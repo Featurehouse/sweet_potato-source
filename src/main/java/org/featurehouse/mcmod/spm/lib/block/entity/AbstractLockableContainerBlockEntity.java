@@ -15,9 +15,11 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import org.featurehouse.mcmod.spm.util.tick.ITickable;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Iterator;
 
+@ApiStatus.Experimental
 public abstract class AbstractLockableContainerBlockEntity extends LockableContainerBlockEntity implements ITickable {
     protected /*private*/ DefaultedList<ItemStack> inventory;
     private final int size;

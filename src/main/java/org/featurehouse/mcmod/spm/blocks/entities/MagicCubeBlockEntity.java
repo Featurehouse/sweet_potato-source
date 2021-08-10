@@ -314,14 +314,11 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
 
     @Override
     public int[] getAvailableSlots(Direction side) {
-        switch (side) {
-            case DOWN:
-                return BOTTOM_SLOTS;
-            case UP:
-                return TOP_SLOTS;
-            default:
-                return SIDE_SLOTS;
-        }
+        return switch (side) {
+            case DOWN -> BOTTOM_SLOTS;
+            case UP -> TOP_SLOTS;
+            default -> SIDE_SLOTS;
+        };
     }
 
     @Override

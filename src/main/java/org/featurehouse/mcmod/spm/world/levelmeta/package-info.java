@@ -1,5 +1,3 @@
-
-
 /**
  * We should build a brand-new level meta system.
  * The legacy one will be compatible, but deprecated.
