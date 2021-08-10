@@ -6,8 +6,10 @@
   "mixins": [
     "MixinAdvancementTask",
     "acc.AdvancementTaskAccessor",
+    "acc.IngredientAccessor",
     "acc.ParrotEntityAccessor",
     "ingredient.ChickenEntityMixin",
+    "ingredient.PigEntityMixin",
     "modinfo.LevelPropertiesMixin",
     "modinfo.ServerPropertiesMixin"
   ],

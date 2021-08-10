@@ -19,8 +19,8 @@ abstract class PigEntityMixin {
         @SuppressWarnings("all")
         IngredientAccessor acc = (IngredientAccessor) (Object) BREEDING_INGREDIENT;
         acc.setMatchingStacks(null);    // clear cache
-        acc.cacheMatchingStacks();
-        ItemStack[] matchingStacks = acc.getMatchingStacks();
+        //acc.cacheMatchingStacks();
+        ItemStack[] matchingStacks = BREEDING_INGREDIENT.getMatchingStacks();
         BREEDING_INGREDIENT = Ingredient.ofStacks(AnimalIngredients.configurePig(matchingStacks));
     }
 }
