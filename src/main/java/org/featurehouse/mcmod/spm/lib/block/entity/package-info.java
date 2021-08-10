@@ -9,4 +9,4 @@
  * @author YWsuoyi
  * @author teddyxlandlee
  */
-package org.featurehouse.mcmod.spm.api.block.entity;
+package org.featurehouse.mcmod.spm.lib.block.entity;

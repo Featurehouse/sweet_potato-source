@@ -6,7 +6,6 @@ import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.criterion.ConsumeItemCriterion;
 import net.minecraft.item.Item;
 import net.minecraft.predicate.entity.EntityPredicate;
-import org.featurehouse.mcmod.spm.util.SimpleItemPredicate;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package org.featurehouse.mcmod.spm.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.render.GameRenderer;
-import org.featurehouse.annotation.OperationBeforeDeveloping;
+import org.featurehouse.mcmod.spm.util.annotation.OperationBeforeDeveloping;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.screen.MagicCubeScreenHandler;
 import net.fabricmc.api.EnvType;

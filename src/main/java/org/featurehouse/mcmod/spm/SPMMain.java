@@ -19,7 +19,7 @@ import org.featurehouse.mcmod.spm.blocks.SeedUpdaterBlock;
 import org.featurehouse.mcmod.spm.blocks.SweetPotatoesCropBlock;
 import org.featurehouse.mcmod.spm.blocks.entities.GrinderBlockEntity;
 import org.featurehouse.mcmod.spm.blocks.entities.MagicCubeBlockEntity;
-import org.featurehouse.mcmod.spm.blocks.saplings_seeds.*;
+import org.featurehouse.mcmod.spm.blocks.plants.*;
 import org.featurehouse.mcmod.spm.items.*;
 import org.featurehouse.mcmod.spm.linkage.SPMLinkage;
 import org.featurehouse.mcmod.spm.loot.LootTables;
@@ -30,6 +30,7 @@ import org.featurehouse.mcmod.spm.resource.SPMDataPackFormats;
 import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
 import org.featurehouse.mcmod.spm.screen.MagicCubeScreenHandler;
 import org.featurehouse.mcmod.spm.screen.SeedUpdaterScreenHandler;
+import org.featurehouse.mcmod.spm.util.annotation.StableApi;
 import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoType;
 import org.featurehouse.mcmod.spm.util.objsettings.BlockSettings;
 import org.featurehouse.mcmod.spm.util.objsettings.ItemSettings;
@@ -41,6 +42,7 @@ import org.featurehouse.mcmod.spm.world.gen.tree.*;
 import static org.featurehouse.mcmod.spm.util.objsettings.BlockSettings.*;
 import static org.featurehouse.mcmod.spm.util.registries.RegistryHelper.*;
 
+@StableApi
 public class SPMMain implements ModInitializer {
 	public static SPMMain INSTANCE;
 	public SPMMain() {

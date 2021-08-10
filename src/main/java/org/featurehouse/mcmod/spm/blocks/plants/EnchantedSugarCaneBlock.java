@@ -3,7 +3,7 @@
 // (powered by Fernflower decompiler)
 //
 
-package org.featurehouse.mcmod.spm.blocks.saplings_seeds;
+package org.featurehouse.mcmod.spm.blocks.plants;
 
 import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;

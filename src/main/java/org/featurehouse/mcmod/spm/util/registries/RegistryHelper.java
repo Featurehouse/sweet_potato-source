@@ -1,6 +1,6 @@
 package org.featurehouse.mcmod.spm.util.registries;
 
-import org.featurehouse.annotation.FabricApiRegistry;
+import org.featurehouse.mcmod.spm.util.annotation.FabricApiRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.fabric.api.tag.TagRegistry;

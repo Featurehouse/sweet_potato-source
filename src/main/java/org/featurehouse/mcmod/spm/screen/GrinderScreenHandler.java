@@ -1,6 +1,6 @@
 package org.featurehouse.mcmod.spm.screen;
 
-import org.featurehouse.annotation.NonMinecraftNorFabric;
+import org.featurehouse.mcmod.spm.util.annotation.NonMinecraftNorFabric;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.util.GrindingUtils;
 import org.featurehouse.mcmod.spm.util.inventory.UniversalResultSlot;

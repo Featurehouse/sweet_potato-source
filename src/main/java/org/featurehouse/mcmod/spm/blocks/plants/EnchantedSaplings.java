@@ -1,4 +1,4 @@
-package org.featurehouse.mcmod.spm.blocks.saplings_seeds;
+package org.featurehouse.mcmod.spm.blocks.plants;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

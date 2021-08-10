@@ -1,6 +1,6 @@
 package org.featurehouse.mcmod.spm.util;
 
-import org.featurehouse.annotation.NonMinecraftNorFabric;
+import org.featurehouse.mcmod.spm.util.annotation.NonMinecraftNorFabric;
 import org.featurehouse.mcmod.spm.blocks.entities.GrinderBlockEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;

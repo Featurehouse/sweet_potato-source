@@ -1,6 +1,6 @@
 package org.featurehouse.mcmod.spm.blocks.entities;
 
-import org.featurehouse.mcmod.spm.api.block.entity.AbstractLockableContainerBlockEntity;
+import org.featurehouse.mcmod.spm.lib.block.entity.AbstractLockableContainerBlockEntity;
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
@@ -16,8 +16,8 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.featurehouse.annotation.HardCoded;
-import org.featurehouse.annotation.NonMinecraftNorFabric;
+import org.featurehouse.mcmod.spm.util.annotation.HardCoded;
+import org.featurehouse.mcmod.spm.util.annotation.NonMinecraftNorFabric;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.blocks.GrinderBlock;
 import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
@@ -137,26 +137,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return new GrinderScreenHandler(syncId, playerInventory, this.getWorld(), this, this.properties);
-    }
-
-    /**
-     * @deprecated because:
-     * - Line 8: grindTime should NOT be set to zero.
-     * This method could be typed before 20th century, hhh
-     * @since 2020/10/24
-     */
-    @Deprecated //@Override
-    public void deprecatedSetStack(int slot, ItemStack stack) {
-        ItemStack itemStack = this.getStack(slot);
-        boolean equal = !stack.isEmpty() && stack.isItemEqualIgnoreDamage(itemStack) && ItemStack.areTagsEqual(stack, itemStack);
-        this.inventory.set(slot, stack);
-        if (stack.getCount() > this.getMaxCountPerStack())
-            stack.setCount(this.getMaxCountPerStack());
-
-        if (slot == 0 && !equal) {
-            //this.grindTime = 0;
-            this.markDirty();
-        }
     }
 
     @Override

@@ -1,6 +1,6 @@
 package org.featurehouse.mcmod.spm.util.objsettings;
 
-import org.featurehouse.mcmod.spm.blocks.saplings_seeds.EnchantedSaplings;
+import org.featurehouse.mcmod.spm.blocks.plants.EnchantedSaplings;
 import org.featurehouse.mcmod.spm.util.registries.RegistryHelper;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;

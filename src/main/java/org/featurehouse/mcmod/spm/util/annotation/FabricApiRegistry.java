@@ -1,4 +1,7 @@
-package org.featurehouse.annotation;
+package org.featurehouse.mcmod.spm.util.annotation;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Annotates methods, fields, etc. from Fabric API
@@ -7,5 +10,6 @@ package org.featurehouse.annotation;
  * @see NonMinecraftNorFabric
  * @see net.minecraft.util.registry.Registry#register
  */
+@Retention(RetentionPolicy.SOURCE)
 public @interface FabricApiRegistry {
 }

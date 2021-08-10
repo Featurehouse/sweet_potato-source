@@ -1,4 +1,4 @@
-package org.featurehouse.mcmod.spm.api.block.entity;
+package org.featurehouse.mcmod.spm.lib.block.entity;
 
 import org.featurehouse.mcmod.spm.util.tick.ITickable;
 import com.google.common.collect.ImmutableList;

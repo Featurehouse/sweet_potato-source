@@ -1,4 +1,4 @@
-package org.featurehouse.mcmod.spm.blocks.saplings_seeds;
+package org.featurehouse.mcmod.spm.blocks.plants;
 
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.util.tick.RandomTickHelper;

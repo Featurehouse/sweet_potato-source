@@ -1,6 +1,6 @@
 package org.featurehouse.mcmod.spm.blocks.entities;
 
-import org.featurehouse.mcmod.spm.api.block.entity.AbstractLockableContainerBlockEntity;
+import org.featurehouse.mcmod.spm.lib.block.entity.AbstractLockableContainerBlockEntity;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.blocks.MagicCubeBlock;
 import org.featurehouse.mcmod.spm.items.RawSweetPotatoBlockItem;
@@ -257,7 +257,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         tag.put("statusEffects", listTag);
         tag.putShort("displayIndex", randomIndex);
         ItemStack outputStack = new ItemStack(sweetPotato.asType().getEnchanted(), originRaw.getCount());
-        outputStack.setTag(tag);
+        outputStack.setNbt(tag);
         return outputStack;
     }
 
