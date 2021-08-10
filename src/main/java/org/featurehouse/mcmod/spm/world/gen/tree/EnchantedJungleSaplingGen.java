@@ -8,12 +8,12 @@ import java.util.Random;
 
 public class EnchantedJungleSaplingGen extends JungleSaplingGenerator {
     @Override
-    protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
+    protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bl) {
         return TreeFeatures.JUNGLE_TREE_NO_VINE;
     }
 
     @Override
-    protected ConfiguredFeature<TreeFeatureConfig, ?> createLargeTreeFeature(Random random) {
+    protected ConfiguredFeature<TreeFeatureConfig, ?> getLargeTreeFeature(Random random) {
         return TreeFeatures.MEGA_JUNGLE_TREE;
     }
 }

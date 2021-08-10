@@ -69,7 +69,7 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements SweetPota
     protected static Optional<List<StatusEffectInstance>> calcEffect(ItemStack stack) {
         Item item = stack.getItem();
         if (!(item instanceof EnchantedSweetPotatoItem)) return Optional.empty();
-        NbtCompound compoundNbtElement = stack.getOrCreateTag();
+        NbtCompound compoundNbtElement = stack.getOrCreateNbt();
         if (!compoundNbtElement.contains("statusEffects", NbtType.LIST)) return Optional.empty();
         NbtList statusEffects = compoundNbtElement.getList("statusEffects", NbtType.COMPOUND);
 
@@ -108,7 +108,7 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements SweetPota
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
 
-        NbtCompound root = stack.getOrCreateTag();
+        NbtCompound root = stack.getOrCreateNbt();
         BaseText mainTip = new TranslatableText("tooltip.sweet_potato.enchanted_sweet_potato.effects");
         tooltip.add(mainTip);
 

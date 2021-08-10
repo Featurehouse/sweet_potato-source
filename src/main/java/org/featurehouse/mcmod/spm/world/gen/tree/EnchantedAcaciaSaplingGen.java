@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class EnchantedAcaciaSaplingGen extends AcaciaSaplingGenerator {
     @Override
-    protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
+    protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bl) {
         return TreeFeatures.ACACIA;
     }
 }

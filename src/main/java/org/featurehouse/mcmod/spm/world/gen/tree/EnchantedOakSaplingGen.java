@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class EnchantedOakSaplingGen extends OakSaplingGenerator {
     @Override
-    protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean canSpawnBees) {
+    protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean canSpawnBees) {
         if (random.nextInt(10) == 0) {
             return canSpawnBees ? TreeFeatures.FANCY_OAK_BEES_005 : TreeFeatures.FANCY_OAK;
         } else {

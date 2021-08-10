@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class EnchantedBirchSaplingGen extends BirchSaplingGenerator {
     @Override
-    protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean canSpawnBees) {
+    protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean canSpawnBees) {
         return canSpawnBees ? TreeFeatures.BIRCH_BEES_005 : TreeFeatures.BIRCH;
     }
 }

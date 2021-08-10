@@ -26,9 +26,9 @@ public record SeedUpdatingRecipe(Identifier id, Ingredient base,
     @Override
     public ItemStack craft(Inventory inv) {
         ItemStack itemStack = this.result.copy();
-        NbtCompound compoundTag = inv.getStack(0).getTag();
+        NbtCompound compoundTag = inv.getStack(0).getNbt();
         if (compoundTag != null) {
-            itemStack.setTag(compoundTag.copy());
+            itemStack.setNbt(compoundTag.copy());
         }
 
         return itemStack;
