@@ -4,7 +4,7 @@ This is the normal Releases Sources code repository. For Special Releases, pleas
 
 Branches:  
 
-- ~~[Deprecated/1.16.1](https://github.com/Featurehouse/sweet_potato-source/tree/1.16.1)~~  
+- ~~[Deprecated/1.16.1](https://github.com/Featurehouse/sweet_potato-source/tree/Deprecated/1.16.1)~~  
 - [LTS/1.16.5](https://github.com/Featurehouse/sweet_potato-source/tree/LTS/1.16.5)  
 - [Stable/1.17.1](https://github.com/Featurehouse/sweet_potato-source/tree/Stable/1.17.1)
 - [Snapshot/1.18.x](https://github.com/Featurehouse/sweet_potato-source/tree/Snapshot/1.18.x)  
