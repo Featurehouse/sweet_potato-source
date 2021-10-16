@@ -29,6 +29,9 @@
     ],
     "client": [
       "org.featurehouse.mcmod.spm.client.SPMClient"
+    ],
+    "server": [
+      "org.featurehouse.mcmod.spm.linkage.SPMLinkageServer::load"
     ]
   },
   "mixins": [

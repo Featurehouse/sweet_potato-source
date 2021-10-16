@@ -59,19 +59,19 @@ public record ModCredits(List<String> authorGroup,
         return new ModCredits(authorGroup, contributors, collaborators, importantSupporters);
     }
 
-    public List<String> getAuthorGroup() {
+    @Deprecated public List<String> getAuthorGroup() {
         return authorGroup;
     }
 
-    public List<ImmutablePair<String, String>> getContributors() {
+    @Deprecated public List<ImmutablePair<String, String>> getContributors() {
         return contributors;
     }
 
-    public List<String> getCollaborators() {
+    @Deprecated public List<String> getCollaborators() {
         return collaborators;
     }
 
-    public List<String> getImportantSupporters() {
+    @Deprecated public List<String> getImportantSupporters() {
         return importantSupporters;
     }
 }

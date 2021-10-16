@@ -56,17 +56,17 @@ final class CreditsScreenMixinC extends Screen {
                     \u00a7eSweet Potato Mod Credits
                     \u00a7f============""");
             wrapLines(false, "\u00a77Author Group");
-            renderNameList(modCredits.getAuthorGroup());
+            renderNameList(modCredits.authorGroup());
             wrapLines(false, "\u00a77Contributors");
-            renderContributorList(modCredits.getContributors());
+            renderContributorList(modCredits.contributors());
             wrapCentralLines("""
                     \u00a7f============
                     \u00a7eSpecial Thanks from Sweet Potato Mod
                     \u00a7f============""");
             wrapLines(false, "\u00a77Collaborators");
-            renderNameList(modCredits.getCollaborators());
+            renderNameList(modCredits.collaborators());
             wrapLines(false, "\u00a77Very Important Supporters");
-            renderNameList(modCredits.getImportantSupporters());
+            renderNameList(modCredits.importantSupporters());
 
             is.close();
         } catch (IOException e) {
