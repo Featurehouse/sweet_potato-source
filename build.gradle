@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.8-SNAPSHOT'
+	id 'fabric-loom' version '0.10-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -80,10 +80,12 @@ java {
 }
 
 jar {
-	from "LICENSE"
+	from ("LICENSE") {
+		rename { "${it}_$archivesBaseName" }
+	}
 }
 
-tasks.withType(RunGameTask).configureEach {
+tasks.withType(RunGameTask.class).configureEach {
 	it.jvmArgs "-Dmixin.debug.export=true"
 }
 
@@ -91,7 +93,7 @@ tasks.withType(RunGameTask).configureEach {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			artifactId = "$archives_base_name"
+			artifactId = "$archivesBaseName"
 			// add all the jars that should be included when publishing to maven
 			artifact(remapJar) {
 				builtBy remapJar
