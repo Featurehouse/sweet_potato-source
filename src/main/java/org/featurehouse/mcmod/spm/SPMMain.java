@@ -28,10 +28,10 @@ import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
 import org.featurehouse.mcmod.spm.screen.MagicCubeScreenHandler;
 import org.featurehouse.mcmod.spm.screen.SeedUpdaterScreenHandler;
 import org.featurehouse.mcmod.spm.util.annotation.StableApi;
+import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoType;
 import org.featurehouse.mcmod.spm.util.objsettings.BlockSettings;
 import org.featurehouse.mcmod.spm.util.objsettings.ItemSettings;
 import org.featurehouse.mcmod.spm.util.objsettings.Materials;
-import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoType;
 import org.featurehouse.mcmod.spm.util.registries.AnimalIngredients;
 import org.featurehouse.mcmod.spm.util.registries.ComposterHelper;
 import org.featurehouse.mcmod.spm.world.gen.tree.*;
@@ -159,7 +159,7 @@ public class SPMMain implements ModInitializer {
 	public static final Tag<Item> ALL_SWEET_POTATOES;
 		// About Pigs & Parrots
 	public static final Tag<Item> PIG_BREEDING_INGREDIENTS;
-	public static final Tag<Item> CHICKEN_BREEDING_INGREDIENTS;
+    public static final Tag<Item> CHICKEN_BREEDING_INGREDIENTS;
 
 	// Sounds
 	public static final SoundEvent AGROFORESTRY_TABLE_FINISH;
@@ -193,29 +193,29 @@ public class SPMMain implements ModInitializer {
 
 	static {
 		// Item
-		PEEL = defaultItem("peel", ItemSettings.MISC);
-		BAKED_PURPLE_POTATO = item("baked_purple_potato", new BakedSweetPotatoItem(ItemSettings.GROUP_FOOD, SweetPotatoType.PURPLE));
-		BAKED_RED_POTATO = item("baked_red_potato", new BakedSweetPotatoItem(ItemSettings.GROUP_FOOD, SweetPotatoType.RED));
-		BAKED_WHITE_POTATO = item("baked_white_potato", new BakedSweetPotatoItem(ItemSettings.GROUP_FOOD, SweetPotatoType.WHITE));
-		POTATO_POWDER = defaultItem("potato_powder", ItemSettings.MISC);
-		XMAS_TREATING_BOWL = defaultItem("treating_bowl", ItemSettings.EASTER_EGG);
-		ENCHANTED_PURPLE_POTATO = item("enchanted_purple_potato", new EnchantedSweetPotatoItem(ItemSettings.ONE_FOOD, SweetPotatoType.PURPLE));
-		ENCHANTED_RED_POTATO = item("enchanted_red_potato", new EnchantedSweetPotatoItem(ItemSettings.ONE_FOOD, SweetPotatoType.RED));
-		ENCHANTED_WHITE_POTATO = item("enchanted_white_potato", new EnchantedSweetPotatoItem(ItemSettings.ONE_FOOD, SweetPotatoType.WHITE));
+		PEEL = defaultItem("peel", ItemSettings.misc());
+		BAKED_PURPLE_POTATO = item("baked_purple_potato", new BakedSweetPotatoItem(ItemSettings.groupFood(), SweetPotatoType.PURPLE));
+		BAKED_RED_POTATO = item("baked_red_potato", new BakedSweetPotatoItem(ItemSettings.groupFood(), SweetPotatoType.RED));
+		BAKED_WHITE_POTATO = item("baked_white_potato", new BakedSweetPotatoItem(ItemSettings.groupFood(), SweetPotatoType.WHITE));
+		POTATO_POWDER = defaultItem("potato_powder", ItemSettings.misc());
+		XMAS_TREATING_BOWL = defaultItem("treating_bowl", ItemSettings.easterEgg());
+		ENCHANTED_PURPLE_POTATO = item("enchanted_purple_potato", new EnchantedSweetPotatoItem(ItemSettings.oneFood(), SweetPotatoType.PURPLE));
+		ENCHANTED_RED_POTATO = item("enchanted_red_potato", new EnchantedSweetPotatoItem(ItemSettings.oneFood(), SweetPotatoType.RED));
+		ENCHANTED_WHITE_POTATO = item("enchanted_white_potato", new EnchantedSweetPotatoItem(ItemSettings.oneFood(), SweetPotatoType.WHITE));
 
 		// Block
 		MAGIC_CUBE = block("magic_cube", new MagicCubeBlock(functionalMinable(Materials.MATERIAL_STONE, 10.0F, 1200.0F, 2)));
 		GRINDER = block("grinder", new GrinderBlock(functionalMinable(Materials.MATERIAL_STONE, 3.5F, 6.0F, 0)));
 		SEED_UPDATER = block("agroforestry_table", new SeedUpdaterBlock(functionalMinable(Materials.MATERIAL_STONE, 3.5F, 6.0F, 2)));
 		    // Crops
-		PURPLE_POTATO_CROP = block("purple_potatoes", new SweetPotatoesCropBlock(BlockSettings.GRASS_LIKE, SweetPotatoType.PURPLE));
-		RED_POTATO_CROP = block("red_potatoes", new SweetPotatoesCropBlock(BlockSettings.GRASS_LIKE, SweetPotatoType.RED));
-		WHITE_POTATO_CROP = block("white_potatoes", new SweetPotatoesCropBlock(BlockSettings.GRASS_LIKE, SweetPotatoType.WHITE));
-		ENCHANTED_WHEAT_CROP = block("enchanted_wheat", new EnchantedWheatBlock(BlockSettings.GRASS_LIKE));
-		ENCHANTED_BEETROOTS_CROP = block("enchanted_beetroots", new EnchantedBeetrootsBlock(BlockSettings.GRASS_LIKE));
-		ENCHANTED_VANILLA_POTATOES_CROP = block("enchanted_potatoes", new EnchantedVanillaPotatoesBlock(BlockSettings.GRASS_LIKE));
-		ENCHANTED_CARROTS_CROP = block("enchanted_carrots", new EnchantedCarrotsBlock(BlockSettings.GRASS_LIKE));
-		ENCHANTED_SUGAR_CANE = block("enchanted_sugar_cane", new EnchantedSugarCaneBlock(BlockSettings.GRASS));
+		PURPLE_POTATO_CROP = block("purple_potatoes", new SweetPotatoesCropBlock(BlockSettings.grassLike(), SweetPotatoType.PURPLE));
+		RED_POTATO_CROP = block("red_potatoes", new SweetPotatoesCropBlock(BlockSettings.grassLike(), SweetPotatoType.RED));
+		WHITE_POTATO_CROP = block("white_potatoes", new SweetPotatoesCropBlock(BlockSettings.grassLike(), SweetPotatoType.WHITE));
+		ENCHANTED_WHEAT_CROP = block("enchanted_wheat", new EnchantedWheatBlock(BlockSettings.grassLike()));
+		ENCHANTED_BEETROOTS_CROP = block("enchanted_beetroots", new EnchantedBeetrootsBlock(BlockSettings.grassLike()));
+		ENCHANTED_VANILLA_POTATOES_CROP = block("enchanted_potatoes", new EnchantedVanillaPotatoesBlock(BlockSettings.grassLike()));
+		ENCHANTED_CARROTS_CROP = block("enchanted_carrots", new EnchantedCarrotsBlock(BlockSettings.grassLike()));
+		ENCHANTED_SUGAR_CANE = block("enchanted_sugar_cane", new EnchantedSugarCaneBlock(BlockSettings.grass()));
 			// Saplings
 		ENCHANTED_OAK_SAPLING = createEnchantedSapling("enchanted_oak_sapling", EnchantedOakSaplingGen::new);
 		ENCHANTED_SPRUCE_SAPLING = createEnchantedSapling("enchanted_spruce_sapling", EnchantedSpruceSaplingGen::new);
@@ -239,34 +239,34 @@ public class SPMMain implements ModInitializer {
 		ENCHANTED_SPRUCE_LEAVES = createLeaves("enchanted_spruce_leaves");
 
 		// Block Items
-		PURPLE_POTATO = item("purple_potato", new RawSweetPotatoBlockItem(PURPLE_POTATO_CROP, ItemSettings.GROUP_FOOD, SweetPotatoType.PURPLE));
-		RED_POTATO = item("red_potato", new RawSweetPotatoBlockItem(RED_POTATO_CROP, ItemSettings.GROUP_FOOD, SweetPotatoType.RED));
-		WHITE_POTATO = item("white_potato", new RawSweetPotatoBlockItem(WHITE_POTATO_CROP, ItemSettings.GROUP_FOOD, SweetPotatoType.WHITE));
+		PURPLE_POTATO = item("purple_potato", new RawSweetPotatoBlockItem(PURPLE_POTATO_CROP, ItemSettings.groupFood(), SweetPotatoType.PURPLE));
+		RED_POTATO = item("red_potato", new RawSweetPotatoBlockItem(RED_POTATO_CROP, ItemSettings.groupFood(), SweetPotatoType.RED));
+		WHITE_POTATO = item("white_potato", new RawSweetPotatoBlockItem(WHITE_POTATO_CROP, ItemSettings.groupFood(), SweetPotatoType.WHITE));
 
 		ENCHANTED_WHEAT_SEEDS = AliasedEnchantedItem.of("enchanted_wheat_seeds", ENCHANTED_WHEAT_CROP);
 		ENCHANTED_BEETROOT_SEEDS = AliasedEnchantedItem.of("enchanted_beetroot_seeds", ENCHANTED_BEETROOTS_CROP);
 		ENCHANTED_VANILLA_POTATO_ITEM = AliasedEnchantedItem.ofMiscFood("enchanted_potato", ENCHANTED_VANILLA_POTATOES_CROP, FoodComponents.POTATO);
 		ENCHANTED_CARROT_ITEM = AliasedEnchantedItem.ofMiscFood("enchanted_carrot", ENCHANTED_CARROTS_CROP, FoodComponents.CARROT);
-		//ENCHANTED_SUGAR_CANE_ITEM = AliasedEnchantedItem.of("enchanted_sugar_cane", ENCHANTED_SUGAR_CANE, ItemGroup.DECORATIONS);
-		ENCHANTED_SUGAR_CANE_ITEM = EnchantedBlockItem.of("enchanted_sugar_cane", ENCHANTED_SUGAR_CANE, ItemSettings.DECORATIONS);
+		//ENCHANTED_SUGAR_CANE_ITEM = AliasedEnchantedItem.of("enchanted_sugar_cane", ENCHANTED_SUGAR_CANE, ItemGroup.decorations());
+		ENCHANTED_SUGAR_CANE_ITEM = EnchantedBlockItem.of("enchanted_sugar_cane", ENCHANTED_SUGAR_CANE, ItemSettings.decorations());
 
-		ENCHANTED_ACACIA_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_acacia_leaves", ENCHANTED_ACACIA_LEAVES, ItemSettings.DECORATIONS);
-		ENCHANTED_BIRCH_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_birch_leaves", ENCHANTED_BIRCH_LEAVES, ItemSettings.DECORATIONS);
-		ENCHANTED_DARK_OAK_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_dark_oak_leaves", ENCHANTED_DARK_OAK_LEAVES, ItemSettings.DECORATIONS);
-		ENCHANTED_JUNGLE_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_jungle_leaves", ENCHANTED_JUNGLE_LEAVES, ItemSettings.DECORATIONS);
-		ENCHANTED_OAK_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_oak_leaves", ENCHANTED_OAK_LEAVES, ItemSettings.DECORATIONS);
-		ENCHANTED_SPRUCE_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_spruce_leaves", ENCHANTED_SPRUCE_LEAVES, ItemSettings.DECORATIONS);
+		ENCHANTED_ACACIA_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_acacia_leaves", ENCHANTED_ACACIA_LEAVES, ItemSettings.decorations());
+		ENCHANTED_BIRCH_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_birch_leaves", ENCHANTED_BIRCH_LEAVES, ItemSettings.decorations());
+		ENCHANTED_DARK_OAK_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_dark_oak_leaves", ENCHANTED_DARK_OAK_LEAVES, ItemSettings.decorations());
+		ENCHANTED_JUNGLE_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_jungle_leaves", ENCHANTED_JUNGLE_LEAVES, ItemSettings.decorations());
+		ENCHANTED_OAK_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_oak_leaves", ENCHANTED_OAK_LEAVES, ItemSettings.decorations());
+		ENCHANTED_SPRUCE_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_spruce_leaves", ENCHANTED_SPRUCE_LEAVES, ItemSettings.decorations());
 
 			// Functional Blocks' Items
-		MAGIC_CUBE_ITEM = blockItem("magic_cube", MAGIC_CUBE, ItemSettings.DECORATIONS);
-		GRINDER_ITEM = blockItem("grinder", GRINDER, ItemSettings.DECORATIONS);
-		SEED_UPDATER_ITEM = blockItem("agroforestry_table", SEED_UPDATER, ItemSettings.DECORATIONS);
-		ENCHANTED_OAK_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_oak_sapling", ENCHANTED_OAK_SAPLING, ItemSettings.UNCDEC);
-		ENCHANTED_SPRUCE_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_spruce_sapling", ENCHANTED_SPRUCE_SAPLING, ItemSettings.UNCDEC);
-		ENCHANTED_BIRCH_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_birch_sapling", ENCHANTED_BIRCH_SAPLING, ItemSettings.UNCDEC);
-		ENCHANTED_JUNGLE_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_jungle_sapling", ENCHANTED_JUNGLE_SAPLING, ItemSettings.UNCDEC);
-		ENCHANTED_ACACIA_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_acacia_sapling", ENCHANTED_ACACIA_SAPLING, ItemSettings.UNCDEC);
-		ENCHANTED_DARK_OAK_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_dark_oak_sapling", ENCHANTED_DARK_OAK_SAPLING, ItemSettings.UNCDEC);
+		MAGIC_CUBE_ITEM = blockItem("magic_cube", MAGIC_CUBE, ItemSettings.decorations());
+		GRINDER_ITEM = blockItem("grinder", GRINDER, ItemSettings.decorations());
+		SEED_UPDATER_ITEM = blockItem("agroforestry_table", SEED_UPDATER, ItemSettings.decorations());
+		ENCHANTED_OAK_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_oak_sapling", ENCHANTED_OAK_SAPLING, ItemSettings.uncommonDecorations());
+		ENCHANTED_SPRUCE_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_spruce_sapling", ENCHANTED_SPRUCE_SAPLING, ItemSettings.uncommonDecorations());
+		ENCHANTED_BIRCH_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_birch_sapling", ENCHANTED_BIRCH_SAPLING, ItemSettings.uncommonDecorations());
+		ENCHANTED_JUNGLE_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_jungle_sapling", ENCHANTED_JUNGLE_SAPLING, ItemSettings.uncommonDecorations());
+		ENCHANTED_ACACIA_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_acacia_sapling", ENCHANTED_ACACIA_SAPLING, ItemSettings.uncommonDecorations());
+		ENCHANTED_DARK_OAK_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_dark_oak_sapling", ENCHANTED_DARK_OAK_SAPLING, ItemSettings.uncommonDecorations());
 
 		// Screen Handler
 		SEED_UPDATER_SCREEN_HANDLER_TYPE = simpleScreenHandler("seed_updater", SeedUpdaterScreenHandler::new);

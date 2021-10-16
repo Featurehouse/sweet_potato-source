@@ -19,17 +19,26 @@ public final class BlockSettings {
     }
 
     public static EnchantedSaplings createEnchantedSapling(String id, Supplier<SaplingGenerator> saplingGeneratorSupplier) {
-        return (EnchantedSaplings) RegistryHelper.block(id, new EnchantedSaplings(saplingGeneratorSupplier.get(), GRASS_LIKE));
+        return (EnchantedSaplings) RegistryHelper.block(id, new EnchantedSaplings(saplingGeneratorSupplier.get(), grassLike()));
     }
 
     public static FlowerPotBlock createPotted(String id, Block inside) {
         return (FlowerPotBlock) RegistryHelper.block(id, new FlowerPotBlock(inside, FabricBlockSettings.of(Material.DECORATION)));
     }
 
-    public static final FabricBlockSettings GRASS_LIKE;
-    public static final FabricBlockSettings GRASS;
+    public static FabricBlockSettings grassLike() { return FabricBlockSettings.copyOf(GRASS_LIKE); }
+    public static FabricBlockSettings grass() { return FabricBlockSettings.copyOf(GRASS); }
+
+    private static final FabricBlockSettings GRASS_LIKE;
+    private static final FabricBlockSettings GRASS;
 
     private BlockSettings() {}
+
+    @Deprecated//(forRemoval = true)
+    public static FabricBlockSettings create(AbstractBlock.Settings settings) {
+        //return (FabricBlockSettings)settings;
+        return FabricBlockSettings.copyOf(settings);
+    }
 
     static {
         GRASS_LIKE = FabricBlockSettings.of(Materials.MATERIAL_PLANT) // Wanted: move MATERIAL_PLANT to Util

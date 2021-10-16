@@ -48,10 +48,10 @@ public class ShurlinSPMLinkage implements ShurlinLinkageApi {
         ENCHANTED_PEAR_SAPLING = createEnchantedSapling("enchanted_pear_sapling", EnchantedPearSaplingGen::new);
         POTTED_ENCHANTED_PEAR_SAPLING = createPotted("potted_enchanted_pear_sapling", ENCHANTED_PEAR_SAPLING);
 
-        ENCHANTED_PHOENIX_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_phoenix_leaves", ENCHANTED_PHOENIX_LEAVES, ItemSettings.DECORATIONS);
-        ENCHANTED_PHOENIX_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_phoenix_sapling", ENCHANTED_PHOENIX_SAPLING, ItemSettings.UNCDEC);
-        ENCHANTED_PEAR_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_pear_leaves", ENCHANTED_PEAR_LEAVES, ItemSettings.DECORATIONS);
-        ENCHANTED_PEAR_RIPE_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_pear_ripe_leaves", ENCHANTED_PEAR_RIPE_LEAVES, ItemSettings.DECORATIONS);
-        ENCHANTED_PEAR_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_pear_sapling", ENCHANTED_PEAR_SAPLING, ItemSettings.UNCDEC);
+        ENCHANTED_PHOENIX_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_phoenix_leaves", ENCHANTED_PHOENIX_LEAVES, ItemSettings.decorations());
+        ENCHANTED_PHOENIX_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_phoenix_sapling", ENCHANTED_PHOENIX_SAPLING, ItemSettings.uncommonDecorations());
+        ENCHANTED_PEAR_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_pear_leaves", ENCHANTED_PEAR_LEAVES, ItemSettings.decorations());
+        ENCHANTED_PEAR_RIPE_LEAVES_ITEM = EnchantedBlockItem.of("enchanted_pear_ripe_leaves", ENCHANTED_PEAR_RIPE_LEAVES, ItemSettings.decorations());
+        ENCHANTED_PEAR_SAPLING_ITEM = EnchantedBlockItem.of("enchanted_pear_sapling", ENCHANTED_PEAR_SAPLING, ItemSettings.uncommonDecorations());
     }
 }

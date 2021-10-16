@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.8-SNAPSHOT'
+	id 'fabric-loom' version '0.9-SNAPSHOT'	// This locks the compiling version to Java 16+
 	//id 'org.jetbrains.kotlin.jvm' version '1.4.31'
 	id 'maven-publish'
 }
