@@ -305,11 +305,11 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
+    public void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
         tag.putShort("EnergyTime", this.mainFuelTime);
         tag.putShort("SublimateTime", this.viceFuelTime);
-        return tag;
+        //return tag;
     }
 
     @Override

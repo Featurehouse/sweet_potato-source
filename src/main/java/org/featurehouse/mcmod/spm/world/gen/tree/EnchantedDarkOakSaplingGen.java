@@ -9,12 +9,12 @@ import java.util.Random;
 
 public class EnchantedDarkOakSaplingGen extends DarkOakSaplingGenerator {
     @Override @Nullable
-    protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bl) {
+    protected ConfiguredFeature<?, ?> getTreeFeature(Random random, boolean bl) {
         return super.getTreeFeature(random, bl); // null
     }
 
     @Override
-    protected ConfiguredFeature<TreeFeatureConfig, ?> getLargeTreeFeature(Random random) {
+    protected ConfiguredFeature<?, ?> getLargeTreeFeature(Random random) {
         return TreeFeatures.DARK_OAK;
     }
 }

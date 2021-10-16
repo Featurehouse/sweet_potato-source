@@ -30,11 +30,11 @@ public abstract class AbstractLockableContainerBlockEntity extends LockableConta
         this.size = size;
     }
 
-    public NbtCompound writeNbt(NbtCompound tag) {  // toTag
+    public void writeNbt(NbtCompound tag) {  // toTag
         super.writeNbt(tag);
         Inventories.writeNbt(tag, this.inventory);
 
-        return tag;
+        //return tag;
     }
 
     public void readNbt(NbtCompound tag) {          // fromTag

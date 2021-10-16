@@ -3,7 +3,6 @@ package org.featurehouse.mctest;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.source.DirectBiomeAccessType;
 import net.minecraft.world.dimension.DimensionOptions;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
@@ -28,7 +27,7 @@ public interface ExampleDimensions {
             20000,
             256,
             256,
-            DirectBiomeAccessType.INSTANCE,
+            //DirectBiomeAccessType.INSTANCE,
             BlockTags.INFINIBURN_OVERWORLD.getId(),
             new Identifier("overworld"),
             0.1F

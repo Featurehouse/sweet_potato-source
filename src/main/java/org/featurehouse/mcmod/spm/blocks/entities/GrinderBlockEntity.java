@@ -118,7 +118,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
+    public void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
         tag.putShort("GrindTime", (short) grindTime);
         tag.putShort("GrindTimeTotal", (short) grindTimeTotal);
@@ -126,7 +126,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         tag.putDouble("IngredientData", ingredientData);
         tag.putByte("absorbCooldown", absorbCooldown);
 
-        return tag;
+        //return tag;
     }
 
     @Override

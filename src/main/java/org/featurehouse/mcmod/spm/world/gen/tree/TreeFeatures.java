@@ -1,6 +1,7 @@
 package org.featurehouse.mcmod.spm.world.gen.tree;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
@@ -12,7 +13,7 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.ThreeLayersFeatureSize;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.*;
-import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.treedecorator.AlterGroundTreeDecorator;
 import net.minecraft.world.gen.treedecorator.BeehiveTreeDecorator;
 import net.minecraft.world.gen.treedecorator.LeavesVineTreeDecorator;
@@ -20,9 +21,15 @@ import net.minecraft.world.gen.treedecorator.TrunkVineTreeDecorator;
 import net.minecraft.world.gen.trunk.*;
 import org.featurehouse.mcmod.spm.SPMMain;
 
+import java.util.List;
 import java.util.OptionalInt;
 
-import static org.featurehouse.mcmod.spm.world.gen.tree.TreeFeatures.Constants.*;
+import static org.featurehouse.mcmod.spm.world.gen.tree.TreeFeatures.Constants.MORE_BEEHIVES_TREES;
+
+/* (not javadoc)
+* Most of the code are from {@code ConfiguredFeatures}.
+* Don't you dare asking us for the algorithm CUZ WE DON'T KNOW EITHER.
+*/
 
 /**
  * @see net.minecraft.block.sapling.OakSaplingGenerator
@@ -44,19 +51,19 @@ public final class TreeFeatures {
             ACACIA, DARK_OAK;
 
     static {
-        FANCY_OAK = register("fancy_oak", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(new SimpleBlockStateProvider(OAK_LOG), new LargeOakTrunkPlacer(3, 11, 0), new SimpleBlockStateProvider(ENCHANTED_OAK_LEAVES), new SimpleBlockStateProvider(ENCHANTED_OAK_SAPLING), new LargeOakFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines().build()));
-        FANCY_OAK_BEES_005 = register("fancy_oak_bees_005", Feature.TREE.configure(FANCY_OAK.getConfig().setTreeDecorators(ImmutableList.of(MORE_BEEHIVES_TREES))));
-        OAK = register("oak", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(new SimpleBlockStateProvider(OAK_LOG), new StraightTrunkPlacer(4, 2, 0), new SimpleBlockStateProvider(ENCHANTED_OAK_LEAVES), new SimpleBlockStateProvider(ENCHANTED_OAK_SAPLING), new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()));
-        OAK_BEES_005 = register("oak_bees_005", Feature.TREE.configure(OAK.getConfig().setTreeDecorators(ImmutableList.of(MORE_BEEHIVES_TREES))));
-        SPRUCE = register("spruce", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(new SimpleBlockStateProvider(SPRUCE_LOG), new StraightTrunkPlacer(5, 2, 1), new SimpleBlockStateProvider(ENCHANTED_SPRUCE_LEAVES), new SimpleBlockStateProvider(ENCHANTED_SPRUCE_SAPLING), new SpruceFoliagePlacer(UniformIntProvider.create(2, 3), UniformIntProvider.create(0, 2), UniformIntProvider.create(1, 2)), new TwoLayersFeatureSize(2, 0, 2))).ignoreVines().build()));
-        MEGA_SPRUCE = register("mega_spruce", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(new SimpleBlockStateProvider(SPRUCE_LOG), new GiantTrunkPlacer(13, 2, 14), new SimpleBlockStateProvider(ENCHANTED_SPRUCE_LEAVES), new SimpleBlockStateProvider(ENCHANTED_SPRUCE_SAPLING), new MegaPineFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0), UniformIntProvider.create(13, 17)), new TwoLayersFeatureSize(1, 1, 2))).decorators(ImmutableList.of(new AlterGroundTreeDecorator(new SimpleBlockStateProvider(PODZOL)))).build()));
-        MEGA_PINE = register("mega_pine", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(new SimpleBlockStateProvider(SPRUCE_LOG), new GiantTrunkPlacer(13, 2, 14), new SimpleBlockStateProvider(ENCHANTED_SPRUCE_LEAVES), new SimpleBlockStateProvider(ENCHANTED_SPRUCE_SAPLING), new MegaPineFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0), UniformIntProvider.create(3, 7)), new TwoLayersFeatureSize(1, 1, 2))).decorators(ImmutableList.of(new AlterGroundTreeDecorator(new SimpleBlockStateProvider(PODZOL)))).build()));
-        BIRCH = register("birch", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(new SimpleBlockStateProvider(BIRCH_LOG), new StraightTrunkPlacer(5, 2, 0), new SimpleBlockStateProvider(ENCHANTED_BIRCH_LEAVES), new SimpleBlockStateProvider(ENCHANTED_BIRCH_SAPLING), new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()));
-        BIRCH_BEES_005 = register("birch_bees_005", Feature.TREE.configure(BIRCH.getConfig().setTreeDecorators(ImmutableList.of(MORE_BEEHIVES_TREES))));
-        JUNGLE_TREE_NO_VINE = register("jungle_tree_no_vine", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(new SimpleBlockStateProvider(JUNGLE_LOG), new StraightTrunkPlacer(4, 8, 0), new SimpleBlockStateProvider(ENCHANTED_JUNGLE_LEAVES), new SimpleBlockStateProvider(ENCHANTED_JUNGLE_SAPLING), new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()));
-        MEGA_JUNGLE_TREE = register("mega_jungle_tree", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(new SimpleBlockStateProvider(JUNGLE_LOG), new MegaJungleTrunkPlacer(10, 2, 19), new SimpleBlockStateProvider(ENCHANTED_JUNGLE_LEAVES), new SimpleBlockStateProvider(ENCHANTED_JUNGLE_SAPLING), new JungleFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 2), new TwoLayersFeatureSize(1, 1, 2))).decorators(ImmutableList.of(TrunkVineTreeDecorator.INSTANCE, LeavesVineTreeDecorator.INSTANCE)).build()));
-        ACACIA = register("acacia", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(new SimpleBlockStateProvider(ACACIA_LOG), new ForkingTrunkPlacer(5, 2, 2), new SimpleBlockStateProvider(ENCHANTED_ACACIA_LEAVES), new SimpleBlockStateProvider(ENCHANTED_ACACIA_SAPLING), new AcaciaFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 0, 2))).ignoreVines().build()));
-        DARK_OAK = register("dark_oak", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(new SimpleBlockStateProvider(DARK_OAK_LOG), new DarkOakTrunkPlacer(6, 2, 1), new SimpleBlockStateProvider(ENCHANTED_DARK_OAK_LEAVES), new SimpleBlockStateProvider(ENCHANTED_DARK_OAK_SAPLING), new DarkOakFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0)), new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()))).ignoreVines().build()));
+        FANCY_OAK = register("fancy_oak", Feature.TREE.configure(buildLargeOakTree().build()));
+        FANCY_OAK_BEES_005 = register("fancy_oak_bees_005", Feature.TREE.configure(buildLargeOakTree().decorators(List.of(MORE_BEEHIVES_TREES)).build()));
+        OAK = register("oak", Feature.TREE.configure(buildOakTree().build()));
+        OAK_BEES_005 = register("oak_bees_005", Feature.TREE.configure(buildOakTree().decorators(List.of(MORE_BEEHIVES_TREES)).build()));
+        SPRUCE = register("spruce", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new StraightTrunkPlacer(5, 2, 1), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new SpruceFoliagePlacer(UniformIntProvider.create(2, 3), UniformIntProvider.create(0, 2), UniformIntProvider.create(1, 2)), new TwoLayersFeatureSize(2, 0, 2))).ignoreVines().build()));
+        MEGA_SPRUCE = register("mega_spruce", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new GiantTrunkPlacer(13, 2, 14), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new MegaPineFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0), UniformIntProvider.create(13, 17)), new TwoLayersFeatureSize(1, 1, 2))).decorators(ImmutableList.of(new AlterGroundTreeDecorator(BlockStateProvider.of(Blocks.PODZOL)))).build()));
+        MEGA_PINE = register("mega_pine", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.SPRUCE_LOG), new GiantTrunkPlacer(13, 2, 14), BlockStateProvider.of(Blocks.SPRUCE_LEAVES), new MegaPineFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0), UniformIntProvider.create(3, 7)), new TwoLayersFeatureSize(1, 1, 2))).decorators(ImmutableList.of(new AlterGroundTreeDecorator(BlockStateProvider.of(Blocks.PODZOL)))).build()));
+        BIRCH = register("birch", Feature.TREE.configure(buildBirchTree().build()));
+        BIRCH_BEES_005 = register("birch_bees_005", Feature.TREE.configure(buildBirchTree().decorators(List.of(MORE_BEEHIVES_TREES)).build()));
+        JUNGLE_TREE_NO_VINE = register("jungle_tree_no_vine", Feature.TREE.configure(buildJungleTree().ignoreVines().build()));
+        MEGA_JUNGLE_TREE = register("mega_jungle_tree", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.JUNGLE_LOG), new MegaJungleTrunkPlacer(10, 2, 19), BlockStateProvider.of(Blocks.JUNGLE_LEAVES), new JungleFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 2), new TwoLayersFeatureSize(1, 1, 2))).decorators(ImmutableList.of(TrunkVineTreeDecorator.INSTANCE, LeavesVineTreeDecorator.INSTANCE)).build()));
+        ACACIA = register("acacia", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.ACACIA_LOG), new ForkingTrunkPlacer(5, 2, 2), BlockStateProvider.of(Blocks.ACACIA_LEAVES), new AcaciaFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 0, 2))).ignoreVines().build()));
+        DARK_OAK = register("dark_oak", Feature.TREE.configure((new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.DARK_OAK_LOG), new DarkOakTrunkPlacer(6, 2, 1), BlockStateProvider.of(Blocks.DARK_OAK_LEAVES), new DarkOakFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0)), new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()))).ignoreVines().build()));
     }
 
     static final class Constants {
@@ -113,5 +120,25 @@ public final class TreeFeatures {
         }
 
         public static final BeehiveTreeDecorator MORE_BEEHIVES_TREES = new BeehiveTreeDecorator(0.05F);
+    }
+
+    private static net.minecraft.world.gen.feature.TreeFeatureConfig.Builder buildLargeOakTree() {
+        return (new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.OAK_LOG), new LargeOakTrunkPlacer(3, 11, 0), BlockStateProvider.of(Blocks.OAK_LEAVES), new LargeOakFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines();
+    }
+
+    private static net.minecraft.world.gen.feature.TreeFeatureConfig.Builder buildTree(Block trunkBlock, Block foliageBlock, int baseHeight, int firstRandomHeight) {
+        return new net.minecraft.world.gen.feature.TreeFeatureConfig.Builder(BlockStateProvider.of(trunkBlock), new StraightTrunkPlacer(baseHeight, firstRandomHeight, 0), BlockStateProvider.of(foliageBlock), new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3), new TwoLayersFeatureSize(1, 0, 1));
+    }
+
+    private static net.minecraft.world.gen.feature.TreeFeatureConfig.Builder buildOakTree() {
+        return buildTree(Blocks.OAK_LOG, Blocks.OAK_LEAVES, 4, 2).ignoreVines();
+    }
+
+    private static net.minecraft.world.gen.feature.TreeFeatureConfig.Builder buildBirchTree() {
+        return buildTree(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES, 5, 2).ignoreVines();
+    }
+
+    private static net.minecraft.world.gen.feature.TreeFeatureConfig.Builder buildJungleTree() {
+        return buildTree(Blocks.JUNGLE_LOG, Blocks.JUNGLE_LEAVES, 4, 8);
     }
 }
