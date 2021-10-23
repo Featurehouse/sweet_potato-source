@@ -1,9 +1,8 @@
 package org.featurehouse.mcmod.spm.util.registries;
 
-import org.featurehouse.mcmod.spm.util.annotation.FabricApiRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.fabricmc.fabric.api.tag.TagRegistry;
+import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -21,8 +20,9 @@ import net.minecraft.stat.Stats;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-
+import org.featurehouse.mcmod.spm.util.annotation.FabricApiRegistry;
 import org.jetbrains.annotations.NotNull;
+
 import java.util.function.Supplier;
 
 import static org.featurehouse.mcmod.spm.SPMMain.MODID;
@@ -90,9 +90,10 @@ public interface RegistryHelper {
     }
 
     @FabricApiRegistry
-    static Tag<Item> itemTag(String id) {
+    static Tag.Identified<Item> itemTag(String id) {
         Identifier id2 = id(id);
-        return TagRegistry.item(id2);
+        //return TagRegistry.item(id2);
+        return TagFactory.ITEM.create(id2);
     }
 
     static Identifier stat(String id, StatFormatter statFormatter) {
