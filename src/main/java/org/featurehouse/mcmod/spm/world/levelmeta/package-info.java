@@ -4,4 +4,5 @@
  *
  * @since 1.2.2
  */
+@Deprecated
 package org.featurehouse.mcmod.spm.world.levelmeta;
