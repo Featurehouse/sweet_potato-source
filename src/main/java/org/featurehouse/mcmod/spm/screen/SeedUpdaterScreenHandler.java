@@ -1,9 +1,5 @@
 package org.featurehouse.mcmod.spm.screen;
 
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.math.Vec3d;
-import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.recipe.SeedUpdatingRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -11,10 +7,13 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.world.World;
-
+import org.featurehouse.mcmod.spm.SPMMain;
+import org.featurehouse.mcmod.spm.recipe.SeedUpdatingRecipe;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 public class SeedUpdaterScreenHandler extends ForgingScreenHandler {
