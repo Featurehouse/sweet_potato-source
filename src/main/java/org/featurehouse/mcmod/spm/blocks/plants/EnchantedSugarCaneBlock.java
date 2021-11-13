@@ -19,7 +19,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
-import org.featurehouse.asm.api.SeeAlso;
 
 import java.util.Random;
 
@@ -31,7 +30,7 @@ import java.util.Random;
  * @see SugarCaneBlock
  * @see #setDefaultState(BlockState)
  */
-@SeeAlso(SugarCaneBlock.class)
+//@SeeAlso(SugarCaneBlock.class)
 public class EnchantedSugarCaneBlock extends Block {
     public static final IntProperty AGE;
     protected static final VoxelShape SHAPE;
@@ -54,9 +53,10 @@ public class EnchantedSugarCaneBlock extends Block {
 
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (world.isAir(pos.up())) {
-            int i;
-            for(i = 1; world.getBlockState(pos.down(i)).isOf(this); ++i) {
-            }
+            int i = 1;
+            //for(i = 1; world.getBlockState(pos.down(i)).isOf(this); ++i) {
+            //}
+            while (world.getBlockState(pos.down(i)).isOf(this)) i++;
 
             if (i < 3) {
                 int j = state.get(AGE);
@@ -71,12 +71,12 @@ public class EnchantedSugarCaneBlock extends Block {
 
     }
 
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (!state.canPlaceAt(world, pos)) {
-            world.getBlockTickScheduler().schedule(pos, this, 1);
+            world.createAndScheduleBlockTick(pos, this, 1);
         }
 
-        return super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
+        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {

@@ -36,13 +36,11 @@ public interface ExampleDimensions {
     /**
      * @deprecated May NOT work
      * @see DimensionOptions#OVERWORLD
-     * @see net.minecraft.world.gen.GeneratorOptions#createOverworldGenerator(
-     * Registry, Registry, long)
      */
     @Deprecated
     DimensionOptions DIMENSION_OPTIONS = new DimensionOptions(
             () -> DIMENSION_TYPE, new NoiseChunkGenerator(
-                    null, 0L, ChunkGeneratorSettings::getInstance
+                    null, null, 0L, ChunkGeneratorSettings::getInstance
     ));
 
 }
