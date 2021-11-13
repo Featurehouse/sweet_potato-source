@@ -19,7 +19,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
-import org.featurehouse.asm.api.SeeAlso;
 
 import java.util.Random;
 
@@ -31,7 +30,7 @@ import java.util.Random;
  * @see SugarCaneBlock
  * @see #setDefaultState(BlockState)
  */
-@SeeAlso(SugarCaneBlock.class)
+//@SeeAlso(SugarCaneBlock.class)
 public class EnchantedSugarCaneBlock extends Block {
     public static final IntProperty AGE;
     protected static final VoxelShape SHAPE;
