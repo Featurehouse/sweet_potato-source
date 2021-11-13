@@ -51,7 +51,7 @@
   "subtitles.block.sweet_potato.magic_cube.deactivate": "魔法锅：失效",
   "subtitles.block.sweet_potato.magic_cube.ambient": "魔法锅：轰鸣",
 
-  "advancement.husbandry.sweet_potato.get_sweet_potato.title": "香甜软嚅",
+  "advancement.husbandry.sweet_potato.get_sweet_potato.title": "香甜软糯",
   "advancement.husbandry.sweet_potato.get_sweet_potato.description": "获得地瓜",
   "advancement.nether.sweet_potato.get_magic_cube.title": "灵魂魔法",
   "advancement.nether.sweet_potato.get_magic_cube.description": "获得魔法锅",
@@ -67,13 +67,5 @@
   "stat.sweet_potato.sweet_potato_eaten": "吃掉的地瓜数",
   "stat.sweet_potato.interact_with_magic_cube": "与魔法锅互动次数",
 
-  "tooltip.sweet_potato.enchanted_sweet_potato.effects": "效果： ",
-
-  "block.sweet_potato.enchanted_phoenix_sapling": "附魔梧桐树苗",
-  "block.sweet_potato.enchanted_phoenix_leaves": "附魔梧桐树叶",
-  "block.sweet_potato.potted_enchanted_phoenix_sapling": "附魔梧桐树苗盆栽",
-  "block.sweet_potato.enchanted_pear_sapling": "附魔梨树苗",
-  "block.sweet_potato.enchanted_pear_leaves": "附魔梨树叶",
-  "block.sweet_potato.enchanted_pear_ripe_leaves": "结梨子的附魔梨树叶",
-  "block.sweet_potato.potted_enchanted_pear_sapling": "梨树苗盆栽"
+  "tooltip.sweet_potato.enchanted_sweet_potato.effects": "效果： "
 }

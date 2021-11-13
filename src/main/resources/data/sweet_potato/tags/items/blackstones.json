@@ -1,13 +1,22 @@
 {
-  "replace": true,
+  "replace": false,
   "values": [
     "minecraft:blackstone",
-	"minecraft:polished_blackstone",
-	"minecraft:chiseled_polished_blackstone",
+		"minecraft:polished_blackstone",
+		"minecraft:chiseled_polished_blackstone",
 	
-	"minecraft:polished_blackstone_bricks",
-	"minecraft:cracked_polished_blackstone_bricks",
+		"minecraft:polished_blackstone_bricks",
+		"minecraft:cracked_polished_blackstone_bricks",
 	
-	"minecraft:gilded_blackstone"
+		"minecraft:gilded_blackstone",
+
+		"minecraft:chiseled_deepslate",
+		"minecraft:deepslate_tiles",
+		"minecraft:cracked_deepslate_tiles",
+		"minecraft:deepslate_bricks",
+		"minecraft:cracked_deepslate_bricks",
+		"minecraft:polished_deepslate",
+		"minecraft:cobbled_deepslate",
+		"minecraft:deepslate"
   ]
 }
