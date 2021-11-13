@@ -1,6 +1,5 @@
 {
   "block.agroforestry_table.finish": {
-    "_comment": "These smithing things will be replaced",
     "sounds": [
       {
         "name": "sweet_potato:block/agroforestry_table/crop_upgraded",

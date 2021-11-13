@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "sweet_potato:shurlin__es_pear"
+    ]
+  },
+  "criteria": {
+    "_": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "sweet_potato:shurlin__es_pear"
+      }
+    },
+    "xl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{
+          "items": ["shurlin:pear_sapling"]
+        }]
+      }
+    }
+  },
+  "requirements": [[
+    "_", "xl"
+  ]]
+}

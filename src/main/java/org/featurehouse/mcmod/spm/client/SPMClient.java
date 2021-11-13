@@ -12,6 +12,7 @@ import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.linkage.SPMLinkageClient;
+import xyz.shurlin.linkage.sweet_potato.linkage.internal.ShurlinSPMLinkage;
 
 @Environment(EnvType.CLIENT)
 public class SPMClient implements ClientModInitializer {
@@ -41,6 +42,9 @@ public class SPMClient implements ClientModInitializer {
         /* Linkage */
 
         FabricLoader.getInstance().getEntrypoints("sweet_potato.client", SPMLinkageClient.class).forEach(SPMLinkageClient::initClient);
+        if (FabricLoader.getInstance().isModLoaded("shurlin")) {
+            FabricLoader.getInstance().getEntrypoints("shurlin.client", ShurlinSPMLinkage.class).forEach(ShurlinSPMLinkage::invoke);
+        }
 
         /* Rendering */
 

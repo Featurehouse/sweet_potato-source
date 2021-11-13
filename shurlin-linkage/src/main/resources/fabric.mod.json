@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "sweet_potato_mod-shurlin-linkage",
+  "version": "${version}",
+
+  "name": "Sweet Potato Mod (Shurlin Linkage)",
+  "description": "The linkage module of Sweet Potato Mod in which to link Shurlin Mod",
+  "authors": [
+    "Pigeonia Featurehouse"
+  ],
+  "contributors": [
+    "teddyxlandlee",
+    "\\u4e00\\u9897\\u6c34\\u6676Rayawa",
+    "Peterice"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/sweet-potato",
+    "sources": "https://github.com/Featurehouse/sweet_potato-source",
+    "issues": "https://github.com/Featurehouse/sweet_potato-issueTracker/issues"
+  },
+
+  "license": "Apache-2.0",
+  "icon": "assets/sweet_potato-shurlin-linkage/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "shurlin": [
+      "xyz.shurlin.linkage.sweet_potato.ShurlinSPMLinkage"
+    ],
+    "shurlin.client": [
+      "xyz.shurlin.linkage.sweet_potato.client.ShurlinSPMLinkageClient"
+    ]
+  },
+
+  "depends": {
+    "sweet_potato": "${version}",
+    "java": ">=16"
+  },
+  "custom": {
+    "modmenu": {
+      "parent": "sweet_potato"
+    }
+  }
+}

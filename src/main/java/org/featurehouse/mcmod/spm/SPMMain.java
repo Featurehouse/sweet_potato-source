@@ -35,6 +35,9 @@ import org.featurehouse.mcmod.spm.util.objsettings.Materials;
 import org.featurehouse.mcmod.spm.util.registries.AnimalIngredients;
 import org.featurehouse.mcmod.spm.util.registries.ComposterHelper;
 import org.featurehouse.mcmod.spm.world.gen.tree.*;
+import xyz.shurlin.linkage.sweet_potato.linkage.internal.ShurlinSPMLinkage;
+
+import java.util.Arrays;
 
 import static org.featurehouse.mcmod.spm.util.objsettings.BlockSettings.*;
 import static org.featurehouse.mcmod.spm.util.registries.RegistryHelper.*;
@@ -183,6 +186,9 @@ public class SPMMain implements ModInitializer {
 		System.out.printf("%s, by %s\nContributors:\n%s\n", "Sweet Potato Mod", "Pigeonia Featurehouse", "- Teddy Li (bilibili: teddyxlandlee)\n- Ray Chen (bilibili: 一颗水晶Rayawa)\n- Peter Yang (bilibili: 印度大米饭)");
 
 		FabricLoader.getInstance().getEntrypoints("sweet_potato", SPMLinkage.class).forEach(SPMLinkage::init);
+		if (FabricLoader.getInstance().isModLoaded("shurlin")) {
+			FabricLoader.getInstance().getEntrypoints("shurlin", ShurlinSPMLinkage.class).forEach(ShurlinSPMLinkage::invoke);
+		}
 		ComposterHelper.register();
 
 		LootTables.init();

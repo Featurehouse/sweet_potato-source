@@ -1,0 +1,8 @@
+archivesBaseName = 'sweet_potato_mod-shurlin-linkage'
+
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    modApiMapped project(':')
+    modImplementation "xyz.shurlin:shurlin:${project.shurlin_version}"
+}
