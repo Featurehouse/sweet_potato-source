@@ -6,8 +6,11 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.CreditsScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.resource.Resource;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import org.apache.commons.io.IOUtils;
@@ -31,12 +34,20 @@ import java.util.Objects;
 
 @Mixin(CreditsScreen.class)
 @Environment(EnvType.CLIENT)
-final class CreditsScreenMixinC extends Screen {
+abstract class CreditsScreenMixinC extends Screen {
     @Shadow @Final private static Logger LOGGER;
 
     @Shadow private IntSet centeredLines;
 
     @Shadow private List<OrderedText> credits;
+
+    @Shadow private int creditsHeight;
+
+    @Shadow protected abstract void addText(Text text, boolean centered);
+
+    @Shadow @Final private static Text SEPARATOR_LINE;
+
+    @Shadow protected abstract void addEmptyLine();
 
     @Inject(at = @At("TAIL"), method = "init()V")
     private void printSPMCredits(CallbackInfo ci) {
@@ -51,24 +62,23 @@ final class CreditsScreenMixinC extends Screen {
                     JsonHelper.deserialize(new BufferedReader(new InputStreamReader(is))),
                     SPM_FILE);
 
-            wrapCentralLines("""
-                    \u00a7f============
-                    \u00a7eSweet Potato Mod Credits
-                    \u00a7f============""");
-            wrapLines(false, "\u00a77Author Group");
+            wrapTitle("Sweet Potato Mod Credits");
+
+            wrapLines(false, "Author Group", Formatting.GRAY);
             renderNameList(modCredits.authorGroup());
-            wrapLines(false, "\u00a77Contributors");
+            wrapLines(false, "Contributors", Formatting.GRAY);
             renderContributorList(modCredits.contributors());
-            wrapCentralLines("""
-                    \u00a7f============
-                    \u00a7eSpecial Thanks from Sweet Potato Mod
-                    \u00a7f============""");
-            wrapLines(false, "\u00a77Collaborators");
+
+            wrapTitle("Special Thanks from Sweet Potato Mod");
+
+            wrapLines(false, "Collaborators", Formatting.GRAY);
             renderNameList(modCredits.collaborators());
-            wrapLines(false, "\u00a77Very Important Supporters");
+            wrapLines(false, "Very Important Supporters", Formatting.GRAY);
             renderNameList(modCredits.importantSupporters());
 
             is.close();
+
+            this.creditsHeight = this.credits.size() * 12;
         } catch (IOException e) {
             LOGGER.error("Couldn't load credits from Sweet Potato Mod", e);
         } finally {
@@ -81,31 +91,48 @@ final class CreditsScreenMixinC extends Screen {
 
     private static final Identifier SPM_FILE = RegistryHelper.id("credits.json");
 
-    private void wrapLines(boolean central, String string) {
-        List<OrderedText> wrapLines = Objects.requireNonNull(client).textRenderer.wrapLines(Text.of(string), 274);
+    private void wrapLines(String string) {
+        credits.add(blank().append(string).formatted(Formatting.WHITE).asOrderedText());
+    }
+
+    private static LiteralText blank() {
+        return new LiteralText("           ");
+    }
+
+    private void wrapLines(boolean central, String string, Formatting... fmt) {
+        List<OrderedText> wrapLines = Objects.requireNonNull(client).textRenderer.wrapLines(
+                new LiteralText(string).formatted(fmt), 274
+        );
         for (OrderedText text : wrapLines) {
             if (central) centeredLines.add(credits.size());
             credits.add(text);
-        } credits.add(OrderedText.EMPTY);
+        }
     }
 
-    private void wrapCentralLines(String string) {
-        for (String oneLine : string.split("\n"))
-            wrapLines(true, oneLine);
+    private void wrapTitle(String string) {
+        this.addText(SEPARATOR_LINE, true);
+        wrapLines(true, string, Formatting.YELLOW);
+        this.addText(SEPARATOR_LINE, true);
+        this.addEmptyLine();
+        this.addEmptyLine();
     }
 
     private void renderContributorList(List<ImmutablePair<String, String>> contributors) {
         for (ImmutablePair<String, String> nameAndId : contributors) {
-            String rawText = "\u00a7f\t\t" + nameAndId.getLeft();
+            MutableText mutableText = blank().append(new LiteralText(nameAndId.getLeft()).formatted(Formatting.WHITE));
             if (!nameAndId.getLeft().equals(nameAndId.getRight()))
-                rawText = rawText + "\u00a77 (" + nameAndId.getRight() + ')';
-            wrapLines(false, rawText);
+                mutableText.append(new LiteralText(" (" + nameAndId.getRight() + ')').formatted(Formatting.GRAY));
+            addText(mutableText, false);
         }
+        addEmptyLine();
+        addEmptyLine();
     }
 
     private void renderNameList(List<String> names) {
         for (String name : names) {
-            wrapLines(false, "\u00a7f\t\t" + name);
+            wrapLines(name);
         }
+        addEmptyLine();
+        addEmptyLine();
     }
 }
