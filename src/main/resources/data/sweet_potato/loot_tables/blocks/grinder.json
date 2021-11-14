@@ -5,17 +5,72 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "sweet_potato:grinder",
-          "functions": [
+          "type": "minecraft:alternatives",
+          "children": [
             {
-              "function": "copy_name",
-              "source": "block_entity"
-            }
-          ],
-          "conditions": [
+              "type": "minecraft:item",
+              "name": "sweet_potato:grinder",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "enchantments": [
+                      {
+                        "enchantment": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:copy_name",
+                  "source": "block_entity"
+                },
+                {
+                  "function": "minecraft:copy_nbt",
+                  "source": "block_entity",
+                  "ops": [
+                    {
+                      "source": "Lock",
+                      "target": "BlockEntityTag.Lock",
+                      "op": "replace"
+                    },
+                    {
+                      "source": "LootTable",
+                      "target": "BlockEntityTag.LootTable",
+                      "op": "replace"
+                    },
+                    {
+                      "source": "LootTableSeed",
+                      "target": "BlockEntityTag.LootTableSeed",
+                      "op": "replace"
+                    }
+                  ]
+                },
+                {
+                  "function": "minecraft:set_contents",
+                  "type": "sweet_potato:grinder",
+                  "entries": [
+                    {
+                      "type": "minecraft:dynamic",
+                      "name": "minecraft:contents"
+                    }
+                  ]
+                }
+              ]
+            },
             {
-              "condition": "minecraft:survives_explosion"
+              "type": "minecraft:item",
+              "name": "sweet_potato:grinder",
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                }
+              ]
             }
           ]
         }
