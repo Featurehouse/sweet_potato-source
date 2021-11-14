@@ -53,7 +53,7 @@ public final class BlockSettings {
                 .sounds(BlockSoundGroup.GRASS);
     }
 
-    protected static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
+    static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
     }
 

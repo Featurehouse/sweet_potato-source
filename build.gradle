@@ -4,10 +4,16 @@ plugins {
 }
 
 import net.fabricmc.loom.task.RunGameTask
+import net.fabricmc.loom.build.nesting.JarNester
+
+import java.nio.file.Files
 
 archivesBaseName = project.archives_base_name
 
-allprojects {
+apply plugin: 'fabric-loom'
+apply plugin: 'maven-publish'
+
+allprojects { Project proj ->
 	apply plugin: 'fabric-loom'
 	apply plugin: 'maven-publish'
 
@@ -33,6 +39,7 @@ allprojects {
 		// Fabric API. This is technically optional, but you probably want it anyway.
 		modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+		//include project(':shurlin-linkage')
 		// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 		// You may need to force-disable transitiveness on them.
 	}
@@ -96,7 +103,6 @@ allprojects {
 		}
 	}
 
-
 	loom {
 		runs {
 			testmodClient {
@@ -112,5 +118,23 @@ allprojects {
 				source = sourceSets.testmod
 			}
 		}
+	}
+}
+
+task makeFullJar  {
+	def nestedProj = project(':shurlin-linkage')
+	mustRunAfter remapJar, nestedProj.remapJar
+	//println 'DEBUGGING MAKEFULLJAR'
+	def sourceFile = file("build/libs/$archivesBaseName-${project.version}.jar")
+	def nestedFile = nestedProj.file("build/libs/" +
+			//"${nestedProj.archivesBaseName}" +
+			"sweet_potato_mod-shurlin-linkage" +
+			"-${nestedProj.version}.jar")
+
+	doLast {
+		def targetFile = file("build/libs/$archivesBaseName-${project.version}-cpt.jar")
+		Files.deleteIfExists targetFile.toPath()
+		Files.copy sourceFile.toPath(), targetFile.toPath()
+		JarNester.nestJars([nestedFile], targetFile, project.logger)
 	}
 }
