@@ -14,8 +14,8 @@ import net.minecraft.world.BlockView;
 import java.util.function.Supplier;
 
 public final class BlockSettings {
-    public static FabricBlockSettings functionalMinable(Material material, float hardness, float blastResistance, int miningLevel) {
-        return FabricBlockSettings.of(material).hardness(hardness).resistance(blastResistance).breakByTool(FabricToolTags.PICKAXES, miningLevel).requiresTool();
+    public static FabricBlockSettings functionalMinable(Material material, float hardness, float blastResistance) {
+        return FabricBlockSettings.of(material).hardness(hardness).resistance(blastResistance).requiresTool();
     }
 
     public static EnchantedSaplings createEnchantedSapling(String id, Supplier<SaplingGenerator> saplingGeneratorSupplier) {
