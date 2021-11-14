@@ -206,9 +206,9 @@ public class SPMMain implements ModInitializer {
 		ENCHANTED_WHITE_POTATO = item("enchanted_white_potato", new EnchantedSweetPotatoItem(ItemSettings.oneFood(), SweetPotatoType.WHITE));
 
 		// Block
-		MAGIC_CUBE = block("magic_cube", new MagicCubeBlock(functionalMinable(Materials.MATERIAL_STONE, 10.0F, 1200.0F, 2)));
-		GRINDER = block("grinder", new GrinderBlock(functionalMinable(Materials.MATERIAL_STONE, 3.5F, 6.0F, 0)));
-		SEED_UPDATER = block("agroforestry_table", new SeedUpdaterBlock(functionalMinable(Materials.MATERIAL_STONE, 3.5F, 6.0F, 2)));
+		MAGIC_CUBE = block("magic_cube", new MagicCubeBlock(functionalMinable(Materials.MATERIAL_STONE, 10.0F, 1200.0F)));
+		GRINDER = block("grinder", new GrinderBlock(functionalMinable(Materials.MATERIAL_STONE, 3.5F, 6.0F)));
+		SEED_UPDATER = block("agroforestry_table", new SeedUpdaterBlock(functionalMinable(Materials.MATERIAL_STONE, 3.5F, 6.0F)));
 		    // Crops
 		PURPLE_POTATO_CROP = block("purple_potatoes", new SweetPotatoesCropBlock(BlockSettings.grassLike(), SweetPotatoType.PURPLE));
 		RED_POTATO_CROP = block("red_potatoes", new SweetPotatoesCropBlock(BlockSettings.grassLike(), SweetPotatoType.RED));
