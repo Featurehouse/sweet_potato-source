@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(ChickenEntity.class)
-public class ChickenEntityMixin {
+abstract class ChickenEntityMixin {
     @Shadow @Final @Mutable
     private static Ingredient BREEDING_INGREDIENT;
 

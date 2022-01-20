@@ -1,8 +1,5 @@
 package org.featurehouse.mcmod.spm.mixin;
 
-import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.blocks.GrinderBlock;
-import org.featurehouse.mcmod.spm.client.KeepPlayingSoundInstance;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -10,8 +7,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import org.featurehouse.mcmod.spm.SPMMain;
+import org.featurehouse.mcmod.spm.blocks.GrinderBlock;
+import org.featurehouse.mcmod.spm.client.KeepPlayingSoundInstance;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

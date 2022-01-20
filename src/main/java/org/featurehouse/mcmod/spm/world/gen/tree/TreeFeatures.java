@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -20,6 +19,7 @@ import net.minecraft.world.gen.treedecorator.LeavesVineTreeDecorator;
 import net.minecraft.world.gen.treedecorator.TrunkVineTreeDecorator;
 import net.minecraft.world.gen.trunk.*;
 import org.featurehouse.mcmod.spm.SPMMain;
+import org.featurehouse.mcmod.spm.util.registries.RegistryHelper;
 
 import java.util.List;
 import java.util.OptionalInt;
@@ -27,20 +27,21 @@ import java.util.OptionalInt;
 import static org.featurehouse.mcmod.spm.world.gen.tree.TreeFeatures.Constants.*;
 
 /* (not javadoc)
-* Most of the code are from {@code ConfiguredFeatures}.
-* Don't you dare asking us for the algorithm CUZ WE DON'T KNOW EITHER.
+* Most of the code are from {@code ConfiguredFeatures}
+* and {@code TreeConfiguredFeatures}.<br />
+* Don't ask us for the algorithm CUZ WE DON'T KNOW EITHER.
 */
 
 /**
  * @see net.minecraft.block.sapling.OakSaplingGenerator
- * @see ConfiguredFeatures#FANCY_OAK
+ * @see TreeConfiguredFeatures#FANCY_OAK
  */
 public final class TreeFeatures {
     private TreeFeatures() {
     }
 
     private static <FC extends FeatureConfig> ConfiguredFeature<FC, ?> register(String id, ConfiguredFeature<FC, ?> configuredFeature) {
-        return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(SPMMain.MODID, id), configuredFeature);
+        return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, RegistryHelper.id(id), configuredFeature);
     }
 
     public static final ConfiguredFeature<TreeFeatureConfig, ?>
@@ -51,13 +52,13 @@ public final class TreeFeatures {
             ACACIA, DARK_OAK;
 
     static {
-        FANCY_OAK = register("fancy_oak", Feature.TREE.configure(buildLargeOakTree().build()));
+        FANCY_OAK = register("fancy_oak", Feature.TREE.configure(largeOak().build()));
         FANCY_OAK_BEES_005 = register("fancy_oak_bees_005",
-                Feature.TREE.configure(buildLargeOakTree()
+                Feature.TREE.configure(largeOak()
                         .decorators(List.of(MORE_BEEHIVES_TREES)).build()));
-        OAK = register("oak", Feature.TREE.configure(buildOakTree().build()));
+        OAK = register("oak", Feature.TREE.configure(oak().build()));
         OAK_BEES_005 = register("oak_bees_005",
-                Feature.TREE.configure(buildOakTree()
+                Feature.TREE.configure(oak()
                         .decorators(List.of(MORE_BEEHIVES_TREES)).build()));
         SPRUCE = register("spruce",
                 Feature.TREE.configure((new TreeFeatureConfig.Builder(
@@ -85,11 +86,11 @@ public final class TreeFeatures {
                         new TwoLayersFeatureSize(1, 1, 2)))
                         .decorators(ImmutableList.of(new AlterGroundTreeDecorator(BlockStateProvider.of(PODZOL))))
                         .build()));
-        BIRCH = register("birch", Feature.TREE.configure(buildBirchTree().build()));
+        BIRCH = register("birch", Feature.TREE.configure(birch().build()));
         BIRCH_BEES_005 = register("birch_bees_005",
-                Feature.TREE.configure(buildBirchTree().decorators(List.of(MORE_BEEHIVES_TREES)).build()));
+                Feature.TREE.configure(birch().decorators(List.of(MORE_BEEHIVES_TREES)).build()));
         JUNGLE_TREE_NO_VINE = register("jungle_tree_no_vine",
-                Feature.TREE.configure(buildJungleTree().ignoreVines().build()));
+                Feature.TREE.configure(jungle().ignoreVines().build()));
         MEGA_JUNGLE_TREE = register("mega_jungle_tree",
                 Feature.TREE.configure((new TreeFeatureConfig.Builder(
                         BlockStateProvider.of(JUNGLE_LOG),
@@ -172,7 +173,7 @@ public final class TreeFeatures {
         public static final BeehiveTreeDecorator MORE_BEEHIVES_TREES = new BeehiveTreeDecorator(0.05F);
     }
 
-    private static TreeFeatureConfig.Builder buildLargeOakTree() {
+    private static TreeFeatureConfig.Builder largeOak() {
         return (new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(Blocks.OAK_LOG),
                 new LargeOakTrunkPlacer(3, 11, 0),
@@ -182,7 +183,7 @@ public final class TreeFeatures {
                 .ignoreVines();
     }
 
-    private static TreeFeatureConfig.Builder buildTree(Block trunkBlock, BlockState foliageBlock, int baseHeight, int firstRandomHeight) {
+    private static TreeFeatureConfig.Builder tree(Block trunkBlock, BlockState foliageBlock, int baseHeight, int firstRandomHeight) {
         return new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(trunkBlock),
                 new StraightTrunkPlacer(baseHeight, firstRandomHeight, 0),
@@ -191,17 +192,17 @@ public final class TreeFeatures {
                 new TwoLayersFeatureSize(1, 0, 1));
     }
 
-    private static TreeFeatureConfig.Builder buildOakTree() {
-        return buildTree(Blocks.OAK_LOG, ENCHANTED_OAK_LEAVES, 4, 2)
+    private static TreeFeatureConfig.Builder oak() {
+        return tree(Blocks.OAK_LOG, ENCHANTED_OAK_LEAVES, 4, 2)
                 .ignoreVines();
     }
 
-    private static TreeFeatureConfig.Builder buildBirchTree() {
-        return buildTree(Blocks.BIRCH_LOG, ENCHANTED_BIRCH_LEAVES, 5, 2)
+    private static TreeFeatureConfig.Builder birch() {
+        return tree(Blocks.BIRCH_LOG, ENCHANTED_BIRCH_LEAVES, 5, 2)
                 .ignoreVines();
     }
 
-    private static TreeFeatureConfig.Builder buildJungleTree() {
-        return buildTree(Blocks.JUNGLE_LOG, ENCHANTED_JUNGLE_LEAVES, 4, 8);
+    private static TreeFeatureConfig.Builder jungle() {
+        return tree(Blocks.JUNGLE_LOG, ENCHANTED_JUNGLE_LEAVES, 4, 8);
     }
 }
