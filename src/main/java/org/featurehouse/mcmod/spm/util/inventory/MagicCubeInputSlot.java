@@ -1,7 +1,6 @@
 package org.featurehouse.mcmod.spm.util.inventory;
 
 import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.util.objsettings.Tags;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
@@ -23,7 +22,7 @@ public class MagicCubeInputSlot extends Slot {
 
     @Override
     public boolean canInsert(ItemStack stack) {
-        return Tags.inTag(stack.getItem(), SPMMain.RAW_SWEET_POTATOES);
+        return SPMMain.RAW_SWEET_POTATOES.contains(stack.getItem());
         //return stack.getItem().isIn(SPMMain.RAW_SWEET_POTATOES);
     }
 }

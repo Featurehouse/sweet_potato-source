@@ -1,5 +1,7 @@
 package org.featurehouse.mcmod.spm.blocks.entities;
 
+import net.minecraft.item.Item;
+import net.minecraft.tag.Tag;
 import org.featurehouse.mcmod.spm.lib.block.entity.AbstractLockableContainerBlockEntity;
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;
 import net.minecraft.block.BlockState;
@@ -36,7 +38,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
     private static final byte MAX_COOLDOWN = 5;
 
     //public static final Object2IntOpenHashMap<ItemConvertible> INGREDIENT_DATA_MAP = new Object2IntOpenHashMap<>();
-    public static final Object2DoubleOpenHashMap<ItemConvertible> INGREDIENT_DATA_MAP = new Object2DoubleOpenHashMap<>();
+    public static final Object2DoubleOpenHashMap<Tag<Item>> INGREDIENT_DATA_MAP = new Object2DoubleOpenHashMap<>();
 
     public final IntGrinderProperties properties;
     //protected DefaultedList<ItemStack> inventory;

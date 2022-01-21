@@ -1,7 +1,6 @@
 package org.featurehouse.mcmod.spm.resource.magicalenchantment;
 
 import com.google.gson.*;
-import org.featurehouse.mcmod.spm.SPMMain;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -13,6 +12,7 @@ import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.featurehouse.mcmod.spm.SPMMain;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -21,7 +21,7 @@ import java.util.Set;
 public class MagicalEnchantmentLoader extends JsonDataLoader implements IdentifiableResourceReloadListener {
     protected static final Identifier FABRIC_ID = new Identifier(SPMMain.MODID, "magical_enchantments");
     private static final Gson GSON = new GsonBuilder().create();
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger("MagicalEnchantmentLoader");
 
     public MagicalEnchantmentLoader() {
         super(GSON, "spm__magical_enchantments");
@@ -38,7 +38,7 @@ public class MagicalEnchantmentLoader extends JsonDataLoader implements Identifi
                 JsonObject eachObj = JsonHelper.asObject(je, "Element #" + i);
                 Identifier id = new Identifier(JsonHelper.getString(eachObj, "id"));
                 if (!Registry.STATUS_EFFECT.getIds().contains(id)) {
-                    LOGGER.error(new JsonSyntaxException("Invalid status effect id: " + id.toString()));
+                    LOGGER.error(new JsonSyntaxException("Invalid status effect id: " + id));
                     continue;
                 } StatusEffect effect = Registry.STATUS_EFFECT.get(id);
                 int duration = JsonHelper.getInt(eachObj, "duration", 0);

@@ -42,7 +42,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import static org.featurehouse.mcmod.spm.util.objsettings.Tags.inTag;
 import static net.minecraft.block.Blocks.SOUL_FIRE;
 
 public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity implements SidedInventory, ExtendedScreenHandlerFactory {
@@ -169,7 +168,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
                 if (this.inventory.get(6).getItem() == SPMMain.PEEL) {
                     boolean bl = false;
                     for (int i = 0; i < 3; ++i) {
-                        if (inTag(this.inventory.get(i).getItem(), SPMMain.RAW_SWEET_POTATOES)) {
+                        if (SPMMain.RAW_SWEET_POTATOES.contains(this.inventory.get(i).getItem())) {
                             this.mainFuelTime = 200;
                             bl = true;
                             break;
@@ -231,7 +230,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         } else if (random.nextDouble() <= (withViceFuel() ? 0.5D : 0.4D)) {
             // GENE-WORK
             List<ItemConvertible> itemSet = new ObjectArrayList<>(2);
-            if (item instanceof RawSweetPotatoBlockItem sweetPotato && inTag(item, SPMMain.RAW_SWEET_POTATOES)) {
+            if (item instanceof RawSweetPotatoBlockItem sweetPotato && SPMMain.RAW_SWEET_POTATOES.contains(item)) {
                 sweetPotato.asType().getOtherTwo().forEach(sweetPotatoType -> itemSet.add(sweetPotatoType.getRaw()));
                 this.setStack(outputIndex, new ItemStack(
                         random.nextBoolean() ? itemSet.get(0) : itemSet.get(1)
@@ -244,9 +243,10 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
 
     private ItemStack enchant(ItemStack originRaw) {
         Item item;
-        if (!inTag(item = originRaw.getItem(), SPMMain.RAW_SWEET_POTATOES) || !(item instanceof RawSweetPotatoBlockItem))
+        Item element = item = originRaw.getItem();
+        if (!SPMMain.RAW_SWEET_POTATOES.contains(element)
+                || !(item instanceof RawSweetPotatoBlockItem sweetPotato))
             return originRaw;
-        RawSweetPotatoBlockItem sweetPotato = (RawSweetPotatoBlockItem) item;
         NbtCompound tag = new NbtCompound();
         NbtList listTag = new NbtList();
         List<StatusEffectInstance> enchantments = calcEnchantments();
@@ -265,15 +265,14 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         //TODO
         List<StatusEffectInstance> enchantmentList = new ObjectArrayList<>();
         WeightedList<StatusEffectInstance> weightedList = new WeightedList<>();
-        WeightedStatusEffect.dump2weightedList(weightedList, WeightedStatusEffect.EFFECTS, withViceFuel());
-        if (weightedList.stream().count() == 0L) {
+        WeightedStatusEffect.dump2weightedList(weightedList, withViceFuel());
+        if (weightedList.stream().findAny().isEmpty()) {
             LOGGER.warn("No effects can be applied: empty weighted list");
             return Collections.emptyList();
         }
         for (byte times = 0; times < 5; ++times) {
             Optional<StatusEffectInstance> optional = weightedList.shuffle().stream().findAny();
-            assert optional.isPresent();
-            enchantmentList.add(optional.get());
+            enchantmentList.add(optional.orElseThrow());
             if (random.nextBoolean()) break;
         }
         return enchantmentList;
@@ -287,13 +286,6 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
     private boolean anyOutputIsClear() {
         for (int i = 0; i < 3; ++i) {
             if ((!(this.getStack(i + 3).isEmpty())) && (!(this.getStack(i).isEmpty()))) return false;
-        } return true;
-    }
-
-    @Deprecated
-    boolean outputIsClear() {
-        for (int i = 3; i < 6; ++i) {
-            if (!(this.getStack(i).isEmpty())) return false;
         } return true;
     }
 
@@ -345,7 +337,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
         if (slot == 7)
             return item == SPMMain.POTATO_POWDER;
         if ((slot >= 3 && slot <= 5) || slot > 7 || slot < 0) return false;
-        return inTag(item, SPMMain.RAW_SWEET_POTATOES) && toSlotStack.isEmpty();
+        return SPMMain.RAW_SWEET_POTATOES.contains(item) && toSlotStack.isEmpty();
     }
 
     @Override

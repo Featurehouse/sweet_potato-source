@@ -5,7 +5,6 @@ import org.featurehouse.mcmod.spm.blocks.MagicCubeBlock;
 import org.featurehouse.mcmod.spm.util.inventory.MagicCubeInputSlot;
 import org.featurehouse.mcmod.spm.util.inventory.UniversalResultSlot;
 import org.featurehouse.mcmod.spm.util.iprops.IntMagicCubeProperties;
-import org.featurehouse.mcmod.spm.util.objsettings.Tags;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -92,8 +91,8 @@ public class MagicCubeScreenHandler extends ScreenHandler {
                 } else if (this.mainFuelSlot.canInsert(itemStack2)) {
                     if (!this.insertItem(itemStack2, 6, 7, false))
                         return ItemStack.EMPTY;
-                } else if (Tags.inTag(itemStack.getItem(), RAW_SWEET_POTATOES) && itemStack.getCount() == 1) {
-                    if (!this.insertOne(itemStack2, 0, 3, false))
+                } else if (RAW_SWEET_POTATOES.contains(itemStack.getItem()) && itemStack.getCount() == 1) {
+                    if (!this.insertItem(itemStack2, 0, 3, false))
                         return ItemStack.EMPTY;
                 } else if (index < 35) {
                     if (!this.insertItem(itemStack2, 35, 44, false))
@@ -120,7 +119,7 @@ public class MagicCubeScreenHandler extends ScreenHandler {
         } return itemStack;
     }
 
-    static class FuelSlot extends Slot {
+    private static class FuelSlot extends Slot {
         private final Item item;
 
         public FuelSlot(Item item, Inventory inventory, int index, int x, int y) {
@@ -137,36 +136,4 @@ public class MagicCubeScreenHandler extends ScreenHandler {
         }
     }
 
-    protected boolean insertOne(ItemStack stack, int startIndex, int endIndex, boolean fromLast) {
-        boolean bl = false;
-
-        Slot slot2;
-        ItemStack itemStack;
-
-        if (!stack.isEmpty()) {
-            int insIndex = fromLast ? endIndex - 1 : startIndex;
-            while (true) {
-                if (fromLast) {
-                    if (insIndex < startIndex) break;
-                } else if (insIndex >= endIndex) break;
-
-                slot2 = this.slots.get(insIndex);
-                itemStack = slot2.getStack();
-                if (itemStack.isEmpty() && slot2.canInsert(stack)) {
-                    if (stack.getCount() > slot2.getMaxItemCount())
-                        slot2.setStack(stack.split(slot2.getMaxItemCount()));
-                    else
-                        slot2.setStack(stack.split(stack.getCount()));
-                    slot2.markDirty();
-                    bl = true;
-                    break;
-                }
-                if (fromLast) {
-                    --insIndex;
-                } else {
-                    ++insIndex;
-                }
-            }
-        } return bl;
-    }
 }

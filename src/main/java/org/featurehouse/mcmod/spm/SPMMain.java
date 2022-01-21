@@ -1,6 +1,7 @@
 package org.featurehouse.mcmod.spm;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
@@ -8,6 +9,7 @@ import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.Tag;
@@ -23,7 +25,7 @@ import org.featurehouse.mcmod.spm.items.*;
 import org.featurehouse.mcmod.spm.linkage.SPMLinkage;
 import org.featurehouse.mcmod.spm.loot.LootTables;
 import org.featurehouse.mcmod.spm.recipe.SeedUpdatingRecipe;
-import org.featurehouse.mcmod.spm.resource.SPMDataPackFormats;
+import org.featurehouse.mcmod.spm.resource.magicalenchantment.MagicalEnchantmentLoader;
 import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
 import org.featurehouse.mcmod.spm.screen.MagicCubeScreenHandler;
 import org.featurehouse.mcmod.spm.screen.SeedUpdaterScreenHandler;
@@ -35,23 +37,24 @@ import org.featurehouse.mcmod.spm.util.objsettings.Materials;
 import org.featurehouse.mcmod.spm.util.registries.AnimalIngredients;
 import org.featurehouse.mcmod.spm.util.registries.ComposterHelper;
 import org.featurehouse.mcmod.spm.world.gen.tree.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.featurehouse.mcmod.spm.util.objsettings.BlockSettings.*;
 import static org.featurehouse.mcmod.spm.util.registries.RegistryHelper.*;
 
 @StableApi
 public class SPMMain implements ModInitializer {
-	public static SPMMain INSTANCE;
+	public static SPMMain INSTANCE;	//deprecated
 	public SPMMain() {
 		INSTANCE = this;
 	}
+	private static final Logger LOGGER = LoggerFactory.getLogger("Sweet Potato Mod");
 
 	public static final String MODID = "sweet_potato";
-	//public static final SPMVersion MODVERSION = SPMVersion.BETA_1_0_0;
 
 	// Items
 	public static final Item PEEL;
-	//public static final Item BAKED_PEEL;
 
 		// Baked Potatoes
 	public static final Item BAKED_PURPLE_POTATO;
@@ -177,19 +180,18 @@ public class SPMMain implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		System.out.println("Successfully loaded Sweet Potato Mod!");
+		LOGGER.info("Successfully loaded Sweet Potato Mod!");
 		// Copyright
-		// Agent in Minecraft China can write his or her name into this copyright AS AN AGENT instead of an author.
+		// Agents can write his or her name into this copyright as their agent identities.
 		System.out.printf("%s, by %s\nContributors:\n%s\n", "Sweet Potato Mod", "Pigeonia Featurehouse", "- Teddy Li (bilibili: teddyxlandlee)\n- Ray Chen (bilibili: 一颗水晶Rayawa)\n- Peter Yang (bilibili: 印度大米饭)");
 
 		FabricLoader.getInstance().getEntrypoints("sweet_potato", SPMLinkage.class).forEach(SPMLinkage::init);
 		ComposterHelper.register();
 
 		LootTables.init();
-		SPMDataPackFormats.init();
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new MagicalEnchantmentLoader());
 
 		// Fuel
-		//Util.registerFurnaceFuel(null, Items.AIR, -1);
 		AnimalIngredients.configureParrot();
 	}
 
