@@ -1,14 +1,6 @@
 package org.featurehouse.mcmod.spm.blocks.entities;
 
-import org.featurehouse.mcmod.spm.lib.block.entity.AbstractLockableContainerBlockEntity;
-import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.blocks.MagicCubeBlock;
-import org.featurehouse.mcmod.spm.items.RawSweetPotatoBlockItem;
-import org.featurehouse.mcmod.spm.resource.magicalenchantment.WeightedStatusEffect;
-import org.featurehouse.mcmod.spm.screen.MagicCubeScreenHandler;
-import org.featurehouse.mcmod.spm.util.iprops.IntMagicCubeProperties;
-import org.featurehouse.mcmod.spm.util.effects.StatusEffectInstances;
-import org.featurehouse.mcmod.spm.util.BooleanStateManager;
+import com.mojang.logging.LogUtils;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -32,10 +24,17 @@ import net.minecraft.util.collection.WeightedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.featurehouse.mcmod.spm.SPMMain;
+import org.featurehouse.mcmod.spm.blocks.MagicCubeBlock;
+import org.featurehouse.mcmod.spm.items.RawSweetPotatoBlockItem;
+import org.featurehouse.mcmod.spm.lib.block.entity.AbstractLockableContainerBlockEntity;
+import org.featurehouse.mcmod.spm.resource.magicalenchantment.WeightedStatusEffect;
+import org.featurehouse.mcmod.spm.screen.MagicCubeScreenHandler;
+import org.featurehouse.mcmod.spm.util.BooleanStateManager;
+import org.featurehouse.mcmod.spm.util.effects.StatusEffectInstances;
+import org.featurehouse.mcmod.spm.util.iprops.IntMagicCubeProperties;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,7 +44,7 @@ import java.util.Random;
 import static net.minecraft.block.Blocks.SOUL_FIRE;
 
 public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity implements SidedInventory, ExtendedScreenHandlerFactory {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     //protected StateHelperV1 stateHelper;
     private static final int[] TOP_SLOTS = new int[] { 0, 1, 2 };

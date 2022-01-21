@@ -1,17 +1,16 @@
 package org.featurehouse.mcmod.spm.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.render.GameRenderer;
-import org.featurehouse.mcmod.spm.util.annotation.OperationBeforeDeveloping;
-import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.screen.MagicCubeScreenHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.featurehouse.mcmod.spm.SPMMain;
+import org.featurehouse.mcmod.spm.screen.MagicCubeScreenHandler;
 
 @Environment(EnvType.CLIENT)
 public class MagicCubeScreen extends HandledScreen<MagicCubeScreenHandler> {
@@ -25,7 +24,7 @@ public class MagicCubeScreen extends HandledScreen<MagicCubeScreenHandler> {
     }
 
     @Override
-    @OperationBeforeDeveloping
+    //@OperationBeforeDeveloping
     protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

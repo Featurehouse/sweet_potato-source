@@ -1,31 +1,29 @@
 package org.featurehouse.mcmod.spm.blocks.entities;
 
-import net.minecraft.item.Item;
-import net.minecraft.tag.Tag;
-import org.featurehouse.mcmod.spm.lib.block.entity.AbstractLockableContainerBlockEntity;
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.tag.Tag;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.featurehouse.mcmod.spm.util.annotation.HardCoded;
-import org.featurehouse.mcmod.spm.util.annotation.NonMinecraftNorFabric;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.blocks.GrinderBlock;
+import org.featurehouse.mcmod.spm.lib.block.entity.AbstractLockableContainerBlockEntity;
 import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
 import org.featurehouse.mcmod.spm.util.BooleanStateManager;
-import org.featurehouse.mcmod.spm.util.registries.GrindingUtils;
 import org.featurehouse.mcmod.spm.util.iprops.IntGrinderProperties;
+import org.featurehouse.mcmod.spm.util.registries.GrindingUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -203,12 +201,12 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         return this.absorbCooldown > 0;
     }
 
-    @HardCoded
+    //@HardCoded
     private void craftRecipe() {
         this.craftRecipe(new ItemStack(SPMMain.POTATO_POWDER));
     }
 
-    @HardCoded
+    //@HardCoded
     private void craftRecipe(ItemStack shallOutput) {
         ItemStack invOutput = this.inventory.get(1);
 
@@ -238,7 +236,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         return false;
     }
 
-    @HardCoded
+    //@HardCoded
     protected boolean canAcceptRecipeOutput() {
         return canAcceptRecipeOutput(SPMMain.POTATO_POWDER);
     }
@@ -256,7 +254,7 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
      *
      * @since beta-1.0.0
      */
-    @HardCoded
+    //@HardCoded
     protected boolean canAcceptRecipeOutput(ItemConvertible item) {
         //ItemStack shallBeOutput = new ItemStack(SPMMain.POTATO_POWDER);
         ItemStack outInv = this.inventory.get(1);
@@ -269,12 +267,12 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
         return outInv.getCount() < item.asItem().getMaxCount();
     }
 
-    @NonMinecraftNorFabric
+    //@NonMinecraftNorFabric
     private boolean isGrinding() {
         return this.grindTime > 0;
     }
 
-    @NonMinecraftNorFabric
+    //@NonMinecraftNorFabric
     protected int getGrindTime() {
         return 200;
     }

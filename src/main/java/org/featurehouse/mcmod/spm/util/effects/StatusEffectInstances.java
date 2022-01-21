@@ -6,14 +6,14 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
 public class StatusEffectInstances {
-    private static final Logger LOGGER = LogManager.getLogger("SPM Status Effect Manager");
+    private static final Logger LOGGER = LoggerFactory.getLogger("SPM Status Effect Manager");
 
     /**
      * For Enchanted Sweet Potatoes only. Not compatible with ordinal ones.

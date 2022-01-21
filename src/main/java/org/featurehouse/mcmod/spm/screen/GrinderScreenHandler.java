@@ -1,10 +1,5 @@
 package org.featurehouse.mcmod.spm.screen;
 
-import org.featurehouse.mcmod.spm.util.annotation.NonMinecraftNorFabric;
-import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.util.registries.GrindingUtils;
-import org.featurehouse.mcmod.spm.util.inventory.UniversalResultSlot;
-import org.featurehouse.mcmod.spm.util.iprops.IntGrinderProperties;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,6 +10,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
+import org.featurehouse.mcmod.spm.SPMMain;
+import org.featurehouse.mcmod.spm.util.inventory.UniversalResultSlot;
+import org.featurehouse.mcmod.spm.util.iprops.IntGrinderProperties;
+import org.featurehouse.mcmod.spm.util.registries.GrindingUtils;
 
 public class GrinderScreenHandler extends ScreenHandler {
     private final Inventory inventory;
@@ -45,7 +44,7 @@ public class GrinderScreenHandler extends ScreenHandler {
         this.createPlayerInventory(playerInventory);
     }
 
-    @NonMinecraftNorFabric
+    //@NonMinecraftNorFabric
     private void createPlayerInventory(PlayerInventory playerInventory) {
         int k;
         for(k = 0; k < 3; ++k) {

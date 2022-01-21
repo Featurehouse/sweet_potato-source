@@ -20,7 +20,6 @@ import net.minecraft.stat.Stats;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import org.featurehouse.mcmod.spm.util.annotation.FabricApiRegistry;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -77,19 +76,19 @@ public interface RegistryHelper {
         return Registry.register(Registry.RECIPE_SERIALIZER, id2, serializerSupplier.get());
     }
 
-    @FabricApiRegistry
+    //@FabricApiRegistry
     static <H extends ScreenHandler> ScreenHandlerType<H> simpleScreenHandler(String id, ScreenHandlerRegistry.SimpleClientHandlerFactory<H> factory) {
         Identifier id2 = id(id);
         return ScreenHandlerRegistry.registerSimple(id2, factory);
     }
 
-    @FabricApiRegistry
+    //@FabricApiRegistry
     static <H extends ScreenHandler> ScreenHandlerType<H> extendedScreenHandler(String id, ScreenHandlerRegistry.ExtendedClientHandlerFactory<H> factory) {
         Identifier id2 = id(id);
         return ScreenHandlerRegistry.registerExtended(id2, factory);
     }
 
-    @FabricApiRegistry
+    //@FabricApiRegistry
     static Tag.Identified<Item> itemTag(String id) {
         Identifier id2 = id(id);
         //return TagRegistry.item(id2);
