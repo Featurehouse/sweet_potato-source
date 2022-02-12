@@ -1,9 +1,9 @@
 # gradle
 
 .gradle/
-build/
-out/
-classes/
+/build/
+/out/
+/classes/
 
 # eclipse
 
@@ -20,18 +20,19 @@ classes/
 
 .settings/
 .vscode/
-bin/
+/bin/
 .classpath
 .project
 
 # fabric
 
-run/
+/run/
+/remappedSrc/
 
 # User Defined
 updates.log
 .local.gradle/
-libs/
-launcher.sh
-mh
+/libs/
+/launcher.sh
+/mh
 .tmp.shelter/
