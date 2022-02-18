@@ -1,15 +1,14 @@
 package org.featurehouse.mcmod.spm.util.objsettings;
 
-import org.featurehouse.mcmod.spm.blocks.plants.EnchantedSaplings;
-import org.featurehouse.mcmod.spm.util.registries.RegistryHelper;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.entity.EntityType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
+import org.featurehouse.mcmod.spm.blocks.plants.EnchantedSaplings;
+import org.featurehouse.mcmod.spm.util.registries.RegistryHelper;
 
 import java.util.function.Supplier;
 

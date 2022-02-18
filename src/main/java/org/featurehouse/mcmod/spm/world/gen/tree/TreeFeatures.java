@@ -8,6 +8,7 @@ import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.ThreeLayersFeatureSize;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
@@ -40,11 +41,12 @@ public final class TreeFeatures {
     private TreeFeatures() {
     }
 
-    private static <FC extends FeatureConfig> ConfiguredFeature<FC, ?> register(String id, ConfiguredFeature<FC, ?> configuredFeature) {
-        return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, RegistryHelper.id(id), configuredFeature);
+    private static <FC extends TreeFeatureConfig> RegistryEntry<ConfiguredFeature<?, ?>> register(String id, FC featureConfig) {
+        //return BuiltinRegistries.method_40360(BuiltinRegistries.CONFIGURED_FEATURE, RegistryHelper.id(id), configuredFeature);
+        return BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_FEATURE, RegistryHelper.id(id), new ConfiguredFeature<>(Feature.TREE, featureConfig));
     }
 
-    public static final ConfiguredFeature<TreeFeatureConfig, ?>
+    public static final RegistryEntry<ConfiguredFeature<?, ?>>
             FANCY_OAK, FANCY_OAK_BEES_005, OAK, OAK_BEES_005,
             SPRUCE, MEGA_SPRUCE, MEGA_PINE,
             BIRCH, BIRCH_BEES_005,
@@ -52,16 +54,14 @@ public final class TreeFeatures {
             ACACIA, DARK_OAK;
 
     static {
-        FANCY_OAK = register("fancy_oak", Feature.TREE.configure(largeOak().build()));
+        FANCY_OAK = register("fancy_oak", (largeOak().build()));
         FANCY_OAK_BEES_005 = register("fancy_oak_bees_005",
-                Feature.TREE.configure(largeOak()
-                        .decorators(List.of(MORE_BEEHIVES_TREES)).build()));
-        OAK = register("oak", Feature.TREE.configure(oak().build()));
+                (largeOak().decorators(List.of(MORE_BEEHIVES_TREES)).build()));
+        OAK = register("oak", (oak().build()));
         OAK_BEES_005 = register("oak_bees_005",
-                Feature.TREE.configure(oak()
-                        .decorators(List.of(MORE_BEEHIVES_TREES)).build()));
+                (oak().decorators(List.of(MORE_BEEHIVES_TREES)).build()));
         SPRUCE = register("spruce",
-                Feature.TREE.configure((new TreeFeatureConfig.Builder(
+                ((new TreeFeatureConfig.Builder(
                         BlockStateProvider.of(SPRUCE_LOG),
                         new StraightTrunkPlacer(5, 2, 1),
                         BlockStateProvider.of(ENCHANTED_SPRUCE_LEAVES),
@@ -69,7 +69,7 @@ public final class TreeFeatures {
                         new TwoLayersFeatureSize(2, 0, 2)))
                         .ignoreVines().build()));
         MEGA_SPRUCE = register("mega_spruce",
-                Feature.TREE.configure((new TreeFeatureConfig.Builder(
+                ((new TreeFeatureConfig.Builder(
                         BlockStateProvider.of(SPRUCE_LOG),
                         new GiantTrunkPlacer(13, 2, 14),
                         BlockStateProvider.of(ENCHANTED_SPRUCE_LEAVES),
@@ -78,7 +78,7 @@ public final class TreeFeatures {
                         .decorators(ImmutableList.of(new AlterGroundTreeDecorator(BlockStateProvider.of(PODZOL))))
                         .build()));
         MEGA_PINE = register("mega_pine",
-                Feature.TREE.configure((new TreeFeatureConfig.Builder(
+                ((new TreeFeatureConfig.Builder(
                         BlockStateProvider.of(SPRUCE_LOG),
                         new GiantTrunkPlacer(13, 2, 14),
                         BlockStateProvider.of(ENCHANTED_SPRUCE_LEAVES),
@@ -86,13 +86,13 @@ public final class TreeFeatures {
                         new TwoLayersFeatureSize(1, 1, 2)))
                         .decorators(ImmutableList.of(new AlterGroundTreeDecorator(BlockStateProvider.of(PODZOL))))
                         .build()));
-        BIRCH = register("birch", Feature.TREE.configure(birch().build()));
+        BIRCH = register("birch", (birch().build()));
         BIRCH_BEES_005 = register("birch_bees_005",
-                Feature.TREE.configure(birch().decorators(List.of(MORE_BEEHIVES_TREES)).build()));
+                (birch().decorators(List.of(MORE_BEEHIVES_TREES)).build()));
         JUNGLE_TREE_NO_VINE = register("jungle_tree_no_vine",
-                Feature.TREE.configure(jungle().ignoreVines().build()));
+                (jungle().ignoreVines().build()));
         MEGA_JUNGLE_TREE = register("mega_jungle_tree",
-                Feature.TREE.configure((new TreeFeatureConfig.Builder(
+                ((new TreeFeatureConfig.Builder(
                         BlockStateProvider.of(JUNGLE_LOG),
                         new MegaJungleTrunkPlacer(10, 2, 19),
                         BlockStateProvider.of(ENCHANTED_JUNGLE_LEAVES),
@@ -101,14 +101,14 @@ public final class TreeFeatures {
                         .decorators(ImmutableList.of(TrunkVineTreeDecorator.INSTANCE, LeavesVineTreeDecorator.INSTANCE))
                         .build()));
         ACACIA = register("acacia",
-                Feature.TREE.configure((new TreeFeatureConfig.Builder(
+                ((new TreeFeatureConfig.Builder(
                         BlockStateProvider.of(ACACIA_LOG),
                         new ForkingTrunkPlacer(5, 2, 2),
                         BlockStateProvider.of(ENCHANTED_ACACIA_LEAVES),
                         new AcaciaFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 0, 2)))
                         .ignoreVines().build()));
         DARK_OAK = register("dark_oak",
-                Feature.TREE.configure((new TreeFeatureConfig.Builder(
+                ((new TreeFeatureConfig.Builder(
                         BlockStateProvider.of(DARK_OAK_LOG),
                         new DarkOakTrunkPlacer(6, 2, 1),
                         BlockStateProvider.of(ENCHANTED_DARK_OAK_LEAVES),

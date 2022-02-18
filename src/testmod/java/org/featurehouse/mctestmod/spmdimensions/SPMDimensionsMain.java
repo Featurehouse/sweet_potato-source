@@ -4,20 +4,18 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.DefaultBiomeCreator;
-import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 
-import static org.featurehouse.mctestmod.spmdimensions.util.DimensionsTestRegistryHelper.*;
+import static org.featurehouse.mctestmod.spmdimensions.util.DimensionsTestRegistryHelper.key;
 
 /**
  * @see net.minecraft.world.biome.BuiltinBiomes
- * @see net.fabricmc.fabric.mixin.biome.BuiltinBiomesAccessor
+ //* @see net.fabricmc.fabric.mixin.biome.BuiltinBiomesAccessor
  */
 public class SPMDimensionsMain implements ModInitializer {
     public static final String ID = "spm_dimensions_testmod_v0";
 
     public static final RegistryKey<Biome> COPIED_END_KEY;
-    public static final Biome COPIED_END;
+    //public static final Biome COPIED_END;
 
     /**
      * @see Registry
@@ -31,6 +29,6 @@ public class SPMDimensionsMain implements ModInitializer {
 
     static {
         COPIED_END_KEY = key("copied_end", Registry.BIOME_KEY);
-        COPIED_END = biome("copied_end", DefaultBiomeCreator::createEndMidlands);
+        //COPIED_END = biome("copied_end", DefaultBiomeCreator::createEndMidlands);
     }
 }

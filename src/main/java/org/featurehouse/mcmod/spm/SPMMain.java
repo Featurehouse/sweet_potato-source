@@ -12,7 +12,6 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import org.featurehouse.mcmod.spm.blocks.GrinderBlock;
 import org.featurehouse.mcmod.spm.blocks.MagicCubeBlock;
@@ -30,12 +29,13 @@ import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
 import org.featurehouse.mcmod.spm.screen.MagicCubeScreenHandler;
 import org.featurehouse.mcmod.spm.screen.SeedUpdaterScreenHandler;
 import org.featurehouse.mcmod.spm.util.annotation.StableApi;
-import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoType;
 import org.featurehouse.mcmod.spm.util.objsettings.BlockSettings;
 import org.featurehouse.mcmod.spm.util.objsettings.ItemSettings;
 import org.featurehouse.mcmod.spm.util.objsettings.Materials;
+import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoType;
 import org.featurehouse.mcmod.spm.util.registries.AnimalIngredients;
 import org.featurehouse.mcmod.spm.util.registries.ComposterHelper;
+import org.featurehouse.mcmod.spm.util.tag.TagContainer;
 import org.featurehouse.mcmod.spm.world.gen.tree.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +45,9 @@ import static org.featurehouse.mcmod.spm.util.registries.RegistryHelper.*;
 
 @StableApi
 public class SPMMain implements ModInitializer {
+	/** @deprecated will be removed */
+	@Deprecated(forRemoval = true)
+	@SuppressWarnings("all")
 	public static SPMMain INSTANCE;	//deprecated
 	public SPMMain() {
 		INSTANCE = this;
@@ -157,12 +160,12 @@ public class SPMMain implements ModInitializer {
 	public static final BlockEntityType<MagicCubeBlockEntity> MAGIC_CUBE_BLOCK_ENTITY_TYPE;
 
 	// Item Tags
-	public static final Tag<Item> RAW_SWEET_POTATOES;
-	public static final Tag<Item> ENCHANTED_SWEET_POTATOES;
-	public static final Tag<Item> ALL_SWEET_POTATOES;
+	public static final TagContainer<Item> RAW_SWEET_POTATOES;
+	public static final TagContainer<Item> ENCHANTED_SWEET_POTATOES;
+	public static final TagContainer<Item> ALL_SWEET_POTATOES;
 		// About Pigs & Parrots
-	public static final Tag<Item> PIG_BREEDING_INGREDIENTS;
-    public static final Tag<Item> CHICKEN_BREEDING_INGREDIENTS;
+	public static final TagContainer<Item> PIG_BREEDING_INGREDIENTS;
+    public static final TagContainer<Item> CHICKEN_BREEDING_INGREDIENTS;
 
 	// Sounds
 	public static final SoundEvent AGROFORESTRY_TABLE_FINISH;

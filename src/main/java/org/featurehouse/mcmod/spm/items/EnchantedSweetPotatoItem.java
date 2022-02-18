@@ -1,11 +1,5 @@
 package org.featurehouse.mcmod.spm.items;
 
-import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoStatus;
-import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoType;
-import org.featurehouse.mcmod.spm.util.NbtUtils;
-import org.featurehouse.mcmod.spm.util.inventory.PeelInserter;
-import org.featurehouse.mcmod.spm.util.effects.StatusEffectInstances;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,14 +12,19 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.text.BaseText;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
+import org.featurehouse.mcmod.spm.SPMMain;
+import org.featurehouse.mcmod.spm.util.effects.StatusEffectInstances;
+import org.featurehouse.mcmod.spm.util.inventory.PeelInserter;
+import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoStatus;
+import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoType;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -75,7 +74,8 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements SweetPota
 
         List<StatusEffectInstance> effectInstances = new ObjectArrayList<>();
         for (NbtElement oneStatusEffect: statusEffects) {
-            if (NbtUtils.notCompoundTag(oneStatusEffect)) continue;
+            //if (NbtUtils.notCompoundTag(oneStatusEffect)) continue;
+            if (oneStatusEffect.getType() != NbtType.COMPOUND) continue;
             NbtCompound compoundNbtElement1 = (NbtCompound) oneStatusEffect;
             StatusEffectInstance statusEffectInstance = StatusEffectInstances.readNbt(compoundNbtElement1);
             if (statusEffectInstance == null) continue;

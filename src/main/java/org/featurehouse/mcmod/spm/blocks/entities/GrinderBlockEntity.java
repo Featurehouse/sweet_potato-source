@@ -1,17 +1,14 @@
 package org.featurehouse.mcmod.spm.blocks.entities;
 
-import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.tag.Tag;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
@@ -34,9 +31,6 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
 
     private byte absorbCooldown;
     private static final byte MAX_COOLDOWN = 5;
-
-    //public static final Object2IntOpenHashMap<ItemConvertible> INGREDIENT_DATA_MAP = new Object2IntOpenHashMap<>();
-    public static final Object2DoubleOpenHashMap<Tag<Item>> INGREDIENT_DATA_MAP = new Object2DoubleOpenHashMap<>();
 
     public final IntGrinderProperties properties;
     //protected DefaultedList<ItemStack> inventory;
@@ -172,7 +166,8 @@ public class GrinderBlockEntity extends AbstractLockableContainerBlockEntity imp
                 // New round tern
                 if (GrindingUtils.grindable(this.inventory.get(0))) {
                     // Absorb
-                    this.ingredientData += INGREDIENT_DATA_MAP.getDouble(this.inventory.get(0).getItem());
+                    //this.ingredientData += INGREDIENT_DATA_MAP.getDouble(this.inventory.get(0).getItem());
+                    this.ingredientData += GrindingUtils.ingredientDataMap().getDouble(this.inventory.get(0).getItem());
                     this.inventory.get(0).decrement(1);
                     this.absorbCooldown = MAX_COOLDOWN;
                     shallMarkDirty = true;

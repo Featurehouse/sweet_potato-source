@@ -5,7 +5,7 @@ import net.minecraft.util.math.BlockPos;
 
 import org.jetbrains.annotations.NotNull;
 
-public abstract class BooleanStateManager {
+public abstract class BooleanStateManager implements Runnable {
     protected Property<Boolean> property;
 
     public BooleanStateManager(Property<Boolean> property) {

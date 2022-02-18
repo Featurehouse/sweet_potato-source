@@ -1,4 +1,4 @@
-package org.featurehouse.mctest;
+/*package org.featurehouse.mctest;
 
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Identifier;
@@ -33,10 +33,8 @@ public interface ExampleDimensions {
             0.1F
     );
 
-    /**
-     * @deprecated May NOT work
-     * @see DimensionOptions#OVERWORLD
-     */
+     //@deprecated May NOT work
+     //@see DimensionOptions#OVERWORLD
     @Deprecated
     DimensionOptions DIMENSION_OPTIONS = new DimensionOptions(
             () -> DIMENSION_TYPE, new NoiseChunkGenerator(
@@ -44,3 +42,4 @@ public interface ExampleDimensions {
     ));
 
 }
+*/
