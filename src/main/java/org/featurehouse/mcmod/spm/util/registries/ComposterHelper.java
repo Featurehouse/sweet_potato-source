@@ -6,10 +6,12 @@ import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoStatus
 import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoType;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.item.ItemConvertible;
+import org.jetbrains.annotations.ApiStatus;
 
 public final class ComposterHelper {
     private ComposterHelper() {}
 
+    @ApiStatus.Internal
     public static void register() {
         registerCompostableItem(0.3f, SPMMain.PEEL);
         registerCompostableItem(0.3f, SPMMain.ENCHANTED_OAK_SAPLING_ITEM);

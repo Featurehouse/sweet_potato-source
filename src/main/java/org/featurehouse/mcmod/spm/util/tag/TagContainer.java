@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 public record TagContainer<T> (Registry<T> registry,
                                TagKey<T> tagKey) {
     public static <T> TagContainer<T> register(Identifier id, Registry<T> registry) {
-        var tagKey = TagKey.intern(registry.getKey(), id);
+        var tagKey = TagKey.of(registry.getKey(), id);
         return new TagContainer<>(registry, tagKey);
     }
 

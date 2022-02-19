@@ -33,14 +33,8 @@ public final class BlockSettings {
 
     private BlockSettings() {}
 
-    @Deprecated(forRemoval = true)
-    public static FabricBlockSettings create(AbstractBlock.Settings settings) {
-        //return (FabricBlockSettings)settings;
-        return FabricBlockSettings.copyOf(settings);
-    }
-
     static {
-        GRASS_LIKE = FabricBlockSettings.of(Materials.MATERIAL_PLANT) // Wanted: move MATERIAL_PLANT to Util
+        GRASS_LIKE = FabricBlockSettings.of(Materials.MATERIAL_PLANT)
                 .noCollision()
                 .ticksRandomly()
                 .breakInstantly()
@@ -52,15 +46,23 @@ public final class BlockSettings {
                 .sounds(BlockSoundGroup.GRASS);
     }
 
-    static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
+    static boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
     }
 
     public static LeavesBlock createLeaves(String id) {
-        return (LeavesBlock) RegistryHelper.block(id, new LeavesBlock(FabricBlockSettings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BlockSettings::canSpawnOnLeaves).suffocates((state, world, pos) -> false).blockVision((state, world, pos) -> false)));
+        return (LeavesBlock) RegistryHelper.block(id,
+                new LeavesBlock(FabricBlockSettings.of(Material.LEAVES)
+                        .strength(0.2F)
+                        .ticksRandomly()
+                        .sounds(BlockSoundGroup.GRASS)
+                        .nonOpaque()
+                        .allowsSpawning(BlockSettings::canSpawnOnLeaves)
+                        .suffocates(BlockSettings::alwaysFalse)
+                        .blockVision(BlockSettings::alwaysFalse)));
     }
 
-    @Deprecated
+    @Deprecated(forRemoval = true)
     public static LeavesBlock createEnchantedLeavesBlock() {
         return new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES)
                 .strength(0.2F)
@@ -68,8 +70,12 @@ public final class BlockSettings {
                 .sounds(BlockSoundGroup.GRASS)
                 .nonOpaque()
                 .allowsSpawning(BlockSettings::canSpawnOnLeaves)
-                .suffocates((state, world, pos) -> false)
-                .blockVision((state, world, pos) -> false)
+                .suffocates(BlockSettings::alwaysFalse)
+                .blockVision(BlockSettings::alwaysFalse)
         );
+    }
+
+    private static boolean alwaysFalse(BlockState state, BlockView world, BlockPos pos) {
+        return false;
     }
 }

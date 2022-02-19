@@ -4,12 +4,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.mixin.acc.ParrotEntityAccessor;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Stream;
 
+@ApiStatus.Internal
 public final class AnimalIngredients {
     private AnimalIngredients() {}
 
