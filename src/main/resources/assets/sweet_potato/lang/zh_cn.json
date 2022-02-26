@@ -1,8 +1,5 @@
 {
   "mod.sweet_potato": "烤地瓜",
-  "mod.sweet_potato.0": "，由Pigeonia Featurehouse独家出品",
-  "mod.sweet_potato.1": "作者：",
-  "mod.sweet_potato.2": "在中国版《我的世界》的代理人：",
 
   "item.sweet_potato.purple_potato": "紫薯",
   "item.sweet_potato.red_potato": "红薯",
@@ -67,5 +64,13 @@
   "stat.sweet_potato.sweet_potato_eaten": "吃掉的地瓜数",
   "stat.sweet_potato.interact_with_magic_cube": "与魔法锅互动次数",
 
-  "tooltip.sweet_potato.enchanted_sweet_potato.effects": "效果： "
+  "tooltip.sweet_potato.enchanted_sweet_potato.effects": "效果： ",
+
+  "block.sweet_potato.enchanted_phoenix_sapling": "附魔梧桐树苗",
+  "block.sweet_potato.enchanted_phoenix_leaves": "附魔梧桐树叶",
+  "block.sweet_potato.potted_enchanted_phoenix_sapling": "附魔梧桐树苗盆栽",
+  "block.sweet_potato.enchanted_pear_sapling": "附魔梨树苗",
+  "block.sweet_potato.enchanted_pear_leaves": "附魔梨树叶",
+  "block.sweet_potato.enchanted_pear_ripe_leaves": "结梨子的附魔梨树叶",
+  "block.sweet_potato.potted_enchanted_pear_sapling": "梨树苗盆栽"
 }

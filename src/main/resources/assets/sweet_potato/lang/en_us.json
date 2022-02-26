@@ -1,8 +1,5 @@
 {
   "mod.sweet_potato": "Sweet Potato Mod",
-  "mod.sweet_potato.0": ", by Pigeonia Featurehouse",
-  "mod.sweet_potato.1": "Contributors:",
-  "mod.sweet_potato.2": "Agent in \u00A7oMinecraft China\u00A7: ",
 
   "item.sweet_potato.purple_potato": "Purple Potato",
   "item.sweet_potato.red_potato": "Red Potato",
@@ -67,5 +64,13 @@
   "stat.sweet_potato.sweet_potato_eaten": "Sweet Potatoes eaten",
   "stat.sweet_potato.interact_with_magic_cube": "Interactions with Magic Cube",
 
-  "tooltip.sweet_potato.enchanted_sweet_potato.effects": "Effects: "
+  "tooltip.sweet_potato.enchanted_sweet_potato.effects": "Effects: ",
+
+  "block.sweet_potato.enchanted_phoenix_sapling": "Enchanted Phoenix Sapling",
+  "block.sweet_potato.enchanted_phoenix_leaves": "Enchanted Phoenix Leaves",
+  "block.sweet_potato.potted_enchanted_phoenix_sapling": "Potted Enchanted Phoenix Sapling",
+  "block.sweet_potato.enchanted_pear_sapling": "Enchanted Pear Sapling",
+  "block.sweet_potato.enchanted_pear_leaves": "Enchanted Pear Leaves",
+  "block.sweet_potato.enchanted_pear_ripe_leaves": "Enchanted Pear Ripe Leaves",
+  "block.sweet_potato.potted_enchanted_pear_sapling": "Potted Enchanted Pear Sapling"
 }
