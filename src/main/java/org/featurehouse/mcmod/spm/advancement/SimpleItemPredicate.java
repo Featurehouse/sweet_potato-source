@@ -1,16 +1,16 @@
 package org.featurehouse.mcmod.spm.advancement;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.item.Item;
-import net.minecraft.predicate.NbtPredicate;
-import net.minecraft.predicate.NumberRange;
-import net.minecraft.predicate.item.EnchantmentPredicate;
-import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.advancements.critereon.NbtPredicate;
+import net.minecraft.world.item.Item;
 import org.featurehouse.mcmod.spm.util.annotation.StableApi;
 
 @StableApi
 public class SimpleItemPredicate extends ItemPredicate {
     public SimpleItemPredicate(Item item) {
-        super(null, ImmutableSet.of(item), NumberRange.IntRange.ANY, NumberRange.IntRange.ANY, EnchantmentPredicate.ARRAY_OF_ANY, EnchantmentPredicate.ARRAY_OF_ANY, null, NbtPredicate.ANY);
+        super(null, ImmutableSet.of(item), MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY);
     }
 }

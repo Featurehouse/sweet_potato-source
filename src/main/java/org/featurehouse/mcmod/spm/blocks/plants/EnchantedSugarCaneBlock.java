@@ -6,20 +6,24 @@
 package org.featurehouse.mcmod.spm.blocks.plants;
 
 import net.minecraft.block.*;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager.Builder;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.tag.FluidTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Direction.Type;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Plane;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SugarCaneBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.Random;
 
 /**
@@ -28,69 +32,69 @@ import java.util.Random;
  * {@code EnchantedSugarCaneBlock} extend {@link Block}.
  *
  * @see SugarCaneBlock
- * @see #setDefaultState(BlockState)
+ * @see #registerDefaultState(BlockState)
  */
 //@SeeAlso(SugarCaneBlock.class)
 public class EnchantedSugarCaneBlock extends Block {
-    public static final IntProperty AGE;
+    public static final IntegerProperty AGE;
     protected static final VoxelShape SHAPE;
 
-    public EnchantedSugarCaneBlock(Settings settings) {
+    public EnchantedSugarCaneBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
     }
 
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!state.canPlaceAt(world, pos)) {
-            world.breakBlock(pos, true);
+    public void scheduledTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
+        if (!state.canSurvive(world, pos)) {
+            world.destroyBlock(pos, true);
         }
 
     }
 
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (world.isAir(pos.up())) {
+    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
+        if (world.isEmptyBlock(pos.above())) {
             int i = 1;
             //for(i = 1; world.getBlockState(pos.down(i)).isOf(this); ++i) {
             //}
-            while (world.getBlockState(pos.down(i)).isOf(this)) i++;
+            while (world.getBlockState(pos.below(i)).is(this)) i++;
 
             if (i < 3) {
-                int j = state.get(AGE);
+                int j = state.getValue(AGE);
                 if (j == 7) {
-                    world.setBlockState(pos.up(), this.getDefaultState());
-                    world.setBlockState(pos, state.with(AGE, 0), 4);
+                    world.setBlockAndUpdate(pos.above(), this.defaultBlockState());
+                    world.setBlock(pos, state.setValue(AGE, 0), 4);
                 } else {
-                    world.setBlockState(pos, state.with(AGE, j + 1), 4);
+                    world.setBlock(pos, state.setValue(AGE, j + 1), 4);
                 }
             }
         }
 
     }
 
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if (!state.canPlaceAt(world, pos)) {
-            world.createAndScheduleBlockTick(pos, this, 1);
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        if (!state.canSurvive(world, pos)) {
+            world.scheduleTick(pos, this, 1);
         }
 
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
 
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        BlockState blockState = world.getBlockState(pos.down());
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        BlockState blockState = world.getBlockState(pos.below());
         if (blockState.getBlock() == this) {
             return true;
         } else {
-            if (blockState.isOf(Blocks.GRASS_BLOCK) || blockState.isOf(Blocks.DIRT) || blockState.isOf(Blocks.COARSE_DIRT) || blockState.isOf(Blocks.PODZOL) || blockState.isOf(Blocks.SAND) || blockState.isOf(Blocks.RED_SAND)) {
-                BlockPos blockPos = pos.down();
+            if (blockState.is(Blocks.GRASS_BLOCK) || blockState.is(Blocks.DIRT) || blockState.is(Blocks.COARSE_DIRT) || blockState.is(Blocks.PODZOL) || blockState.is(Blocks.SAND) || blockState.is(Blocks.RED_SAND)) {
+                BlockPos blockPos = pos.below();
 
-                for (Direction direction : Type.HORIZONTAL) {
-                    BlockState blockState2 = world.getBlockState(blockPos.offset(direction));
-                    FluidState fluidState = world.getFluidState(blockPos.offset(direction));
-                    if (fluidState.isIn(FluidTags.WATER) || blockState2.isOf(Blocks.FROSTED_ICE)) {
+                for (Direction direction : Plane.HORIZONTAL) {
+                    BlockState blockState2 = world.getBlockState(blockPos.relative(direction));
+                    FluidState fluidState = world.getFluidState(blockPos.relative(direction));
+                    if (fluidState.is(FluidTags.WATER) || blockState2.is(Blocks.FROSTED_ICE)) {
                         return true;
                     }
                 }
@@ -100,12 +104,12 @@ public class EnchantedSugarCaneBlock extends Block {
         }
     }
 
-    protected void appendProperties(Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
         builder.add(AGE);
     }
 
     static {
-        AGE = Properties.AGE_7;
-        SHAPE = Block.createCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D);
+        AGE = BlockStateProperties.AGE_7;
+        SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D);
     }
 }

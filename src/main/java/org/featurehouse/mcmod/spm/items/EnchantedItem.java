@@ -1,18 +1,18 @@
 package org.featurehouse.mcmod.spm.items;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import org.featurehouse.mcmod.spm.util.annotation.StableApi;
 
 @StableApi
 public class EnchantedItem extends Item {
 
-    public EnchantedItem(Settings settings) {
+    public EnchantedItem(Properties settings) {
         super(settings);
     }
 
     @Override
-    public boolean hasGlint(ItemStack stack) {
+    public boolean isFoil(ItemStack stack) {
         return true;
     }
 }

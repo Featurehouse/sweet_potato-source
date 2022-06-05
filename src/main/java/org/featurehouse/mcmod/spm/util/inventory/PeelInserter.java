@@ -1,10 +1,10 @@
 package org.featurehouse.mcmod.spm.util.inventory;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-
 import static org.featurehouse.mcmod.spm.SPMMain.PEEL;
+
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public interface PeelInserter {
     enum PeelActionResult {
@@ -12,21 +12,21 @@ public interface PeelInserter {
         SPAWN
     }
 
-    static PeelActionResult insert(PlayerEntity player) {
-        PlayerInventory inventory = player.getInventory();
+    static PeelActionResult insert(Player player) {
+        Inventory inventory = player.getInventory();
         ItemStack eachStack;
         int i;
-        for (i = 0; i < inventory.main.size(); ++i) {
-            eachStack = inventory.main.get(i);
-            if (eachStack.getItem().equals(PEEL) && eachStack.getCount() < PEEL.getMaxCount()) {
-                eachStack.increment(1);
+        for (i = 0; i < inventory.items.size(); ++i) {
+            eachStack = inventory.items.get(i);
+            if (eachStack.getItem().equals(PEEL) && eachStack.getCount() < PEEL.getMaxStackSize()) {
+                eachStack.grow(1);
                 return PeelActionResult.INSERT;
             }
         }
-        for (i = 0; i < inventory.main.size(); ++i) {
-            eachStack = inventory.main.get(i);
+        for (i = 0; i < inventory.items.size(); ++i) {
+            eachStack = inventory.items.get(i);
             if (eachStack.equals(ItemStack.EMPTY)) {
-                inventory.main.set(i, new ItemStack(PEEL, 1));
+                inventory.items.set(i, new ItemStack(PEEL, 1));
                 return PeelActionResult.INSERT;
             }
         }
@@ -34,11 +34,11 @@ public interface PeelInserter {
         return PeelActionResult.SPAWN;
     }
 
-    static void run(PlayerEntity player) {
+    static void run(Player player) {
         if (insert(player).equals(PeelActionResult.SPAWN)) {
-            player.dropItem(PEEL);
+            player.spawnAtLocation(PEEL);
         } else {
-            player.getInventory().markDirty();
+            player.getInventory().setChanged();
         }
     }
 }

@@ -4,28 +4,27 @@ import org.featurehouse.mcmod.spm.lib.block.entity.AbstractBlockWithEntity;
 import com.google.common.collect.ImmutableList;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.blocks.entities.GrinderBlockEntity;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class GrinderBlock extends AbstractBlockWithEntity<GrinderBlockEntity> {
-    public static BooleanProperty GRINDING = BooleanProperty.of("grinding");
+    public static BooleanProperty GRINDING = BooleanProperty.create("grinding");
 
-    public GrinderBlock(AbstractBlock.Settings settings) {
+    public GrinderBlock(BlockBehaviour.Properties settings) {
         super(settings);
-        setDefaultState(this.getStateManager().getDefaultState().with(GRINDING, false));
+        registerDefaultState(this.getStateDefinition().any().setValue(GRINDING, false));
     }
 
     @Override
@@ -34,12 +33,12 @@ public class GrinderBlock extends AbstractBlockWithEntity<GrinderBlockEntity> {
     }
 
     @Override
-    public GrinderBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public GrinderBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new GrinderBlockEntity(pos, state);
     }
 
     @Override
-    public List<Identifier> incrementWhileOnUse(BlockState state, World world, BlockPos pos, ServerPlayerEntity serverPlayerEntity, Hand hand, BlockHitResult blockHitResult) {
+    public List<ResourceLocation> incrementWhileOnUse(BlockState state, Level world, BlockPos pos, ServerPlayer serverPlayerEntity, InteractionHand hand, BlockHitResult blockHitResult) {
         return ImmutableList.of(SPMMain.INTERACT_WITH_GRINDER);
     }
 
@@ -49,7 +48,7 @@ public class GrinderBlock extends AbstractBlockWithEntity<GrinderBlockEntity> {
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(GRINDING);
     }
 }

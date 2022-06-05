@@ -3,16 +3,16 @@ package org.featurehouse.mcmod.spm;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.FoodComponents;
-import net.minecraft.item.Item;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.resource.ResourceType;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.food.Foods;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.featurehouse.mcmod.spm.blocks.GrinderBlock;
 import org.featurehouse.mcmod.spm.blocks.MagicCubeBlock;
 import org.featurehouse.mcmod.spm.blocks.SeedUpdaterBlock;
@@ -145,9 +145,9 @@ public class SPMMain implements ModInitializer {
 	// -*- -*- MISC -*- -*- //
 
 	// Screen Handlers
-	public static final ScreenHandlerType<SeedUpdaterScreenHandler> SEED_UPDATER_SCREEN_HANDLER_TYPE;
-	public static final ScreenHandlerType<GrinderScreenHandler> GRINDER_SCREEN_HANDLER_TYPE;
-	public static final ScreenHandlerType<MagicCubeScreenHandler> MAGIC_CUBE_SCREEN_HANDLER_TYPE;
+	public static final MenuType<SeedUpdaterScreenHandler> SEED_UPDATER_SCREEN_HANDLER_TYPE;
+	public static final MenuType<GrinderScreenHandler> GRINDER_SCREEN_HANDLER_TYPE;
+	public static final MenuType<MagicCubeScreenHandler> MAGIC_CUBE_SCREEN_HANDLER_TYPE;
 
 	// Recipe Serializer
 	public static final RecipeSerializer<SeedUpdatingRecipe> SEED_UPDATING_RECIPE_SERIALIZER;
@@ -175,11 +175,11 @@ public class SPMMain implements ModInitializer {
 	public static final SoundEvent MAGIC_CUBE_AMBIENT;
 
 	// Stats
-	public static final Identifier INTERACT_WITH_GRINDER;
-	public static final Identifier INTERACT_WITH_AGRO;
-	public static final Identifier CROP_UPGRADED;
-	public static final Identifier SWEET_POTATO_EATEN;
-	public static final Identifier INTERACT_WITH_MAGIC_CUBE;
+	public static final ResourceLocation INTERACT_WITH_GRINDER;
+	public static final ResourceLocation INTERACT_WITH_AGRO;
+	public static final ResourceLocation CROP_UPGRADED;
+	public static final ResourceLocation SWEET_POTATO_EATEN;
+	public static final ResourceLocation INTERACT_WITH_MAGIC_CUBE;
 
 	@Override
 	public void onInitialize() {
@@ -192,7 +192,7 @@ public class SPMMain implements ModInitializer {
 		ComposterHelper.register();
 
 		LootTables.init();
-		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new MagicalEnchantmentLoader());
+		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new MagicalEnchantmentLoader());
 
 		// Fuel
 		AnimalIngredients.configureParrot();
@@ -252,8 +252,8 @@ public class SPMMain implements ModInitializer {
 
 		ENCHANTED_WHEAT_SEEDS = AliasedEnchantedItem.of("enchanted_wheat_seeds", ENCHANTED_WHEAT_CROP);
 		ENCHANTED_BEETROOT_SEEDS = AliasedEnchantedItem.of("enchanted_beetroot_seeds", ENCHANTED_BEETROOTS_CROP);
-		ENCHANTED_VANILLA_POTATO_ITEM = AliasedEnchantedItem.ofMiscFood("enchanted_potato", ENCHANTED_VANILLA_POTATOES_CROP, FoodComponents.POTATO);
-		ENCHANTED_CARROT_ITEM = AliasedEnchantedItem.ofMiscFood("enchanted_carrot", ENCHANTED_CARROTS_CROP, FoodComponents.CARROT);
+		ENCHANTED_VANILLA_POTATO_ITEM = AliasedEnchantedItem.ofMiscFood("enchanted_potato", ENCHANTED_VANILLA_POTATOES_CROP, Foods.POTATO);
+		ENCHANTED_CARROT_ITEM = AliasedEnchantedItem.ofMiscFood("enchanted_carrot", ENCHANTED_CARROTS_CROP, Foods.CARROT);
 		//ENCHANTED_SUGAR_CANE_ITEM = AliasedEnchantedItem.of("enchanted_sugar_cane", ENCHANTED_SUGAR_CANE, ItemGroup.decorations());
 		ENCHANTED_SUGAR_CANE_ITEM = EnchantedBlockItem.of("enchanted_sugar_cane", ENCHANTED_SUGAR_CANE, ItemSettings.decorations());
 

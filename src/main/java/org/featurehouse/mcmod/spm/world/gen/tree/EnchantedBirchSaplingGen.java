@@ -1,14 +1,13 @@
 package org.featurehouse.mcmod.spm.world.gen.tree;
 
-import net.minecraft.block.sapling.BirchSaplingGenerator;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-
 import java.util.Random;
+import net.minecraft.core.Holder;
+import net.minecraft.world.level.block.grower.BirchTreeGrower;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
-public class EnchantedBirchSaplingGen extends BirchSaplingGenerator {
+public class EnchantedBirchSaplingGen extends BirchTreeGrower {
     @Override
-    protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean canSpawnBees) {
+    protected Holder<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean canSpawnBees) {
         return canSpawnBees ? TreeFeatures.BIRCH_BEES_005 : TreeFeatures.BIRCH;
     }
 }

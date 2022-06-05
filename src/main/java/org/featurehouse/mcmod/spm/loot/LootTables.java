@@ -3,14 +3,12 @@ package org.featurehouse.mcmod.spm.loot;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.mixin.loot.table.LootSupplierBuilderHooks;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.entry.LootTableEntry;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import static org.featurehouse.mcmod.spm.SPMMain.MODID;
 
 public class LootTables {
-    static final Identifier RAW_SWEET_POTATOES, MORE_RAW_SWEET_POTATOES;
+    static final ResourceLocation RAW_SWEET_POTATOES, MORE_RAW_SWEET_POTATOES;
 
     public static void init() {
         LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, identifier, fabricLootSupplierBuilder, lootTableSetter) -> {
@@ -56,11 +54,11 @@ public class LootTables {
     }
 
     static {
-        RAW_SWEET_POTATOES = new Identifier(MODID, "misc/raw_sweet_potatoes");
-        MORE_RAW_SWEET_POTATOES = new Identifier(MODID, "misc/more_raw_sweet_potatoes");
+        RAW_SWEET_POTATOES = new ResourceLocation(MODID, "misc/raw_sweet_potatoes");
+        MORE_RAW_SWEET_POTATOES = new ResourceLocation(MODID, "misc/more_raw_sweet_potatoes");
     }
 
-    static boolean isVanilla(Identifier identifier) {
+    static boolean isVanilla(ResourceLocation identifier) {
         return identifier.getNamespace().equals("minecraft");
     }
 }

@@ -3,10 +3,10 @@ package org.featurehouse.mcmod.spm.util.registries;
 import it.unimi.dsi.fastutil.objects.Object2DoubleLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
 import it.unimi.dsi.fastutil.objects.Object2DoubleMap.Entry;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tag.Tag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import org.featurehouse.mcmod.spm.util.annotation.StableApi;
 import org.featurehouse.mcmod.spm.util.tag.TagContainer;
 import org.featurehouse.mcmod.spm.util.tag.TagLike;
@@ -24,7 +24,7 @@ public final class GrindingUtils {
 
     private GrindingUtils() {}
 
-    public static void registerGrindableItem(double ingredientDataAdded, @NotNull ItemConvertible item) {
+    public static void registerGrindableItem(double ingredientDataAdded, @NotNull ItemLike item) {
         Objects.requireNonNull(item, "item");
         ingredientDataMap().put(item.asItem(), ingredientDataAdded);
     }
@@ -40,7 +40,7 @@ public final class GrindingUtils {
         return grindable(itemStack.getItem());
     }
 
-    public static boolean grindable(@Nullable ItemConvertible item) {
+    public static boolean grindable(@Nullable ItemLike item) {
         if (item == null)
             return false;
         return ingredientDataMap().containsItem(item.asItem());
@@ -84,7 +84,7 @@ public final class GrindingUtils {
 
     /**
      * @deprecated this {@link Tag tag} is a completely different thing from {@link TagContainer}
-     * or {@link net.minecraft.tag.TagKey} since 22w06a.
+     * or {@link net.minecraft.tags.TagKey} since 22w06a.
      */
     @Deprecated(forRemoval = true)
     public static void registerGrindableItems(int ingredientDataAdded, @NotNull Tag<Item> tag) {

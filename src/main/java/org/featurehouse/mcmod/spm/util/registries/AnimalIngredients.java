@@ -1,7 +1,5 @@
 package org.featurehouse.mcmod.spm.util.registries;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.mixin.acc.ParrotEntityAccessor;
 import org.jetbrains.annotations.ApiStatus;
@@ -10,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Stream;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 @ApiStatus.Internal
 public final class AnimalIngredients {
@@ -17,9 +17,9 @@ public final class AnimalIngredients {
 
     public static Stream<ItemStack> configurePig(ItemStack[] stacks) {
         ArrayList<ItemStack> stackList = new ArrayList<>(Arrays.asList(stacks));
-        stackList.add(SPMMain.ENCHANTED_CARROT_ITEM.getDefaultStack());
-        stackList.add(SPMMain.ENCHANTED_VANILLA_POTATO_ITEM.getDefaultStack());
-        stackList.add(SPMMain.PEEL.getDefaultStack());
+        stackList.add(SPMMain.ENCHANTED_CARROT_ITEM.getDefaultInstance());
+        stackList.add(SPMMain.ENCHANTED_VANILLA_POTATO_ITEM.getDefaultInstance());
+        stackList.add(SPMMain.PEEL.getDefaultInstance());
 
         return stackList.stream();
     }
@@ -32,8 +32,8 @@ public final class AnimalIngredients {
 
     public static Stream<ItemStack> configureChicken(ItemStack[] stacks) {
         ArrayList<ItemStack> stackList = new ArrayList<>(Arrays.asList(stacks));
-        stackList.add(SPMMain.ENCHANTED_WHEAT_SEEDS.getDefaultStack());
-        stackList.add(SPMMain.ENCHANTED_BEETROOT_SEEDS.getDefaultStack());
+        stackList.add(SPMMain.ENCHANTED_WHEAT_SEEDS.getDefaultInstance());
+        stackList.add(SPMMain.ENCHANTED_BEETROOT_SEEDS.getDefaultInstance());
 
         return stackList.stream();
     }

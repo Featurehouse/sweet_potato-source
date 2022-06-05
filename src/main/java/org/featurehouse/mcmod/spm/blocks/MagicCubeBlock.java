@@ -4,29 +4,28 @@ import org.featurehouse.mcmod.spm.lib.block.entity.AbstractBlockWithEntity;
 import com.google.common.collect.ImmutableList;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.blocks.entities.MagicCubeBlockEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class MagicCubeBlock extends AbstractBlockWithEntity<MagicCubeBlockEntity> {
-    public static BooleanProperty ACTIVATED = BooleanProperty.of("activated");
+    public static BooleanProperty ACTIVATED = BooleanProperty.create("activated");
 
     @Override
-    public List<Identifier> incrementWhileOnUse(BlockState state, World world, BlockPos pos, ServerPlayerEntity serverPlayerEntity, Hand hand, BlockHitResult blockHitResult) {
+    public List<ResourceLocation> incrementWhileOnUse(BlockState state, Level world, BlockPos pos, ServerPlayer serverPlayerEntity, InteractionHand hand, BlockHitResult blockHitResult) {
         return ImmutableList.of(SPMMain.INTERACT_WITH_MAGIC_CUBE);
     }
 
@@ -41,30 +40,30 @@ public class MagicCubeBlock extends AbstractBlockWithEntity<MagicCubeBlockEntity
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient) {
-            if (state.getBlock() instanceof MagicCubeBlock && !state.get(ACTIVATED)) return ActionResult.PASS;
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (!world.isClientSide) {
+            if (state.getBlock() instanceof MagicCubeBlock && !state.getValue(ACTIVATED)) return InteractionResult.PASS;
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof MagicCubeBlockEntity && state.getBlock() instanceof MagicCubeBlock && state.get(ACTIVATED)) {
-                player.openHandledScreen((NamedScreenHandlerFactory) blockEntity);
+            if (blockEntity instanceof MagicCubeBlockEntity && state.getBlock() instanceof MagicCubeBlock && state.getValue(ACTIVATED)) {
+                player.openMenu((MenuProvider) blockEntity);
             }
-            return ActionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
-    public MagicCubeBlock(Settings settings) {
+    public MagicCubeBlock(Properties settings) {
         super(settings);
-        setDefaultState(this.getStateManager().getDefaultState().with(ACTIVATED, false));
+        registerDefaultState(this.getStateDefinition().any().setValue(ACTIVATED, false));
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(ACTIVATED);
     }
 
     @Override
-    public MagicCubeBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public MagicCubeBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new MagicCubeBlockEntity(pos, state);
     }
 }

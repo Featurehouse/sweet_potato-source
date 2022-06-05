@@ -2,15 +2,6 @@ package org.featurehouse.mcmod.spm.util.credits;
 
 import com.mojang.logging.LogUtils;
 import it.unimi.dsi.fastutil.ints.IntSet;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.resource.Resource;
-import net.minecraft.text.LiteralTextContent;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.OrderedText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.featurehouse.mcmod.spm.util.registries.RegistryHelper;
@@ -23,17 +14,26 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.IntConsumer;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.LiteralContents;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.util.GsonHelper;
 
-public record CreditsPrinter(MinecraftClient client,
+public record CreditsPrinter(Minecraft client,
                              IntConsumer creditsHeight,
                              IntSet centeredLines,
-                             List<OrderedText> credits) {
-    private static final Text SEPARATOR_LINE = new LiteralTextContent("============").formatted(Formatting.WHITE);
-    private static final Identifier SPM_FILE = RegistryHelper.id("credits.json");
+                             List<FormattedCharSequence> credits) {
+    private static final Component SEPARATOR_LINE = new LiteralContents("============").formatted(ChatFormatting.WHITE);
+    private static final ResourceLocation SPM_FILE = RegistryHelper.id("credits.json");
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public static void print(MinecraftClient client, IntConsumer creditsHeight,
-                             IntSet centeredLines, List<OrderedText> credits) {
+    public static void print(Minecraft client, IntConsumer creditsHeight,
+                             IntSet centeredLines, List<FormattedCharSequence> credits) {
         new CreditsPrinter(client, creditsHeight, centeredLines, credits)
                 .print();
     }
@@ -44,24 +44,24 @@ public record CreditsPrinter(MinecraftClient client,
             resource = Objects.requireNonNull(this.client)
                     .getResourceManager()
                     .getResource(SPM_FILE);
-            InputStream is = resource.getInputStream();
+            InputStream is = resource.open();
 
             ModCredits modCredits = ModCredits.fromJson(
-                    JsonHelper.deserialize(new BufferedReader(new InputStreamReader(is))),
+                    GsonHelper.parse(new BufferedReader(new InputStreamReader(is))),
                     SPM_FILE);
 
             wrapTitle("Sweet Potato Mod Credits");
 
-            wrapLines(false, "Author Group", Formatting.GRAY);
+            wrapLines(false, "Author Group", ChatFormatting.GRAY);
             renderNameList(modCredits.authorGroup());
-            wrapLines(false, "Contributors", Formatting.GRAY);
+            wrapLines(false, "Contributors", ChatFormatting.GRAY);
             renderContributorList(modCredits.contributors());
 
             wrapTitle("Special Thanks from Sweet Potato Mod");
 
-            wrapLines(false, "Collaborators", Formatting.GRAY);
+            wrapLines(false, "Collaborators", ChatFormatting.GRAY);
             renderNameList(modCredits.collaborators());
-            wrapLines(false, "Very Important Supporters", Formatting.GRAY);
+            wrapLines(false, "Very Important Supporters", ChatFormatting.GRAY);
             renderNameList(modCredits.importantSupporters());
 
             is.close();
@@ -75,18 +75,18 @@ public record CreditsPrinter(MinecraftClient client,
     }
 
     private void wrapLines(String string) {
-        credits.add(blank().append(string).formatted(Formatting.WHITE).asOrderedText());
+        credits.add(blank().append(string).formatted(ChatFormatting.WHITE).asOrderedText());
     }
 
-    private static LiteralTextContent blank() {
-        return new LiteralTextContent("           ");
+    private static LiteralContents blank() {
+        return new LiteralContents("           ");
     }
 
-    private void wrapLines(boolean central, String string, Formatting... fmt) {
-        List<OrderedText> wrapLines = Objects.requireNonNull(client).textRenderer.wrapLines(
-                new LiteralTextContent(string).formatted(fmt), 274
+    private void wrapLines(boolean central, String string, ChatFormatting... fmt) {
+        List<FormattedCharSequence> wrapLines = Objects.requireNonNull(client).font.split(
+                new LiteralContents(string).formatted(fmt), 274
         );
-        for (OrderedText text : wrapLines) {
+        for (FormattedCharSequence text : wrapLines) {
             if (central) centeredLines.add(credits.size());
             credits.add(text);
         }
@@ -94,7 +94,7 @@ public record CreditsPrinter(MinecraftClient client,
 
     private void wrapTitle(String string) {
         this.addText(SEPARATOR_LINE, true);
-        wrapLines(true, string, Formatting.YELLOW);
+        wrapLines(true, string, ChatFormatting.YELLOW);
         this.addText(SEPARATOR_LINE, true);
         this.addEmptyLine();
         this.addEmptyLine();
@@ -102,9 +102,9 @@ public record CreditsPrinter(MinecraftClient client,
 
     private void renderContributorList(List<ImmutablePair<String, String>> contributors) {
         for (ImmutablePair<String, String> nameAndId : contributors) {
-            MutableText mutableText = blank().append(new LiteralTextContent(nameAndId.getLeft()).formatted(Formatting.WHITE));
+            MutableComponent mutableText = blank().append(new LiteralContents(nameAndId.getLeft()).formatted(ChatFormatting.WHITE));
             if (!nameAndId.getLeft().equals(nameAndId.getRight()))
-                mutableText.append(new LiteralTextContent(" (" + nameAndId.getRight() + ')').formatted(Formatting.GRAY));
+                mutableText.append(new LiteralContents(" (" + nameAndId.getRight() + ')').formatted(ChatFormatting.GRAY));
             addText(mutableText, false);
         }
         addEmptyLine();
@@ -120,14 +120,14 @@ public record CreditsPrinter(MinecraftClient client,
     }
 
     private void addEmptyLine() {
-        this.credits.add(OrderedText.EMPTY);
+        this.credits.add(FormattedCharSequence.EMPTY);
     }
 
-    private void addText(Text text, boolean centered) {
+    private void addText(Component text, boolean centered) {
         if (centered) {
             this.centeredLines.add(this.credits.size());
         }
 
-        this.credits.add(text.asOrderedText());
+        this.credits.add(text.getVisualOrderText());
     }
 }

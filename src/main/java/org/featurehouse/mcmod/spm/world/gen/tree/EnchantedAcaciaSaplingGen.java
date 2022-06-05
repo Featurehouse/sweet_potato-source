@@ -1,14 +1,13 @@
 package org.featurehouse.mcmod.spm.world.gen.tree;
 
-import net.minecraft.block.sapling.AcaciaSaplingGenerator;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-
 import java.util.Random;
+import net.minecraft.core.Holder;
+import net.minecraft.world.level.block.grower.AcaciaTreeGrower;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
-public class EnchantedAcaciaSaplingGen extends AcaciaSaplingGenerator {
+public class EnchantedAcaciaSaplingGen extends AcaciaTreeGrower {
     @Override
-    protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bl) {
+    protected Holder<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bl) {
         return TreeFeatures.ACACIA;
     }
 }

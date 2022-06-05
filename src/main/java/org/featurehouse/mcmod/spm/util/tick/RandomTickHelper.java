@@ -1,34 +1,38 @@
 package org.featurehouse.mcmod.spm.util.tick;
 
 import net.minecraft.block.*;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import java.util.Random;
 
 public final class RandomTickHelper {
     private static <T extends CropBlock> int getCropAge(T instance, BlockState state) {
-        return state.get(instance.getAgeProperty());
+        return state.getValue(instance.getAgeProperty());
     }
 
     /**
      * <h3>From: Vanilla-1.16.1:
-     *             {@link net.minecraft.block.CropBlock}</h3>
+     *             {@link net.minecraft.world.level.block.CropBlock}</h3>
      * <p>Because of its protected accessibility, teddyxlandlee
      * copies it into this helper class.</p>
      */
-    private static float getAvailableMoisture(Block block, BlockView world, BlockPos pos) {
+    private static float getAvailableMoisture(Block block, BlockGetter world, BlockPos pos) {
         float f = 1.0F;
-        BlockPos blockPos = pos.down();
+        BlockPos blockPos = pos.below();
 
         for(int i = -1; i <= 1; ++i) {
             for(int j = -1; j <= 1; ++j) {
                 float g = 0.0F;
-                BlockState blockState = world.getBlockState(blockPos.add(i, 0, j));
-                if (blockState.isOf(Blocks.FARMLAND)) {
+                BlockState blockState = world.getBlockState(blockPos.offset(i, 0, j));
+                if (blockState.is(Blocks.FARMLAND)) {
                     g = 1.0F;
-                    if (blockState.get(FarmlandBlock.MOISTURE) > 0) {
+                    if (blockState.getValue(FarmBlock.MOISTURE) > 0) {
                         g = 3.0F;
                     }
                 }
@@ -62,13 +66,13 @@ public final class RandomTickHelper {
     private RandomTickHelper() {}
 
     public static <T extends CropBlock> void enchantedCropRandomTick(T instance,
-                                              BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (world.getBaseLightLevel(pos, 0) >= 9) {
+                                              BlockState state, ServerLevel world, BlockPos pos, Random random) {
+        if (world.getRawBrightness(pos, 0) >= 9) {
             int i = getCropAge(instance, state);
             if (i < instance.getMaxAge()) {
                 float f = getAvailableMoisture(instance, world, pos);
                 if (random.nextInt((int) ((int)((25.0F / f) + 1) / 2.5F)) == 0) {
-                    world.setBlockState(pos, instance.withAge(i + 1), 2);
+                    world.setBlock(pos, instance.getStateForAge(i + 1), 2);
                 }
             }
         }

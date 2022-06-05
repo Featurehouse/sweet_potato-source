@@ -3,27 +3,26 @@ package org.featurehouse.mcmod.spm.client;
 import org.featurehouse.mcmod.spm.util.MathUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.sound.TickableSoundInstance;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.resources.sounds.TickableSoundInstance;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import java.util.function.BiPredicate;
 
 @Environment(EnvType.CLIENT)
-public class KeepPlayingSoundInstance extends PositionedSoundInstance implements TickableSoundInstance {
-    public final ClientPlayerEntity player;
-    public ClientWorld world;
+public class KeepPlayingSoundInstance extends SimpleSoundInstance implements TickableSoundInstance {
+    public final LocalPlayer player;
+    public ClientLevel world;
     public BlockPos pos;
     protected boolean done = false;
-    protected BiPredicate<ClientWorld, BlockPos> playCondition;
+    protected BiPredicate<ClientLevel, BlockPos> playCondition;
 
-    public KeepPlayingSoundInstance(SoundEvent sound, float pitch, ClientWorld world, BlockPos pos, ClientPlayerEntity player, BiPredicate<ClientWorld, BlockPos> playCondition) {
-        super(sound, SoundCategory.BLOCKS, 1.0F, pitch, pos);
-        this.repeat = true;
+    public KeepPlayingSoundInstance(SoundEvent sound, float pitch, ClientLevel world, BlockPos pos, LocalPlayer player, BiPredicate<ClientLevel, BlockPos> playCondition) {
+        super(sound, SoundSource.BLOCKS, 1.0F, pitch, pos);
+        this.looping = true;
         this.pos = pos;
         this.world = world;
         this.player = player;
@@ -31,17 +30,17 @@ public class KeepPlayingSoundInstance extends PositionedSoundInstance implements
     }
 
     @Override
-    public boolean canPlay() {
+    public boolean canPlaySound() {
         return playCondition.test(world, pos);
     }
 
     @Override
-    public boolean shouldAlwaysPlay() {
+    public boolean canStartSilent() {
         return false;
     }
 
     @Override
-    public boolean isDone() {
+    public boolean isStopped() {
         return done;
     }
 
@@ -55,11 +54,11 @@ public class KeepPlayingSoundInstance extends PositionedSoundInstance implements
             // 0.0F: distance = 24.0F
             this.volume = 1.0F - distance / 24.0F;
         }
-        if (!canPlay()) setDone();
+        if (!canPlaySound()) setDone();
     }
 
     protected final void setDone() {
         this.done = true;
-        this.repeat = false;
+        this.looping = false;
     }
 }

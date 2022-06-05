@@ -1,19 +1,18 @@
 package org.featurehouse.mcmod.spm.world.gen.tree;
 
-import net.minecraft.block.sapling.DarkOakSaplingGenerator;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-
 import java.util.Random;
+import net.minecraft.core.Holder;
+import net.minecraft.world.level.block.grower.DarkOakTreeGrower;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
-public class EnchantedDarkOakSaplingGen extends DarkOakSaplingGenerator {
+public class EnchantedDarkOakSaplingGen extends DarkOakTreeGrower {
     @Override
-    protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bl) {
-        return super.getTreeFeature(random, bl); // null
+    protected Holder<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bl) {
+        return super.getConfiguredFeature(random, bl); // null
     }
 
     @Override
-    protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getLargeTreeFeature(Random random) {
+    protected Holder<? extends ConfiguredFeature<?, ?>> getLargeTreeFeature(Random random) {
         return TreeFeatures.DARK_OAK;
     }
 }

@@ -5,68 +5,68 @@
 
 package org.featurehouse.mcmod.spm.lib.block.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.LockableContainerBlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
 import org.featurehouse.mcmod.spm.util.tick.ITickable;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Iterator;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 @ApiStatus.Experimental
-public abstract class AbstractLockableContainerBlockEntity extends LockableContainerBlockEntity implements ITickable {
-    protected /*private*/ DefaultedList<ItemStack> inventory;
+public abstract class AbstractLockableContainerBlockEntity extends BaseContainerBlockEntity implements ITickable {
+    protected /*private*/ NonNullList<ItemStack> inventory;
     private final int size;
 
     public AbstractLockableContainerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int size) {
         super(type, pos, state);
-        this.inventory = DefaultedList.ofSize(size, ItemStack.EMPTY);
+        this.inventory = NonNullList.withSize(size, ItemStack.EMPTY);
         this.size = size;
     }
 
-    public void writeNbt(NbtCompound tag) {  // toTag
-        super.writeNbt(tag);
-        Inventories.writeNbt(tag, this.inventory);
+    public void saveAdditional(CompoundTag tag) {  // toTag
+        super.saveAdditional(tag);
+        ContainerHelper.saveAllItems(tag, this.inventory);
 
         //return tag;
     }
 
-    public void readNbt(NbtCompound tag) {          // fromTag
-        super.readNbt(tag);
-        this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        Inventories.readNbt(tag, this.inventory);
+    public void load(CompoundTag tag) {          // fromTag
+        super.load(tag);
+        this.inventory = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+        ContainerHelper.loadAllItems(tag, this.inventory);
     }
 
-    public int size() {
+    public int getContainerSize() {
         return this.size;
     }
 
     @Override
-    public void setStack(int slot, ItemStack stack) {
+    public void setItem(int slot, ItemStack stack) {
         this.inventory.set(slot, stack);
-        if (stack.getCount() > this.getMaxCountPerStack()) {
-            stack.setCount(this.getMaxCountPerStack());
+        if (stack.getCount() > this.getMaxStackSize()) {
+            stack.setCount(this.getMaxStackSize());
         }
     }
 
     @Override
-    public void clear() {
+    public void clearContent() {
         this.inventory.clear();
     }
 
     @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        assert this.world != null;  // Stupid IDEA, let you go
-        return this.world.getBlockEntity(this.pos) == this && player.squaredDistanceTo(
-                (double) this.pos.getX() + 0.5D,
-                (double) this.pos.getY() + 0.5D,
-                (double) this.pos.getZ() + 0.5D) <= 64.0D;
+    public boolean stillValid(Player player) {
+        assert this.level != null;  // Stupid IDEA, let you go
+        return this.level.getBlockEntity(this.worldPosition) == this && player.distanceToSqr(
+                (double) this.worldPosition.getX() + 0.5D,
+                (double) this.worldPosition.getY() + 0.5D,
+                (double) this.worldPosition.getZ() + 0.5D) <= 64.0D;
     }
 
     @Override
@@ -84,17 +84,17 @@ public abstract class AbstractLockableContainerBlockEntity extends LockableConta
     }
 
     @Override
-    public ItemStack getStack(int slot) {
+    public ItemStack getItem(int slot) {
         return this.inventory.get(slot);
     }
 
     @Override
-    public ItemStack removeStack(int slot, int amount) {
-        return Inventories.splitStack(this.inventory, slot, amount);
+    public ItemStack removeItem(int slot, int amount) {
+        return ContainerHelper.removeItem(this.inventory, slot, amount);
     }
 
     @Override
-    public ItemStack removeStack(int slot) {
-        return Inventories.removeStack(this.inventory, slot);
+    public ItemStack removeItemNoUpdate(int slot) {
+        return ContainerHelper.takeItem(this.inventory, slot);
     }
 }

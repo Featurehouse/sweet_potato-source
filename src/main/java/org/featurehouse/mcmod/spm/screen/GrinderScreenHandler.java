@@ -2,40 +2,40 @@ package org.featurehouse.mcmod.spm.screen;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.world.World;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.util.inventory.UniversalResultSlot;
 import org.featurehouse.mcmod.spm.util.iprops.IntGrinderProperties;
 import org.featurehouse.mcmod.spm.util.registries.GrindingUtils;
 
-public class GrinderScreenHandler extends ScreenHandler {
-    private final Inventory inventory;
+public class GrinderScreenHandler extends AbstractContainerMenu {
+    private final Container inventory;
     private final IntGrinderProperties properties;
 
-    protected World world;
+    protected Level world;
 
     /**
      * From: Registry
      */
-    public GrinderScreenHandler(int i, PlayerInventory playerInventory) {
-        this(i, playerInventory, playerInventory.player.world, new SimpleInventory(2), new IntGrinderProperties.Impl());
+    public GrinderScreenHandler(int i, Inventory playerInventory) {
+        this(i, playerInventory, playerInventory.player.level, new SimpleContainer(2), new IntGrinderProperties.Impl());
     }
 
     /**
      * From: Grinder Block Entity
      */
-    public GrinderScreenHandler(int syncId, PlayerInventory playerInventory, World world, Inventory inventory, IntGrinderProperties properties) {
+    public GrinderScreenHandler(int syncId, Inventory playerInventory, Level world, Container inventory, IntGrinderProperties properties) {
         super(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, syncId);
         this.inventory = inventory;
         this.properties = properties;
-        this.addProperties(properties);
+        this.addDataSlots(properties);
         this.world = world;
 
         this.addSlot(new Slot(inventory, 0, 40, 35));
@@ -45,7 +45,7 @@ public class GrinderScreenHandler extends ScreenHandler {
     }
 
     //@NonMinecraftNorFabric
-    private void createPlayerInventory(PlayerInventory playerInventory) {
+    private void createPlayerInventory(Inventory playerInventory) {
         int k;
         for(k = 0; k < 3; ++k) {
             for(int j = 0; j < 9; ++j) {
@@ -59,42 +59,42 @@ public class GrinderScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
-        return this.inventory.canPlayerUse(player);
+    public boolean stillValid(Player player) {
+        return this.inventory.stillValid(player);
     }
 
     @Override
-    public ItemStack transferSlot(PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(Player player, int index) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        if (slot.hasStack()) {  // Not void stack
-            ItemStack itemStack2 = slot.getStack();
+        if (slot.hasItem()) {  // Not void stack
+            ItemStack itemStack2 = slot.getItem();
             itemStack = itemStack2.copy();
             if (index == 1) {
-                if (!this.insertItem(itemStack2, 2, 38, true))
+                if (!this.moveItemStackTo(itemStack2, 2, 38, true))
                     return ItemStack.EMPTY;
-                slot.onQuickTransfer(itemStack2, itemStack);
+                slot.onQuickCraft(itemStack2, itemStack);
             } else if (index != 0) {
                 if (GrindingUtils.grindable(itemStack2)) {
-                    if (!this.insertItem(itemStack2, 0, 1, false))
+                    if (!this.moveItemStackTo(itemStack2, 0, 1, false))
                         return ItemStack.EMPTY;
                 } else if (index < 29) {
-                    if (!this.insertItem(itemStack2, 29, 38, false))
+                    if (!this.moveItemStackTo(itemStack2, 29, 38, false))
                         return ItemStack.EMPTY;
-                } else if (index < 38 && !this.insertItem(itemStack2, 2, 29, false))
+                } else if (index < 38 && !this.moveItemStackTo(itemStack2, 2, 29, false))
                     return ItemStack.EMPTY;
-            } else if (!this.insertItem(itemStack2, 2, 38, false))
+            } else if (!this.moveItemStackTo(itemStack2, 2, 38, false))
                 return ItemStack.EMPTY;
 
             if (itemStack2.isEmpty())
-                slot.setStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             else
-                slot.markDirty();
+                slot.setChanged();
 
             if (itemStack2.getCount() == itemStack.getCount())
                 return ItemStack.EMPTY;
 
-            slot.onTakeItem(player, itemStack2);
+            slot.onTake(player, itemStack2);
         }
 
         return itemStack;
