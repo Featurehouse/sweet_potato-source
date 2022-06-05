@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.resource.Resource;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
@@ -28,7 +28,7 @@ public record CreditsPrinter(MinecraftClient client,
                              IntConsumer creditsHeight,
                              IntSet centeredLines,
                              List<OrderedText> credits) {
-    private static final Text SEPARATOR_LINE = new LiteralText("============").formatted(Formatting.WHITE);
+    private static final Text SEPARATOR_LINE = new LiteralTextContent("============").formatted(Formatting.WHITE);
     private static final Identifier SPM_FILE = RegistryHelper.id("credits.json");
     private static final Logger LOGGER = LogUtils.getLogger();
 
@@ -78,13 +78,13 @@ public record CreditsPrinter(MinecraftClient client,
         credits.add(blank().append(string).formatted(Formatting.WHITE).asOrderedText());
     }
 
-    private static LiteralText blank() {
-        return new LiteralText("           ");
+    private static LiteralTextContent blank() {
+        return new LiteralTextContent("           ");
     }
 
     private void wrapLines(boolean central, String string, Formatting... fmt) {
         List<OrderedText> wrapLines = Objects.requireNonNull(client).textRenderer.wrapLines(
-                new LiteralText(string).formatted(fmt), 274
+                new LiteralTextContent(string).formatted(fmt), 274
         );
         for (OrderedText text : wrapLines) {
             if (central) centeredLines.add(credits.size());
@@ -102,9 +102,9 @@ public record CreditsPrinter(MinecraftClient client,
 
     private void renderContributorList(List<ImmutablePair<String, String>> contributors) {
         for (ImmutablePair<String, String> nameAndId : contributors) {
-            MutableText mutableText = blank().append(new LiteralText(nameAndId.getLeft()).formatted(Formatting.WHITE));
+            MutableText mutableText = blank().append(new LiteralTextContent(nameAndId.getLeft()).formatted(Formatting.WHITE));
             if (!nameAndId.getLeft().equals(nameAndId.getRight()))
-                mutableText.append(new LiteralText(" (" + nameAndId.getRight() + ')').formatted(Formatting.GRAY));
+                mutableText.append(new LiteralTextContent(" (" + nameAndId.getRight() + ')').formatted(Formatting.GRAY));
             addText(mutableText, false);
         }
         addEmptyLine();

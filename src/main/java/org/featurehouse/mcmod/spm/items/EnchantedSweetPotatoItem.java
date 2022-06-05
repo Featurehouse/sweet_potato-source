@@ -15,9 +15,9 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.text.BaseText;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import org.featurehouse.mcmod.spm.SPMMain;
@@ -109,30 +109,30 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements SweetPota
         super.appendTooltip(stack, world, tooltip, context);
 
         NbtCompound root = stack.getOrCreateNbt();
-        BaseText mainTip = new TranslatableText("tooltip.sweet_potato.enchanted_sweet_potato.effects");
+        BaseText mainTip = new TranslatableTextContent("tooltip.sweet_potato.enchanted_sweet_potato.effects");
         tooltip.add(mainTip);
 
         short index = root.getShort("displayIndex");
         if (index == -1 || root.isEmpty()) {
-            mainTip.append(new TranslatableText("effect.none").formatted(Formatting.ITALIC));
+            mainTip.append(new TranslatableTextContent("effect.none").formatted(Formatting.ITALIC));
             return;
         }
         if (!root.contains("displayIndex", NbtType.NUMBER)) {
-            mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
+            mainTip.append(new LiteralTextContent("???").formatted(Formatting.ITALIC));
             return;
         }
 
         Optional<List<StatusEffectInstance>> statusEffectInstances = calcEffect(stack);
         if (statusEffectInstances.isEmpty()) {
-            mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
+            mainTip.append(new LiteralTextContent("???").formatted(Formatting.ITALIC));
             return;
         }
         List<StatusEffectInstance> sei = statusEffectInstances.get();
         StatusEffectInstance toBeShown = (sei.size() <= index) ? null : sei.get(index);
         if (toBeShown != null) {
-            mainTip.append(new TranslatableText(toBeShown.getTranslationKey()).formatted(Formatting.ITALIC));
-            mainTip.append(" ").append(new TranslatableText("potion.potency." + toBeShown.getAmplifier()));
-            mainTip.append(new LiteralText(" ...").formatted(Formatting.ITALIC));
-        } else mainTip.append(new LiteralText("???").formatted(Formatting.ITALIC));
+            mainTip.append(new TranslatableTextContent(toBeShown.getTranslationKey()).formatted(Formatting.ITALIC));
+            mainTip.append(" ").append(new TranslatableTextContent("potion.potency." + toBeShown.getAmplifier()));
+            mainTip.append(new LiteralTextContent(" ...").formatted(Formatting.ITALIC));
+        } else mainTip.append(new LiteralTextContent("???").formatted(Formatting.ITALIC));
     }
 }

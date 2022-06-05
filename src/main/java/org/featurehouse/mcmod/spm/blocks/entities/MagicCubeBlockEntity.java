@@ -19,7 +19,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.collection.WeightedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -206,7 +206,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
 
     @Override
     protected Text getContainerName() {
-        return new TranslatableText("container.sweet_potato.magic_cube");
+        return new TranslatableTextContent("container.sweet_potato.magic_cube");
     }
 
     protected void calculateOutput() {

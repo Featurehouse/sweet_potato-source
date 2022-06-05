@@ -10,7 +10,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
@@ -26,7 +26,7 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
         RenderSystem.disableBlend();
         super.drawForeground(matrices, mouseX, mouseY);
         double ingredientData = this.handler.getIngredientData();
-        this.textRenderer.draw(matrices, new TranslatableText(
+        this.textRenderer.draw(matrices, new TranslatableTextContent(
                         "container.grinding.ingredientData",
                         ingredientData),
                 8.0f, 59.0f, 0);
