@@ -1,7 +1,7 @@
 package org.featurehouse.mcmod.spm.util.registries;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -76,15 +76,15 @@ public interface RegistryHelper {
     }
 
     //@FabricApiRegistry
-    static <H extends AbstractContainerMenu> MenuType<H> simpleScreenHandler(String id, ScreenHandlerRegistry.SimpleClientHandlerFactory<H> factory) {
+    static <H extends AbstractContainerMenu> MenuType<H> simpleScreenHandler(String id, MenuType.MenuSupplier<H> factory) {
         ResourceLocation id2 = id(id);
-        return ScreenHandlerRegistry.registerSimple(id2, factory);
+        return Registry.register(Registry.MENU, id2, new MenuType<>(factory));
     }
 
     //@FabricApiRegistry
-    static <H extends AbstractContainerMenu> MenuType<H> extendedScreenHandler(String id, ScreenHandlerRegistry.ExtendedClientHandlerFactory<H> factory) {
+    static <H extends AbstractContainerMenu> MenuType<H> extendedScreenHandler(String id, ExtendedScreenHandlerType.ExtendedFactory<H> factory) {
         ResourceLocation id2 = id(id);
-        return ScreenHandlerRegistry.registerExtended(id2, factory);
+        return Registry.register(Registry.MENU, id2, new ExtendedScreenHandlerType<>(factory));
     }
 
     //@FabricApiRegistry

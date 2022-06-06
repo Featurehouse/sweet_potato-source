@@ -45,13 +45,6 @@ import static org.featurehouse.mcmod.spm.util.registries.RegistryHelper.*;
 
 @StableApi
 public class SPMMain implements ModInitializer {
-	/** @deprecated will be removed */
-	@Deprecated(forRemoval = true)
-	@SuppressWarnings("all")
-	public static SPMMain INSTANCE;	//deprecated
-	public SPMMain() {
-		INSTANCE = this;
-	}
 	private static final Logger LOGGER = LoggerFactory.getLogger("Sweet Potato Mod");
 
 	public static final String MODID = "sweet_potato";
@@ -74,8 +67,7 @@ public class SPMMain implements ModInitializer {
 
 		// Misc
 	public static final Item POTATO_POWDER;
-	/** From Xmas 2020. Protected indeed, instead of public. */
-	protected static final Item XMAS_TREATING_BOWL;
+	public static final Item XMAS_TREATING_BOWL;
 
 	// Blocks
 	public static final Block MAGIC_CUBE;
