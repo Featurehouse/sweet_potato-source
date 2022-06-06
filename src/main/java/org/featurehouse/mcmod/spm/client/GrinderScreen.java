@@ -2,16 +2,15 @@ package org.featurehouse.mcmod.spm.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import org.featurehouse.mcmod.spm.SPMMain;
-import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import org.featurehouse.mcmod.spm.SPMMain;
+import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
 
 @Environment(EnvType.CLIENT)
 public class GrinderScreen extends AbstractContainerScreen<GrinderScreenHandler> {
@@ -36,7 +35,7 @@ public class GrinderScreen extends AbstractContainerScreen<GrinderScreenHandler>
     public void renderBg(PoseStack matrices, float delta, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, INVENTORY_LOCATION);
+        RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
         this.blit(matrices, i, j, 0, 0, this.imageWidth, this.imageHeight);

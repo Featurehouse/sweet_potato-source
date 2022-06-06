@@ -14,6 +14,9 @@ import net.minecraft.world.level.Level;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public record SeedUpdatingRecipe(ResourceLocation id, Ingredient base,
                                  Ingredient addition,
                                  ItemStack result) implements Recipe<Container> {

@@ -19,7 +19,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.screen.SeedUpdaterScreenHandler;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 // Re：SmithingTableBlock
+@ParametersAreNonnullByDefault
 public class SeedUpdaterBlock extends CraftingTableBlock {
     private static final Component SCREEN_TITLE = Component.translatable("container.sweet_potato.seed_updating");
     protected static final VoxelShape SHAPE = Block.box(

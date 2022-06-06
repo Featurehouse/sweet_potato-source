@@ -5,8 +5,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.FoliageColor;
@@ -19,9 +19,9 @@ public class SPMClient implements ClientModInitializer {
     public void onInitializeClient() {
         /* Client Screens */
 
-        ScreenRegistry.register(SPMMain.SEED_UPDATER_SCREEN_HANDLER_TYPE, SeedUpdaterScreen::new);
-        ScreenRegistry.register(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, GrinderScreen::new);
-        ScreenRegistry.register(SPMMain.MAGIC_CUBE_SCREEN_HANDLER_TYPE, MagicCubeScreen::new);
+        MenuScreens.register(SPMMain.SEED_UPDATER_SCREEN_HANDLER_TYPE, SeedUpdaterScreen::new);
+        MenuScreens.register(SPMMain.GRINDER_SCREEN_HANDLER_TYPE, GrinderScreen::new);
+        MenuScreens.register(SPMMain.MAGIC_CUBE_SCREEN_HANDLER_TYPE, MagicCubeScreen::new);
 
         /* Color Providers */
 

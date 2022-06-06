@@ -14,10 +14,12 @@ import org.featurehouse.mcmod.spm.SPMMain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+@ParametersAreNonnullByDefault
 public class MagicalEnchantmentLoader extends SimpleJsonResourceReloadListener implements IdentifiableResourceReloadListener {
     protected static final ResourceLocation FABRIC_ID = new ResourceLocation(SPMMain.MODID, "magical_enchantments");
     private static final Gson GSON = new GsonBuilder().create();

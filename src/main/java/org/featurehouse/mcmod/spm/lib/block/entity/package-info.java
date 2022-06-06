@@ -9,4 +9,5 @@
  * @author YWsuoyi
  * @author teddyxlandlee
  */
+@javax.annotation.ParametersAreNonnullByDefault
 package org.featurehouse.mcmod.spm.lib.block.entity;
