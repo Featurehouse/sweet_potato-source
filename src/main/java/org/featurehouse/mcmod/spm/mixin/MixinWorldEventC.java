@@ -21,16 +21,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LevelRenderer.class)
 @Environment(EnvType.CLIENT)
 public class MixinWorldEventC {
-    @Shadow private ClientLevel world;
-    @Shadow @Final private Minecraft client;
+    @Shadow private ClientLevel level;
+    @Shadow @Final private Minecraft minecraft;
 
     /**
      * When {@link ClientLevel#levelEvent(Player, int, BlockPos, int)} calls.
      */
-    @Inject(at = @At("HEAD"), method = "processWorldEvent", cancellable = true)
-    private void spmSounds(Player source, int eventId, BlockPos blockPos, int data, CallbackInfo ci) {
+    @Inject(at = @At("HEAD"), method = "levelEvent", cancellable = true)
+    private void spmSounds(int eventId, BlockPos blockPos, int data, CallbackInfo ci) {
         if (eventId == 1132119 && data == 805) {
-            client.getSoundManager().play(new KeepPlayingSoundInstance(SPMMain.GRINDER_GRIND, 1.0F, world, blockPos, client.player, (world1, blockPos1) -> {
+            minecraft.getSoundManager().play(new KeepPlayingSoundInstance(SPMMain.GRINDER_GRIND, 1.0F, level, blockPos, minecraft.player, (world1, blockPos1) -> {
                 BlockState state = world1.getBlockState(blockPos1);
                 return state.getBlock() instanceof GrinderBlock // important
                         && state.getValue(GrinderBlock.GRINDING);

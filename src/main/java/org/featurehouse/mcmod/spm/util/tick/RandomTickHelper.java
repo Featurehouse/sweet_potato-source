@@ -1,15 +1,14 @@
 package org.featurehouse.mcmod.spm.util.tick;
 
-import net.minecraft.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import java.util.Random;
 
 public final class RandomTickHelper {
     private static <T extends CropBlock> int getCropAge(T instance, BlockState state) {
@@ -66,7 +65,7 @@ public final class RandomTickHelper {
     private RandomTickHelper() {}
 
     public static <T extends CropBlock> void enchantedCropRandomTick(T instance,
-                                              BlockState state, ServerLevel world, BlockPos pos, Random random) {
+                                              BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (world.getRawBrightness(pos, 0) >= 9) {
             int i = getCropAge(instance, state);
             if (i < instance.getMaxAge()) {

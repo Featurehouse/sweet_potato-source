@@ -18,16 +18,16 @@ import java.util.List;
 @Mixin(WinScreen.class)
 @Environment(EnvType.CLIENT)
 abstract class CreditsScreenMixinC extends Screen {
-    @Shadow private int creditsHeight;
+    @Shadow private int totalScrollLength;
 
     @Shadow private IntSet centeredLines;
 
-    @Shadow private List<FormattedCharSequence> credits;
+    @Shadow private List<FormattedCharSequence> lines;
 
     @Inject(at = @At("TAIL"), method = "init()V")
     private void printSPMCredits(CallbackInfo ci) {
-        CreditsPrinter.print(minecraft, h -> this.creditsHeight = h,
-                centeredLines, credits);
+        CreditsPrinter.print(minecraft, h -> this.totalScrollLength = h,
+                centeredLines, lines);
     }
 
     @Deprecated

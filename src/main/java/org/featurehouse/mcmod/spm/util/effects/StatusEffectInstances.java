@@ -26,7 +26,9 @@ public class StatusEffectInstances {
         if (!Registry.MOB_EFFECT.keySet().contains(id)) {
             LOGGER.error("Cannot apply status effect: {}", raw);
             return null;
-        } MobEffect effect = Registry.MOB_EFFECT.get(id);
+        } MobEffect effect = Registry.MOB_EFFECT.getOptional(id)
+                .orElseThrow(() -> new IllegalArgumentException(
+                "Missing mob effect id: " + id));
         int duration = tag.getInt("duration"), amplifier = tag.getInt("amplifier"); // defaulted as 0
         return new MobEffectInstance(effect, duration, amplifier);
     }

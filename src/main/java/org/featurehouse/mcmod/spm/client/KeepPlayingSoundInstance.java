@@ -10,18 +10,21 @@ import net.minecraft.client.resources.sounds.TickableSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.function.BiPredicate;
 
 @Environment(EnvType.CLIENT)
 public class KeepPlayingSoundInstance extends SimpleSoundInstance implements TickableSoundInstance {
     public final LocalPlayer player;
+    @NotNull
     public ClientLevel world;
     public BlockPos pos;
     protected boolean done = false;
     protected BiPredicate<ClientLevel, BlockPos> playCondition;
 
-    public KeepPlayingSoundInstance(SoundEvent sound, float pitch, ClientLevel world, BlockPos pos, LocalPlayer player, BiPredicate<ClientLevel, BlockPos> playCondition) {
-        super(sound, SoundSource.BLOCKS, 1.0F, pitch, pos);
+    public KeepPlayingSoundInstance(SoundEvent sound, float pitch, @NotNull ClientLevel world, BlockPos pos, LocalPlayer player, BiPredicate<ClientLevel, BlockPos> playCondition) {
+        super(sound, SoundSource.BLOCKS, 1.0F, pitch, world.getRandom(), pos);
         this.looping = true;
         this.pos = pos;
         this.world = world;

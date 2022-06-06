@@ -40,7 +40,10 @@ public class MagicalEnchantmentLoader extends SimpleJsonResourceReloadListener i
                 if (!Registry.MOB_EFFECT.keySet().contains(id)) {
                     LOGGER.error("Invalid status effect id: " + id);
                     continue;
-                } MobEffect effect = Registry.MOB_EFFECT.get(id);
+                }
+                MobEffect effect = Registry.MOB_EFFECT.getOptional(id)
+                        .orElseThrow(() -> new IllegalArgumentException(
+                                "Missing mob effect id: " + id));
                 int duration = GsonHelper.getAsInt(eachObj, "duration", 0);
                 int amplifier = GsonHelper.getAsInt(eachObj, "amplifier", 0);
                 int weight = GsonHelper.getAsInt(eachObj, "weight", 1);

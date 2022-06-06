@@ -84,12 +84,6 @@ public enum SweetPotatoType {
         };
     }
 
-    /*public List<SweetPotatoType> getOtherTwo() {
-        List<SweetPotatoType> list = ObjectArrayList.wrap(values());
-        list.remove(this);
-        return list;
-    }*/
-
     public Stream<SweetPotatoType> getOtherTwo() {
         return Arrays.stream(values()).filter(type -> this != type);
     }

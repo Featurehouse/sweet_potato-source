@@ -1,5 +1,6 @@
 package org.featurehouse.mcmod.spm.blocks.plants;
 
+import net.minecraft.util.RandomSource;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.util.tick.RandomTickHelper;
 import java.util.Random;
@@ -18,9 +19,8 @@ public class EnchantedBeetrootsBlock extends BeetrootBlock {
     protected ItemLike getBaseSeedId() {
         return SPMMain.ENCHANTED_BEETROOT_SEEDS;
     }
-
     @Override
-    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (random.nextInt(6) != 0) {   // 5/6 random, instead of 2/3
                                               // is it necessary?
             // super.randomTick

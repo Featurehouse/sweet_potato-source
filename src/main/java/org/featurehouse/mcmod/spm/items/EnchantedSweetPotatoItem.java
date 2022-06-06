@@ -9,9 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.contents.LiteralContents;
-import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraft.text.BaseText;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -109,30 +107,30 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements SweetPota
         super.appendHoverText(stack, world, tooltip, context);
 
         CompoundTag root = stack.getOrCreateTag();
-        BaseText mainTip = new TranslatableContents("tooltip.sweet_potato.enchanted_sweet_potato.effects");
+        MutableComponent mainTip = Component.translatable("tooltip.sweet_potato.enchanted_sweet_potato.effects");
         tooltip.add(mainTip);
 
         short index = root.getShort("displayIndex");
         if (index == -1 || root.isEmpty()) {
-            mainTip.append(new TranslatableContents("effect.none").formatted(ChatFormatting.ITALIC));
+            mainTip.append(Component.translatable("effect.none").withStyle(ChatFormatting.ITALIC));
             return;
         }
         if (!root.contains("displayIndex", NbtType.NUMBER)) {
-            mainTip.append(new LiteralContents("???").formatted(ChatFormatting.ITALIC));
+            mainTip.append(Component.literal("???").withStyle(ChatFormatting.ITALIC));
             return;
         }
 
         Optional<List<MobEffectInstance>> statusEffectInstances = calcEffect(stack);
         if (statusEffectInstances.isEmpty()) {
-            mainTip.append(new LiteralContents("???").formatted(ChatFormatting.ITALIC));
+            mainTip.append(Component.literal("???").withStyle(ChatFormatting.ITALIC));
             return;
         }
         List<MobEffectInstance> sei = statusEffectInstances.get();
         MobEffectInstance toBeShown = (sei.size() <= index) ? null : sei.get(index);
         if (toBeShown != null) {
-            mainTip.append(new TranslatableContents(toBeShown.getDescriptionId()).formatted(ChatFormatting.ITALIC));
-            mainTip.append(" ").append(new TranslatableContents("potion.potency." + toBeShown.getAmplifier()));
-            mainTip.append(new LiteralContents(" ...").formatted(ChatFormatting.ITALIC));
-        } else mainTip.append(new LiteralContents("???").formatted(ChatFormatting.ITALIC));
+            mainTip.append(Component.translatable(toBeShown.getDescriptionId()).withStyle(ChatFormatting.ITALIC));
+            mainTip.append(" ").append(Component.translatable("potion.potency." + toBeShown.getAmplifier()));
+            mainTip.append(Component.literal(" ...").withStyle(ChatFormatting.ITALIC));
+        } else mainTip.append(Component.literal("???").withStyle(ChatFormatting.ITALIC));
     }
 }

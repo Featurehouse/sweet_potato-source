@@ -10,7 +10,7 @@ import net.minecraft.world.item.Item;
 
 @Mixin(Parrot.class)
 public interface ParrotEntityAccessor {
-    @Accessor("TAMING_INGREDIENTS")
+    @Accessor("TAME_FOOD")
     @Mutable
     static Set<Item> getTamingIngredients() {
         throw new AssertionError("Mixin");

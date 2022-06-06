@@ -5,16 +5,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.recipe.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.jetbrains.annotations.NotNull;
@@ -92,7 +87,7 @@ public record SeedUpdatingRecipe(ResourceLocation id, Ingredient base,
         }
 
         @Override
-        public void write(FriendlyByteBuf buf, @NotNull SeedUpdatingRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buf, @NotNull SeedUpdatingRecipe recipe) {
             recipe.base.toNetwork(buf);
             recipe.addition.toNetwork(buf);
             buf.writeItem(recipe.result);

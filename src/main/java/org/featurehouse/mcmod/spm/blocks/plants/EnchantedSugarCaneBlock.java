@@ -5,13 +5,14 @@
 
 package org.featurehouse.mcmod.spm.blocks.plants;
 
-import net.minecraft.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Plane;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
 import java.util.Random;
 
 /**
@@ -48,14 +50,14 @@ public class EnchantedSugarCaneBlock extends Block {
         return SHAPE;
     }
 
-    public void scheduledTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         if (!state.canSurvive(world, pos)) {
             world.destroyBlock(pos, true);
         }
 
     }
 
-    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (world.isEmptyBlock(pos.above())) {
             int i = 1;
             //for(i = 1; world.getBlockState(pos.down(i)).isOf(this); ++i) {

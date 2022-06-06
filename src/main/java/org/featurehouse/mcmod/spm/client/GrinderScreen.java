@@ -26,7 +26,7 @@ public class GrinderScreen extends AbstractContainerScreen<GrinderScreenHandler>
         RenderSystem.disableBlend();
         super.renderLabels(matrices, mouseX, mouseY);
         double ingredientData = this.menu.getIngredientData();
-        this.font.draw(matrices, new TranslatableContents(
+        this.font.draw(matrices, Component.translatable(
                         "container.grinding.ingredientData",
                         ingredientData),
                 8.0f, 59.0f, 0);

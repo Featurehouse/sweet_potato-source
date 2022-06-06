@@ -9,9 +9,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.ai.behavior.ShufflingList;
@@ -24,6 +24,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.SingleThreadedRandomSource;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.blocks.MagicCubeBlock;
 import org.featurehouse.mcmod.spm.items.RawSweetPotatoBlockItem;
@@ -53,7 +54,8 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
 
     private boolean activationCache = false;
     private byte fireCountCache = 0;
-    private final Random random = this.level != null ? this.level.random : new Random();
+    private final RandomSource random = this.level != null ? this.level.getRandom()
+            : new SingleThreadedRandomSource(new Random().nextLong());
 
     protected BooleanStateManager stateHelper;
     protected short mainFuelTime;
@@ -206,7 +208,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
 
     @Override
     protected Component getDefaultName() {
-        return new TranslatableContents("container.sweet_potato.magic_cube");
+        return Component.translatable("container.sweet_potato.magic_cube");
     }
 
     protected void calculateOutput() {

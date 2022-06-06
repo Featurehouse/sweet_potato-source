@@ -22,7 +22,7 @@ import org.featurehouse.mcmod.spm.blocks.entities.MagicCubeBlockEntity;
 import org.featurehouse.mcmod.spm.blocks.plants.*;
 import org.featurehouse.mcmod.spm.items.*;
 import org.featurehouse.mcmod.spm.linkage.SPMLinkage;
-import org.featurehouse.mcmod.spm.loot.LootTables;
+import org.featurehouse.mcmod.spm.loot.SPMLootTables;
 import org.featurehouse.mcmod.spm.recipe.SeedUpdatingRecipe;
 import org.featurehouse.mcmod.spm.resource.magicalenchantment.MagicalEnchantmentLoader;
 import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
@@ -191,7 +191,7 @@ public class SPMMain implements ModInitializer {
 		FabricLoader.getInstance().getEntrypoints("sweet_potato", SPMLinkage.class).forEach(SPMLinkage::init);
 		ComposterHelper.register();
 
-		LootTables.init();
+		SPMLootTables.init();
 		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new MagicalEnchantmentLoader());
 
 		// Fuel

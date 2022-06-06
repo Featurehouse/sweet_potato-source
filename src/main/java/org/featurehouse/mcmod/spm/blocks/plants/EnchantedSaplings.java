@@ -1,8 +1,8 @@
 package org.featurehouse.mcmod.spm.blocks.plants;
 
-import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -14,11 +14,9 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class EnchantedSaplings extends SaplingBlock {
-    private final AbstractTreeGrower generator;
 
     public EnchantedSaplings(AbstractTreeGrower generator, Properties settings) {
         super(generator, settings);
-        this.generator = generator;
         this.registerDefaultState(this.getStateDefinition().any().setValue(STAGE, 0));
     }
 
@@ -27,28 +25,20 @@ public class EnchantedSaplings extends SaplingBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (world.getMaxLocalRawBrightness(pos.above()) >= 9 && random.nextInt(3) == 0) {
-            this.generate(world, pos, state, random);
-        }
-    }
-
-    public void generate(ServerLevel serverWorld, BlockPos blockPos, BlockState blockState, Random random) {
-        if (blockState.getValue(STAGE) == 0) {
-            serverWorld.setBlock(blockPos, blockState.cycle(STAGE), 4);
-        } else {
-            this.generator.growTree(serverWorld, serverWorld.getChunkSource().getGenerator(), blockPos, blockState, random);
+            this.advanceTree(world, pos, state, random);
         }
     }
 
     @Override
-    public boolean canGrow(Level world, Random random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return (double)world.random.nextFloat() < 0.8D;
     }
 
     @Override
-    public void grow(ServerLevel world, Random random, BlockPos pos, BlockState state) {
-        this.generate(world, pos, state, random);
+    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
+        this.advanceTree(world, pos, state, random);
     }
 
     @Override

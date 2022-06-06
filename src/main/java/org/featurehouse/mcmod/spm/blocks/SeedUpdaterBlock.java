@@ -1,7 +1,7 @@
 package org.featurehouse.mcmod.spm.blocks;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -19,20 +19,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.screen.SeedUpdaterScreenHandler;
 
-// 还原：SmithingTableBlock
+// Re：SmithingTableBlock
 public class SeedUpdaterBlock extends CraftingTableBlock {
-    private static final TranslatableContents SCREEN_TITLE = new TranslatableContents("container.sweet_potato.seed_updating");
+    private static final Component SCREEN_TITLE = Component.translatable("container.sweet_potato.seed_updating");
     protected static final VoxelShape SHAPE = Block.box(
             0.0D, 0.0D, 0.0D,
             16.0D, 12.0D, 16.0D
     );
-
-    //public static BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-
-    //@Override
-    //protected void appendProperties(BooleanStateManager.Builder<Block, BlockState> builder) {
-    //    builder.add(WATERLOGGED);
-    //}
 
     public SeedUpdaterBlock(Properties settings) {
         super(settings);

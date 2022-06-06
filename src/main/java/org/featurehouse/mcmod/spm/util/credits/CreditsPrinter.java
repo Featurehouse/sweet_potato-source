@@ -2,33 +2,29 @@ package org.featurehouse.mcmod.spm.util.credits;
 
 import com.mojang.logging.LogUtils;
 import it.unimi.dsi.fastutil.ints.IntSet;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.util.GsonHelper;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.featurehouse.mcmod.spm.util.registries.RegistryHelper;
 import org.slf4j.Logger;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.IntConsumer;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.LiteralContents;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.Resource;
-import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.util.GsonHelper;
 
 public record CreditsPrinter(Minecraft client,
                              IntConsumer creditsHeight,
                              IntSet centeredLines,
                              List<FormattedCharSequence> credits) {
-    private static final Component SEPARATOR_LINE = new LiteralContents("============").formatted(ChatFormatting.WHITE);
+    private static final Component SEPARATOR_LINE = Component.literal("============").withStyle(ChatFormatting.WHITE);
     private static final ResourceLocation SPM_FILE = RegistryHelper.id("credits.json");
     private static final Logger LOGGER = LogUtils.getLogger();
 
@@ -39,15 +35,14 @@ public record CreditsPrinter(Minecraft client,
     }
 
     public void print() {
-        Resource resource = null;
+        Reader reader = null;
         try {
-            resource = Objects.requireNonNull(this.client)
+            reader = Objects.requireNonNull(this.client)
                     .getResourceManager()
-                    .getResource(SPM_FILE);
-            InputStream is = resource.open();
+                    .openAsReader(SPM_FILE);
 
             ModCredits modCredits = ModCredits.fromJson(
-                    GsonHelper.parse(new BufferedReader(new InputStreamReader(is))),
+                    GsonHelper.parse(reader),
                     SPM_FILE);
 
             wrapTitle("Sweet Potato Mod Credits");
@@ -63,28 +58,25 @@ public record CreditsPrinter(Minecraft client,
             renderNameList(modCredits.collaborators());
             wrapLines(false, "Very Important Supporters", ChatFormatting.GRAY);
             renderNameList(modCredits.importantSupporters());
-
-            is.close();
-
             this.creditsHeight.accept(this.credits.size() * 12);
         } catch (IOException e) {
             LOGGER.error("Couldn't load credits from Sweet Potato Mod", e);
         } finally {
-            IOUtils.closeQuietly(resource);
+            IOUtils.closeQuietly(reader);
         }
     }
 
     private void wrapLines(String string) {
-        credits.add(blank().append(string).formatted(ChatFormatting.WHITE).asOrderedText());
+        credits.add(blank().append(string).withStyle(ChatFormatting.WHITE).getVisualOrderText());
     }
 
-    private static LiteralContents blank() {
-        return new LiteralContents("           ");
+    private static MutableComponent blank() {
+        return Component.literal("           ");
     }
 
     private void wrapLines(boolean central, String string, ChatFormatting... fmt) {
         List<FormattedCharSequence> wrapLines = Objects.requireNonNull(client).font.split(
-                new LiteralContents(string).formatted(fmt), 274
+                Component.literal(string).withStyle(fmt), 274
         );
         for (FormattedCharSequence text : wrapLines) {
             if (central) centeredLines.add(credits.size());
@@ -102,9 +94,9 @@ public record CreditsPrinter(Minecraft client,
 
     private void renderContributorList(List<ImmutablePair<String, String>> contributors) {
         for (ImmutablePair<String, String> nameAndId : contributors) {
-            MutableComponent mutableText = blank().append(new LiteralContents(nameAndId.getLeft()).formatted(ChatFormatting.WHITE));
+            MutableComponent mutableText = blank().append(Component.literal(nameAndId.getLeft()).withStyle(ChatFormatting.WHITE));
             if (!nameAndId.getLeft().equals(nameAndId.getRight()))
-                mutableText.append(new LiteralContents(" (" + nameAndId.getRight() + ')').formatted(ChatFormatting.GRAY));
+                mutableText.append(Component.literal(" (" + nameAndId.getRight() + ')').withStyle(ChatFormatting.GRAY));
             addText(mutableText, false);
         }
         addEmptyLine();
