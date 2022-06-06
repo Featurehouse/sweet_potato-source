@@ -1,8 +1,0 @@
-{
-  "package": "org.featurehouse.mctestmod.spmdimensions.mixin",
-  "minVersion": "0.8",
-  "compatibilityLevel": "JAVA_16",
-  "mixins": [
-
-  ]
-}
