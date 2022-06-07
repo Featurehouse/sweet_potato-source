@@ -86,7 +86,8 @@ public class SeedUpdaterScreenHandler extends ItemCombinerMenu {
     @Override
     protected boolean shouldQuickMoveToAdditionalSlot(ItemStack itemStack) {
         // shouldQuickMoveToAdditionalSlot
-        return this.list.stream().anyMatch(seedUpdatingRecipe -> seedUpdatingRecipe.method_30029(itemStack));
+        return this.list.stream().anyMatch(seedUpdatingRecipe ->
+                seedUpdatingRecipe.isAdditionIngredient(itemStack));
     }
 
     @Override
