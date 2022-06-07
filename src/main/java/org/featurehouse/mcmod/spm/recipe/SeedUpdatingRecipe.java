@@ -3,6 +3,7 @@ package org.featurehouse.mcmod.spm.recipe;
 import com.google.gson.JsonObject;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -47,8 +48,8 @@ public record SeedUpdatingRecipe(ResourceLocation id, Ingredient base,
         return this.result;
     }
 
-    @Environment(EnvType.CLIENT) @Deprecated
-    public ItemStack getRecipeKindIcon() {
+    @Environment(EnvType.CLIENT)
+    public ItemStack getToastSymbol() {
         return new ItemStack(SPMMain.SEED_UPDATER);
     }
 
@@ -67,8 +68,14 @@ public record SeedUpdatingRecipe(ResourceLocation id, Ingredient base,
         return SPMMain.SEED_UPDATING_RECIPE_TYPE;
     }
 
-    public boolean method_30029(ItemStack itemStack) {
+    public boolean isAdditionIngredient(ItemStack itemStack) {
         return this.addition.test(itemStack);
+    }
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return NonNullList.of(Ingredient.EMPTY,
+                this.base(), this.addition());
     }
 
     public static class Serializer implements RecipeSerializer<SeedUpdatingRecipe> {
