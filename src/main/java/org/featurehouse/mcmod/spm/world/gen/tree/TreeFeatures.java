@@ -206,4 +206,6 @@ public final class TreeFeatures {
     private static TreeConfiguration.TreeConfigurationBuilder jungle() {
         return tree(Blocks.JUNGLE_LOG, ENCHANTED_JUNGLE_LEAVES, 4, 8);
     }
+
+    public static void init() {}
 }

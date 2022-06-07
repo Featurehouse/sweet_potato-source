@@ -181,12 +181,11 @@ public class SPMMain implements ModInitializer {
 		System.out.printf("%s, by %s\nContributors:\n%s\n", "Sweet Potato Mod", "Pigeonia Featurehouse", "- Teddy Li (bilibili: teddyxlandlee)\n- Ray Chen (bilibili: 一颗水晶Rayawa)\n- Peter Yang (bilibili: 印度大米饭)");
 
 		FabricLoader.getInstance().getEntrypoints("sweet_potato", SPMLinkage.class).forEach(SPMLinkage::init);
-		ComposterHelper.register();
 
+		ComposterHelper.register();
 		SPMLootTables.init();
 		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new MagicalEnchantmentLoader());
-
-		// Fuel
+		TreeFeatures.init();
 		AnimalIngredients.configureParrot();
 	}
 
