@@ -24,7 +24,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.SingleThreadedRandomSource;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.blocks.MagicCubeBlock;
 import org.featurehouse.mcmod.spm.items.RawSweetPotatoBlockItem;
@@ -39,8 +38,8 @@ import org.slf4j.Logger;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
-import java.util.Random;
 
 import static net.minecraft.world.level.block.Blocks.SOUL_FIRE;
 
@@ -54,8 +53,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
 
     private boolean activationCache = false;
     private byte fireCountCache = 0;
-    private final RandomSource random = this.level != null ? this.level.getRandom()
-            : new SingleThreadedRandomSource(new Random().nextLong());
+    private final RandomSource random = this.level != null ? this.level.getRandom() : RandomSource.create();
 
     protected BooleanStateManager stateHelper;
     protected short mainFuelTime;
@@ -281,7 +279,7 @@ public class MagicCubeBlockEntity extends AbstractLockableContainerBlockEntity i
 
     @Override
     protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
-        return new MagicCubeScreenHandler(syncId, playerInventory, level, worldPosition, this, propertyDelegate);
+        return new MagicCubeScreenHandler(syncId, playerInventory, Objects.requireNonNull(level), worldPosition, this, propertyDelegate);
     }
 
     private boolean anyOutputIsClear() {

@@ -11,7 +11,8 @@ import java.util.List;
 import static org.featurehouse.mcmod.spm.SPMMain.MODID;
 
 public class SPMLootTables {
-    static final ResourceLocation RAW_SWEET_POTATOES, MORE_RAW_SWEET_POTATOES;
+    static final ResourceLocation RAW_SWEET_POTATOES, MORE_RAW_SWEET_POTATOES,
+                MORE_BAKED_SWEET_POTATOES;
 
     public static void init() {
         LootTableEvents.MODIFY.register((resourceManager, lootManager, identifier, tableBuilder, source) -> {
@@ -33,16 +34,17 @@ public class SPMLootTables {
                 String suf = idPath.substring(7);
                 if (suf.matches("^(underwater_ruin_((big)|(small)))$")) {
                     //LootSupplierBuilderHooks builderHooks = (LootSupplierBuilderHooks) fabricLootSupplierBuilder;
-                    if (suf.substring(16).equals("big"))
+                    if (suf.charAt(16) == 'b')
                         UnderwaterRuinLootTables.big(tableBuilder);
                     else
                         UnderwaterRuinLootTables.small(tableBuilder);
-                } else if (suf.matches("^(stronghold_c((orridor)|(rossing)))")) {
-                    //LootSupplierBuilderHooks builderHooks = (LootSupplierBuilderHooks) fabricLootSupplierBuilder;
-                    if (suf.substring(12).equals("orridor"))
+                } else if (suf.matches("^(stronghold_c((orridor)|(rossing)))$")) {
+                    if (suf.charAt(12) == 'o')
                         StrongholdLootTables.corridor(tableBuilder);
                     else
                         StrongholdLootTables.crossing(tableBuilder);
+                } else if (suf.matches("^ancient_city(_ice_box)$")) {
+                    DeepDarkLootTables.iceBox(tableBuilder);
                 } else if (suf.equals("shipwreck_supply"))
                     MiscLootTables.shipwreckSupply(tableBuilder);
                 else if (suf.equals("pillager_outpost"))
@@ -56,6 +58,7 @@ public class SPMLootTables {
     static {
         RAW_SWEET_POTATOES = new ResourceLocation(MODID, "misc/raw_sweet_potatoes");
         MORE_RAW_SWEET_POTATOES = new ResourceLocation(MODID, "misc/more_raw_sweet_potatoes");
+        MORE_BAKED_SWEET_POTATOES = new ResourceLocation(MODID, "misc/more_baked_sweet_potatoes");
     }
 
     static boolean isVanilla(ResourceLocation identifier) {

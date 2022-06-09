@@ -28,6 +28,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class EnchantedSweetPotatoItem extends EnchantedItem implements SweetPotatoProperties {
     @Override
@@ -63,7 +64,7 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements SweetPota
 
         return super.finishUsingItem(stack, world, user);
     }
-    protected static Optional<List<MobEffectInstance>> calcEffect(ItemStack stack) {
+    public static Optional<List<MobEffectInstance>> calcEffect(ItemStack stack) {
         Item item = stack.getItem();
         if (!(item instanceof EnchantedSweetPotatoItem)) return Optional.empty();
         CompoundTag compoundNbtElement = stack.getOrCreateTag();
@@ -80,6 +81,17 @@ public class EnchantedSweetPotatoItem extends EnchantedItem implements SweetPota
             effectInstances.add(statusEffectInstance);
         }
         return Optional.of(effectInstances);
+    }
+
+    public static void applyEffects(ItemStack stack, Stream<MobEffectInstance> effects,
+                                    @Nullable Integer displayIndex) {
+        CompoundTag root = stack.getOrCreateTag();
+        ListTag listTag = new ListTag();
+        effects.map(StatusEffectInstances::writeNbt).forEachOrdered(listTag::add);
+        root.put("statusEffects", listTag);
+        if (displayIndex != null) {
+            root.putInt("displayIndex", displayIndex);
+        }
     }
 
     @Deprecated

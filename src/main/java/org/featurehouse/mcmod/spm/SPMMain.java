@@ -13,6 +13,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import org.featurehouse.mcmod.spm.blocks.GrinderBlock;
 import org.featurehouse.mcmod.spm.blocks.MagicCubeBlock;
 import org.featurehouse.mcmod.spm.blocks.SeedUpdaterBlock;
@@ -23,6 +24,7 @@ import org.featurehouse.mcmod.spm.blocks.plants.*;
 import org.featurehouse.mcmod.spm.items.*;
 import org.featurehouse.mcmod.spm.linkage.SPMLinkage;
 import org.featurehouse.mcmod.spm.loot.SPMLootTables;
+import org.featurehouse.mcmod.spm.loot.SetEnchantedPotatoEffectFunction;
 import org.featurehouse.mcmod.spm.recipe.SeedUpdatingRecipe;
 import org.featurehouse.mcmod.spm.resource.magicalenchantment.MagicalEnchantmentLoader;
 import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
@@ -173,6 +175,9 @@ public class SPMMain implements ModInitializer {
 	public static final ResourceLocation SWEET_POTATO_EATEN;
 	public static final ResourceLocation INTERACT_WITH_MAGIC_CUBE;
 
+	// Loot
+	public static final LootItemFunctionType SET_ENCHANTED_POTATO_EFFECT;
+
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Successfully loaded Sweet Potato Mod!");
@@ -302,5 +307,8 @@ public class SPMMain implements ModInitializer {
 		CROP_UPGRADED = stat("crop_upgraded");
 		SWEET_POTATO_EATEN = stat("sweet_potato_eaten");
 		INTERACT_WITH_MAGIC_CUBE = stat("interact_with_magic_cube");
+
+		// Loot Functions
+		SET_ENCHANTED_POTATO_EFFECT = lootFunction("set_enchanted_potato_effect", new SetEnchantedPotatoEffectFunction.Serializer());
 	}
 }

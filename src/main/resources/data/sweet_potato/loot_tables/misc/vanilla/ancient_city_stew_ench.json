@@ -1,0 +1,103 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "sweet_potato:enchanted_purple_potato",
+          "functions": [{
+            "function": "sweet_potato:set_enchanted_potato_effect",
+            "displayIndex": 0,
+            "effects": [{
+              "id": "speed",
+              "amplifier": 2,
+              "duration": 900,
+              "chance": 0.15
+            },{
+              "id": "speed",
+              "amplifier": 1,
+              "duration": 1800,
+              "chance": 0.425
+            },{
+              "id": "speed",
+              "duration": 3600
+            }, {
+              "id": "night_vision",
+              "duration": 1200,
+              "chance": 0.3
+            }, {
+              "id": "blindness",
+              "duration": 800,
+              "chance": 0.25
+            }]
+          }]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "sweet_potato:enchanted_red_potato",
+          "functions": [{
+            "function": "sweet_potato:set_enchanted_potato_effect",
+            "displayIndex": 0,
+            "effects": [{
+              "id": "speed",
+              "amplifier": 2,
+              "duration": 900,
+              "chance": 0.15
+            },{
+              "id": "speed",
+              "amplifier": 1,
+              "duration": 1800,
+              "chance": 0.425
+            },{
+              "id": "speed",
+              "duration": 3600
+            }, {
+              "id": "night_vision",
+              "duration": 1200,
+              "chance": 0.3
+            }, {
+              "id": "blindness",
+              "duration": 800,
+              "chance": 0.25
+            }]
+          }]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 9,
+          "name": "sweet_potato:enchanted_white_potato",
+          "functions": [{
+            "function": "sweet_potato:set_enchanted_potato_effect",
+            "displayIndex": 0,
+            "effects": [{
+              "id": "speed",
+              "amplifier": 2,
+              "duration": 900,
+              "chance": 0.15
+            },{
+              "id": "speed",
+              "amplifier": 1,
+              "duration": 1800,
+              "chance": 0.425
+            },{
+              "id": "speed",
+              "duration": 3600
+            }, {
+              "id": "night_vision",
+              "duration": 1200,
+              "chance": 0.3
+            }, {
+              "id": "blindness",
+              "duration": 800,
+              "chance": 0.25
+            }]
+          }]
+        }
+      ]
+    }
+  ]
+}

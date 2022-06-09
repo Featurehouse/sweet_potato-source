@@ -1,0 +1,62 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "effects": [
+                {
+                  "type": "minecraft:night_vision",
+                  "duration": {
+                    "type": "minecraft:uniform",
+                    "max": 10.0,
+                    "min": 7.0
+                  }
+                },
+                {
+                  "type": "minecraft:blindness",
+                  "duration": {
+                    "type": "minecraft:uniform",
+                    "max": 7.0,
+                    "min": 5.0
+                  }
+                }
+              ],
+              "function": "minecraft:set_stew_effect"
+            },
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:suspicious_stew",
+          "conditions": [
+            {
+              "condition": "random_chance",
+              "chance": 0.65
+            }
+          ]
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "sweet_potato:misc/vanilla/ancient_city_stew_ench",
+          "conditions": [
+            {
+              "condition": "random_chance",
+              "chance": 0.65
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

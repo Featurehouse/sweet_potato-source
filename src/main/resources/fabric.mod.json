@@ -45,7 +45,8 @@
     "java": ">=17"
   },
   "suggests": {
-    "shurlin": "*"
+    "shurlin": "*",
+    "enchlevel-langpatch": ">1.0.0"
   },
   "custom": {
     "Pigeonia Linkage Standard": {

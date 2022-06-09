@@ -61,8 +61,10 @@ allprojects {
 
 processResources {
 	inputs.property "version", project.version
-
 	filesMatching("fabric.mod.json") { expand 'version': project.version }
+	from ("LICENSE") {
+		rename { "META-INF/${it}_$archivesBaseName" }
+	}
 }
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is
@@ -77,12 +79,6 @@ tasks.withType(JavaCompile).configureEach {
 // If you remove this task, sources will not be generated.
 java {
 	withSourcesJar()
-}
-
-jar {
-	from ("LICENSE") {
-		rename { "${it}_$archivesBaseName" }
-	}
 }
 
 tasks.withType(RunGameTask.class).configureEach {

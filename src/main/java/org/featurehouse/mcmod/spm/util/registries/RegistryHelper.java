@@ -18,6 +18,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import org.featurehouse.mcmod.spm.util.tag.TagContainer;
 import org.jetbrains.annotations.NotNull;
 
@@ -101,4 +103,10 @@ public interface RegistryHelper {
     }
 
     static ResourceLocation stat(String id) { return stat(id, StatFormatter.DEFAULT); }
+
+    static LootItemFunctionType lootFunction(String id,
+                net.minecraft.world.level.storage.loot.Serializer<? extends LootItemFunction> serializer) {
+        ResourceLocation id2 = id(id);
+        return Registry.register(Registry.LOOT_FUNCTION_TYPE, id2, new LootItemFunctionType(serializer));
+    }
 }
