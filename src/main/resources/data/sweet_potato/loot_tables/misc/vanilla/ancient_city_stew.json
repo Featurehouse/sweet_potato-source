@@ -38,23 +38,11 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:suspicious_stew",
-          "conditions": [
-            {
-              "condition": "random_chance",
-              "chance": 0.65
-            }
-          ]
+          "name": "minecraft:suspicious_stew"
         },
         {
           "type": "minecraft:loot_table",
-          "name": "sweet_potato:misc/vanilla/ancient_city_stew_ench",
-          "conditions": [
-            {
-              "condition": "random_chance",
-              "chance": 0.65
-            }
-          ]
+          "name": "sweet_potato:misc/vanilla/ancient_city_stew_ench"
         }
       ]
     }
