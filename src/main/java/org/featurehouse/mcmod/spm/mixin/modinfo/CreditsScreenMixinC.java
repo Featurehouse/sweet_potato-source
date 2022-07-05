@@ -27,7 +27,7 @@ abstract class CreditsScreenMixinC extends Screen {
     @Inject(at = @At("TAIL"), method = "init()V")
     private void printSPMCredits(CallbackInfo ci) {
         CreditsPrinter.print(minecraft, h -> this.totalScrollLength = h,
-                centeredLines, lines) 
+                centeredLines, lines); 
     }
 
     @Deprecated
