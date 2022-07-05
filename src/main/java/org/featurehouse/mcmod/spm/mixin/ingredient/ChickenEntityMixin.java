@@ -13,14 +13,14 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(Chicken.class)
 abstract class ChickenEntityMixin {
     @Shadow @Final @Mutable
-    private static Ingredient BREEDING_INGREDIENT;
+    private static Ingredient FOOD_ITEMS;
 
     static {
         @SuppressWarnings("all")
-        IngredientAccessor acc = (IngredientAccessor) (Object) BREEDING_INGREDIENT;
+        IngredientAccessor acc = (IngredientAccessor) (Object) FOOD_ITEMS;
         acc.setMatchingStacks(null);    // clear cache
         //acc.cacheMatchingStacks();
-        ItemStack[] matchingStacks = BREEDING_INGREDIENT.getItems();
-        BREEDING_INGREDIENT = Ingredient.of(AnimalIngredients.configureChicken(matchingStacks));
+        ItemStack[] matchingStacks = FOOD_ITEMS.getItems();
+        FOOD_ITEMS = Ingredient.of(AnimalIngredients.configureChicken(matchingStacks));
     }
 }
