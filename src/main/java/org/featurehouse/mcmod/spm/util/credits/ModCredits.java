@@ -4,13 +4,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 
 @ApiStatus.Experimental
 public record ModCredits(List<String> authorGroup,
@@ -18,25 +18,25 @@ public record ModCredits(List<String> authorGroup,
                          List<String> collaborators,
                          List<String> importantSupporters) {
 
-    public static ModCredits fromJson(final JsonObject root, Identifier fileId) {
+    public static ModCredits fromJson(final JsonObject root, ResourceLocation fileId) {
         JsonArray arr;
 
-        arr = JsonHelper.getArray(root, "author_group");
+        arr = GsonHelper.getAsJsonArray(root, "author_group");
         ArrayList<String> authorGroup = new ArrayList<>();
         for (JsonElement je : arr) {
-            if (JsonHelper.isString(je)) authorGroup.add(je.getAsString());
+            if (GsonHelper.isStringValue(je)) authorGroup.add(je.getAsString());
         }
 
-        arr = JsonHelper.getArray(root, "contributors");
+        arr = GsonHelper.getAsJsonArray(root, "contributors");
         ArrayList<ImmutablePair<String, String>> contributors = new ArrayList<>();
         int count = 0;
         for (JsonElement je : arr) {
             if (je.isJsonObject()) {
                 JsonObject o = je.getAsJsonObject();
-                String id = JsonHelper.getString(o, "id");
-                String name = JsonHelper.getString(o, "name", id);
+                String id = GsonHelper.getAsString(o, "id");
+                String name = GsonHelper.getAsString(o, "name", id);
                 contributors.add(ImmutablePair.of(name, id));
-            } else if (JsonHelper.isString(je)) {
+            } else if (GsonHelper.isStringValue(je)) {
                 String id = je.getAsString();
                 contributors.add(ImmutablePair.of(id, id));
             } else throw new JsonSyntaxException("Error parsing " + fileId + '.' +
@@ -44,16 +44,16 @@ public record ModCredits(List<String> authorGroup,
             count++;
         }
 
-        arr = JsonHelper.getArray(root, "collaborators");
+        arr = GsonHelper.getAsJsonArray(root, "collaborators");
         ArrayList<String> collaborators = new ArrayList<>();
         for (JsonElement je : arr) {
-            if (JsonHelper.isString(je)) collaborators.add(je.getAsString());
+            if (GsonHelper.isStringValue(je)) collaborators.add(je.getAsString());
         }
 
-        arr = JsonHelper.getArray(root, "supporters");
+        arr = GsonHelper.getAsJsonArray(root, "supporters");
         ArrayList<String> importantSupporters = new ArrayList<>();
         for (JsonElement je : arr) {
-            if (JsonHelper.isString(je)) importantSupporters.add(je.getAsString());
+            if (GsonHelper.isStringValue(je)) importantSupporters.add(je.getAsString());
         }
 
         return new ModCredits(authorGroup, contributors, collaborators, importantSupporters);

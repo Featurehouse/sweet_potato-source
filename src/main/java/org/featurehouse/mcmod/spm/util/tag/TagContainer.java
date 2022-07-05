@@ -1,27 +1,26 @@
 package org.featurehouse.mcmod.spm.util.tag;
 
-import net.minecraft.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryEntryList;
-
 import java.util.Objects;
 import java.util.stream.Stream;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 
 public record TagContainer<T> (Registry<T> registry,
                                TagKey<T> tagKey) {
-    public static <T> TagContainer<T> register(Identifier id, Registry<T> registry) {
-        var tagKey = TagKey.of(registry.getKey(), id);
+    public static <T> TagContainer<T> register(ResourceLocation id, Registry<T> registry) {
+        var tagKey = TagKey.create(registry.key(), id);
         return new TagContainer<>(registry, tagKey);
     }
 
-    public RegistryEntryList.Named<T> entries() {
-        return registry.getOrCreateEntryList(tagKey);
+    public HolderSet.Named<T> entries() {
+        return registry.getOrCreateTag(tagKey);
     }
 
     public Stream<T> stream() {
-        return entries().stream().map(RegistryEntry::value);
+        return entries().stream().map(Holder::value);
     }
 
     public boolean contains(T t) {
@@ -30,7 +29,7 @@ public record TagContainer<T> (Registry<T> registry,
 
     @Override
     public String toString() {
-        return "TagContainer[" + registry.getKey().getValue()
-                + '/' + tagKey.id() + ']';
+        return "TagContainer[" + registry.key().location()
+                + '/' + tagKey.location() + ']';
     }
 }

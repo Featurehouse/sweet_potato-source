@@ -3,44 +3,49 @@ package org.featurehouse.mcmod.spm.recipe;
 import com.google.gson.JsonObject;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.recipe.*;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.level.Level;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.jetbrains.annotations.NotNull;
 
-public record SeedUpdatingRecipe(Identifier id, Ingredient base,
+public record SeedUpdatingRecipe(ResourceLocation id, Ingredient base,
                                  Ingredient addition,
-                                 ItemStack result) implements Recipe<Inventory> {
+                                 ItemStack result) implements Recipe<Container> {
 
     @Override
-    public boolean matches(@NotNull Inventory inv, World world) {
-        return this.base.test(inv.getStack(0)) && this.addition.test(inv.getStack(1));
+    public boolean matches(@NotNull Container inv, Level world) {
+        return this.base.test(inv.getItem(0)) && this.addition.test(inv.getItem(1));
     }
 
     @Override
-    public ItemStack craft(Inventory inv) {
+    public ItemStack assemble(Container inv) {
         ItemStack itemStack = this.result.copy();
-        NbtCompound compoundTag = inv.getStack(0).getNbt();
+        CompoundTag compoundTag = inv.getItem(0).getTag();
         if (compoundTag != null) {
-            itemStack.setNbt(compoundTag.copy());
+            itemStack.setTag(compoundTag.copy());
         }
 
         return itemStack;
     }
 
     @Environment(EnvType.CLIENT) @Override
-    public boolean fits(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return width * height >= 2;
     }
 
     @Override
-    public ItemStack getOutput() {
+    public ItemStack getResultItem() {
         return this.result;
     }
 
@@ -50,7 +55,7 @@ public record SeedUpdatingRecipe(Identifier id, Ingredient base,
     }
 
     @Override
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return this.id;
     }
 
@@ -71,26 +76,26 @@ public record SeedUpdatingRecipe(Identifier id, Ingredient base,
     public static class Serializer implements RecipeSerializer<SeedUpdatingRecipe> {
 
         @Override
-        public SeedUpdatingRecipe read(Identifier identifier, JsonObject jsonObject) {
-            Ingredient ingredient = Ingredient.fromJson(JsonHelper.getObject(jsonObject, "base"));
-            Ingredient ingredient2 = Ingredient.fromJson(JsonHelper.getObject(jsonObject, "addition"));
-            ItemStack itemStack = ShapedRecipe.outputFromJson(JsonHelper.getObject(jsonObject, "result"));
+        public SeedUpdatingRecipe fromJson(ResourceLocation identifier, JsonObject jsonObject) {
+            Ingredient ingredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(jsonObject, "base"));
+            Ingredient ingredient2 = Ingredient.fromJson(GsonHelper.getAsJsonObject(jsonObject, "addition"));
+            ItemStack itemStack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "result"));
             return new SeedUpdatingRecipe(identifier, ingredient, ingredient2, itemStack);
         }
 
         @Override
-        public SeedUpdatingRecipe read(Identifier identifier, PacketByteBuf packetByteBuf) {
-            Ingredient ingredient = Ingredient.fromPacket(packetByteBuf);
-            Ingredient ingredient2 = Ingredient.fromPacket(packetByteBuf);
-            ItemStack itemStack = packetByteBuf.readItemStack();
+        public SeedUpdatingRecipe fromNetwork(ResourceLocation identifier, FriendlyByteBuf packetByteBuf) {
+            Ingredient ingredient = Ingredient.fromNetwork(packetByteBuf);
+            Ingredient ingredient2 = Ingredient.fromNetwork(packetByteBuf);
+            ItemStack itemStack = packetByteBuf.readItem();
             return new SeedUpdatingRecipe(identifier, ingredient, ingredient2, itemStack);
         }
 
         @Override
-        public void write(PacketByteBuf buf, @NotNull SeedUpdatingRecipe recipe) {
-            recipe.base.write(buf);
-            recipe.addition.write(buf);
-            buf.writeItemStack(recipe.result);
+        public void write(FriendlyByteBuf buf, @NotNull SeedUpdatingRecipe recipe) {
+            recipe.base.toNetwork(buf);
+            recipe.addition.toNetwork(buf);
+            buf.writeItem(recipe.result);
         }
     }
 }

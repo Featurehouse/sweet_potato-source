@@ -1,8 +1,8 @@
 package org.featurehouse.mcmod.spm.util.iprops;
 
-import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.world.inventory.ContainerData;
 
-public interface IntGrinderProperties extends PropertyDelegate {
+public interface IntGrinderProperties extends ContainerData {
     int getGrindTime();
     int getGrindTimeTotal();
     double getIngredientData();
@@ -39,7 +39,7 @@ public interface IntGrinderProperties extends PropertyDelegate {
     }
 
     @Override
-    default int size() {
+    default int getCount() {
         return 3;
     }
 

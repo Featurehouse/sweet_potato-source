@@ -1,55 +1,55 @@
 package org.featurehouse.mcmod.spm.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.render.GameRenderer;
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.screen.GrinderScreenHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
-public class GrinderScreen extends HandledScreen<GrinderScreenHandler> {
-    private static final Identifier BACKGROUND_TEXTURE = new Identifier(SPMMain.MODID, "textures/gui/container/grinder.png");
+public class GrinderScreen extends AbstractContainerScreen<GrinderScreenHandler> {
+    private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(SPMMain.MODID, "textures/gui/container/grinder.png");
 
-    public GrinderScreen(GrinderScreenHandler handler, PlayerInventory inventory, Text title) {
+    public GrinderScreen(GrinderScreenHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title);
     }
 
     @Override
-    protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
+    protected void renderLabels(PoseStack matrices, int mouseX, int mouseY) {
         RenderSystem.disableBlend();
-        super.drawForeground(matrices, mouseX, mouseY);
-        double ingredientData = this.handler.getIngredientData();
-        this.textRenderer.draw(matrices, new TranslatableText(
+        super.renderLabels(matrices, mouseX, mouseY);
+        double ingredientData = this.menu.getIngredientData();
+        this.font.draw(matrices, new TranslatableComponent(
                         "container.grinding.ingredientData",
                         ingredientData),
                 8.0f, 59.0f, 0);
     }
 
     @Override
-    public void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+    public void renderBg(PoseStack matrices, float delta, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
-        int i = (this.width - this.backgroundWidth) / 2;
-        int j = (this.height - this.backgroundHeight) / 2;
-        this.drawTexture(matrices, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
-        int l = this.handler.getGrindProgress();
-        this.drawTexture(matrices, i + 74, j + 35, 176, 0, l+1, 16);  // arrow
+        RenderSystem.setShaderTexture(0, INVENTORY_LOCATION);
+        int i = (this.width - this.imageWidth) / 2;
+        int j = (this.height - this.imageHeight) / 2;
+        this.blit(matrices, i, j, 0, 0, this.imageWidth, this.imageHeight);
+        int l = this.menu.getGrindProgress();
+        this.blit(matrices, i + 74, j + 35, 176, 0, l+1, 16);  // arrow
 
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
         super.render(matrices, mouseX, mouseY, delta);
         //RenderSystem.disableBlend();
-        this.drawMouseoverTooltip(matrices, mouseX, mouseY);
+        this.renderTooltip(matrices, mouseX, mouseY);
     }
 }

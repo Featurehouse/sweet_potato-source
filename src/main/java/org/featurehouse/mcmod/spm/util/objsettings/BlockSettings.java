@@ -2,11 +2,17 @@ package org.featurehouse.mcmod.spm.util.objsettings;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
-import net.minecraft.block.sapling.SaplingGenerator;
-import net.minecraft.entity.EntityType;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import org.featurehouse.mcmod.spm.blocks.plants.EnchantedSaplings;
 import org.featurehouse.mcmod.spm.util.registries.RegistryHelper;
 
@@ -14,10 +20,10 @@ import java.util.function.Supplier;
 
 public final class BlockSettings {
     public static FabricBlockSettings functionalMinable(Material material, float hardness, float blastResistance) {
-        return FabricBlockSettings.of(material).hardness(hardness).resistance(blastResistance).requiresTool();
+        return FabricBlockSettings.of(material).destroyTime(hardness).explosionResistance(blastResistance).requiresCorrectToolForDrops();
     }
 
-    public static EnchantedSaplings createEnchantedSapling(String id, Supplier<SaplingGenerator> saplingGeneratorSupplier) {
+    public static EnchantedSaplings createEnchantedSapling(String id, Supplier<AbstractTreeGrower> saplingGeneratorSupplier) {
         return (EnchantedSaplings) RegistryHelper.block(id, new EnchantedSaplings(saplingGeneratorSupplier.get(), grassLike()));
     }
 
@@ -35,18 +41,18 @@ public final class BlockSettings {
 
     static {
         GRASS_LIKE = FabricBlockSettings.of(Materials.MATERIAL_PLANT)
-                .noCollision()
-                .ticksRandomly()
-                .breakInstantly()
-                .sounds(BlockSoundGroup.CROP);
+                .noCollission()
+                .randomTicks()
+                .instabreak()
+                .sound(SoundType.CROP);
         GRASS = FabricBlockSettings.of(Materials.MATERIAL_PLANT)
-                .noCollision()
-                .ticksRandomly()
-                .breakInstantly()
-                .sounds(BlockSoundGroup.GRASS);
+                .noCollission()
+                .randomTicks()
+                .instabreak()
+                .sound(SoundType.GRASS);
     }
 
-    static boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
+    static boolean canSpawnOnLeaves(BlockState state, BlockGetter world, BlockPos pos, EntityType<?> type) {
         return type == EntityType.OCELOT || type == EntityType.PARROT;
     }
 
@@ -54,28 +60,28 @@ public final class BlockSettings {
         return (LeavesBlock) RegistryHelper.block(id,
                 new LeavesBlock(FabricBlockSettings.of(Material.LEAVES)
                         .strength(0.2F)
-                        .ticksRandomly()
-                        .sounds(BlockSoundGroup.GRASS)
-                        .nonOpaque()
-                        .allowsSpawning(BlockSettings::canSpawnOnLeaves)
-                        .suffocates(BlockSettings::alwaysFalse)
-                        .blockVision(BlockSettings::alwaysFalse)));
+                        .randomTicks()
+                        .sound(SoundType.GRASS)
+                        .noOcclusion()
+                        .isValidSpawn(BlockSettings::canSpawnOnLeaves)
+                        .isSuffocating(BlockSettings::alwaysFalse)
+                        .isViewBlocking(BlockSettings::alwaysFalse)));
     }
 
     @Deprecated(forRemoval = true)
     public static LeavesBlock createEnchantedLeavesBlock() {
-        return new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES)
+        return new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES)
                 .strength(0.2F)
-                .ticksRandomly()
-                .sounds(BlockSoundGroup.GRASS)
-                .nonOpaque()
-                .allowsSpawning(BlockSettings::canSpawnOnLeaves)
-                .suffocates(BlockSettings::alwaysFalse)
-                .blockVision(BlockSettings::alwaysFalse)
+                .randomTicks()
+                .sound(SoundType.GRASS)
+                .noOcclusion()
+                .isValidSpawn(BlockSettings::canSpawnOnLeaves)
+                .isSuffocating(BlockSettings::alwaysFalse)
+                .isViewBlocking(BlockSettings::alwaysFalse)
         );
     }
 
-    private static boolean alwaysFalse(BlockState state, BlockView world, BlockPos pos) {
+    private static boolean alwaysFalse(BlockState state, BlockGetter world, BlockPos pos) {
         return false;
     }
 }

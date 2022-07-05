@@ -7,42 +7,42 @@ import org.featurehouse.mcmod.spm.util.inventory.UniversalResultSlot;
 import org.featurehouse.mcmod.spm.util.iprops.IntMagicCubeProperties;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 import static org.featurehouse.mcmod.spm.SPMMain.*;
 
-public class MagicCubeScreenHandler extends ScreenHandler {
-    protected final PlayerInventory playerInventory;
-    protected final World world;
-    protected final Inventory inventory;
+public class MagicCubeScreenHandler extends AbstractContainerMenu {
+    protected final Inventory playerInventory;
+    protected final Level world;
+    protected final Container inventory;
     protected final BlockPos pos;
     private final IntMagicCubeProperties magicCubeProperties;
 
     protected final Slot mainFuelSlot, viceFuelSlot;
 
-    public MagicCubeScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
-        this(syncId, inventory, inventory.player.world, buf.readBlockPos(), new SimpleInventory(8), new IntMagicCubeProperties.Impl());
+    public MagicCubeScreenHandler(int syncId, Inventory inventory, FriendlyByteBuf buf) {
+        this(syncId, inventory, inventory.player.level, buf.readBlockPos(), new SimpleContainer(8), new IntMagicCubeProperties.Impl());
     }
 
-    public MagicCubeScreenHandler(int syncId, PlayerInventory playerInventory, World world, BlockPos pos, Inventory inventory, IntMagicCubeProperties properties) {
+    public MagicCubeScreenHandler(int syncId, Inventory playerInventory, Level world, BlockPos pos, Container inventory, IntMagicCubeProperties properties) {
         super(SPMMain.MAGIC_CUBE_SCREEN_HANDLER_TYPE, syncId);
         this.playerInventory = playerInventory;
         this.world = world;
         this.inventory = inventory;
         this.pos = pos;
         this.magicCubeProperties = properties;
-        this.addProperties(properties);
+        this.addDataSlots(properties);
 
         this.addSlot(new MagicCubeInputSlot(inventory, 0, 56, 18));
         this.addSlot(new MagicCubeInputSlot(inventory, 1, 79, 11));
@@ -61,10 +61,10 @@ public class MagicCubeScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
+    public boolean stillValid(Player player) {
         BlockState state = this.world.getBlockState(pos);
-        return this.inventory.canPlayerUse(player) &&
-                state.getBlock() instanceof MagicCubeBlock && state.get(MagicCubeBlock.ACTIVATED);
+        return this.inventory.stillValid(player) &&
+                state.getBlock() instanceof MagicCubeBlock && state.getValue(MagicCubeBlock.ACTIVATED);
     }
 
     @Environment(EnvType.CLIENT)
@@ -78,60 +78,60 @@ public class MagicCubeScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public ItemStack transferSlot(PlayerEntity playerEntity, int index) {
+    public ItemStack quickMoveStack(Player playerEntity, int index) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        if (slot.hasStack()) {
-            ItemStack itemStack2 = slot.getStack();
+        if (slot.hasItem()) {
+            ItemStack itemStack2 = slot.getItem();
             itemStack = itemStack2.copy();
             if (index > 7) {
-                if (this.viceFuelSlot.canInsert(itemStack)) {
-                    if (!this.insertItem(itemStack2, 7, 8, false))
+                if (this.viceFuelSlot.mayPlace(itemStack)) {
+                    if (!this.moveItemStackTo(itemStack2, 7, 8, false))
                         return ItemStack.EMPTY;
-                } else if (this.mainFuelSlot.canInsert(itemStack2)) {
-                    if (!this.insertItem(itemStack2, 6, 7, false))
+                } else if (this.mainFuelSlot.mayPlace(itemStack2)) {
+                    if (!this.moveItemStackTo(itemStack2, 6, 7, false))
                         return ItemStack.EMPTY;
                 } else if (RAW_SWEET_POTATOES.contains(itemStack.getItem()) && itemStack.getCount() == 1) {
-                    if (!this.insertItem(itemStack2, 0, 3, false))
+                    if (!this.moveItemStackTo(itemStack2, 0, 3, false))
                         return ItemStack.EMPTY;
                 } else if (index < 35) {
-                    if (!this.insertItem(itemStack2, 35, 44, false))
+                    if (!this.moveItemStackTo(itemStack2, 35, 44, false))
                         return ItemStack.EMPTY;
                 } else if (index < 44) {
-                    if (!this.insertItem(itemStack2, 8, 35, false))
+                    if (!this.moveItemStackTo(itemStack2, 8, 35, false))
                         return ItemStack.EMPTY;
-                } else if (!this.insertItem(itemStack2, 8, 44, false)) {
+                } else if (!this.moveItemStackTo(itemStack2, 8, 44, false)) {
                     return ItemStack.EMPTY;
                 }
             } else { // index in 0..6
-                if (!this.insertItem(itemStack2, 8, 44, true))
+                if (!this.moveItemStackTo(itemStack2, 8, 44, true))
                     return ItemStack.EMPTY;
-                slot.onQuickTransfer(itemStack2, itemStack);
+                slot.onQuickCraft(itemStack2, itemStack);
             }
             if (itemStack2.isEmpty())
-                slot.setStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             else
-                slot.markDirty();
+                slot.setChanged();
             if (itemStack2.getCount() == itemStack.getCount())
                 return ItemStack.EMPTY;
 
-            slot.onTakeItem(playerEntity, itemStack2);
+            slot.onTake(playerEntity, itemStack2);
         } return itemStack;
     }
 
     private static class FuelSlot extends Slot {
         private final Item item;
 
-        public FuelSlot(Item item, Inventory inventory, int index, int x, int y) {
+        public FuelSlot(Item item, Container inventory, int index, int x, int y) {
             super(inventory, index, x, y);
             this.item = item;
         }
 
-        public boolean canInsert(ItemStack stack) {
+        public boolean mayPlace(ItemStack stack) {
             return stack.getItem() == item;
         }
 
-        public int getMaxItemCount() {
+        public int getMaxStackSize() {
             return 64;
         }
     }

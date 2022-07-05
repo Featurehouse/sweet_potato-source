@@ -1,8 +1,7 @@
 package org.featurehouse.mcmod.spm.util;
 
-import net.minecraft.state.property.Property;
-import net.minecraft.util.math.BlockPos;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.properties.Property;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class BooleanStateManager implements Runnable {
@@ -15,7 +14,7 @@ public abstract class BooleanStateManager implements Runnable {
     public abstract void run();
 
     protected static BlockPos[] calcPos(@NotNull BlockPos original) {
-        BlockPos downPos = original.down();
+        BlockPos downPos = original.below();
         return new BlockPos[] {
                 downPos,
                 downPos.east(), downPos.south(), downPos.west(), downPos.north(),

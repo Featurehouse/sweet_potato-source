@@ -1,19 +1,18 @@
 package org.featurehouse.mcmod.spm.world.gen.tree;
 
-import net.minecraft.block.sapling.SpruceSaplingGenerator;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-
 import java.util.Random;
+import net.minecraft.core.Holder;
+import net.minecraft.world.level.block.grower.SpruceTreeGrower;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
-public class EnchantedSpruceSaplingGen extends SpruceSaplingGenerator {
+public class EnchantedSpruceSaplingGen extends SpruceTreeGrower {
     @Override
-    protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bl) {
+    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(Random random, boolean bl) {
         return TreeFeatures.SPRUCE;
     }
 
     @Override
-    protected RegistryEntry<ConfiguredFeature<?, ?>> getLargeTreeFeature(Random random) {
+    protected Holder<ConfiguredFeature<?, ?>> getConfiguredMegaFeature(Random random) {
         return random.nextBoolean() ? TreeFeatures.MEGA_SPRUCE : TreeFeatures.MEGA_PINE;
     }
 }

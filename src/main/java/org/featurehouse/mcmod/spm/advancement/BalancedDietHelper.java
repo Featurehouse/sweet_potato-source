@@ -2,12 +2,11 @@ package org.featurehouse.mcmod.spm.advancement;
 
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.mixin.acc.AdvancementTaskAccessor;
-import net.minecraft.advancement.Advancement;
-import net.minecraft.advancement.criterion.ConsumeItemCriterion;
-import net.minecraft.item.Item;
-import net.minecraft.predicate.entity.EntityPredicate;
-
 import java.util.List;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.critereon.ConsumeItemTrigger;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.world.item.Item;
 
 public final class BalancedDietHelper {
     private BalancedDietHelper() {}
@@ -23,8 +22,8 @@ public final class BalancedDietHelper {
 
         for (int i = 0; i < itemListSize; ++i) {
             String reqId = "sweet_potato:balanced_diet__food$" + itemList.get(i);
-            task.criterion(reqId,
-                    new ConsumeItemCriterion.Conditions(EntityPredicate.Extended.EMPTY,
+            task.addCriterion(reqId,
+                    new ConsumeItemTrigger.TriggerInstance(EntityPredicate.Composite.ANY,
                             new SimpleItemPredicate(itemList.get(i))));
             requirementsNew[i] = new String[] {reqId};
         }

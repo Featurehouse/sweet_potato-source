@@ -2,7 +2,7 @@ package org.featurehouse.mcmod.spm.mixin.modinfo;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screen.TitleScreen;
+import net.minecraft.client.gui.screens.TitleScreen;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

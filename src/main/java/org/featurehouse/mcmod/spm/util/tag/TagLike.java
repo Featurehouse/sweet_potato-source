@@ -1,13 +1,13 @@
 package org.featurehouse.mcmod.spm.util.tag;
 
 import com.google.common.collect.Iterators;
-import net.minecraft.util.registry.RegistryEntry;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
+import net.minecraft.core.Holder;
 
 /**
  * @see com.mojang.datafixers.util.Either
@@ -44,7 +44,7 @@ public sealed interface TagLike<T> extends Iterable<T> {
         @Override
         public Stream<T> stream() {
             return tagContainer.entries().stream()
-                    .map(RegistryEntry::value);
+                    .map(Holder::value);
         }
 
     }

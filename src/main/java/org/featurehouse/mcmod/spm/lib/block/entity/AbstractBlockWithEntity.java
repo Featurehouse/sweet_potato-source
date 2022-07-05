@@ -2,109 +2,109 @@ package org.featurehouse.mcmod.spm.lib.block.entity;
 
 import org.featurehouse.mcmod.spm.util.tick.ITickable;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.LockableContainerBlockEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
 @ApiStatus.Experimental
-public abstract class AbstractBlockWithEntity<E extends BlockEntity & ITickable> extends BlockWithEntity {
+public abstract class AbstractBlockWithEntity<E extends BlockEntity & ITickable> extends BaseEntityBlock {
     protected abstract boolean blockEntityPredicate(BlockEntity blockEntity);
 
-    protected AbstractBlockWithEntity(Settings settings) {
+    protected AbstractBlockWithEntity(Properties settings) {
         super(settings);
     }
 
-    public List<Identifier> incrementWhileOnUse(BlockState state, World world, BlockPos pos, ServerPlayerEntity serverPlayerEntity, Hand hand, BlockHitResult blockHitResult) {
+    public List<ResourceLocation> incrementWhileOnUse(BlockState state, Level world, BlockPos pos, ServerPlayer serverPlayerEntity, InteractionHand hand, BlockHitResult blockHitResult) {
         return ImmutableList.of();
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient) {
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (!world.isClientSide) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof NamedScreenHandlerFactory && blockEntityPredicate(blockEntity)) {
-                player.openHandledScreen((NamedScreenHandlerFactory) blockEntity);
-                incrementWhileOnUse(state, world, pos, (ServerPlayerEntity) player, hand, hit).forEach(player::incrementStat);
+            if (blockEntity instanceof MenuProvider && blockEntityPredicate(blockEntity)) {
+                player.openMenu((MenuProvider) blockEntity);
+                incrementWhileOnUse(state, world, pos, (ServerPlayer) player, hand, hit).forEach(player::awardStat);
             }
-            return ActionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        if (itemStack.hasCustomName()) {
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        if (itemStack.hasCustomHoverName()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof LockableContainerBlockEntity && blockEntityPredicate(blockEntity))
-                ((LockableContainerBlockEntity) blockEntity).setCustomName(itemStack.getName());
+            if (blockEntity instanceof BaseContainerBlockEntity && blockEntityPredicate(blockEntity))
+                ((BaseContainerBlockEntity) blockEntity).setCustomName(itemStack.getHoverName());
         }
     }
 
     @Override
-    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+    public MenuProvider getMenuProvider(BlockState state, Level world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        return blockEntity instanceof NamedScreenHandlerFactory && blockEntityPredicate(blockEntity) ? (NamedScreenHandlerFactory) blockEntity : null;
+        return blockEntity instanceof MenuProvider && blockEntityPredicate(blockEntity) ? (MenuProvider) blockEntity : null;
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     public abstract BlockEntityType<E> getBlockEntityType();
 
     @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (!state.isOf(newState.getBlock())) {
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
+        if (!state.is(newState.getBlock())) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof Inventory && blockEntityPredicate(blockEntity)) {
-                ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
-                world.updateComparators(pos, this);
+            if (blockEntity instanceof Container && blockEntityPredicate(blockEntity)) {
+                Containers.dropContents(world, pos, (Container) blockEntity);
+                world.updateNeighbourForOutputSignal(pos, this);
             }
         }
-        super.onStateReplaced(state, world, pos, newState, moved);
+        super.onRemove(state, world, pos, newState, moved);
     }
 
     @Override
-    public abstract E createBlockEntity(BlockPos pos, BlockState state);
+    public abstract E newBlockEntity(BlockPos pos, BlockState state);
 
     //public abstract Optional<ITickable> getTickableBlockEntity(World world, BlockState state);
     public BlockEntityTicker<E> ticker() {
         return ITickable::iTick;
     }
 
-    public boolean hasComparatorOutput(BlockState state) {
+    public boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? null : checkType(type, getBlockEntityType(), ticker());
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+        return world.isClientSide ? null : createTickerHelper(type, getBlockEntityType(), ticker());
     }
 
-    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-        return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
+    public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+        return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(world.getBlockEntity(pos));
     }
 }

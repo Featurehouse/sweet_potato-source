@@ -1,6 +1,6 @@
 package org.featurehouse.mcmod.spm.mixin.acc;
 
-import net.minecraft.advancement.Advancement.Builder;
+import net.minecraft.advancements.Advancement.Builder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 

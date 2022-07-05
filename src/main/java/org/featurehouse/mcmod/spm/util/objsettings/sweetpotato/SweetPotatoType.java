@@ -1,12 +1,12 @@
 package org.featurehouse.mcmod.spm.util.objsettings.sweetpotato;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemConvertible;
 import org.featurehouse.mcmod.spm.SPMMain;
 
 import java.util.Arrays;
 import java.util.OptionalDouble;
 import java.util.stream.Stream;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 
 public enum SweetPotatoType {
     PURPLE(
@@ -43,7 +43,7 @@ public enum SweetPotatoType {
         };
     }
 
-    public ItemConvertible getRaw() {
+    public ItemLike getRaw() {
         return switch (this) {
             case PURPLE -> SPMMain.PURPLE_POTATO;
             case RED -> SPMMain.RED_POTATO;
@@ -51,7 +51,7 @@ public enum SweetPotatoType {
         };
     }
 
-    public ItemConvertible getBaked() {
+    public ItemLike getBaked() {
         return switch (this) {
             case PURPLE -> SPMMain.BAKED_PURPLE_POTATO;
             case RED -> SPMMain.BAKED_RED_POTATO;
@@ -67,7 +67,7 @@ public enum SweetPotatoType {
         };
     }
 
-    public ItemConvertible getEnchanted() {
+    public ItemLike getEnchanted() {
         return switch (this) {
             case PURPLE -> SPMMain.ENCHANTED_PURPLE_POTATO;
             case RED -> SPMMain.ENCHANTED_RED_POTATO;
@@ -75,7 +75,7 @@ public enum SweetPotatoType {
         };
     }
 
-    public ItemConvertible get(SweetPotatoStatus status) {
+    public ItemLike get(SweetPotatoStatus status) {
         return switch (status) {
             case RAW -> this.getRaw();
             case BAKED -> this.getBaked();

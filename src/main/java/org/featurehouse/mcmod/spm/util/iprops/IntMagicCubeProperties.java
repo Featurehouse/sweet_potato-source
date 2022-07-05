@@ -1,9 +1,9 @@
 package org.featurehouse.mcmod.spm.util.iprops;
 
-import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.world.inventory.ContainerData;
 import org.featurehouse.mcmod.spm.blocks.entities.MagicCubeBlockEntity;
 
-public interface IntMagicCubeProperties extends PropertyDelegate {
+public interface IntMagicCubeProperties extends ContainerData {
     /**
      * <h2>Main Fuel Time</h2>
      * <div>200: Start up.</div>
@@ -53,7 +53,7 @@ public interface IntMagicCubeProperties extends PropertyDelegate {
 
     @Override
     @Deprecated
-    default int size() {
+    default int getCount() {
         return 2;
     }
 

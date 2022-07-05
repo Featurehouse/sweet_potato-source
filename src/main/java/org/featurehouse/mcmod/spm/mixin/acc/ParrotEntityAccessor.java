@@ -1,14 +1,14 @@
 package org.featurehouse.mcmod.spm.mixin.acc;
 
-import net.minecraft.entity.passive.ParrotEntity;
-import net.minecraft.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.Set;
+import net.minecraft.world.entity.animal.Parrot;
+import net.minecraft.world.item.Item;
 
-@Mixin(ParrotEntity.class)
+@Mixin(Parrot.class)
 public interface ParrotEntityAccessor {
     @Accessor("TAMING_INGREDIENTS")
     @Mutable

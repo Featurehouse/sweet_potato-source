@@ -1,7 +1,7 @@
 package org.featurehouse.mcmod.spm.util;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 
 public final class MathUtils {
     public static float distance(BlockPos pos, double anotherX, double anotherY, double anotherZ) {
@@ -10,9 +10,9 @@ public final class MathUtils {
     }
 
     public static float distance(float oneX, float oneY, float oneZ, float anotherX, float anotherY, float anotherZ) {
-        float f = MathHelper.abs(oneX - anotherX);
-        float g = MathHelper.abs(oneY - anotherY);
-        float h = MathHelper.abs(oneZ - anotherZ);
-        return MathHelper.sqrt(f * f + g * g + h * h);
+        float f = Mth.abs(oneX - anotherX);
+        float g = Mth.abs(oneY - anotherY);
+        float h = Mth.abs(oneZ - anotherZ);
+        return Mth.sqrt(f * f + g * g + h * h);
     }
 }

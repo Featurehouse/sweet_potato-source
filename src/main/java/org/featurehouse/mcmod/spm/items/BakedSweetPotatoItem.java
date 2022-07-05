@@ -1,10 +1,10 @@
 package org.featurehouse.mcmod.spm.items;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import org.featurehouse.mcmod.spm.SPMMain;
 import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoStatus;
 import org.featurehouse.mcmod.spm.util.objsettings.sweetpotato.SweetPotatoType;
@@ -14,16 +14,16 @@ public class BakedSweetPotatoItem extends Item implements SweetPotatoProperties 
 
     private final SweetPotatoType sweetPotatoType;
 
-    public BakedSweetPotatoItem(Settings settings, SweetPotatoType type) {
+    public BakedSweetPotatoItem(Properties settings, SweetPotatoType type) {
         super(settings.food(type.getComponent(SweetPotatoStatus.BAKED).asFoodComponent()));
         this.sweetPotatoType = type;
     }
 
-    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        super.finishUsing(stack, world, user);
-        if (user instanceof PlayerEntity playerEntity) {
-            playerEntity.incrementStat(SPMMain.SWEET_POTATO_EATEN);
-            if (!((PlayerEntity) user).getAbilities().creativeMode)
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
+        super.finishUsingItem(stack, world, user);
+        if (user instanceof Player playerEntity) {
+            playerEntity.awardStat(SPMMain.SWEET_POTATO_EATEN);
+            if (!((Player) user).getAbilities().instabuild)
                 PeelInserter.run(playerEntity);
         }
 

@@ -1,51 +1,51 @@
 package org.featurehouse.mcmod.spm.util.objsettings;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.Item.Settings;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.util.Rarity;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.Rarity;
 
 public final class ItemSettings {
-    public static Settings groupFood() {
-        return new FabricItemSettings().group(ItemGroup.FOOD);
+    public static Properties groupFood() {
+        return new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD);
     }
 
-    public static Settings oneFood() {
-        return new FabricItemSettings().group(ItemGroup.FOOD).maxCount(1);
+    public static Properties oneFood() {
+        return new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).stacksTo(1);
     }
 
-    public static Settings decorations() {
-        return new FabricItemSettings().group(ItemGroup.DECORATIONS);
+    public static Properties decorations() {
+        return new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS);
     }
 
-    public static Settings uncommonDecorations() {
-        return new FabricItemSettings().group(ItemGroup.DECORATIONS).rarity(Rarity.UNCOMMON);
+    public static Properties uncommonDecorations() {
+        return new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS).rarity(Rarity.UNCOMMON);
     }
 
-    public static Settings misc() {
-        return new FabricItemSettings().group(ItemGroup.MISC);
+    public static Properties misc() {
+        return new FabricItemSettings().tab(CreativeModeTab.TAB_MISC);
     }
 
-    public static Settings easterEgg() {
+    public static Properties easterEgg() {
         return new FabricItemSettings();
     }
 
-    @Deprecated(forRemoval = true) public static final Settings GROUP_FOOD;
-    @Deprecated(forRemoval = true) public static final Settings ONE_FOOD; // unstackable food item
-    @Deprecated(forRemoval = true) public static final Settings DECORATIONS;
-    @Deprecated(forRemoval = true) public static final Settings UNCDEC;   // Uncommon Decorations
-    @Deprecated(forRemoval = true) public static final Settings MISC;
+    @Deprecated(forRemoval = true) public static final Properties GROUP_FOOD;
+    @Deprecated(forRemoval = true) public static final Properties ONE_FOOD; // unstackable food item
+    @Deprecated(forRemoval = true) public static final Properties DECORATIONS;
+    @Deprecated(forRemoval = true) public static final Properties UNCDEC;   // Uncommon Decorations
+    @Deprecated(forRemoval = true) public static final Properties MISC;
     /** Does not appear in creative mode inventory, but still exists. */
-    @Deprecated(forRemoval = true) public static final Settings EASTER_EGG;
+    @Deprecated(forRemoval = true) public static final Properties EASTER_EGG;
 
     private ItemSettings() {}
 
     static {
-        GROUP_FOOD = new FabricItemSettings().group(ItemGroup.FOOD);
-        ONE_FOOD = new FabricItemSettings().group(ItemGroup.FOOD).maxCount(1);
-        DECORATIONS = new FabricItemSettings().group(ItemGroup.DECORATIONS);
-        UNCDEC = new FabricItemSettings().group(ItemGroup.DECORATIONS).rarity(Rarity.UNCOMMON);
-        MISC = new FabricItemSettings().group(ItemGroup.MISC);
+        GROUP_FOOD = new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD);
+        ONE_FOOD = new FabricItemSettings().tab(CreativeModeTab.TAB_FOOD).stacksTo(1);
+        DECORATIONS = new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS);
+        UNCDEC = new FabricItemSettings().tab(CreativeModeTab.TAB_DECORATIONS).rarity(Rarity.UNCOMMON);
+        MISC = new FabricItemSettings().tab(CreativeModeTab.TAB_MISC);
         EASTER_EGG = new FabricItemSettings();
     }
 }
