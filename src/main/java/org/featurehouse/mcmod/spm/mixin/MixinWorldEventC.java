@@ -27,10 +27,10 @@ public class MixinWorldEventC {
     /**
      * When {@link ClientLevel#levelEvent(Player, int, BlockPos, int)} calls.
      */
-    @Inject(at = @At("HEAD"), method = "processWorldEvent", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "levelEvent", cancellable = true)
     private void spmSounds(Player source, int eventId, BlockPos blockPos, int data, CallbackInfo ci) {
         if (eventId == 1132119 && data == 805) {
-            minecraft.getSoundManager().play(new KeepPlayingSoundInstance(SPMMain.GRINDER_GRIND, 1.0F, level, blockPos, client.player, (world1, blockPos1) -> {
+            minecraft.getSoundManager().play(new KeepPlayingSoundInstance(SPMMain.GRINDER_GRIND, 1.0F, level, blockPos, minecraft.player, (world1, blockPos1) -> {
                 BlockState state = world1.getBlockState(blockPos1);
                 return state.getBlock() instanceof GrinderBlock // important
                         && state.getValue(GrinderBlock.GRINDING);

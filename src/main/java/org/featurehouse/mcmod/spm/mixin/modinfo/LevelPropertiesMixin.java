@@ -34,13 +34,13 @@ public class LevelPropertiesMixin implements SPMLevelProperties {
         this.sweetPotato_spmMeta = tag;
     }
 
-    @Inject(at = @At("RETURN"), method = "readProperties")
+    @Inject(at = @At("RETURN"), method = "parse")
     private static void onReadProperties(Dynamic<Tag> dynamic, DataFixer dataFixer, int dataVersion, CompoundTag playerData, LevelSettings levelInfo, LevelVersion saveVersionInfo, WorldGenSettings generatorOptions, Lifecycle lifecycle, CallbackInfoReturnable<PrimaryLevelData> cir) {
         PrimaryLevelData levelProperties = cir.getReturnValue();
         SPMLevelPropertiesHelper.setCurrentSPMDataVersion((SPMLevelProperties) levelProperties);
     }
 
-    @Inject(at = @At("RETURN"), method = "updateProperties")
+    @Inject(at = @At("RETURN"), method = "setTagData")
     private void onWriteNbt(RegistryAccess dynamicRegistryManager, CompoundTag root, CompoundTag playerData, CallbackInfo ci) {
         root.put("sweet_potato:custom_data", this.sweetPotato_spmMeta);
     }
