@@ -1,7 +1,6 @@
 package org.featurehouse.mcmod.spm.util.objsettings;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BlockGetter;
@@ -19,7 +18,7 @@ import org.featurehouse.mcmod.spm.util.registries.RegistryHelper;
 import java.util.function.Supplier;
 
 public final class BlockSettings {
-    public static FabricBlockSettings functionalMinable(Material material, float hardness, float blastResistance) {
+    public static BlockBehaviour.Properties functionalMinable(Material material, float hardness, float blastResistance) {
         return FabricBlockSettings.of(material).destroyTime(hardness).explosionResistance(blastResistance).requiresCorrectToolForDrops();
     }
 
@@ -34,8 +33,8 @@ public final class BlockSettings {
     public static FabricBlockSettings grassLike() { return FabricBlockSettings.copyOf(GRASS_LIKE); }
     public static FabricBlockSettings grass() { return FabricBlockSettings.copyOf(GRASS); }
 
-    private static final FabricBlockSettings GRASS_LIKE;
-    private static final FabricBlockSettings GRASS;
+    private static final BlockBehaviour.Properties GRASS_LIKE;
+    private static final BlockBehaviour.Properties GRASS;
 
     private BlockSettings() {}
 
